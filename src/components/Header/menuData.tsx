@@ -81,4 +81,6 @@ const menuData: Menu[] = [
     ],
   },
 ];
-export default menuData;
+
+const blankMenuData = [];
+export default blankMenuData;
