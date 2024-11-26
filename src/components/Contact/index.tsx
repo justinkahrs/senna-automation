@@ -33,7 +33,7 @@ const Contact = () => {
                       Our Location
                     </h3>
                     <p className="text-base text-body-color dark:text-dark-6">
-                      401 Broadway, 24th Floor, Orchard Cloud View, London
+                      Grand Rapids, MI
                     </p>
                   </div>
                 </div>
@@ -52,11 +52,8 @@ const Contact = () => {
                     <h3 className="mb-[18px] text-lg font-semibold text-dark dark:text-white">
                       How Can We Help?
                     </h3>
-                    <p className="text-base text-body-color dark:text-dark-6">
-                      info@yourdomain.com
-                    </p>
                     <p className="mt-1 text-base text-body-color dark:text-dark-6">
-                      contact@yourdomain.com
+                      contact@sennaautomation.agency
                     </p>
                   </div>
                 </div>

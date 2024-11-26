@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
-const colors = require('tailwindcss/colors')
-
+const colors = require("tailwindcss/colors");
+console.log({ colors });
 const config: Config = {
   darkMode: "class",
   content: [
@@ -12,7 +12,8 @@ const config: Config = {
     extend: {
       colors: {
         ...colors,
-        // primary: "#1A202C",
+        primary: "#F06820",
+        // dark: "#1F509A",
       },
     },
   },
