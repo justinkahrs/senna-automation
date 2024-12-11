@@ -8,15 +8,36 @@ import {
   Menu,
   MenuItem,
   IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemButton,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useAuth } from "@/contexts/AuthContext";
 import Link from "next/link";
 import { useState } from "react";
 
+const mobileMenuItems = [
+  { text: "Pricing", href: "/pricing" },
+  { text: "Documentation", href: "/docs" },
+  { text: "Blog", href: "/blog" },
+  { text: "Support", href: "/support" },
+];
+
 export function AppBar() {
-  const { user, session, signOut } = useAuth();
-  const [resourcesAnchorEl, setResourcesAnchorEl] = useState<null | HTMLElement>(null);
+  const { user, signOut } = useAuth();
+  const [resourcesAnchorEl, setResourcesAnchorEl] =
+    useState<null | HTMLElement>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
   const handleResourcesClick = (event: React.MouseEvent<HTMLElement>) => {
     setResourcesAnchorEl(event.currentTarget);
@@ -25,6 +46,75 @@ export function AppBar() {
   const handleResourcesClose = () => {
     setResourcesAnchorEl(null);
   };
+
+  const drawer = (
+    <Box sx={{ width: 250, pt: 2 }}>
+      <List>
+        {mobileMenuItems.map((item) => (
+          <ListItem key={item.text} disablePadding>
+            <ListItemButton
+              component={Link}
+              href={item.href}
+              onClick={handleDrawerToggle}
+            >
+              <ListItemText primary={item.text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+        {!user ? (
+          <>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                href="/auth/signin"
+                onClick={handleDrawerToggle}
+              >
+                <ListItemText primary="Sign In" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                href="/pricing"
+                onClick={handleDrawerToggle}
+                sx={{
+                  bgcolor: "primary.main",
+                  color: "primary.contrastText",
+                  "&:hover": {
+                    bgcolor: "primary.dark",
+                  },
+                }}
+              >
+                <ListItemText primary="Get Started" />
+              </ListItemButton>
+            </ListItem>
+          </>
+        ) : (
+          <>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                href="/dashboard"
+                onClick={handleDrawerToggle}
+              >
+                <ListItemText primary="Dashboard" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  signOut();
+                  handleDrawerToggle();
+                }}
+              >
+                <ListItemText primary="Sign Out" />
+              </ListItemButton>
+            </ListItem>
+          </>
+        )}
+      </List>
+    </Box>
+  );
 
   return (
     <MuiAppBar
@@ -46,14 +136,15 @@ export function AppBar() {
             sx={{
               color: "text.primary",
               fontWeight: 600,
-              fontSize: "1.75rem",
+              fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" },
             }}
           >
             Senna Automation
           </Typography>
         </Link>
 
-        <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+        {/* Desktop Buttons */}
+        <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
           <Link href="/pricing" passHref>
             <Button color="inherit">Pricing</Button>
           </Link>
@@ -70,20 +161,29 @@ export function AppBar() {
               open={Boolean(resourcesAnchorEl)}
               onClose={handleResourcesClose}
             >
-              <MenuItem onClick={handleResourcesClose} component={Link} href="/docs">
+              <MenuItem
+                onClick={handleResourcesClose}
+                component={Link}
+                href="/docs"
+              >
                 Documentation
               </MenuItem>
-              <MenuItem onClick={handleResourcesClose} component={Link} href="/blog">
+              <MenuItem
+                onClick={handleResourcesClose}
+                component={Link}
+                href="/blog"
+              >
                 Blog
               </MenuItem>
-              <MenuItem onClick={handleResourcesClose} component={Link} href="/support">
+              <MenuItem
+                onClick={handleResourcesClose}
+                component={Link}
+                href="/support"
+              >
                 Support
               </MenuItem>
             </Menu>
           </Box>
-        </Box>
-
-        <Box sx={{ display: "flex", gap: 2 }}>
           {!user ? (
             <>
               <Link href="/auth/signin" passHref>
@@ -104,6 +204,37 @@ export function AppBar() {
             </>
           )}
         </Box>
+
+        {/* Mobile Menu Button */}
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="end"
+          onClick={handleDrawerToggle}
+          sx={{ display: { md: "none" }, ml: 2 }}
+        >
+          <MenuIcon />
+        </IconButton>
+
+        {/* Mobile Drawer */}
+        <Drawer
+          variant="temporary"
+          anchor="right"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better mobile performance
+          }}
+          sx={{
+            display: { xs: "block", md: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: 250,
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
       </Toolbar>
     </MuiAppBar>
   );

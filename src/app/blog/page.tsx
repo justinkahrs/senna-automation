@@ -22,7 +22,12 @@ const blogPosts = [
 
 export default function Blog() {
   return (
-    <Box sx={{ py: 8 }}>
+    <Box sx={{
+      py: { xs: 8, md: 12 },
+      minHeight: { xs: 'calc(100vh - 64px)', md: 'calc(100vh - 64px)' },
+      display: 'flex',
+      alignItems: 'center'
+    }}>
       <Container maxWidth="lg">
         <Typography
           component="h1"
