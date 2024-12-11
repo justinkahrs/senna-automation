@@ -24,6 +24,7 @@ import { useState } from "react";
 
 const mobileMenuItems = [
   { text: "Pricing", href: "/pricing" },
+  { text: "Products", href: "/products" },
   { text: "Documentation", href: "/docs" },
   { text: "Blog", href: "/blog" },
   { text: "Support", href: "/support" },
@@ -148,6 +149,9 @@ export function AppBar() {
           <Link href="/pricing" passHref>
             <Button color="inherit">Pricing</Button>
           </Link>
+          <Link href="/products" passHref>
+            <Button color="inherit">Products</Button>
+          </Link>
           <Box>
             <Button
               color="inherit"
@@ -185,14 +189,9 @@ export function AppBar() {
             </Menu>
           </Box>
           {!user ? (
-            <>
-              <Link href="/auth/signin" passHref>
-                <Button variant="outlined">Sign In</Button>
-              </Link>
-              <Link href="/pricing" passHref>
-                <Button variant="contained">Get Started</Button>
-              </Link>
-            </>
+            <Link href="/auth/signin" passHref>
+              <Button variant="contained">Sign In</Button>
+            </Link>
           ) : (
             <>
               <Button variant="text" href="/dashboard">

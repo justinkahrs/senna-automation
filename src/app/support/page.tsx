@@ -97,7 +97,7 @@ export default function Support() {
                   <Box>
                     <Typography variant="h6">Email Support</Typography>
                     <Typography variant="body2" color="text.secondary">
-                      support@senna-automation.com
+                      justin+support@justinkahrs.com
                     </Typography>
                   </Box>
                 </Paper>
