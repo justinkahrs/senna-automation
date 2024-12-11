@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/utils/supabase';
+import { useEffect, useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/utils/supabase";
 import {
   Box,
   Container,
@@ -11,7 +11,7 @@ import {
   CardContent,
   CircularProgress,
   Alert,
-} from '@mui/material';
+} from "@mui/material";
 
 interface Product {
   id: string;
@@ -31,24 +31,28 @@ export default function Dashboard() {
     async function fetchPurchasedProducts() {
       try {
         if (!user) return;
-        
+
         const { data, error } = await supabase
-          .from('purchases')
-          .select(`
+          .from("purchases")
+          .select(
+            `
             id,
             name,
             purchase_date,
             status,
             price
-          `)
-          .eq('user_id', user.id)
-          .order('purchase_date', { ascending: false });
+          `
+          )
+          .eq("user_id", user.id)
+          .order("purchase_date", { ascending: false });
 
         if (error) throw error;
         setProducts(data || []);
       } catch (err) {
-        console.error('Error fetching products:', err);
-        setError('Failed to load your purchased products. Please try again later.');
+        console.error("Error fetching products:", err);
+        setError(
+          "Failed to load your purchased products. Please try again later."
+        );
       } finally {
         setLoading(false);
       }
@@ -70,14 +74,21 @@ export default function Dashboard() {
   }
 
   return (
-    <Box sx={{ py: 8 }}>
+    <Box
+      sx={{
+        py: { xs: 8, md: 12 },
+        minHeight: { xs: "calc(100vh - 64px)", md: "calc(100vh - 64px)" },
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
       <Container maxWidth="lg">
         <Typography variant="h2" gutterBottom>
           Your Products
         </Typography>
-        
+
         {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
+          <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
             <CircularProgress />
           </Box>
         ) : error ? (
@@ -92,16 +103,18 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             {products.map((product) => (
               <Grid item xs={12} sm={6} md={4} key={product.id}>
-                <Card sx={{
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  '&:hover': {
-                    boxShadow: 3,
-                    transform: 'translateY(-4px)',
-                    transition: 'all 0.3s ease-in-out',
-                  }
-                }}>
+                <Card
+                  sx={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    "&:hover": {
+                      boxShadow: 3,
+                      transform: "translateY(-4px)",
+                      transition: "all 0.3s ease-in-out",
+                    },
+                  }}
+                >
                   <CardContent>
                     <Typography variant="h6" gutterBottom>
                       {product.name}
@@ -110,7 +123,8 @@ export default function Dashboard() {
                       Status: {product.status}
                     </Typography>
                     <Typography variant="body2">
-                      Purchase Date: {new Date(product.purchase_date).toLocaleDateString()}
+                      Purchase Date:{" "}
+                      {new Date(product.purchase_date).toLocaleDateString()}
                     </Typography>
                     <Typography variant="body2" color="primary">
                       ${product.price.toFixed(2)}
