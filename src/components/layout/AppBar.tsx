@@ -5,13 +5,27 @@ import {
   Button,
   Box,
   Typography,
+  Menu,
+  MenuItem,
+  IconButton,
 } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useAuth } from "@/contexts/AuthContext";
 import Link from "next/link";
+import { useState } from "react";
+
 export function AppBar() {
   const { user, session, signOut } = useAuth();
+  const [resourcesAnchorEl, setResourcesAnchorEl] = useState<null | HTMLElement>(null);
 
-  console.log({ user, session });
+  const handleResourcesClick = (event: React.MouseEvent<HTMLElement>) => {
+    setResourcesAnchorEl(event.currentTarget);
+  };
+
+  const handleResourcesClose = () => {
+    setResourcesAnchorEl(null);
+  };
+
   return (
     <MuiAppBar
       position="fixed"
@@ -38,6 +52,36 @@ export function AppBar() {
             Senna Automation
           </Typography>
         </Link>
+
+        <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+          <Link href="/pricing" passHref>
+            <Button color="inherit">Pricing</Button>
+          </Link>
+          <Box>
+            <Button
+              color="inherit"
+              endIcon={<KeyboardArrowDownIcon />}
+              onClick={handleResourcesClick}
+            >
+              Resources
+            </Button>
+            <Menu
+              anchorEl={resourcesAnchorEl}
+              open={Boolean(resourcesAnchorEl)}
+              onClose={handleResourcesClose}
+            >
+              <MenuItem onClick={handleResourcesClose} component={Link} href="/docs">
+                Documentation
+              </MenuItem>
+              <MenuItem onClick={handleResourcesClose} component={Link} href="/blog">
+                Blog
+              </MenuItem>
+              <MenuItem onClick={handleResourcesClose} component={Link} href="/support">
+                Support
+              </MenuItem>
+            </Menu>
+          </Box>
+        </Box>
 
         <Box sx={{ display: "flex", gap: 2 }}>
           {!user ? (
