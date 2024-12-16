@@ -44,11 +44,14 @@ export default function Home() {
             Powerful automation tools to streamline your workflow and boost productivity
           </Typography>
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
-            <Button variant="contained" size="large" href="/signup">
-              Start Free Trial
-            </Button>
-            <Button variant="outlined" size="large" href="/demo">
-              Schedule Demo
+            <Button
+              variant="contained"
+              size="large"
+              href="https://calendly.com/justin-justinkahrs/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Schedule Call
             </Button>
           </Box>
         </Container>

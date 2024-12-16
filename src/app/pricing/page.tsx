@@ -24,7 +24,7 @@ const pricingTiers = [
       "Email support",
       "API access",
     ],
-    buttonText: "Start Free Trial",
+    buttonText: "Schedule Call",
     buttonVariant: "outlined" as const,
   },
   {
@@ -38,7 +38,7 @@ const pricingTiers = [
       "API access",
       "Custom integrations",
     ],
-    buttonText: "Get Started",
+    buttonText: "Schedule Call",
     buttonVariant: "contained" as const,
   },
   {
@@ -52,7 +52,7 @@ const pricingTiers = [
       "SLA guarantee",
       "Advanced security",
     ],
-    buttonText: "Contact Sales",
+    buttonText: "Schedule Call",
     buttonVariant: "outlined" as const,
   },
 ];
@@ -146,7 +146,14 @@ export default function Pricing() {
                   </List>
                 </CardContent>
                 <CardActions sx={{ p: 2, pt: 0 }}>
-                  <Button fullWidth variant={tier.buttonVariant} size="large">
+                  <Button
+                    fullWidth
+                    variant={tier.buttonVariant}
+                    size="large"
+                    href="https://calendly.com/justin-justinkahrs/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {tier.buttonText}
                   </Button>
                 </CardActions>

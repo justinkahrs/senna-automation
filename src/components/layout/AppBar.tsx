@@ -13,8 +13,6 @@ import {
   ListItem,
   ListItemText,
   ListItemButton,
-  useTheme,
-  useMediaQuery,
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -146,20 +144,24 @@ export function AppBar() {
 
         {/* Desktop Buttons */}
         <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
-          <Link href="/pricing" passHref>
-            <Button color="inherit">Pricing</Button>
-          </Link>
+          <Box sx={{ display: "none" }}>
+            <Link href="/pricing" passHref>
+              <Button color="inherit">Pricing</Button>
+            </Link>
+          </Box>
           <Link href="/products" passHref>
             <Button color="inherit">Products</Button>
           </Link>
           <Box>
-            <Button
-              color="inherit"
-              endIcon={<KeyboardArrowDownIcon />}
-              onClick={handleResourcesClick}
-            >
-              Resources
-            </Button>
+            <Box sx={{ display: "none" }}>
+              <Button
+                color="inherit"
+                endIcon={<KeyboardArrowDownIcon />}
+                onClick={handleResourcesClick}
+              >
+                Resources
+              </Button>
+            </Box>
             <Menu
               anchorEl={resourcesAnchorEl}
               open={Boolean(resourcesAnchorEl)}

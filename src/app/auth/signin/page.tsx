@@ -81,7 +81,7 @@ export default function SignIn() {
           }}
         >
           <Typography variant="h4" align="center" gutterBottom>
-            {isSignUp ? "Create Account" : "Sign In to Senna"}
+            {isSignUp ? "Create Account" : "Sign in to Senna Automation"}
           </Typography>
 
           {error && <Alert severity="error">{error}</Alert>}
