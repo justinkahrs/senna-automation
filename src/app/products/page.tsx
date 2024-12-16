@@ -11,6 +11,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  type SvgIcon,
 } from "@mui/material";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import CampaignIcon from "@mui/icons-material/Campaign";

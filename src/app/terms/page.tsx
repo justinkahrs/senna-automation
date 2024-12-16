@@ -23,8 +23,8 @@ export default function Terms() {
             1. Acceptance of Terms
           </Typography>
           <Typography paragraph>
-            By accessing and using Senna Automation's services, you accept and
-            agree to be bound by the terms and conditions of this agreement.
+            By accessing and using Senna Automation&apos;s services, you accept
+            and agree to be bound by the terms and conditions of this agreement.
           </Typography>
 
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>

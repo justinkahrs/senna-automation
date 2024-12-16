@@ -39,7 +39,8 @@ export default function SignIn() {
       await signInWithEmail(formData.email, formData.password);
     } catch (error) {
       setIsSignUp(true);
-      setError(error.message);
+      if (error instanceof Error) setError(error.message);
+      else setError("An unknown error occurred.");
     } finally {
       setLoading(false);
     }
@@ -51,8 +52,9 @@ export default function SignIn() {
       await signUp(formData.email, formData.password);
       setError("Please check your email to verify your account.");
       setIsSignUp(false);
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) setError(error.message);
+      else setError("An unknown error occurred.");
     } finally {
       setLoading(false);
     }

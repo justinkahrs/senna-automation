@@ -37,7 +37,7 @@ export default function Support() {
           color="text.secondary"
           sx={{ mb: 6 }}
         >
-          We're here to help you succeed
+          We&apos;re here to help you succeed
         </Typography>
 
         <Grid container spacing={4}>

@@ -97,7 +97,7 @@ export default function Dashboard() {
           </Alert>
         ) : products.length === 0 ? (
           <Alert severity="info" sx={{ mt: 2 }}>
-            You haven't purchased any products yet.
+            You haven&apos;t purchased any products yet.
           </Alert>
         ) : (
           <Grid container spacing={3}>
