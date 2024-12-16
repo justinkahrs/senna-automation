@@ -21,11 +21,11 @@ import Link from "next/link";
 import { useState } from "react";
 
 const mobileMenuItems = [
-  { text: "Pricing", href: "/pricing" },
+  // { text: "Pricing", href: "/pricing" },
   { text: "Products", href: "/products" },
-  { text: "Documentation", href: "/docs" },
-  { text: "Blog", href: "/blog" },
-  { text: "Support", href: "/support" },
+  // { text: "Documentation", href: "/docs" },
+  // { text: "Blog", href: "/blog" },
+  // { text: "Support", href: "/support" },
 ];
 
 export function AppBar() {
