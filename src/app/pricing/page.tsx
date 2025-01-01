@@ -150,7 +150,7 @@ export default function Pricing() {
                     fullWidth
                     variant={tier.buttonVariant}
                     size="large"
-                    href="https://calendly.com/justin-justinkahrs/30min"
+                    href="https://calendly.com/senna-automation/let-s-chat-ai-automation"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

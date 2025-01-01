@@ -223,7 +223,7 @@ export default function Products() {
                     <Button
                       variant="contained"
                       fullWidth
-                      href="https://calendly.com/justin-justinkahrs/30min"
+                      href="https://calendly.com/senna-automation/let-s-chat-ai-automation"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
