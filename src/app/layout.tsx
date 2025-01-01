@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { ClientProviders } from "./ClientProviders";
 import { AppBar } from "@/components/layout/AppBar";
 import { Footer } from "@/components/layout/Footer";
@@ -14,6 +15,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          id="vtag-ai-js"
+          src="https://r2.leadsy.ai/tag.js"
+          async
+          data-pid="5eWHMMjnfGOlrKfh"
+          data-version="062024"
+          strategy="afterInteractive"
+        /></head>
       <body>
         <ClientProviders>
           <AppBar />
