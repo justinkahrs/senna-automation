@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import {
   Button,
   Modal,
@@ -26,7 +25,6 @@ export default function ScheduleCallButton({
   fullWidth = false,
 }: ScheduleCallButtonProps) {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -37,7 +35,6 @@ export default function ScheduleCallButton({
   const handleClose = () => {
     setOpen(false);
     // Redirect to confirmation after closing
-    router.push("/confirmation");
   };
 
   useEffect(() => {
