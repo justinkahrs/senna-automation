@@ -40,11 +40,12 @@ const products: Product[] = [
     title: "Content Generation",
     icon: RssFeedIcon,
     description:
-      "Automate your content creation process using RSS feeds, newsletters, reddit posts, and many others",
+      "Automate and elevate your content creation process using RSS feeds, newsletters, social platforms, and more.",
     features: [
-      "Generate blogs automatically from RSS feeds",
-      "Create curated newsletters",
-      "Customize content to match your brand voice",
+      "Generate high-quality blogs automatically from RSS feeds",
+      "Create curated newsletters with a personalized touch",
+      "Customize and optimize content to reflect your unique brand voice",
+      "Integrate trending topics and keywords for SEO-friendly content",
     ],
     media: {
       src: "/content-generation.jpg",
@@ -53,13 +54,51 @@ const products: Product[] = [
     },
   },
   {
-    title: "Social Media Ad Campaigns",
-    icon: CampaignIcon,
-    description: "Let automation handle your social media advertising",
+    title: "Onboarding Automation",
+    icon: RssFeedIcon,
+    description:
+      "Streamline customer onboarding with automated workflows and personalized experiences.",
     features: [
-      "Automated campaign management",
-      "Smart audience targeting",
-      "Performance optimization",
+      "Automatically generate and send welcome packages",
+      "Schedule onboarding meetings and add calendar events automatically",
+      "Send personalized welcome messages tailored to each customer",
+      "Automated follow-up reminders to ensure smooth onboarding",
+      "Track onboarding progress with detailed reports",
+    ],
+    media: {
+      src: "/onboarding.jpg",
+      alt: "Onboarding automation",
+      type: "image",
+    },
+  },
+  {
+    title: "Proposal Automation",
+    icon: RssFeedIcon,
+    description:
+      "Transform client interactions into actionable, customized project proposals effortlessly.",
+    features: [
+      "Automate the creation of detailed, itemized project proposals",
+      "Tailor proposals to individual client needs based on meeting transcripts",
+      "Include verbally agreed-upon pricing from introductory calls",
+      "Streamline proposal adjustments with client feedback integration",
+      "Generate professional, branded documents ready for client approval",
+    ],
+    media: {
+      src: "/proposal.jpg",
+      alt: "Proposal automation",
+      type: "image",
+    },
+  },
+  {
+    title: "Social Media Management",
+    icon: CampaignIcon,
+    description:
+      "Boost your social media presence with intelligent automation.",
+    features: [
+      "Fully automated multi-platform campaign management",
+      "AI-driven smart audience targeting and retargeting",
+      "Real-time performance tracking and optimization",
+      "Automated A/B testing for enhanced ROI",
     ],
     media: {
       src: "/social-media.jpg",
@@ -70,11 +109,13 @@ const products: Product[] = [
   {
     title: "Cold Email & Lead Generation",
     icon: EmailIcon,
-    description: "Automated lead generation and outreach system",
+    description:
+      "Streamline your lead generation and outreach with our smart tools.",
     features: [
-      "Automated lead discovery via Google Maps",
-      "Intelligent email outreach",
-      "Lead qualification automation",
+      "Automated lead discovery via platforms like Google Maps and LinkedIn",
+      "AI-powered email personalization for better engagement",
+      "Lead scoring and qualification automation",
+      "CRM integration for seamless lead tracking",
     ],
     media: {
       src: "/email.jpg",
@@ -85,11 +126,12 @@ const products: Product[] = [
   {
     title: "Invoice Processing System",
     icon: DescriptionIcon,
-    description: "Generate and process invoices automatically",
+    description: "Simplify invoice management with smart automation.",
     features: [
-      "Create proposals from meeting transcripts",
-      "Automated invoice generation",
-      "Smart payment tracking",
+      "Generate accurate proposals directly from meeting transcripts",
+      "Automated and customizable invoice generation",
+      "Smart payment tracking with automated reminders",
+      "Integration with accounting software for streamlined processes",
     ],
     media: {
       src: "/invoice.jpg",
@@ -100,11 +142,12 @@ const products: Product[] = [
   {
     title: "Customer Support System",
     icon: SupportAgentIcon,
-    description: "AI-powered customer support automation",
+    description: "Revolutionize customer service with AI-powered solutions.",
     features: [
-      "Knowledge base integration",
-      "Automated issue resolution",
-      "Smart escalation system",
+      "Seamless knowledge base integration for instant responses",
+      "AI-driven issue resolution with contextual understanding",
+      "Smart escalation system with predictive analytics",
+      "Omnichannel support including chat, email, and social media",
     ],
     media: {
       src: "/customer-support.jpg",
@@ -115,11 +158,12 @@ const products: Product[] = [
   {
     title: "Executive Assistant",
     icon: AssistantIcon,
-    description: "Your automated personal assistant",
+    description: "Empower your productivity with a virtual personal assistant.",
     features: [
-      "Automated email management",
-      "Smart meeting scheduling",
-      "Intelligent chatbot interface",
+      "Automated email organization with priority tagging",
+      "Smart meeting scheduling with calendar synchronization",
+      "AI-powered chatbot for instant task delegation",
+      "Daily briefing reports to keep you updated",
     ],
     media: {
       src: "/executive-assistant.jpg",
@@ -128,7 +172,6 @@ const products: Product[] = [
     },
   },
 ];
-
 export default function Products() {
   return (
     <Box

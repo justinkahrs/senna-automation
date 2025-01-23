@@ -40,7 +40,7 @@ export default function Home() {
               fontSize: { xs: "1.1rem", md: "1.3rem" },
             }}
           >
-            Powerful automation tools to streamline your workflow and boost
+            Powerful AI automation tools to streamline your workflow and boost
             productivity
           </Typography>
           <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
