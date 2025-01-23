@@ -1,5 +1,5 @@
 import ScheduleCallButton from "@/components/ScheduleCallButton";
-import { Box, Container, Typography, Button } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 export default function Home() {
   return (
     <>

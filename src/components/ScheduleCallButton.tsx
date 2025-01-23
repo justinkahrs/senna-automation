@@ -102,9 +102,9 @@ export default function ScheduleCallButton({
             transform: "translate(-50%, -50%)",
             bgcolor: "background.paper",
             boxShadow: 24,
-            width: "100%", // Set width to 100% to fill viewport width
-            maxWidth: isMobile ? "400px" : "80%", // Smaller maxWidth on mobile
-            maxHeight: "60vh",
+            width: "100%",
+            maxWidth: isMobile ? "95%" : "600px", // Smaller maxWidth on mobile
+            maxHeight: "95vh",
             display: "flex",
             flexDirection: "column",
             height: "80vh",
