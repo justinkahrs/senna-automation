@@ -6,12 +6,12 @@ import {
   Card,
   CardContent,
   CardActions,
-  Button,
   List,
   ListItem,
   ListItemText,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ScheduleCallButton from "@/components/ScheduleCallButton";
 
 const pricingTiers = [
   {
@@ -146,16 +146,12 @@ export default function Pricing() {
                   </List>
                 </CardContent>
                 <CardActions sx={{ p: 2, pt: 0 }}>
-                  <Button
+                  <ScheduleCallButton
                     fullWidth
                     variant={tier.buttonVariant}
                     size="large"
-                    href="https://calendly.com/senna-automation/let-s-chat-ai-automation"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {tier.buttonText}
-                  </Button>
+                    text={tier.buttonText}
+                  />
                 </CardActions>
               </Card>
             </Grid>

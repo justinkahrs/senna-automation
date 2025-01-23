@@ -20,6 +20,8 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import AssistantIcon from "@mui/icons-material/Assistant";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ScheduleCallButton from "@/components/ScheduleCallButton";
+
 import Image from "next/image";
 
 interface Product {
@@ -220,15 +222,7 @@ export default function Products() {
                     </List>
                   </CardContent>
                   <CardActions sx={{ p: 2, pt: 0 }}>
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      href="https://calendly.com/senna-automation/let-s-chat-ai-automation"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Schedule Call
-                    </Button>
+                    <ScheduleCallButton fullWidth text="Schedule Call" />
                   </CardActions>
                 </Card>
               </Grid>

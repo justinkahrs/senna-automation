@@ -23,16 +23,21 @@ export default function RootLayout({
           data-pid="5eWHMMjnfGOlrKfh"
           data-version="062024"
           strategy="afterInteractive"
-        /></head>
+        />
+      </head>
       <body>
         <ClientProviders>
           <AppBar />
-          <main style={{
-            minHeight: "100vh",
-            paddingTop: "64px", // Height of the AppBar
-            display: "flex",
-            flexDirection: "column"
-          }}>{children}</main>
+          <main
+            style={{
+              minHeight: "100vh",
+              paddingTop: "64px", // Height of the AppBar
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            {children}
+          </main>
           <Footer />
         </ClientProviders>
       </body>

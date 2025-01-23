@@ -1,5 +1,5 @@
+import ScheduleCallButton from "@/components/ScheduleCallButton";
 import { Box, Container, Typography, Button } from "@mui/material";
-
 export default function Home() {
   return (
     <>
@@ -44,15 +44,7 @@ export default function Home() {
             productivity
           </Typography>
           <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
-            <Button
-              variant="contained"
-              size="large"
-              href="https://calendly.com/senna-automation/let-s-chat-ai-automation"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Schedule Call
-            </Button>
+            <ScheduleCallButton size="large" text="Schedule Call" />
           </Box>
         </Container>
       </Box>
