@@ -28,7 +28,7 @@ export default function Home() {
               mx: "auto",
             }}
           >
-            Let's Automate Your Business
+            Let&apos;s Automate Your Business
           </Typography>
           <Typography
             variant="h5"
