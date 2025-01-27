@@ -1,4 +1,5 @@
 import ScheduleCallButton from "@/components/ScheduleCallButton";
+import SeeProductsButton from "@/components/SeeProductsButton";
 import { Box, Container, Typography } from "@mui/material";
 export default function Home() {
   return (
@@ -27,7 +28,7 @@ export default function Home() {
               mx: "auto",
             }}
           >
-            Automate Your Business Logic
+            Let's Automate Your Business
           </Typography>
           <Typography
             variant="h5"
@@ -45,6 +46,7 @@ export default function Home() {
           </Typography>
           <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
             <ScheduleCallButton size="large" text="Schedule Call" />
+            <SeeProductsButton size="large" text="See Products" />
           </Box>
         </Container>
       </Box>
