@@ -12,7 +12,6 @@ export default function Home() {
           alignItems: "center", // Center content vertically
           position: "relative",
           overflow: "hidden",
-          pt: { xs: 8, md: 0 }, // Account for AppBar on mobile
         }}
       >
         <Container maxWidth="lg">

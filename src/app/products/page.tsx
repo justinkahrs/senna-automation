@@ -178,6 +178,7 @@ export default function Products() {
       sx={{
         py: { xs: 8, md: 12 },
         minHeight: { xs: "calc(100vh - 64px)", md: "calc(100vh - 64px)" },
+        bgcolor: "background.default",
       }}
     >
       <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
@@ -209,6 +210,7 @@ export default function Products() {
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
+                    bgcolor: "background.paper",
                     "&:hover": {
                       transform: "translateY(-4px)",
                       transition: "all 0.3s ease-in-out",

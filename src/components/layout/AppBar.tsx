@@ -18,7 +18,9 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useAuth } from "@/contexts/AuthContext";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { Switch } from "@mui/material";
+import { ColorModeContext } from "@/app/ClientProviders";
 
 const mobileMenuItems = [
   // { text: "Pricing", href: "/pricing" },
@@ -33,6 +35,7 @@ export function AppBar() {
   const [resourcesAnchorEl, setResourcesAnchorEl] =
     useState<null | HTMLElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { mode, toggleColorMode } = useContext(ColorModeContext);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -49,6 +52,26 @@ export function AppBar() {
   const drawer = (
     <Box sx={{ width: 250, pt: 2 }}>
       <List>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                width: "100%",
+              }}
+            >
+              <span role="img" aria-label="sun">
+                🔆
+              </span>
+              <Switch checked={mode === "dark"} onChange={toggleColorMode} />
+              <span role="img" aria-label="moon">
+                🔅
+              </span>
+            </Box>
+          </ListItemButton>
+        </ListItem>
         {mobileMenuItems.map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton
@@ -122,7 +145,10 @@ export function AppBar() {
       elevation={0}
       sx={{
         backdropFilter: "blur(8px)",
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        backgroundColor: (theme) =>
+          theme.palette.mode === "light"
+            ? "rgba(255, 255, 255, 0.8)"
+            : "rgba(0, 0, 0, 0.8)",
         borderBottom: "1px solid",
         borderColor: "divider",
       }}
@@ -149,9 +175,35 @@ export function AppBar() {
               <Button color="inherit">Pricing</Button>
             </Link>
           </Box>
-          <Link href="/products" passHref>
-            <Button color="inherit">Products</Button>
-          </Link>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <span role="img" aria-label="sun">
+                🔆
+              </span>
+              <Switch checked={mode === "dark"} onChange={toggleColorMode} />
+              <span role="img" aria-label="moon">
+                🔅
+              </span>
+            </Box>
+            <Link href="/products" passHref>
+              <Button sx={{ color: "text.primary" }}>Products</Button>
+            </Link>
+            {!user ? (
+              <Link href="/auth/signin" passHref>
+                <Button variant="contained">Sign In</Button>
+              </Link>
+            ) : (
+              <>
+                <Button variant="text" href="/dashboard">
+                  Dashboard
+                </Button>
+                <Button variant="outlined" onClick={signOut}>
+                  Sign Out
+                </Button>
+              </>
+            )}
+          </Box>
+
           <Box>
             <Box sx={{ display: "none" }}>
               <Button
@@ -190,20 +242,6 @@ export function AppBar() {
               </MenuItem>
             </Menu>
           </Box>
-          {!user ? (
-            <Link href="/auth/signin" passHref>
-              <Button variant="contained">Sign In</Button>
-            </Link>
-          ) : (
-            <>
-              <Button variant="text" href="/dashboard">
-                Dashboard
-              </Button>
-              <Button variant="outlined" onClick={signOut}>
-                Sign Out
-              </Button>
-            </>
-          )}
         </Box>
 
         {/* Mobile Menu Button */}
