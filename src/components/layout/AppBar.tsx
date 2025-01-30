@@ -188,7 +188,7 @@ export function AppBar() {
             <Link href="/products" passHref>
               <Button sx={{ color: "text.primary" }}>Products</Button>
             </Link>
-            {!user ? (
+            {/* {!user ? (
               <Link href="/auth/signin" passHref>
                 <Button variant="contained">Sign In</Button>
               </Link>
@@ -201,7 +201,7 @@ export function AppBar() {
                   Sign Out
                 </Button>
               </>
-            )}
+            )} */}
           </Box>
 
           <Box>
