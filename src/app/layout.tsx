@@ -24,6 +24,12 @@ export default function RootLayout({
           data-version="062024"
           strategy="afterInteractive"
         />
+        <Script
+          src="https://cdn.usefathom.com/script.js"
+          data-site="ZENVGNJZ"
+          defer
+          strategy="afterInteractive"
+        />
       </head>
       <body>
         <ClientProviders>
