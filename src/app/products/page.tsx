@@ -19,7 +19,10 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import AssistantIcon from "@mui/icons-material/Assistant";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import PersonIcon from "@mui/icons-material/Person";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
+import RequestFormButton from "@/components/RequestFormButton";
 
 import Image from "next/image";
 
@@ -36,6 +39,38 @@ interface Product {
 }
 
 const products: Product[] = [
+  {
+    title: "Customer Support System",
+    icon: SupportAgentIcon,
+    description: "Revolutionize customer service with AI-powered solutions.",
+    features: [
+      "Seamless knowledge base integration for instant responses",
+      "AI-driven issue resolution with contextual understanding",
+      "Smart escalation system with predictive analytics",
+      "Omnichannel support including chat, email, and social media",
+    ],
+    media: {
+      src: "/customer-support.jpg",
+      alt: "Customer support automation",
+      type: "image",
+    },
+  },
+  {
+    title: "Executive Assistant",
+    icon: AssistantIcon,
+    description: "Empower your productivity with a virtual personal assistant.",
+    features: [
+      "Automated email organization with priority tagging",
+      "Smart meeting scheduling with calendar synchronization",
+      "AI-powered chatbot for instant task delegation",
+      "Daily briefing reports to keep you updated",
+    ],
+    media: {
+      src: "/executive-assistant.jpg",
+      alt: "Executive assistant",
+      type: "image",
+    },
+  },
   {
     title: "Content Generation",
     icon: RssFeedIcon,
@@ -55,7 +90,7 @@ const products: Product[] = [
   },
   {
     title: "Onboarding Automation",
-    icon: RssFeedIcon,
+    icon: PersonIcon,
     description:
       "Streamline customer onboarding with automated workflows and personalized experiences.",
     features: [
@@ -73,7 +108,7 @@ const products: Product[] = [
   },
   {
     title: "Proposal Automation",
-    icon: RssFeedIcon,
+    icon: EditNoteIcon,
     description:
       "Transform client interactions into actionable, customized project proposals effortlessly.",
     features: [
@@ -139,38 +174,6 @@ const products: Product[] = [
       type: "image",
     },
   },
-  {
-    title: "Customer Support System",
-    icon: SupportAgentIcon,
-    description: "Revolutionize customer service with AI-powered solutions.",
-    features: [
-      "Seamless knowledge base integration for instant responses",
-      "AI-driven issue resolution with contextual understanding",
-      "Smart escalation system with predictive analytics",
-      "Omnichannel support including chat, email, and social media",
-    ],
-    media: {
-      src: "/customer-support.jpg",
-      alt: "Customer support automation",
-      type: "image",
-    },
-  },
-  {
-    title: "Executive Assistant",
-    icon: AssistantIcon,
-    description: "Empower your productivity with a virtual personal assistant.",
-    features: [
-      "Automated email organization with priority tagging",
-      "Smart meeting scheduling with calendar synchronization",
-      "AI-powered chatbot for instant task delegation",
-      "Daily briefing reports to keep you updated",
-    ],
-    media: {
-      src: "/executive-assistant.jpg",
-      alt: "Executive assistant",
-      type: "image",
-    },
-  },
 ];
 export default function Products() {
   return (
@@ -189,18 +192,19 @@ export default function Products() {
           color="text.primary"
           gutterBottom
         >
-          Automation Products
+          AI Automation Templates
         </Typography>
         <Typography
           variant="h5"
           align="center"
           color="text.secondary"
-          sx={{ mb: 8 }}
+          sx={{ mb: 8, textAlign: "justify" }}
         >
-          Powerful automation tools to transform your business
+          Powerful automation tools needing minimal customization to get up and
+          running in your business.
         </Typography>
 
-        <Grid container spacing={4}>
+        <Grid container justifyContent="center" spacing={4}>
           {products.map((product) => {
             const Icon = product.icon;
             return (
@@ -272,6 +276,38 @@ export default function Products() {
               </Grid>
             );
           })}
+          <Grid item xs={12} md={8}>
+            <Card
+              sx={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                bgcolor: "background.paper",
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  transition: "all 0.3s ease-in-out",
+                  boxShadow: 3,
+                },
+              }}
+            >
+              <CardContent>
+                <Typography variant="h4" component="h2" gutterBottom>
+                  Custom Request
+                </Typography>
+                <Typography variant="subtitle1" color="text.secondary">
+                  Can't find the template you need? Request a custom solution
+                  tailored to your business.
+                </Typography>
+              </CardContent>
+              <CardActions sx={{ p: 2, pt: 0, justifyContent: "center" }}>
+                <RequestFormButton
+                  fullWidth
+                  text="Request Custom Solution"
+                  variant="contained"
+                />
+              </CardActions>
+            </Card>
+          </Grid>
         </Grid>
       </Container>
     </Box>

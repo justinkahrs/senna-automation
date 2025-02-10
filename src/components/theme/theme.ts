@@ -51,6 +51,14 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
         fontFamily: cormorant.style.fontFamily,
         fontWeight: 500,
       },
+      h5: {
+        fontFamily: cormorant.style.fontFamily,
+        fontWeight: 500,
+      },
+      h6: {
+        fontFamily: cormorant.style.fontFamily,
+        fontWeight: 500,
+      },
       body1: {
         fontSize: "1rem",
         lineHeight: 1.5,
@@ -78,6 +86,19 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
             "&:hover": {
               borderWidth: "1px",
             },
+          },
+        },
+      },
+      MuiSwitch: {
+        styleOverrides: {
+          switchBase: {
+            color: mode === "light" ? "#000000" : "#ffffff",
+          },
+          track: {
+            backgroundColor: mode === "light" ? "#cccccc" : "#cccccc",
+          },
+          thumb: {
+            color: mode === "light" ? "#ffffff" : "#000000",
           },
         },
       },

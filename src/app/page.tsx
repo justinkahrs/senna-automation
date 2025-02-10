@@ -1,6 +1,7 @@
+import RequestFormButton from "@/components/RequestFormButton";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import SeeProductsButton from "@/components/SeeProductsButton";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 export default function Home() {
   return (
     <>
@@ -44,8 +45,11 @@ export default function Home() {
             productivity
           </Typography>
           <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
-            <ScheduleCallButton size="large" text="Schedule Call" />
-            <SeeProductsButton size="large" text="See Products" />
+            <Stack useFlexGap spacing={2} style={{ textAlign: "center" }}>
+              <ScheduleCallButton size="large" text="Schedule Call" />
+              <SeeProductsButton size="large" text="See Products" />
+              <RequestFormButton size="large" text="Custom Request" />
+            </Stack>
           </Box>
         </Container>
       </Box>
