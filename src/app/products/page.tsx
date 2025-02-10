@@ -295,8 +295,8 @@ export default function Products() {
                   Custom Request
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                  Can't find the template you need? Request a custom solution
-                  tailored to your business.
+                  Can&apos;t find the template you need? Request a custom
+                  solution tailored to your business.
                 </Typography>
               </CardContent>
               <CardActions sx={{ p: 2, pt: 0, justifyContent: "center" }}>

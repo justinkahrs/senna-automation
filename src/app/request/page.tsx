@@ -100,7 +100,9 @@ export default function RequestForm() {
         if (res.ok) {
           setSubmitted(true);
         }
-      } catch (error) {}
+      } catch (error) {
+        console.error(error);
+      }
       setSubmitting(false);
     }
   };
@@ -117,14 +119,14 @@ export default function RequestForm() {
   }
 
   const currentQuestion = questions[current];
-  let isValid;
+  let isValid: boolean;
   if (currentQuestion.key === "contact") {
     isValid = validateContact(answers.contactMethod, answers.contactValue);
   } else {
     isValid =
       currentQuestion.key === "budget" ||
       currentQuestion.key === "website" ||
-      answers[currentQuestion.key].trim() !== "";
+      answers[currentQuestion.key as keyof typeof answers].trim() !== "";
   }
 
   return (
@@ -231,7 +233,7 @@ export default function RequestForm() {
                   }
                   autoFocus
                   placeholder={currentQuestion.placeholder}
-                  value={answers[currentQuestion.key]}
+                  value={answers[currentQuestion.key as keyof typeof answers]}
                   onChange={(e) =>
                     handleChange(currentQuestion.key, e.target.value)
                   }
