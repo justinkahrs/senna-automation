@@ -1,280 +1,131 @@
 "use client";
+import Link from "next/link";
+import { useContext, useState } from "react";
 import {
-  AppBar as MuiAppBar,
+  AppBar as MUIAppBar,
   Toolbar,
   Button,
   Box,
+  Switch,
   Typography,
+  IconButton,
   Menu,
   MenuItem,
-  IconButton,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemButton,
 } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useAuth } from "@/contexts/AuthContext";
-import Link from "next/link";
-import { useState, useContext } from "react";
-import { Switch } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { ColorModeContext } from "@/app/ClientProviders";
 
-const mobileMenuItems = [
-  // { text: "Pricing", href: "/pricing" },
-  { text: "Products", href: "/products" },
-  // { text: "Documentation", href: "/docs" },
-  // { text: "Blog", href: "/blog" },
-  // { text: "Support", href: "/support" },
-];
-
 export function AppBar() {
-  const { user, signOut } = useAuth();
-  const [resourcesAnchorEl, setResourcesAnchorEl] =
-    useState<null | HTMLElement>(null);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const { mode, toggleColorMode } = useContext(ColorModeContext);
+  const { toggleColorMode, mode } = useContext(ColorModeContext);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  const handleResourcesClick = (event: React.MouseEvent<HTMLElement>) => {
-    setResourcesAnchorEl(event.currentTarget);
+  const handleMenuClose = () => {
+    setAnchorEl(null);
   };
-
-  const handleResourcesClose = () => {
-    setResourcesAnchorEl(null);
-  };
-
-  const drawer = (
-    <Box sx={{ width: 250, pt: 2 }}>
-      <List>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                width: "100%",
-              }}
-            >
-              <span role="img" aria-label="sun">
-                🔆
-              </span>
-              <Switch checked={mode === "dark"} onChange={toggleColorMode} />
-              <span role="img" aria-label="moon">
-                🔅
-              </span>
-            </Box>
-          </ListItemButton>
-        </ListItem>
-        {mobileMenuItems.map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton
-              component={Link}
-              href={item.href}
-              onClick={handleDrawerToggle}
-            >
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-        {!user ? (
-          <>
-            <ListItem disablePadding>
-              <ListItemButton
-                component={Link}
-                href="/auth/signin"
-                onClick={handleDrawerToggle}
-              >
-                <ListItemText primary="Sign In" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton
-                component={Link}
-                href="/pricing"
-                onClick={handleDrawerToggle}
-                sx={{
-                  bgcolor: "primary.main",
-                  color: "primary.contrastText",
-                  "&:hover": {
-                    bgcolor: "primary.dark",
-                  },
-                }}
-              >
-                <ListItemText primary="Get Started" />
-              </ListItemButton>
-            </ListItem>
-          </>
-        ) : (
-          <>
-            <ListItem disablePadding>
-              <ListItemButton
-                component={Link}
-                href="/dashboard"
-                onClick={handleDrawerToggle}
-              >
-                <ListItemText primary="Dashboard" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  signOut();
-                  handleDrawerToggle();
-                }}
-              >
-                <ListItemText primary="Sign Out" />
-              </ListItemButton>
-            </ListItem>
-          </>
-        )}
-      </List>
-    </Box>
-  );
 
   return (
-    <MuiAppBar
-      position="fixed"
-      color="transparent"
-      elevation={0}
-      sx={{
-        backdropFilter: "blur(8px)",
-        backgroundColor: (theme) =>
-          theme.palette.mode === "light"
-            ? "rgba(255, 255, 255, 0.8)"
-            : "rgba(0, 0, 0, 0.8)",
-        borderBottom: "1px solid",
-        borderColor: "divider",
-      }}
-    >
-      <Toolbar sx={{ justifyContent: "space-between" }}>
-        <Link href="/" passHref style={{ textDecoration: "none" }}>
-          <Typography
-            variant="h4"
-            component="div"
+    <MUIAppBar position="fixed">
+      <Toolbar sx={{ width: "100%" }}>
+        <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-start" }}>
+          <Link href="/" passHref>
+            <Typography variant="h5" color="inherit" sx={{ cursor: "pointer" }}>
+              Senna Automation
+            </Typography>
+          </Link>
+        </Box>
+        {isMobile ? (
+          <Box
             sx={{
-              color: "text.primary",
-              fontWeight: 600,
-              fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" },
+              flex: 1,
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              gap: 2,
             }}
           >
-            Senna Automation
-          </Typography>
-        </Link>
-
-        {/* Desktop Buttons */}
-        <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
-          <Box sx={{ display: "none" }}>
-            <Link href="/pricing" passHref>
-              <Button color="inherit">Pricing</Button>
-            </Link>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <span role="img" aria-label="sun">
-                🔆
-              </span>
-              <Switch checked={mode === "dark"} onChange={toggleColorMode} />
-              <span role="img" aria-label="moon">
-                🔅
-              </span>
-            </Box>
-            <Link href="/products" passHref>
-              <Button sx={{ color: "text.primary" }}>Products</Button>
-            </Link>
-            {/* {!user ? (
-              <Link href="/auth/signin" passHref>
-                <Button variant="contained">Sign In</Button>
-              </Link>
-            ) : (
-              <>
-                <Button variant="text" href="/dashboard">
-                  Dashboard
-                </Button>
-                <Button variant="outlined" onClick={signOut}>
-                  Sign Out
-                </Button>
-              </>
-            )} */}
-          </Box>
-
-          <Box>
-            <Box sx={{ display: "none" }}>
-              <Button
-                color="inherit"
-                endIcon={<KeyboardArrowDownIcon />}
-                onClick={handleResourcesClick}
-              >
-                Resources
-              </Button>
-            </Box>
-            <Menu
-              anchorEl={resourcesAnchorEl}
-              open={Boolean(resourcesAnchorEl)}
-              onClose={handleResourcesClose}
+            <Switch
+              checked={mode === "dark"}
+              onChange={() => toggleColorMode()}
+              icon={
+                <span role="img" aria-label="bright mode">
+                  ☀️
+                </span>
+              }
+              checkedIcon={
+                <span role="img" aria-label="dim mode">
+                  🌙
+                </span>
+              }
+            />
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={handleMenuOpen}
             >
-              <MenuItem
-                onClick={handleResourcesClose}
-                component={Link}
-                href="/docs"
-              >
-                Documentation
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              <MenuItem onClick={handleMenuClose}>
+                <Link href="/products" passHref>
+                  <Typography color="inherit">Products</Typography>
+                </Link>
               </MenuItem>
-              <MenuItem
-                onClick={handleResourcesClose}
-                component={Link}
-                href="/blog"
-              >
-                Blog
-              </MenuItem>
-              <MenuItem
-                onClick={handleResourcesClose}
-                component={Link}
-                href="/support"
-              >
-                Support
+              <MenuItem onClick={handleMenuClose}>
+                <Link href="/request" passHref>
+                  <Typography color="inherit">Request</Typography>
+                </Link>
               </MenuItem>
             </Menu>
           </Box>
-        </Box>
-
-        {/* Mobile Menu Button */}
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="end"
-          onClick={handleDrawerToggle}
-          sx={{ display: { md: "none" }, ml: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
-
-        {/* Mobile Drawer */}
-        <Drawer
-          variant="temporary"
-          anchor="right"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better mobile performance
-          }}
-          sx={{
-            display: { xs: "block", md: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: 250,
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
+        ) : (
+          <>
+            <Box
+              sx={{
+                flex: 1,
+                display: "flex",
+                justifyContent: "center",
+                gap: 2,
+              }}
+            >
+              <Link href="/products" passHref>
+                <Button color="inherit">Products</Button>
+              </Link>
+              <Link href="/request" passHref>
+                <Button color="inherit">Request</Button>
+              </Link>
+            </Box>
+            <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
+              <Switch
+                checked={mode === "dark"}
+                onChange={() => toggleColorMode()}
+                icon={
+                  <span role="img" aria-label="bright mode">
+                    ☀️
+                  </span>
+                }
+                checkedIcon={
+                  <span role="img" aria-label="dim mode">
+                    🌙
+                  </span>
+                }
+              />
+            </Box>
+          </>
+        )}
       </Toolbar>
-    </MuiAppBar>
+    </MUIAppBar>
   );
 }
