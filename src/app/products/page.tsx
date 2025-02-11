@@ -215,11 +215,6 @@ export default function Products() {
                   display: "flex",
                   flexDirection: "column",
                   bgcolor: "background.paper",
-                  "&:hover": {
-                    transform: "translateY(-4px)",
-                    transition: "all 0.3s ease-in-out",
-                    boxShadow: 3,
-                  },
                 }}
               >
                 <CardContent>

@@ -43,7 +43,7 @@ export default function ProductCard({
   const Icon = product.icon;
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: ref as React.RefObject<HTMLElement>,
     offset: ["0.8 1", "1 1"],
   });
   const theme = useTheme();
@@ -61,11 +61,6 @@ export default function ProductCard({
           display: "flex",
           flexDirection: "column",
           bgcolor: "background.paper",
-          "&:hover": {
-            transform: "translateY(-4px)",
-            transition: "all 0.3s ease-in-out",
-            // boxShadow: 3,
-          },
         }}
       >
         <Box
