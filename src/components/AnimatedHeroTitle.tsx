@@ -34,6 +34,7 @@ export default function AnimatedHeroTitle() {
       <Typography
         variant="h1"
         align="center"
+        color="text.primary"
         sx={{ fontSize: { xs: "2.5rem", md: "3.5rem", lg: "4rem" } }}
       >
         Let&apos;s automate...
@@ -41,6 +42,7 @@ export default function AnimatedHeroTitle() {
       <Typography
         variant="h1"
         align="center"
+        color="text.primary"
         sx={{ fontSize: { xs: "2.5rem", md: "3.5rem", lg: "4rem" } }}
       >
         {`your ${words.current[index].substring(0, count)}`}
