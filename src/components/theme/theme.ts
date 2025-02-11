@@ -102,17 +102,23 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
       },
       MuiCard: {
         styleOverrides: {
-          root: {
+          root: ({ theme }) => ({
             borderRadius: 12,
             overflow: "hidden",
             position: "relative",
-            boxShadow: "0 4px 12px rgba(0,0,0,.4)",
+            boxShadow:
+              theme.palette.mode === "dark"
+                ? "0 4px 12px rgba(255,255,255,.4)"
+                : "0 4px 12px rgba(0,0,0,.4)",
             transition: "transform 0.3s ease, box-shadow 0.3s ease",
             "&:hover": {
               transform: "translateY(-2px)",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.9)",
+              boxShadow:
+                theme.palette.mode === "dark"
+                  ? "0 4px 12px rgba(255,255,255,.9)"
+                  : "0 4px 12px rgba(0,0,0,.9)",
             },
-          },
+          }),
         },
       },
       MuiCardMedia: {
@@ -235,12 +241,14 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
           root: ({ theme }) => ({
             backgroundColor:
               theme.palette.mode === "dark"
-                ? theme.palette.grey[800]
+                ? // @ts-expect-error this value works but TS hates this one weird trick
+                  theme.palette.grey[750]
                 : theme.palette.primary.main,
             color: "#FFF",
-            "&.Mui-selected": {
-              backgroundColor: "pink",
+            "&:not(:last-child)": {
+              borderBottom: "1px solid #FFF",
             },
+            margin: 0,
           }),
         },
       },
