@@ -19,9 +19,9 @@ import AssistantIcon from "@mui/icons-material/Assistant";
 import PersonIcon from "@mui/icons-material/Person";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import RequestFormButton from "@/components/RequestFormButton";
-import ProductCard from "@/components/ProductCard";
+import ProductCard, { type Product } from "@/components/ProductCard";
 
-const products = [
+const products: Product[] = [
   {
     title: "Customer Support System",
     icon: SupportAgentIcon,

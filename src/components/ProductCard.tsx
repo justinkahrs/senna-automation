@@ -19,7 +19,7 @@ import type { SvgIcon } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 
-interface Product {
+export interface Product {
   title: string;
   icon: typeof SvgIcon;
   description: string;
