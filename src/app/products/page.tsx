@@ -25,7 +25,7 @@ export default function Products() {
       <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
         <Typography
           component="h1"
-          variant="h2"
+          variant="h4"
           align="center"
           color="text.primary"
           gutterBottom
@@ -33,7 +33,7 @@ export default function Products() {
           AI Automation Templates
         </Typography>
         <Typography
-          variant="h5"
+          variant="h6"
           align="center"
           color="text.secondary"
           sx={{ mb: 8, textAlign: isMobile ? "justify" : "center" }}

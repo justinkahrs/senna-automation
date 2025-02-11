@@ -2,24 +2,14 @@
 import { Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
-import { keyframes } from "@emotion/react";
+import { useTheme } from "@mui/material/styles";
 
 export default function AnimatedHeroTitle() {
-  const [ellipsis, setEllipsis] = useState("");
   const [index, setIndex] = useState(0);
   const [count, setCount] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const words = useRef(["work.", "business.", "day.", "life."]);
-  const blink = keyframes`
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-`;
-  useEffect(() => {
-    if (ellipsis.length < 3) {
-      const timer = setTimeout(() => setEllipsis((e) => `${e}.`), 500);
-      return () => clearTimeout(timer);
-    }
-  }, [ellipsis]);
+  const theme = useTheme();
 
   useEffect(() => {
     const current = words.current[index];
@@ -57,10 +47,11 @@ export default function AnimatedHeroTitle() {
       >
         {`your ${words.current[index].substring(0, count)}`}
         <motion.span
+          animate={{ opacity: [1, 0, 1] }}
+          transition={{ duration: 1, repeat: Infinity }}
           style={{
             marginLeft: 2,
-            display: "inline-block",
-            animation: `${blink} 0.8s infinite steps(1)`,
+            display: "inline-block"
           }}
         >
           |

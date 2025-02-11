@@ -1,8 +1,8 @@
 "use client";
 import { Cormorant_Garamond, Inter } from "next/font/google";
-import type { PaletteMode, Theme, ThemeOptions } from "@mui/material/styles";
 import { blink } from "./animations";
 
+import type { PaletteMode, Theme, ThemeOptions } from "@mui/material/styles";
 declare module "@mui/material/styles" {
   interface Theme {
     keyframes: {
@@ -15,7 +15,6 @@ declare module "@mui/material/styles" {
     };
   }
 }
-
 const inter = Inter({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],

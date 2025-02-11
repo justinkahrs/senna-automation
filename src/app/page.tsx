@@ -25,13 +25,12 @@ export default function Home() {
               color="text.secondary"
               sx={{
                 mb: 6,
-                maxWidth: "600px",
                 mx: "auto",
                 fontSize: { xs: "1.1rem", md: "1.3rem" },
               }}
             >
               Powerful AI automation tools to streamline your workflow and boost
-              productivity
+              productivity.
             </Typography>
             <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
               <Stack spacing={2} sx={{ textAlign: "center", width: 300 }}>
