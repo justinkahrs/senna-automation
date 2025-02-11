@@ -68,7 +68,7 @@ export default function Terms() {
           </Typography>
           <Typography paragraph>
             If you have any questions about these Terms, please contact us at:
-            legal@senna-automation.com
+            support@sennautomation.agency
           </Typography>
         </Paper>
       </Container>

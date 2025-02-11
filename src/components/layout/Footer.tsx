@@ -23,22 +23,6 @@ export function Footer() {
               Let&apos;s integrate AI and automate your business.
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={4} sx={{ display: "none" }}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
-              Resources
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-              <Link href="/docs" color="text.secondary">
-                Documentation
-              </Link>
-              <Link href="/blog" color="text.secondary">
-                Blog
-              </Link>
-              <Link href="/support" color="text.secondary">
-                Support
-              </Link>
-            </Box>
-          </Grid>
           <Grid item xs={12}>
             <Box
               sx={{
