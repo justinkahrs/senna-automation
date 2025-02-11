@@ -4,9 +4,6 @@ import {
   Container,
   Typography,
   Grid,
-  Card,
-  CardContent,
-  CardActions,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
