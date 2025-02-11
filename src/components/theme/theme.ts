@@ -1,6 +1,6 @@
 "use client";
 import { Cormorant_Garamond, Inter } from "next/font/google";
-import type { PaletteMode, ThemeOptions } from "@mui/material/styles";
+import type { PaletteMode, Theme, ThemeOptions } from "@mui/material/styles";
 
 const inter = Inter({
   weight: ["400", "500", "600", "700"],
@@ -88,6 +88,63 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
           },
         },
       },
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            borderRadius: 12,
+            overflow: "hidden",
+            position: "relative",
+            boxShadow: "0 4px 12px rgba(0,0,0,.9)",
+            transition: "transform 0.3s ease",
+            "&:hover": {
+              transform: "translateY(-2px)",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+            },
+          },
+        },
+      },
+      MuiCardMedia: {
+        styleOverrides: {
+          root: {
+            width: "100%",
+            height: 200,
+            objectFit: "cover",
+          },
+        },
+      },
+      MuiCardHeader: {
+        styleOverrides: {
+          root: {
+            padding: "16px",
+            "& .MuiCardHeader-title": {
+              fontWeight: 600,
+              fontSize: "1.125rem",
+            },
+            "& .MuiCardHeader-subheader": {
+              fontSize: "0.875rem",
+              color: (theme: Theme) => theme.palette.text.secondary,
+            },
+          },
+        },
+      },
+      MuiCardContent: {
+        styleOverrides: {
+          root: {
+            padding: "16px",
+            fontSize: "0.95rem",
+          },
+        },
+      },
+      MuiCardActions: {
+        styleOverrides: {
+          root: {
+            padding: "8px 16px 16px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          },
+        },
+      },
       MuiCssBaseline: {
         styleOverrides: {
           "@global": {
@@ -105,6 +162,48 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
             alignItems: "center",
             justifyContent: "center",
             cursor: "pointer",
+          },
+        },
+      },
+      MuiDialog: {
+        styleOverrides: {
+          paper: {
+            borderRadius: 12,
+            overflow: "hidden",
+            position: "relative",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            "&:hover": {
+              transform: "translateY(-2px)",
+              boxShadow: "0 6px 16px rgba(0,0,0,0.15)",
+            },
+          },
+        },
+      },
+      MuiDialogTitle: {
+        styleOverrides: {
+          root: {
+            padding: "16px",
+            fontWeight: 600,
+            fontSize: "1.125rem",
+          },
+        },
+      },
+      MuiDialogContent: {
+        styleOverrides: {
+          root: {
+            padding: "16px",
+            fontSize: "0.95rem",
+          },
+        },
+      },
+      MuiDialogActions: {
+        styleOverrides: {
+          root: {
+            padding: "8px 16px 16px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
           },
         },
       },

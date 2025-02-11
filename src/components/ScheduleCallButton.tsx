@@ -93,6 +93,8 @@ export default function ScheduleCallButton({
       <Modal open={open} onClose={handleClose}>
         <Box
           sx={{
+            borderRadius: 2,
+            backgroundColor: "background.paper",
             position: "absolute" as const,
             top: "50%",
             left: "50%",

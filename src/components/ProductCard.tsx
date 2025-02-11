@@ -64,7 +64,7 @@ export default function ProductCard({
           "&:hover": {
             transform: "translateY(-4px)",
             transition: "all 0.3s ease-in-out",
-            boxShadow: 3,
+            // boxShadow: 3,
           },
         }}
       >
