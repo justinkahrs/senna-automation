@@ -36,11 +36,14 @@ interface ProductCardProps {
   direction?: "left" | "right";
 }
 
-export default function ProductCard({ product, direction = "left" }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  direction = "left",
+}: ProductCardProps) {
   const Icon = product.icon;
-  const ref = useRef<any>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: ref as any,
+    target: ref,
     offset: ["0.8 1", "1 1"],
   });
   const theme = useTheme();
@@ -51,7 +54,7 @@ export default function ProductCard({ product, direction = "left" }: ProductCard
   const y = useTransform(scrollYProgress, [0, 1], [25, 0]);
   const opacity = useTransform(scrollYProgress, [0.4, 1], [0.4, 1]);
   return (
-    <motion.div ref={ref as any} style={{ width: "100%", x, y, opacity }}>
+    <motion.div ref={ref} style={{ width: "100%", x, y, opacity }}>
       <Card
         sx={{
           height: "100%",
