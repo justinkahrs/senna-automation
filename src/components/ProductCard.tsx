@@ -36,12 +36,9 @@ interface ProductCardProps {
   direction?: "left" | "right";
 }
 
-export default function ProductCard({
-  product,
-  direction = "left",
-}: ProductCardProps) {
+export default function ProductCard({ product, direction = "left" }: ProductCardProps) {
   const Icon = product.icon;
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["0.8 1", "1 1"],
