@@ -93,7 +93,9 @@ export function AppBar() {
                   color: "#FFF",
                 }}
               >
-                <Typography color="inherit">Products</Typography>
+                <Typography color="inherit" variant="h6">
+                  Products
+                </Typography>
               </MenuItem>
               <MenuItem
                 component={Link}
@@ -104,7 +106,9 @@ export function AppBar() {
                   color: "#FFF",
                 }}
               >
-                <Typography color="inherit">Request</Typography>
+                <Typography color="inherit" variant="h6">
+                  Request
+                </Typography>
               </MenuItem>
             </Menu>
           </Box>

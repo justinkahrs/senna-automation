@@ -20,7 +20,7 @@ export function Footer() {
               Senna Automation
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Streamline your workflow with powerful automation tools
+              Let&apos;s integrate AI and automate your business.
             </Typography>
           </Grid>
           <Grid item xs={12} sm={4} sx={{ display: "none" }}>
@@ -39,16 +39,24 @@ export function Footer() {
               </Link>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
-              Legal
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                flexDirection: "row",
+                gap: 1,
+              }}
+            >
               <Link href="/privacy" color="text.secondary">
-                Privacy Policy
+                <Typography variant="h6" color="text.primary" gutterBottom>
+                  Privacy Policy
+                </Typography>
               </Link>
               <Link href="/terms" color="text.secondary">
-                Terms of Service
+                <Typography variant="h6" color="text.primary" gutterBottom>
+                  Terms of Service
+                </Typography>
               </Link>
             </Box>
           </Grid>
