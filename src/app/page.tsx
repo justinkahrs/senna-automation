@@ -45,10 +45,10 @@ export default function Home() {
             productivity
           </Typography>
           <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
-            <Stack useFlexGap spacing={2} style={{ textAlign: "center" }}>
-              <ScheduleCallButton size="large" text="Schedule Call" />
-              <SeeProductsButton size="large" text="See Products" />
-              <RequestFormButton size="large" text="Custom Request" />
+            <Stack spacing={2} sx={{ textAlign: "center", width: 300 }}>
+              <ScheduleCallButton fullWidth size="large" text="Schedule Call" />
+              <SeeProductsButton fullWidth size="large" text="See Products" />
+              <RequestFormButton fullWidth size="large" text="Custom Request" />
             </Stack>
           </Box>
         </Container>
