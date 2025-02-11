@@ -85,27 +85,26 @@ export function AppBar() {
               }}
             >
               <MenuItem
-                selected={false}
+                component={Link}
+                href="/products"
                 onClick={handleMenuClose}
                 sx={{
                   bgcolor: mode === "dark" ? "grey.850" : "primary.main",
                   color: "#FFF",
                 }}
               >
-                <Link href="/products" passHref>
-                  <Typography color="inherit">Products</Typography>
-                </Link>
+                <Typography color="inherit">Products</Typography>
               </MenuItem>
               <MenuItem
+                component={Link}
+                href="/request"
                 onClick={handleMenuClose}
                 sx={{
                   bgcolor: mode === "dark" ? "grey.850" : "primary.main",
                   color: "#FFF",
                 }}
               >
-                <Link href="/request" passHref>
-                  <Typography color="inherit">Request</Typography>
-                </Link>
+                <Typography color="inherit">Request</Typography>
               </MenuItem>
             </Menu>
           </Box>
