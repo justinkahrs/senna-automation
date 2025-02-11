@@ -35,8 +35,8 @@ export function AppBar() {
     <MUIAppBar
       position="fixed"
       sx={{
-        bgcolor: mode === "dark" ? "grey.900" : "primary.main",
-        transition: "background-color 0.3s ease",
+        bgcolor: mode === "dark" ? "grey.750" : "primary.main",
+        transition: "background-color 0.8s ease",
       }}
     >
       <Toolbar sx={{ width: "100%" }}>
@@ -70,13 +70,39 @@ export function AppBar() {
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
+              slotProps={{
+                paper: {
+                  sx: {
+                    bgcolor: mode === "dark" ? "grey.900" : "primary.main",
+                    width: "200px",
+                  },
+                },
+              }}
+              sx={{
+                "&& .Mui-selected": {
+                  backgroundColor: "pink",
+                },
+              }}
             >
-              <MenuItem onClick={handleMenuClose}>
+              <MenuItem
+                selected={false}
+                onClick={handleMenuClose}
+                sx={{
+                  bgcolor: mode === "dark" ? "grey.850" : "primary.main",
+                  color: "#FFF",
+                }}
+              >
                 <Link href="/products" passHref>
                   <Typography color="inherit">Products</Typography>
                 </Link>
               </MenuItem>
-              <MenuItem onClick={handleMenuClose}>
+              <MenuItem
+                onClick={handleMenuClose}
+                sx={{
+                  bgcolor: mode === "dark" ? "grey.850" : "primary.main",
+                  color: "#FFF",
+                }}
+              >
                 <Link href="/request" passHref>
                   <Typography color="inherit">Request</Typography>
                 </Link>
