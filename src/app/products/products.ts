@@ -12,7 +12,7 @@ export const products: Product[] = [
   {
     title: "Customer Support",
     icon: SupportAgentIcon,
-    description: "Revolutionize customer service with AI-powered solutions.",
+    description: "Automate your customer service with AI-powered solutions.",
     features: [
       "Seamless knowledge base integration for instant responses",
       "AI-driven issue resolution with contextual understanding",
@@ -28,7 +28,8 @@ export const products: Product[] = [
   {
     title: "Executive Assistant",
     icon: AssistantIcon,
-    description: "Empower your productivity with a virtual personal assistant.",
+    description:
+      "Take control of your productivity with a virtual personal assistant.",
     features: [
       "Automated email organization with priority tagging",
       "Smart meeting scheduling with calendar synchronization",
@@ -99,9 +100,9 @@ export const products: Product[] = [
       "Boost your social media presence with intelligent automation.",
     features: [
       "Fully automated multi-platform social media campaign management",
-      "AI-driven smart audience targeting and retargeting",
-      "Real-time performance tracking and continuous optimization",
-      "Automated A/B testing for enhanced ROI",
+      "AI-driven smart audience targeting",
+      "AI-driven content beyond just text",
+      "Automated engagement for creating new leads",
     ],
     media: {
       src: "/social-media.jpg",
@@ -115,8 +116,8 @@ export const products: Product[] = [
     description:
       "Streamline your lead generation and outreach with our smart tools.",
     features: [
-      "Automated lead discovery via Google Maps and LinkedIn",
-      "AI-powered email personalization for better engagement",
+      "Automated lead discovery via Google Maps, LinkedIn, and more",
+      "AI-powered hyper personalization for better engagement",
       "Advanced lead scoring and automated qualification processes",
       "CRM integration for seamless lead tracking",
     ],
