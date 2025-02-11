@@ -1,3 +1,4 @@
+"use client";
 import {
   Box,
   Container,
@@ -6,11 +7,8 @@ import {
   Card,
   CardContent,
   CardActions,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  type SvgIcon,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import CampaignIcon from "@mui/icons-material/Campaign";
@@ -18,27 +16,12 @@ import EmailIcon from "@mui/icons-material/Email";
 import DescriptionIcon from "@mui/icons-material/Description";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import AssistantIcon from "@mui/icons-material/Assistant";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PersonIcon from "@mui/icons-material/Person";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import ScheduleCallButton from "@/components/ScheduleCallButton";
 import RequestFormButton from "@/components/RequestFormButton";
+import ProductCard from "@/components/ProductCard";
 
-import Image from "next/image";
-
-interface Product {
-  title: string;
-  icon: typeof SvgIcon;
-  description: string;
-  features: string[];
-  media: {
-    src: string;
-    alt: string;
-    type: "image" | "gif";
-  };
-}
-
-const products: Product[] = [
+const products = [
   {
     title: "Customer Support System",
     icon: SupportAgentIcon,
@@ -79,7 +62,7 @@ const products: Product[] = [
     features: [
       "Generate high-quality blogs automatically from RSS feeds",
       "Create curated newsletters with a personalized touch",
-      "Customize and optimize content to reflect your unique brand voice",
+      "Optimize content to reflect your unique brand voice",
       "Integrate trending topics and keywords for SEO-friendly content",
     ],
     media: {
@@ -98,7 +81,6 @@ const products: Product[] = [
       "Schedule onboarding meetings and add calendar events automatically",
       "Send personalized welcome messages tailored to each customer",
       "Automated follow-up reminders to ensure smooth onboarding",
-      "Track onboarding progress with detailed reports",
     ],
     media: {
       src: "/onboarding.jpg",
@@ -113,9 +95,8 @@ const products: Product[] = [
       "Transform client interactions into actionable, customized project proposals effortlessly.",
     features: [
       "Automate the creation of detailed, itemized project proposals",
-      "Tailor proposals to individual client needs based on meeting transcripts",
+      "Tailor proposals to client needs from meeting transcripts",
       "Include verbally agreed-upon pricing from introductory calls",
-      "Streamline proposal adjustments with client feedback integration",
       "Generate professional, branded documents ready for client approval",
     ],
     media: {
@@ -130,9 +111,9 @@ const products: Product[] = [
     description:
       "Boost your social media presence with intelligent automation.",
     features: [
-      "Fully automated multi-platform campaign management",
+      "Fully automated multi-platform social media campaign management",
       "AI-driven smart audience targeting and retargeting",
-      "Real-time performance tracking and optimization",
+      "Real-time performance tracking and continuous optimization",
       "Automated A/B testing for enhanced ROI",
     ],
     media: {
@@ -147,9 +128,9 @@ const products: Product[] = [
     description:
       "Streamline your lead generation and outreach with our smart tools.",
     features: [
-      "Automated lead discovery via platforms like Google Maps and LinkedIn",
+      "Automated lead discovery via Google Maps and LinkedIn",
       "AI-powered email personalization for better engagement",
-      "Lead scoring and qualification automation",
+      "Advanced lead scoring and automated qualification processes",
       "CRM integration for seamless lead tracking",
     ],
     media: {
@@ -164,7 +145,7 @@ const products: Product[] = [
     description: "Simplify invoice management with smart automation.",
     features: [
       "Generate accurate proposals directly from meeting transcripts",
-      "Automated and customizable invoice generation",
+      "Automated and fully customizable invoice generation",
       "Smart payment tracking with automated reminders",
       "Integration with accounting software for streamlined processes",
     ],
@@ -176,6 +157,8 @@ const products: Product[] = [
   },
 ];
 export default function Products() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <Box
       sx={{
@@ -198,86 +181,34 @@ export default function Products() {
           variant="h5"
           align="center"
           color="text.secondary"
-          sx={{ mb: 8, textAlign: "justify" }}
+          sx={{ mb: 8, textAlign: isMobile ? "justify" : "center" }}
         >
           Powerful automation tools needing minimal customization to get up and
           running in your business.
         </Typography>
 
-        <Grid container justifyContent="center" spacing={4}>
-          {products.map((product) => {
-            const Icon = product.icon;
-            return (
-              <Grid item xs={12} md={6} key={product.title}>
-                <Card
-                  sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    bgcolor: "background.paper",
-                    "&:hover": {
-                      transform: "translateY(-4px)",
-                      transition: "all 0.3s ease-in-out",
-                      boxShadow: 3,
-                    },
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "relative",
-                      width: "100%",
-                      height: { xs: "200px", md: "300px" },
-                      overflow: "hidden",
-                      bgcolor: "background.paper",
-                    }}
-                  >
-                    <Image
-                      src={product.media.src}
-                      alt={product.media.alt}
-                      fill
-                      style={{
-                        objectFit: "cover",
-                        objectPosition: "center",
-                      }}
-                    />
-                  </Box>
-
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                      <Icon
-                        sx={{ fontSize: 40, color: "primary.main", mr: 2 }}
-                      />
-                      <Typography variant="h4" component="h2">
-                        {product.title}
-                      </Typography>
-                    </Box>
-                    <Typography
-                      variant="subtitle1"
-                      color="text.secondary"
-                      paragraph
-                    >
-                      {product.description}
-                    </Typography>
-                    <List>
-                      {product.features.map((feature) => (
-                        <ListItem key={feature} sx={{ py: 0.5 }}>
-                          <ListItemIcon sx={{ minWidth: 36 }}>
-                            <CheckCircleIcon color="primary" fontSize="small" />
-                          </ListItemIcon>
-                          <ListItemText primary={feature} />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </CardContent>
-                  <CardActions sx={{ p: 2, pt: 0 }}>
-                    <ScheduleCallButton fullWidth text="Schedule Call" />
-                  </CardActions>
-                </Card>
-              </Grid>
-            );
-          })}
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="stretch"
+          spacing={4}
+        >
+          {products.map((product, index) => (
+            <Grid
+              item
+              xs={12}
+              md={8}
+              key={product.title}
+              sx={{ display: "flex" }}
+            >
+              <ProductCard
+                product={product}
+                direction={index % 2 === 0 ? "left" : "right"}
+              />
+            </Grid>
+          ))}
           <Grid container item xs={12} md={8} justifyContent="center">
-            <Grid item xs={9}>
+            <Grid item xs={9} sx={{ display: "flex" }}>
               <Card
                 sx={{
                   height: "100%",

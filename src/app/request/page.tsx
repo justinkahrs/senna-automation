@@ -6,7 +6,6 @@ import {
   Container,
   TextField,
   Typography,
-  Slide,
   Radio,
   RadioGroup,
   FormControl,
@@ -15,6 +14,7 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import SuccessMessage from "../../components/SuccessMessage";
+import SlidingQuestionCard from "@/components/SlidingQuestionCard";
 
 const questions = [
   {
@@ -79,9 +79,7 @@ export default function RequestForm() {
   };
 
   const validateContact = (method: string, value: string) => {
-    if (method === "email") {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-    }
+    if (method === "email") return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
     return /^\+?[0-9]{7,}$/.test(value);
   };
 
@@ -97,9 +95,7 @@ export default function RequestForm() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(answers),
         });
-        if (res.ok) {
-          setSubmitted(true);
-        }
+        if (res.ok) setSubmitted(true);
       } catch (error) {
         console.error(error);
       }
@@ -114,9 +110,7 @@ export default function RequestForm() {
     }
   };
 
-  if (submitted) {
-    return <SuccessMessage />;
-  }
+  if (submitted) return <SuccessMessage />;
 
   const currentQuestion = questions[current];
   let isValid: boolean;
@@ -142,126 +136,106 @@ export default function RequestForm() {
       }}
     >
       <Container maxWidth="sm">
-        <Slide
+        <SlidingQuestionCard
           key={current}
-          in
-          direction={slideDirection}
-          mountOnEnter
-          unmountOnExit
+          initial={{ x: slideDirection === "left" ? 100 : -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.3 }}
         >
-          <Box sx={{ width: "100%" }}>
-            {currentQuestion.key === "contact" ? (
-              <FormControl component="fieldset" fullWidth>
-                <FormLabel
-                  component="legend"
-                  sx={{ mb: 1, fontSize: "1.25rem" }}
-                >
-                  {currentQuestion.label}
-                </FormLabel>
-                <RadioGroup
-                  row
-                  value={answers.contactMethod}
-                  onChange={(e) =>
-                    handleChange("contactMethod", e.target.value)
-                  }
-                >
-                  <FormControlLabel
-                    value="email"
-                    control={<Radio />}
-                    label="Email"
-                  />
-                  <FormControlLabel
-                    value="sms"
-                    control={<Radio />}
-                    label="SMS"
-                  />
-                </RadioGroup>
-                <TextField
-                  fullWidth
-                  required
-                  autoFocus
-                  label={
-                    answers.contactMethod === "email"
-                      ? "Email Address"
-                      : "Phone Number"
-                  }
-                  placeholder={
-                    answers.contactMethod === "email"
-                      ? "Enter your email address"
-                      : "Enter your phone number"
-                  }
-                  value={answers.contactValue}
-                  onChange={(e) => handleChange("contactValue", e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" && isValid) {
-                      e.preventDefault();
-                      handleNext();
-                    }
-                  }}
-                  variant="outlined"
-                  margin="normal"
-                  error={
-                    answers.contactValue !== "" &&
-                    !validateContact(
-                      answers.contactMethod,
-                      answers.contactValue
-                    )
-                  }
-                  helperText={
-                    answers.contactValue !== "" &&
-                    !validateContact(
-                      answers.contactMethod,
-                      answers.contactValue
-                    )
-                      ? answers.contactMethod === "email"
-                        ? "Invalid email format"
-                        : "Invalid phone format"
-                      : ""
-                  }
-                />
-              </FormControl>
-            ) : (
-              <>
-                <Typography variant="h5" gutterBottom>
-                  {currentQuestion.label}
-                </Typography>
-                <TextField
-                  fullWidth
-                  required={
-                    currentQuestion.key !== "budget" &&
-                    currentQuestion.key !== "website"
-                  }
-                  autoFocus
-                  placeholder={currentQuestion.placeholder}
-                  value={answers[currentQuestion.key as keyof typeof answers]}
-                  onChange={(e) =>
-                    handleChange(currentQuestion.key, e.target.value)
-                  }
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" && isValid) {
-                      e.preventDefault();
-                      handleNext();
-                    }
-                  }}
-                  variant="outlined"
-                  margin="normal"
-                />
-              </>
-            )}
-            <Box
-              sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
-            >
-              {current > 0 && <Button onClick={handleBack}>Back</Button>}
-              <Button
-                variant="contained"
-                onClick={handleNext}
-                disabled={submitting || !isValid}
+          {currentQuestion.key === "contact" ? (
+            <FormControl component="fieldset" fullWidth>
+              <FormLabel component="legend" sx={{ mb: 1, fontSize: "1.25rem" }}>
+                {currentQuestion.label}
+              </FormLabel>
+              <RadioGroup
+                row
+                value={answers.contactMethod}
+                onChange={(e) => handleChange("contactMethod", e.target.value)}
               >
-                {current === questions.length - 1 ? "Submit" : "Next"}
-              </Button>
-            </Box>
+                <FormControlLabel
+                  value="email"
+                  control={<Radio />}
+                  label="Email"
+                />
+                <FormControlLabel value="sms" control={<Radio />} label="SMS" />
+              </RadioGroup>
+              <TextField
+                fullWidth
+                required
+                autoFocus
+                label={
+                  answers.contactMethod === "email"
+                    ? "Email Address"
+                    : "Phone Number"
+                }
+                placeholder={
+                  answers.contactMethod === "email"
+                    ? "Enter your email address"
+                    : "Enter your phone number"
+                }
+                value={answers.contactValue}
+                onChange={(e) => handleChange("contactValue", e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && isValid) {
+                    e.preventDefault();
+                    handleNext();
+                  }
+                }}
+                variant="outlined"
+                margin="normal"
+                error={
+                  answers.contactValue !== "" &&
+                  !validateContact(answers.contactMethod, answers.contactValue)
+                }
+                helperText={
+                  answers.contactValue !== "" &&
+                  !validateContact(answers.contactMethod, answers.contactValue)
+                    ? answers.contactMethod === "email"
+                      ? "Invalid email format"
+                      : "Invalid phone format"
+                    : ""
+                }
+              />
+            </FormControl>
+          ) : (
+            <>
+              <Typography variant="h5" gutterBottom>
+                {currentQuestion.label}
+              </Typography>
+              <TextField
+                fullWidth
+                required={
+                  currentQuestion.key !== "budget" &&
+                  currentQuestion.key !== "website"
+                }
+                autoFocus
+                placeholder={currentQuestion.placeholder}
+                value={answers[currentQuestion.key as keyof typeof answers]}
+                onChange={(e) =>
+                  handleChange(currentQuestion.key, e.target.value)
+                }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && isValid) {
+                    e.preventDefault();
+                    handleNext();
+                  }
+                }}
+                variant="outlined"
+                margin="normal"
+              />
+            </>
+          )}
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+            {current > 0 && <Button onClick={handleBack}>Back</Button>}
+            <Button
+              variant="contained"
+              onClick={handleNext}
+              disabled={submitting || !isValid}
+            >
+              {current === questions.length - 1 ? "Submit" : "Next"}
+            </Button>
           </Box>
-        </Slide>
+        </SlidingQuestionCard>
       </Container>
     </Box>
   );

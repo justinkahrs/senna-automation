@@ -90,6 +90,16 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
       },
       MuiCssBaseline: {
         styleOverrides: {
+          "@global": {
+            "@keyframes slideInFromRight": {
+              "0%": { transform: "translateX(100%)" },
+              "100%": { transform: "translateX(0)" },
+            },
+            "@keyframes slideInFromLeft": {
+              "0%": { transform: "translateX(-100%)" },
+              "100%": { transform: "translateX(0)" },
+            },
+          },
           ".themeToggleIcon": {
             display: "inline-flex",
             alignItems: "center",
