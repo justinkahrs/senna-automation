@@ -1,6 +1,6 @@
 "use client";
 import { Cormorant_Garamond, Inter } from "next/font/google";
-import { PaletteMode, ThemeOptions } from "@mui/material/styles";
+import type { PaletteMode, ThemeOptions } from "@mui/material/styles";
 
 const inter = Inter({
   weight: ["400", "500", "600", "700"],
@@ -19,7 +19,6 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
     palette: {
       mode,
       primary: {
-        // Black button in light mode, white button in dark mode
         main: mode === "light" ? "#000000" : "#FFFFFF",
         contrastText: mode === "light" ? "#FFFFFF" : "#000000",
       },
@@ -89,13 +88,23 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
           },
         },
       },
+      MuiCssBaseline: {
+        styleOverrides: {
+          ".themeToggleIcon": {
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+          },
+        },
+      },
       MuiSwitch: {
         styleOverrides: {
           switchBase: {
             color: mode === "light" ? "#000000" : "#ffffff",
           },
           track: {
-            backgroundColor: mode === "light" ? "#cccccc" : "#cccccc",
+            backgroundColor: mode === "light" ? "#cccccc" : "#000000",
           },
           thumb: {
             color: mode === "light" ? "#ffffff" : "#000000",
