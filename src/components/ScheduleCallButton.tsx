@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Button,
   Modal,
@@ -36,8 +36,6 @@ export default function ScheduleCallButton({
     setOpen(false);
     // Redirect to confirmation after closing
   };
-
-
 
   return (
     <>
