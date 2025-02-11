@@ -54,6 +54,7 @@ export function AppBar() {
             }}
           >
             <ThemeToggleIcon mode={mode} onToggle={toggleColorMode} />
+
             <IconButton
               edge="start"
               color="inherit"

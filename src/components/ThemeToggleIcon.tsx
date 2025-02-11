@@ -1,5 +1,6 @@
 "use client";
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -9,6 +10,13 @@ interface Props {
   mode: "dark" | "light";
   onToggle: () => void;
 }
+
+const ClickableArea = styled(Box)(({ theme }) => ({
+  cursor: "pointer",
+  padding: theme.spacing(2),
+  display: "inline-flex",
+  borderRadius: theme.shape.borderRadius,
+}));
 
 export default function ThemeToggleIcon({ mode, onToggle }: Props) {
   const [spinAngle, setSpinAngle] = useState(0);
@@ -20,13 +28,15 @@ export default function ThemeToggleIcon({ mode, onToggle }: Props) {
   const IconComponent = mode === "dark" ? DarkModeIcon : LightModeIcon;
 
   return (
-    <Box onClick={handleClick} sx={{ cursor: "pointer" }}>
+    <ClickableArea onClick={handleClick}>
       <motion.div
         animate={{ rotate: spinAngle }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
       >
-        <IconComponent color="inherit" fontSize="medium" />
+        <IconButton edge="start" color="inherit" aria-label="menu">
+          <IconComponent color="inherit" fontSize="medium" />
+        </IconButton>
       </motion.div>
-    </Box>
+    </ClickableArea>
   );
 }

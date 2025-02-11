@@ -1,6 +1,20 @@
 "use client";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import type { PaletteMode, Theme, ThemeOptions } from "@mui/material/styles";
+import { blink } from "./animations";
+
+declare module "@mui/material/styles" {
+  interface Theme {
+    keyframes: {
+      blink: object;
+    };
+  }
+  interface ThemeOptions {
+    keyframes?: {
+      blink?: object;
+    };
+  }
+}
 
 const inter = Inter({
   weight: ["400", "500", "600", "700"],
@@ -16,6 +30,7 @@ const cormorant = Cormorant_Garamond({
 
 export function getThemeTokens(mode: PaletteMode): ThemeOptions {
   return {
+    keyframes: { blink },
     palette: {
       mode,
       primary: {
@@ -271,6 +286,13 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
             "& .MuiOutlinedInput-root": {
               borderRadius: 8,
             },
+          },
+        },
+      },
+      MuiToolbar: {
+        styleOverrides: {
+          root: {
+            alignItems: "center",
           },
         },
       },
