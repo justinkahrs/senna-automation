@@ -2,14 +2,12 @@
 import { Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
-import { useTheme } from "@mui/material/styles";
 
 export default function AnimatedHeroTitle() {
   const [index, setIndex] = useState(0);
   const [count, setCount] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const words = useRef(["work.", "business.", "day.", "life."]);
-  const theme = useTheme();
 
   useEffect(() => {
     const current = words.current[index];
@@ -48,10 +46,10 @@ export default function AnimatedHeroTitle() {
         {`your ${words.current[index].substring(0, count)}`}
         <motion.span
           animate={{ opacity: [1, 0, 1] }}
-          transition={{ duration: 1, repeat: Infinity }}
+          transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY }}
           style={{
             marginLeft: 2,
-            display: "inline-block"
+            display: "inline-block",
           }}
         >
           |
