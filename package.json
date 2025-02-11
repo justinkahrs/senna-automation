@@ -17,6 +17,7 @@
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.5",
     "axios": "^1.7.9",
+    "framer-motion": "^10.12.7",
     "next": "15.1.0",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",

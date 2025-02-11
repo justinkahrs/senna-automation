@@ -276,37 +276,39 @@ export default function Products() {
               </Grid>
             );
           })}
-          <Grid item xs={12} md={8}>
-            <Card
-              sx={{
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                bgcolor: "background.paper",
-                "&:hover": {
-                  transform: "translateY(-4px)",
-                  transition: "all 0.3s ease-in-out",
-                  boxShadow: 3,
-                },
-              }}
-            >
-              <CardContent>
-                <Typography variant="h4" component="h2" gutterBottom>
-                  Custom Request
-                </Typography>
-                <Typography variant="subtitle1" color="text.secondary">
-                  Can&apos;t find the template you need? Request a custom
-                  solution tailored to your business.
-                </Typography>
-              </CardContent>
-              <CardActions sx={{ p: 2, pt: 0, justifyContent: "center" }}>
-                <RequestFormButton
-                  fullWidth
-                  text="Request Custom Solution"
-                  variant="contained"
-                />
-              </CardActions>
-            </Card>
+          <Grid container item xs={12} md={8} justifyContent="center">
+            <Grid item xs={9}>
+              <Card
+                sx={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  bgcolor: "background.paper",
+                  "&:hover": {
+                    transform: "translateY(-4px)",
+                    transition: "all 0.3s ease-in-out",
+                    boxShadow: 3,
+                  },
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h4" component="h2" gutterBottom>
+                    Custom Request
+                  </Typography>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    Can&apos;t find the template you need? Request a custom
+                    solution tailored to your business.
+                  </Typography>
+                </CardContent>
+                <CardActions sx={{ p: 2, pt: 0, justifyContent: "center" }}>
+                  <RequestFormButton
+                    fullWidth
+                    text="Request Custom Solution"
+                    variant="contained"
+                  />
+                </CardActions>
+              </Card>
+            </Grid>
           </Grid>
         </Grid>
       </Container>

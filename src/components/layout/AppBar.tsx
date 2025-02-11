@@ -6,16 +6,16 @@ import {
   Toolbar,
   Button,
   Box,
-  Switch,
-  Typography,
   IconButton,
   Menu,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ColorModeContext } from "@/app/ClientProviders";
+import ThemeToggleIcon from "@/components/ThemeToggleIcon";
 
 export function AppBar() {
   const { toggleColorMode, mode } = useContext(ColorModeContext);
@@ -32,7 +32,13 @@ export function AppBar() {
   };
 
   return (
-    <MUIAppBar position="fixed">
+    <MUIAppBar
+      position="fixed"
+      sx={{
+        bgcolor: mode === "dark" ? "grey.900" : "primary.main",
+        transition: "background-color 0.3s ease",
+      }}
+    >
       <Toolbar sx={{ width: "100%" }}>
         <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-start" }}>
           <Link href="/" passHref>
@@ -51,20 +57,7 @@ export function AppBar() {
               gap: 2,
             }}
           >
-            <Switch
-              checked={mode === "dark"}
-              onChange={() => toggleColorMode()}
-              icon={
-                <span role="img" aria-label="bright mode">
-                  ☀️
-                </span>
-              }
-              checkedIcon={
-                <span role="img" aria-label="dim mode">
-                  🌙
-                </span>
-              }
-            />
+            <ThemeToggleIcon mode={mode} onToggle={toggleColorMode} />
             <IconButton
               edge="start"
               color="inherit"
@@ -108,20 +101,7 @@ export function AppBar() {
               </Link>
             </Box>
             <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-              <Switch
-                checked={mode === "dark"}
-                onChange={() => toggleColorMode()}
-                icon={
-                  <span role="img" aria-label="bright mode">
-                    ☀️
-                  </span>
-                }
-                checkedIcon={
-                  <span role="img" aria-label="dim mode">
-                    🌙
-                  </span>
-                }
-              />
+              <ThemeToggleIcon mode={mode} onToggle={toggleColorMode} />
             </Box>
           </>
         )}
