@@ -7,9 +7,9 @@ export const CustomRequest = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref as React.RefObject<HTMLElement>,
-    offset: ["0.8 1", "1 1"],
+    offset: ["0.8 1.5", "1 1"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [25, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], [100, 0]);
   const opacity = useTransform(scrollYProgress, [0.4, 1], [0.4, 1]);
 
   return (

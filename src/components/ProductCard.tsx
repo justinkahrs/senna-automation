@@ -44,7 +44,7 @@ export default function ProductCard({
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref as React.RefObject<HTMLElement>,
-    offset: ["0.8 1", "1 1"],
+    offset: ["0.8 1.5", "1 1"],
   });
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
