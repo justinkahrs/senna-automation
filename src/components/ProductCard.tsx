@@ -41,7 +41,7 @@ export default function ProductCard({
   direction = "left",
 }: ProductCardProps) {
   const Icon = product.icon;
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["0.8 1", "1 1"],
