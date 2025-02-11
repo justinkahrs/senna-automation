@@ -20,7 +20,9 @@ import ThemeToggleIcon from "@/components/ThemeToggleIcon";
 export function AppBar() {
   const { toggleColorMode, mode } = useContext(ColorModeContext);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"), {
+    defaultMatches: true,
+  });
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -32,13 +34,7 @@ export function AppBar() {
   };
 
   return (
-    <MUIAppBar
-      position="fixed"
-      sx={{
-        bgcolor: mode === "dark" ? "grey.750" : "primary.main",
-        transition: "background-color 0.8s ease",
-      }}
-    >
+    <MUIAppBar position="fixed">
       <Toolbar sx={{ width: "100%" }}>
         <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-start" }}>
           <Link href="/" passHref>
@@ -70,28 +66,11 @@ export function AppBar() {
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
-              slotProps={{
-                paper: {
-                  sx: {
-                    bgcolor: mode === "dark" ? "grey.900" : "primary.main",
-                    width: "200px",
-                  },
-                },
-              }}
-              sx={{
-                "&& .Mui-selected": {
-                  backgroundColor: "pink",
-                },
-              }}
             >
               <MenuItem
                 component={Link}
                 href="/products"
                 onClick={handleMenuClose}
-                sx={{
-                  bgcolor: mode === "dark" ? "grey.850" : "primary.main",
-                  color: "#FFF",
-                }}
               >
                 <Typography color="inherit" variant="h6">
                   Products
@@ -101,10 +80,6 @@ export function AppBar() {
                 component={Link}
                 href="/request"
                 onClick={handleMenuClose}
-                sx={{
-                  bgcolor: mode === "dark" ? "grey.850" : "primary.main",
-                  color: "#FFF",
-                }}
               >
                 <Typography color="inherit" variant="h6">
                   Request
@@ -123,10 +98,14 @@ export function AppBar() {
               }}
             >
               <Link href="/products" passHref>
-                <Button color="inherit">Products</Button>
+                <Button color="inherit">
+                  <Typography variant="h6">Products</Typography>
+                </Button>
               </Link>
               <Link href="/request" passHref>
-                <Button color="inherit">Request</Button>
+                <Button color="inherit">
+                  <Typography variant="h6">Request</Typography>
+                </Button>
               </Link>
             </Box>
             <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>

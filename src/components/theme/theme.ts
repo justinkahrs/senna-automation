@@ -68,6 +68,18 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
       },
     },
     components: {
+      MuiAppBar: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            backgroundColor:
+              theme.palette.mode === "dark"
+                ? theme.palette.grey[700]
+                : theme.palette.primary.main,
+            transition: "background-color 0.8s ease",
+          }),
+        },
+      },
+
       MuiButton: {
         styleOverrides: {
           root: {
@@ -205,6 +217,31 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
             alignItems: "center",
             justifyContent: "space-between",
           },
+        },
+      },
+      MuiMenu: {
+        styleOverrides: {
+          paper: ({ theme }) => ({
+            backgroundColor:
+              theme.palette.mode === "dark"
+                ? theme.palette.grey[900]
+                : theme.palette.primary.main,
+            width: "200px",
+          }),
+        },
+      },
+      MuiMenuItem: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            backgroundColor:
+              theme.palette.mode === "dark"
+                ? theme.palette.grey[800]
+                : theme.palette.primary.main,
+            color: "#FFF",
+            "&.Mui-selected": {
+              backgroundColor: "pink",
+            },
+          }),
         },
       },
       MuiSwitch: {
