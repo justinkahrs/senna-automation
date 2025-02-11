@@ -37,48 +37,7 @@ export default function ScheduleCallButton({
     // Redirect to confirmation after closing
   };
 
-  useEffect(() => {
-    let isCalendlyInitialized = false;
 
-    if (open) {
-      const existingScript = document.querySelector(
-        'script[src="https://assets.calendly.com/assets/external/widget.js"]'
-      );
-
-      function initializeCalendlyWidget() {
-        if (window.Calendly && !isCalendlyInitialized) {
-          window.Calendly.initInlineWidget({
-            url: "https://calendly.com/senna-automation/let-s-chat-ai-automation?hide_event_type_details=1&hide_gdpr_banner=1",
-            parentElement: document.getElementById("calendly-inline-widget"),
-          });
-          isCalendlyInitialized = true;
-        }
-      }
-
-      if (!existingScript) {
-        const script = document.createElement("script");
-        script.src = "https://assets.calendly.com/assets/external/widget.js";
-        script.async = true;
-        script.onload = initializeCalendlyWidget;
-        document.body.appendChild(script);
-      } else {
-        initializeCalendlyWidget();
-      }
-    }
-
-    return () => {
-      if (!open) {
-        // Clean up Calendly widget when modal is closed
-        const calendlyContainer = document.getElementById(
-          "calendly-inline-widget"
-        );
-        if (calendlyContainer) {
-          calendlyContainer.innerHTML = "";
-        }
-        isCalendlyInitialized = false;
-      }
-    };
-  }, [open]);
 
   return (
     <>
