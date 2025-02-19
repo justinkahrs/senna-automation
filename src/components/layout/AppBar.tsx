@@ -101,7 +101,7 @@ export function AppBar() {
                 onClick={handleMenuClose}
               >
                 <Typography color="inherit" variant="h6">
-                  Contact Us
+                  Contact
                 </Typography>
               </MenuItem>
             </Menu>
@@ -133,7 +133,7 @@ export function AppBar() {
               </Link>
               <Link href="/contact" passHref>
                 <Button color="inherit">
-                  <Typography variant="h6">Contact Us</Typography>
+                  <Typography variant="h6">Contact</Typography>
                 </Button>
               </Link>
             </Box>

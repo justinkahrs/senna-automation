@@ -10,9 +10,10 @@ export default function Home() {
           alignItems: "center",
           position: "relative",
           overflow: "hidden",
+          py: { xs: 8, md: 8 },
         }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
           <Stack spacing={4}>
             <Typography align="center" variant="h2">
               About Us
@@ -49,6 +50,13 @@ export default function Home() {
               straightforward ideas meet powerful results, and where any
               business can unlock the potential of technology without feeling
               overwhelmed.
+            </Typography>
+            <Typography>
+              <strong> Senna Automation </strong>
+              <br />
+              Established 2024
+              <br />
+              Grand Rapids, MI
             </Typography>
           </Stack>
         </Container>

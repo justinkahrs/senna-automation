@@ -15,6 +15,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import SuccessMessage from "../../components/SuccessMessage";
 import SlidingQuestionCard from "@/components/SlidingQuestionCard";
+import { validateContact } from "@/utils/validation";
 
 const questions = [
   {
@@ -34,8 +35,8 @@ const questions = [
   },
   {
     key: "budget",
-    label: "Budget Range:",
-    placeholder: "What is your estimated budget for this project? Feel free to provide a range.",
+    label: "Budget:",
+    placeholder: "(Just a ballpark number, optional)",
   },
   {
     key: "challenges",
@@ -56,7 +57,9 @@ const questions = [
 
 export default function RequestForm() {
   const [current, setCurrent] = useState(0);
-  const [slideDirection, setSlideDirection] = useState<"left" | "right">("left");
+  const [slideDirection, setSlideDirection] = useState<"left" | "right">(
+    "left"
+  );
   const [answers, setAnswers] = useState({
     name: "",
     business: "",
@@ -69,15 +72,11 @@ export default function RequestForm() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [contactTouched, setContactTouched] = useState(false);
   const theme = useTheme();
 
   const handleChange = (key: string, value: string) => {
     setAnswers((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const validateContact = (method: string, value: string) => {
-    if (method === "email") return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-    return /^\+?[0-9]{7,}$/.test(value);
   };
 
   const handleNext = async () => {
@@ -141,30 +140,38 @@ export default function RequestForm() {
         >
           {currentQuestion.key === "contact" ? (
             <FormControl component="fieldset" fullWidth>
-              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}>
-                <FormLabel component="legend" sx={{ fontSize: "1.25rem" }}>
-                  {currentQuestion.label}
-                </FormLabel>
-                <Typography variant="subtitle1" color="text.secondary">
-                  {current + 1}/{questions.length}
-                </Typography>
-              </Box>
+              <FormLabel component="legend" sx={{ mb: 1, fontSize: "1.25rem" }}>
+                {currentQuestion.label}
+              </FormLabel>
               <RadioGroup
                 row
                 value={answers.contactMethod}
                 onChange={(e) => handleChange("contactMethod", e.target.value)}
               >
-                <FormControlLabel value="email" control={<Radio />} label="Email" />
+                <FormControlLabel
+                  value="email"
+                  control={<Radio />}
+                  label="Email"
+                />
                 <FormControlLabel value="sms" control={<Radio />} label="SMS" />
               </RadioGroup>
               <TextField
                 fullWidth
                 required
                 autoFocus
-                label={answers.contactMethod === "email" ? "Email Address" : "Phone Number"}
-                placeholder={answers.contactMethod === "email" ? "Enter your email address" : "Enter your phone number"}
+                label={
+                  answers.contactMethod === "email"
+                    ? "Email Address"
+                    : "Phone Number"
+                }
+                placeholder={
+                  answers.contactMethod === "email"
+                    ? "Enter your email address"
+                    : "Enter your phone number"
+                }
                 value={answers.contactValue}
                 onChange={(e) => handleChange("contactValue", e.target.value)}
+                onBlur={() => setContactTouched(true)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && isValid) {
                     e.preventDefault();
@@ -174,10 +181,12 @@ export default function RequestForm() {
                 variant="outlined"
                 margin="normal"
                 error={
+                  contactTouched &&
                   answers.contactValue !== "" &&
                   !validateContact(answers.contactMethod, answers.contactValue)
                 }
                 helperText={
+                  contactTouched &&
                   answers.contactValue !== "" &&
                   !validateContact(answers.contactMethod, answers.contactValue)
                     ? answers.contactMethod === "email"
@@ -189,7 +198,13 @@ export default function RequestForm() {
             </FormControl>
           ) : (
             <>
-              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
                 <Typography variant="h5" gutterBottom>
                   {currentQuestion.label}
                 </Typography>
@@ -199,11 +214,17 @@ export default function RequestForm() {
               </Box>
               <TextField
                 fullWidth
-                required={currentQuestion.key !== "budget" && currentQuestion.key !== "website"}
+                required={
+                  currentQuestion.key !== "budget" &&
+                  currentQuestion.key !== "website"
+                }
                 autoFocus
+                type={currentQuestion.key === "budget" ? "number" : "text"}
                 placeholder={currentQuestion.placeholder}
                 value={answers[currentQuestion.key as keyof typeof answers]}
-                onChange={(e) => handleChange(currentQuestion.key, e.target.value)}
+                onChange={(e) =>
+                  handleChange(currentQuestion.key, e.target.value)
+                }
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && isValid) {
                     e.preventDefault();
@@ -217,7 +238,11 @@ export default function RequestForm() {
           )}
           <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
             {current > 0 && <Button onClick={handleBack}>Back</Button>}
-            <Button variant="contained" onClick={handleNext} disabled={submitting || !isValid}>
+            <Button
+              variant="contained"
+              onClick={handleNext}
+              disabled={submitting || !isValid}
+            >
               {current === questions.length - 1 ? "Submit" : "Next"}
             </Button>
           </Box>
