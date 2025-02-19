@@ -15,7 +15,7 @@ export default function ConfirmationPage() {
           Thank you!
         </Typography>
         <Typography variant="h5" color="text.secondary">
-          We appreciate you scheduling with us. We’ll be in touch soon.
+          We&apos;ll be in touch soon.
         </Typography>
       </Container>
     </Box>

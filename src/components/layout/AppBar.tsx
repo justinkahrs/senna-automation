@@ -86,6 +86,24 @@ export function AppBar() {
                   Request
                 </Typography>
               </MenuItem>
+              <MenuItem
+                component={Link}
+                href="/about"
+                onClick={handleMenuClose}
+              >
+                <Typography color="inherit" variant="h6">
+                  About
+                </Typography>
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                href="/contact"
+                onClick={handleMenuClose}
+              >
+                <Typography color="inherit" variant="h6">
+                  Contact Us
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         ) : (
@@ -106,6 +124,16 @@ export function AppBar() {
               <Link href="/request" passHref>
                 <Button color="inherit">
                   <Typography variant="h6">Request</Typography>
+                </Button>
+              </Link>
+              <Link href="/about" passHref>
+                <Button color="inherit">
+                  <Typography variant="h6">About</Typography>
+                </Button>
+              </Link>
+              <Link href="/contact" passHref>
+                <Button color="inherit">
+                  <Typography variant="h6">Contact Us</Typography>
                 </Button>
               </Link>
             </Box>
