@@ -30,6 +30,30 @@ export default function RootLayout({
           defer
           strategy="afterInteractive"
         />
+        <Script
+          src="https://cdn.usefathom.com/script.js"
+          data-site="ZENVGNJZ"
+          defer
+          strategy="afterInteractive"
+        />
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16832579878"
+          async
+        />
+        <Script
+          id="google-tag-manager"
+          strategy="afterInteractive"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+          dangerouslySetInnerHTML={{
+            __html: `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-16832579878');
+    `,
+          }}
+        />
       </head>
       <body>
         <ClientProviders>
