@@ -227,7 +227,8 @@ export default function RequestForm() {
                 onKeyDown={(e) => {
                   // If the current question is for the budget, enforce numeric input rules
                   if (currentQuestion.key === "budget") {
-                    if (e.key === "." && e.target.value.includes(".")) {
+                    const input = e.target as HTMLInputElement;
+                    if (e.key === "." && input.value.includes(".")) {
                       e.preventDefault();
                     } else if (e.key.length === 1 && !/[0-9.]/.test(e.key)) {
                       e.preventDefault();
