@@ -26,7 +26,6 @@ export default function Home() {
               sx={{
                 mb: 6,
                 mx: "auto",
-                fontSize: { xs: "1.1rem", md: "1.3rem" },
               }}
             >
               Powerful AI automation tools to streamline your workflow and boost

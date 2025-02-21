@@ -15,6 +15,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import SuccessMessage from "../../components/SuccessMessage";
 import SlidingQuestionCard from "@/components/SlidingQuestionCard";
+import { validateContact } from "@/utils/validation";
 
 const questions = [
   {
@@ -33,25 +34,24 @@ const questions = [
     placeholder: "Enter your business website or URL (optional).",
   },
   {
-    key: "budget",
-    label: "Budget Range:",
-    placeholder:
-      "What is your estimated budget for this project? Feel free to provide a range.",
-  },
-  {
     key: "challenges",
-    label: "What challenges are you facing?",
+    label: "What day-to-day challenges are you facing?",
     placeholder: "Briefly describe the main problem you need help solving.",
   },
   {
     key: "assistance",
-    label: "How can we assist you?",
-    placeholder: "What specific support or solutions are you looking for?",
+    label: "How can we address those challenges?",
+    placeholder: "It's ok if you aren't sure right now.",
+  },
+  {
+    key: "budget",
+    label: "Budget:",
+    placeholder: "(one number, optional)",
   },
   {
     key: "contact",
     label: "How would you prefer to be contacted?",
-    type: "contact",
+    placeholder: "",
   },
 ];
 
@@ -72,15 +72,11 @@ export default function RequestForm() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [contactTouched, setContactTouched] = useState(false);
   const theme = useTheme();
 
   const handleChange = (key: string, value: string) => {
     setAnswers((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const validateContact = (method: string, value: string) => {
-    if (method === "email") return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-    return /^\+?[0-9]{7,}$/.test(value);
   };
 
   const handleNext = async () => {
@@ -118,7 +114,6 @@ export default function RequestForm() {
     isValid = validateContact(answers.contactMethod, answers.contactValue);
   } else {
     isValid =
-      currentQuestion.key === "budget" ||
       currentQuestion.key === "website" ||
       answers[currentQuestion.key as keyof typeof answers].trim() !== "";
   }
@@ -175,6 +170,7 @@ export default function RequestForm() {
                 }
                 value={answers.contactValue}
                 onChange={(e) => handleChange("contactValue", e.target.value)}
+                onBlur={() => setContactTouched(true)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && isValid) {
                     e.preventDefault();
@@ -184,10 +180,12 @@ export default function RequestForm() {
                 variant="outlined"
                 margin="normal"
                 error={
+                  contactTouched &&
                   answers.contactValue !== "" &&
                   !validateContact(answers.contactMethod, answers.contactValue)
                 }
                 helperText={
+                  contactTouched &&
                   answers.contactValue !== "" &&
                   !validateContact(answers.contactMethod, answers.contactValue)
                     ? answers.contactMethod === "email"
@@ -199,9 +197,20 @@ export default function RequestForm() {
             </FormControl>
           ) : (
             <>
-              <Typography variant="h5" gutterBottom>
-                {currentQuestion.label}
-              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="h5" gutterBottom>
+                  {currentQuestion.label}
+                </Typography>
+                <Typography variant="subtitle1" color="text.secondary">
+                  {current + 1}/{questions.length}
+                </Typography>
+              </Box>
               <TextField
                 fullWidth
                 required={
@@ -209,15 +218,27 @@ export default function RequestForm() {
                   currentQuestion.key !== "website"
                 }
                 autoFocus
+                type={currentQuestion.key === "budget" ? "number" : "text"}
                 placeholder={currentQuestion.placeholder}
                 value={answers[currentQuestion.key as keyof typeof answers]}
                 onChange={(e) =>
                   handleChange(currentQuestion.key, e.target.value)
                 }
                 onKeyDown={(e) => {
+                  // If the current question is for the budget, enforce numeric input rules
+                  if (currentQuestion.key === "budget") {
+                    const input = e.target as HTMLInputElement;
+                    if (e.key === "." && input.value.includes(".")) {
+                      e.preventDefault();
+                    } else if (e.key.length === 1 && !/[0-9.]/.test(e.key)) {
+                      e.preventDefault();
+                    }
+                  }
+                  // Handle Enter key if valid
                   if (e.key === "Enter" && isValid) {
                     e.preventDefault();
                     handleNext();
+                    return;
                   }
                 }}
                 variant="outlined"

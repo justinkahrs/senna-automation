@@ -16,11 +16,18 @@ export function Footer() {
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
+            <Typography variant="h5" color="text.primary" gutterBottom>
               Senna Automation
             </Typography>
+            <Typography variant="body2" color="text.secondary" gutterBottom>
+              Grand Rapids, MI
+            </Typography>
+            <Typography variant="body2" color="text.secondary" gutterBottom>
+              (616) 524-4477
+            </Typography>
+            <br />
             <Typography variant="body2" color="text.secondary">
-              Let&apos;s integrate AI and automate your business.
+              Let&apos;s integrate AI into your business, together.
             </Typography>
           </Grid>
           <Grid item xs={12}>

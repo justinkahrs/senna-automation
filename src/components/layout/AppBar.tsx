@@ -38,9 +38,15 @@ export function AppBar() {
       <Toolbar sx={{ width: "100%" }}>
         <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-start" }}>
           <Link href="/" passHref>
-            <Typography variant="h5" color="inherit" sx={{ cursor: "pointer" }}>
-              Senna Automation
-            </Typography>
+            <Box
+              component="img"
+              src={mode === "dark" ? "/senna-automation-full-logo-grey.svg" : "/senna-automation-full-logo.svg"}
+              alt="Senna Automation"
+              sx={{
+                height: 40,
+                cursor: "pointer",
+              }}
+            />
           </Link>
         </Box>
         {isMobile ? (
@@ -86,6 +92,24 @@ export function AppBar() {
                   Request
                 </Typography>
               </MenuItem>
+              <MenuItem
+                component={Link}
+                href="/about"
+                onClick={handleMenuClose}
+              >
+                <Typography color="inherit" variant="h6">
+                  About
+                </Typography>
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                href="/contact"
+                onClick={handleMenuClose}
+              >
+                <Typography color="inherit" variant="h6">
+                  Contact
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         ) : (
@@ -100,12 +124,22 @@ export function AppBar() {
             >
               <Link href="/products" passHref>
                 <Button color="inherit">
-                  <Typography variant="h6">Products</Typography>
+                  <Typography variant="h5">Products</Typography>
                 </Button>
               </Link>
               <Link href="/request" passHref>
                 <Button color="inherit">
-                  <Typography variant="h6">Request</Typography>
+                  <Typography variant="h5">Request</Typography>
+                </Button>
+              </Link>
+              <Link href="/about" passHref>
+                <Button color="inherit">
+                  <Typography variant="h5">About</Typography>
+                </Button>
+              </Link>
+              <Link href="/contact" passHref>
+                <Button color="inherit">
+                  <Typography variant="h5">Contact</Typography>
                 </Button>
               </Link>
             </Box>
