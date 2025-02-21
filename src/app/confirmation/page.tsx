@@ -1,4 +1,5 @@
 import { Box, Container, Typography } from "@mui/material";
+import Script from "next/script";
 
 export default function ConfirmationPage() {
   return (
