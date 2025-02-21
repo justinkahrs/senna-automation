@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useTheme } from "@mui/material/styles";
 import {
   Box,
   TextField,
@@ -12,15 +12,17 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { validateContact } from "@/utils/validation";
+import SuccessMessage from "@/components/SuccessMessage";
 
 export default function Home() {
-  const router = useRouter();
+  const theme = useTheme();
   const [name, setName] = useState("");
   const [assistance, setAssistance] = useState("");
   const [contactMethod, setContactMethod] = useState("email");
   const [contactValue, setContactValue] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [touched, setTouched] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const isValidContact = validateContact(contactMethod, contactValue);
   const showError = touched && contactValue !== "" && !isValidContact;
@@ -36,7 +38,7 @@ export default function Home() {
         body: JSON.stringify({ name, assistance, contactMethod, contactValue }),
       });
       if (res.ok) {
-        router.push("/confirmation");
+        setSubmitted(true);
       } else {
         setSubmitting(false);
       }
@@ -45,6 +47,8 @@ export default function Home() {
       setSubmitting(false);
     }
   };
+
+  if (submitted) return <SuccessMessage />;
 
   if (submitting) {
     return (
@@ -58,7 +62,7 @@ export default function Home() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "rgba(255,255,255,0.8)",
+          backgroundColor: theme.palette.background.default,
           zIndex: 9999,
         }}
       >
@@ -70,6 +74,8 @@ export default function Home() {
   return (
     <Box
       sx={{
+        bgcolor: theme.palette.background.default,
+        color: theme.palette.text.primary,
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -133,6 +139,9 @@ export default function Home() {
           Submit
         </Button>
       </Box>
+      <Typography sx={{ mt: 2 }}>
+        or call us at <a href="tel:+16165244477">(616) 524-4477</a>
+      </Typography>
     </Box>
   );
 }

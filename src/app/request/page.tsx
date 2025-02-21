@@ -34,24 +34,24 @@ const questions = [
     placeholder: "Enter your business website or URL (optional).",
   },
   {
-    key: "budget",
-    label: "Budget:",
-    placeholder: "(Just a ballpark number, optional)",
-  },
-  {
     key: "challenges",
-    label: "What challenges are you facing?",
+    label: "What day-to-day challenges are you facing?",
     placeholder: "Briefly describe the main problem you need help solving.",
   },
   {
     key: "assistance",
-    label: "How can we assist you?",
-    placeholder: "What specific support or solutions are you looking for?",
+    label: "How can we address those challenges?",
+    placeholder: "It's ok if you aren't sure right now.",
+  },
+  {
+    key: "budget",
+    label: "Budget:",
+    placeholder: "(one number, optional)",
   },
   {
     key: "contact",
     label: "How would you prefer to be contacted?",
-    type: "contact",
+    placeholder: "",
   },
 ];
 
@@ -114,7 +114,6 @@ export default function RequestForm() {
     isValid = validateContact(answers.contactMethod, answers.contactValue);
   } else {
     isValid =
-      currentQuestion.key === "budget" ||
       currentQuestion.key === "website" ||
       answers[currentQuestion.key as keyof typeof answers].trim() !== "";
   }
@@ -226,9 +225,19 @@ export default function RequestForm() {
                   handleChange(currentQuestion.key, e.target.value)
                 }
                 onKeyDown={(e) => {
+                  // If the current question is for the budget, enforce numeric input rules
+                  if (currentQuestion.key === "budget") {
+                    if (e.key === "." && e.target.value.includes(".")) {
+                      e.preventDefault();
+                    } else if (e.key.length === 1 && !/[0-9.]/.test(e.key)) {
+                      e.preventDefault();
+                    }
+                  }
+                  // Handle Enter key if valid
                   if (e.key === "Enter" && isValid) {
                     e.preventDefault();
                     handleNext();
+                    return;
                   }
                 }}
                 variant="outlined"

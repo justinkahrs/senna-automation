@@ -15,7 +15,13 @@ export default function Home() {
       >
         <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
           <Stack spacing={4}>
-            <Typography align="center" variant="h2">
+            <Typography
+              component="h1"
+              variant="h4"
+              align="center"
+              color="text.primary"
+              gutterBottom
+            >
               About Us
             </Typography>
             <Typography
@@ -33,10 +39,13 @@ export default function Home() {
               companies can focus on what truly matters.
               <br />
               <br />
-              This idea was sparked by <strong>Justin Kahrs</strong>, who worked
-              on fleet automation in a Silicon Valley start-up. He noticed that
-              smart systems, usually designed for large operations, could also
-              help smaller or less “tech-focused” businesses succeed.
+              This idea was sparked by{" "}
+              <strong>
+                <a href="https://www.justinkahrs.com">Justin Kahrs</a>
+              </strong>
+              , who worked on fleet automation in a Silicon Valley start-up. He
+              noticed that smart systems, usually designed for large operations,
+              could also help smaller or less “tech-focused” businesses succeed.
               <br />
               <br />
               Today, the mission is clear: create solutions that remove
@@ -51,10 +60,16 @@ export default function Home() {
               business can unlock the potential of technology without feeling
               overwhelmed.
             </Typography>
-            <Typography>
+            <Typography
+              variant="h5"
+              align="left"
+              color="text.secondary"
+              sx={{
+                mb: 6,
+                mx: "auto",
+              }}
+            >
               <strong> Senna Automation </strong>
-              <br />
-              Established 2024
               <br />
               Grand Rapids, MI
             </Typography>

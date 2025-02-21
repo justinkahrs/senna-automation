@@ -239,6 +239,23 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
           },
         },
       },
+      MuiInputBase: {
+        styleOverrides: {
+          input: {
+            "&[type=number]": {
+              MozAppearance: "textfield",
+            },
+            "&[type=number]::-webkit-outer-spin-button": {
+              WebkitAppearance: "none",
+              margin: 0,
+            },
+            "&[type=number]::-webkit-inner-spin-button": {
+              WebkitAppearance: "none",
+              margin: 0,
+            },
+          },
+        },
+      },
       MuiMenu: {
         styleOverrides: {
           paper: ({ theme }) => ({
