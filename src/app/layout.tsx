@@ -50,7 +50,7 @@ export default function RootLayout({
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'AW-16832579878');
+      gtag('config', 'G-XWW3M708ZP');
     `,
           }}
         />
