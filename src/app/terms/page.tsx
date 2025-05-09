@@ -13,7 +13,7 @@ export default function Terms() {
       <Container maxWidth="md">
         <Paper sx={{ p: 4 }}>
           <Typography variant="h2" gutterBottom>
-            Terms of Use
+            Terms of Service
           </Typography>
           <Typography variant="subtitle1" color="text.secondary" paragraph>
             Last updated: May 8, 2025
@@ -28,8 +28,8 @@ export default function Terms() {
             >
               https://www.senna-automation.com
             </a>{" "}
-            (the “Site”), you agree to these Terms of Use (“Terms”). If you do
-            not agree, please do not use the Site.
+            (the “Site”), you agree to these Terms of Service (“Terms”). If you
+            do not agree, please do not use the Site.
           </Typography>
 
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
