@@ -7,7 +7,7 @@ export default function AnimatedHeroTitle() {
   const [index, setIndex] = useState(0);
   const [count, setCount] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const words = useRef(["work.", "business.", "day.", "life."]);
+  const words = useRef(["work.", "business.", "day."]);
 
   useEffect(() => {
     const current = words.current[index];
