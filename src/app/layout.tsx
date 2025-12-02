@@ -7,6 +7,22 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Senna Automation - Streamline Your Workflow",
   description: "Powerful automation tools for modern businesses",
+  keywords: [
+    "Grand Rapids web development",
+    "Grand Rapids web design",
+    "Michigan web development",
+    "AI automation tools",
+    "artificial intelligence automation",
+    "business automation software",
+    "workflow automation",
+    "custom software development",
+    "custom applications",
+    "bespoke software solutions",
+    "web development Grand Rapids MI",
+    "AI tools for business",
+    "automation consulting",
+    "software development Michigan",
+  ],
 };
 export default function RootLayout({
   children,
