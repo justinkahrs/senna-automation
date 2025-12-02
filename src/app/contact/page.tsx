@@ -140,7 +140,7 @@ export default function Home() {
         </Button>
       </Box>
       <Typography sx={{ mt: 2 }}>
-        or call us at <a href="tel:+16165244477">(616) 524-4477</a>
+        or call us at <a href="tel:+16162873360">(616) 287-3360</a>
       </Typography>
     </Box>
   );

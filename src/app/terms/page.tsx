@@ -184,7 +184,7 @@ export default function Terms() {
               legal@senna-automation.com
             </a>
             <br />
-            Phone: (616) 524-4477
+            Phone: (616) 287-3360
           </Typography>
         </Paper>
       </Container>

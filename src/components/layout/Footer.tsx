@@ -23,7 +23,7 @@ export function Footer() {
               Grand Rapids, MI
             </Typography>
             <Typography variant="body2" color="text.secondary" gutterBottom>
-              (616) 524-4477
+              (616) 287-3360
             </Typography>
             <br />
             <Typography variant="body2" color="text.secondary">
