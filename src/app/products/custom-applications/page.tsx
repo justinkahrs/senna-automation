@@ -159,17 +159,6 @@ export default function CustomApplications() {
                 >
                     {customApplications.map((app, index) => {
                         const Icon = app.icon;
-                        const ref = useRef<HTMLDivElement>(null);
-                        const { scrollYProgress } = useScroll({
-                            target: ref as React.RefObject<HTMLElement>,
-                            offset: ["0.8 1.5", "1 1"],
-                        });
-                        const offset = isMobile ? 25 : 0;
-                        const direction = index % 2 === 0 ? "left" : "right";
-                        const initialX = direction === "right" ? offset : -offset;
-                        const x = useTransform(scrollYProgress, [0, 1], [initialX, 0]);
-                        const y = useTransform(scrollYProgress, [0, 1], [25, 0]);
-                        const opacity = useTransform(scrollYProgress, [0.4, 1], [0.4, 1]);
 
                         return (
                             <Grid
@@ -179,7 +168,13 @@ export default function CustomApplications() {
                                 key={app.title}
                                 sx={{ display: "flex" }}
                             >
-                                <motion.div ref={ref} style={{ width: "100%", x, y, opacity }}>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    style={{ width: "100%" }}
+                                >
                                     <Card
                                         sx={{
                                             height: "100%",
@@ -268,7 +263,7 @@ export default function CustomApplications() {
                         Free Application Discovery Session
                     </Typography>
                     <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-                        Let's explore how a custom-built application can solve your unique business challenges. During this session, we will:
+                        Let&apos;s explore how a custom-built application can solve your unique business challenges. During this session, we will:
                     </Typography>
                     <List sx={{ mb: 4 }}>
                         <ListItem sx={{ py: 0.5 }}>
