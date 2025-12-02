@@ -32,10 +32,15 @@ export default function Home() {
     if (!isValidContact) return;
     setSubmitting(true);
     try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('assistance', assistance);
+      formData.append('contactMethod', contactMethod);
+      formData.append('contactValue', contactValue);
+
       const res = await fetch("/api/form-hook", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, assistance, contactMethod, contactValue }),
+        body: formData,
       });
       if (res.ok) {
         setSubmitted(true);

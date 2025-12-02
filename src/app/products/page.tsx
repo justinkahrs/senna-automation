@@ -4,16 +4,43 @@ import {
   Container,
   Typography,
   Grid,
+  Card,
+  CardContent,
+  CardActionArea,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { products } from "./products";
-import ProductCard from "@/components/ProductCard";
-import { CustomRequest } from "@/components/CustomRequest";
+import SmartToyIcon from "@mui/icons-material/SmartToy";
+import WebIcon from "@mui/icons-material/Web";
+import AppsIcon from "@mui/icons-material/Apps";
+import { useRouter } from "next/navigation";
+
+const categories = [
+  {
+    title: "AI/Automation",
+    description: "Powerful automation tools needing minimal customization.",
+    icon: SmartToyIcon,
+    href: "/products/ai-automation",
+  },
+  {
+    title: "Custom Applications",
+    description: "Tailor-made software solutions for your specific needs.",
+    icon: AppsIcon,
+    href: "/products/custom-applications",
+  },
+  {
+    title: "Web Development",
+    description: "Modern, responsive websites to grow your business.",
+    icon: WebIcon,
+    href: "/products/web-development",
+  },
+];
 
 export default function Products() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const router = useRouter();
+
   return (
     <Box
       sx={{
@@ -30,7 +57,7 @@ export default function Products() {
           color="text.primary"
           gutterBottom
         >
-          AI Automation Templates
+          Our Solutions
         </Typography>
         <Typography
           variant="h6"
@@ -38,35 +65,51 @@ export default function Products() {
           color="text.secondary"
           sx={{ mb: 8, textAlign: isMobile ? "justify" : "center" }}
         >
-          Powerful automation tools needing minimal customization to get up and
-          running in your business.
+          Explore our range of services and products designed to elevate your business.
         </Typography>
 
-        <Grid
-          container
-          justifyContent="center"
-          alignItems="stretch"
-          spacing={4}
-        >
-          {products.map((product, index) => (
-            <Grid
-              item
-              xs={12}
-              md={8}
-              key={product.title}
-              sx={{ display: "flex" }}
-            >
-              <ProductCard
-                product={product}
-                direction={index % 2 === 0 ? "left" : "right"}
-              />
+        <Grid container spacing={4} justifyContent="center">
+          {categories.map((category) => (
+            <Grid item xs={12} md={4} key={category.title}>
+              <Card
+                sx={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  transition: "transform 0.2s",
+                  "&:hover": {
+                    transform: "translateY(-4px)",
+                    boxShadow: theme.shadows[4],
+                  },
+                }}
+              >
+                <CardActionArea
+                  onClick={() => router.push(category.href)}
+                  sx={{ height: "100%", p: 2 }}
+                >
+                  <CardContent
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      textAlign: "center",
+                      gap: 2,
+                    }}
+                  >
+                    <category.icon
+                      sx={{ fontSize: 60, color: "primary.main" }}
+                    />
+                    <Typography variant="h5" component="h2" gutterBottom>
+                      {category.title}
+                    </Typography>
+                    <Typography variant="body1" color="text.secondary">
+                      {category.description}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
             </Grid>
           ))}
-          <Grid container item xs={12} md={8} justifyContent="center">
-            <Grid item xs={9} sx={{ display: "flex", mt: 12 }}>
-              <CustomRequest />
-            </Grid>
-          </Grid>
         </Grid>
       </Container>
     </Box>

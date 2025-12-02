@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: "/api/form-hook",
-        destination: "https://hook.us2.make.com/utvv1tsaaawy4glvn6eikqgqxbjg6u5d"
+        destination: "https://hook.us2.make.com/vp8vpc4allsibttx61nk23bkw24etkrx"
       }
     ];
   }

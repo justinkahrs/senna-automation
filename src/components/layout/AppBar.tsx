@@ -12,10 +12,12 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ColorModeContext } from "@/app/ClientProviders";
 import ThemeToggleIcon from "@/components/ThemeToggleIcon";
+import { useRouter } from "next/navigation";
 
 export function AppBar() {
   const { toggleColorMode, mode } = useContext(ColorModeContext);
@@ -23,14 +25,30 @@ export function AppBar() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"), {
     defaultMatches: true,
   });
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const router = useRouter();
+  const [mobileMenuAnchorEl, setMobileMenuAnchorEl] = useState<null | HTMLElement>(null);
+  const [productsMenuAnchorEl, setProductsMenuAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setMobileMenuAnchorEl(event.currentTarget);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
+  const handleMobileMenuClose = () => {
+    setMobileMenuAnchorEl(null);
+  };
+
+  const handleProductsMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setProductsMenuAnchorEl(event.currentTarget);
+  };
+
+  const handleProductsMenuClose = () => {
+    setProductsMenuAnchorEl(null);
+  };
+
+  const handleProductClick = (path: string) => {
+    router.push(path);
+    handleProductsMenuClose();
+    handleMobileMenuClose();
   };
 
   return (
@@ -65,37 +83,48 @@ export function AppBar() {
               edge="start"
               color="inherit"
               aria-label="menu"
-              onClick={handleMenuOpen}
+              onClick={handleMobileMenuOpen}
             >
               <MenuIcon />
             </IconButton>
             <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
+              anchorEl={mobileMenuAnchorEl}
+              open={Boolean(mobileMenuAnchorEl)}
+              onClose={handleMobileMenuClose}
             >
-              <MenuItem
-                component={Link}
-                href="/products"
-                onClick={handleMenuClose}
-              >
+              <MenuItem onClick={handleProductsMenuOpen}>
                 <Typography color="inherit" variant="h6">
                   Products
                 </Typography>
+                <KeyboardArrowDownIcon />
               </MenuItem>
-              <MenuItem
-                component={Link}
-                href="/request"
-                onClick={handleMenuClose}
+              <Menu
+                anchorEl={productsMenuAnchorEl}
+                open={Boolean(productsMenuAnchorEl)}
+                onClose={handleProductsMenuClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
               >
-                <Typography color="inherit" variant="h6">
-                  Request
-                </Typography>
-              </MenuItem>
+                <MenuItem onClick={() => handleProductClick("/products/ai-automation")}>
+                  AI/Automation
+                </MenuItem>
+                <MenuItem onClick={() => handleProductClick("/products/web-development")}>
+                  Web Development
+                </MenuItem>
+                <MenuItem onClick={() => handleProductClick("/products/custom-applications")}>
+                  Custom Applications
+                </MenuItem>
+              </Menu>
               <MenuItem
                 component={Link}
                 href="/about"
-                onClick={handleMenuClose}
+                onClick={handleMobileMenuClose}
               >
                 <Typography color="inherit" variant="h6">
                   About
@@ -104,7 +133,7 @@ export function AppBar() {
               <MenuItem
                 component={Link}
                 href="/contact"
-                onClick={handleMenuClose}
+                onClick={handleMobileMenuClose}
               >
                 <Typography color="inherit" variant="h6">
                   Contact
@@ -122,16 +151,28 @@ export function AppBar() {
                 gap: 2,
               }}
             >
-              <Link href="/products" passHref>
-                <Button color="inherit">
-                  <Typography variant="h5">Products</Typography>
-                </Button>
-              </Link>
-              <Link href="/request" passHref>
-                <Button color="inherit">
-                  <Typography variant="h5">Request</Typography>
-                </Button>
-              </Link>
+              <Button
+                color="inherit"
+                onClick={handleProductsMenuOpen}
+                endIcon={<KeyboardArrowDownIcon />}
+              >
+                <Typography variant="h5">Products</Typography>
+              </Button>
+              <Menu
+                anchorEl={productsMenuAnchorEl}
+                open={Boolean(productsMenuAnchorEl)}
+                onClose={handleProductsMenuClose}
+              >
+                <MenuItem onClick={() => handleProductClick("/products/ai-automation")}>
+                  <Typography variant="body1">AI/Automation</Typography>
+                </MenuItem>
+                <MenuItem onClick={() => handleProductClick("/products/web-development")}>
+                  <Typography variant="body1">Web Development</Typography>
+                </MenuItem>
+                <MenuItem onClick={() => handleProductClick("/products/custom-applications")}>
+                  <Typography variant="body1">Custom Applications</Typography>
+                </MenuItem>
+              </Menu>
               <Link href="/about" passHref>
                 <Button color="inherit">
                   <Typography variant="h5">About</Typography>
