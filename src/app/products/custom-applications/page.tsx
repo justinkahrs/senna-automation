@@ -21,8 +21,8 @@ import {
     CircularProgress,
     MenuItem,
 } from "@mui/material";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import Image from "next/image";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
