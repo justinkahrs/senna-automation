@@ -1,10 +1,14 @@
+
+"use client";
 import { Box, Container, Stack, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 export default function Home() {
+  const theme = useTheme();
   return (
     <>
       <Box
         sx={{
-          bgcolor: "background.paper",
+          bgcolor: theme.palette.background.default,
           minHeight: "100vh",
           display: "flex",
           alignItems: "center",
