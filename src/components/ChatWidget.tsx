@@ -271,7 +271,7 @@ export default function ChatWidget() {
             }}
           >
             <Typography variant="subtitle1" fontWeight="bold">
-              Contact Me
+              Live Chat
             </Typography>
             <IconButton
               size="small"
@@ -298,7 +298,7 @@ export default function ChatWidget() {
                   To start a chat, please introduce yourself.
                 </Typography>
                 <TextField
-                  label="Display Name"
+                  label="Full Name"
                   value={inputName}
                   onChange={(e) => setInputName(e.target.value)}
                   fullWidth
@@ -314,8 +314,10 @@ export default function ChatWidget() {
                     Disclaimer:
                   </Typography>
                   <Typography variant="body2">
-                    &quot;This will literally message me on my phone. You are
-                    responsible for waking me up.&quot;
+                    This will message a live representative, not AI! Operating
+                    hours are Monday-Friday 9am-5pm ET, but feel free to reach
+                    out outside of those hours. We will get back to you as soon
+                    as possible.
                   </Typography>
                 </Box>
 
