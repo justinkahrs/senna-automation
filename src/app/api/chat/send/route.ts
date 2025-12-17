@@ -36,8 +36,19 @@ export async function POST(request: Request) {
         // Optionally prefix with display name, but requirements say keep minimal.
         // We'll just send the text.
       telegramMsg = await sendTelegramMessage(session.topic_thread_id, text);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Failed to send to Telegram:", err);
+      // Telegram API error for missing thread usually contains "thread not found" or similar
+      // The utils/telegram throws Error with description.
+      // Typical error: "Bad Request: message thread not found"
+      const errorMessage = err.message || "";
+      if (errorMessage.toLowerCase().includes("thread not found") || errorMessage.toLowerCase().includes("topic not found")) {
+          return NextResponse.json(
+            { error: "Conversation ended on server" },
+            { status: 410 }
+          );
+      }
+
       return NextResponse.json(
         { error: "Failed to send message to Telegram" },
         { status: 502 }

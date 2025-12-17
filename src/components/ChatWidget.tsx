@@ -45,6 +45,7 @@ export default function ChatWidget() {
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
   const [initializing, setInitializing] = useState(true);
+  const [chatEnded, setChatEnded] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<string | null>(null);
@@ -169,6 +170,23 @@ export default function ChatWidget() {
     }
   };
 
+  const handleResetChat = () => {
+    // Clear storage
+    localStorage.removeItem(STORAGE_KEY_SESSION);
+    // Keep name and consent? Maybe keep name but require consent again to be safe?
+    // Requirements say "clear out old thread ID".
+    // Let's do a soft reset: keep name, but clear session and consent.
+    localStorage.removeItem(STORAGE_KEY_CONSENT);
+
+    // Reset state
+    setSession(null);
+    setHasConsent(false);
+    setMessages([]);
+    setChatEnded(false);
+    cursorRef.current = null;
+    setInputText("");
+  };
+
   const handleSendMessage = async () => {
     if (!inputText.trim() || !session) return;
     const textToSend = inputText.trim();
@@ -184,6 +202,11 @@ export default function ChatWidget() {
           text: textToSend,
         }),
       });
+
+      if (res.status === 410) {
+        setChatEnded(true);
+        return;
+      }
 
       if (res.ok) {
         const result = await res.json();
@@ -354,29 +377,47 @@ export default function ChatWidget() {
                 borderColor: "divider",
                 display: "flex",
                 gap: 1,
+                flexDirection: chatEnded ? "column" : "row",
               }}
             >
-              <TextField
-                size="small"
-                fullWidth
-                placeholder="Type a message..."
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    handleSendMessage();
-                  }
-                }}
-                disabled={sending}
-              />
-              <IconButton
-                color="primary"
-                onClick={handleSendMessage}
-                disabled={!inputText.trim() || sending}
-              >
-                {sending ? <CircularProgress size={24} /> : <SendIcon />}
-              </IconButton>
+              {chatEnded ? (
+                <Box sx={{ textAlign: "center", width: "100%" }}>
+                  <Typography variant="body2" color="error" gutterBottom>
+                    The chat has been ended by the agent.
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={handleResetChat}
+                  >
+                    Start New Chat
+                  </Button>
+                </Box>
+              ) : (
+                <>
+                  <TextField
+                    size="small"
+                    fullWidth
+                    placeholder="Type a message..."
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSendMessage();
+                      }
+                    }}
+                    disabled={sending}
+                  />
+                  <IconButton
+                    color="primary"
+                    onClick={handleSendMessage}
+                    disabled={!inputText.trim() || sending}
+                  >
+                    {sending ? <CircularProgress size={24} /> : <SendIcon />}
+                  </IconButton>
+                </>
+              )}
             </Box>
           )}
         </Paper>
