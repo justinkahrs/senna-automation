@@ -314,10 +314,9 @@ export default function ChatWidget() {
                     Disclaimer:
                   </Typography>
                   <Typography variant="body2">
-                    This will message a live representative, not AI! Operating
-                    hours are Monday-Friday 9am-5pm ET, but feel free to reach
-                    out outside of those hours. We will get back to you as soon
-                    as possible.
+                    This is not AI! Operating hours are Monday-Friday 9am-5pm
+                    ET, but we will do our best to respond outside of those
+                    hours.
                   </Typography>
                 </Box>
 
