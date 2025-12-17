@@ -3,6 +3,7 @@ import Script from "next/script";
 import { ClientProviders } from "./ClientProviders";
 import { AppBar } from "@/components/layout/AppBar";
 import { Footer } from "@/components/layout/Footer";
+import ChatWidget from "@/components/ChatWidget";
 import "./globals.css";
 export const metadata: Metadata = {
   title: "Senna Automation - Streamline Your Workflow",
@@ -84,6 +85,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <ChatWidget />
         </ClientProviders>
       </body>
     </html>
