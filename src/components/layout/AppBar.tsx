@@ -26,8 +26,10 @@ export function AppBar() {
     defaultMatches: true,
   });
   const router = useRouter();
-  const [mobileMenuAnchorEl, setMobileMenuAnchorEl] = useState<null | HTMLElement>(null);
-  const [productsMenuAnchorEl, setProductsMenuAnchorEl] = useState<null | HTMLElement>(null);
+  const [mobileMenuAnchorEl, setMobileMenuAnchorEl] =
+    useState<null | HTMLElement>(null);
+  const [productsMenuAnchorEl, setProductsMenuAnchorEl] =
+    useState<null | HTMLElement>(null);
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMenuAnchorEl(event.currentTarget);
@@ -58,7 +60,7 @@ export function AppBar() {
           <Link href="/" passHref>
             <Box
               component="img"
-              src={mode === "dark" ? "/senna-automation-full-logo-grey.svg" : "/senna-automation-full-logo.svg"}
+              src="/senna-automation-new.png"
               alt="Senna Automation"
               sx={{
                 height: 40,
@@ -103,21 +105,31 @@ export function AppBar() {
                 open={Boolean(productsMenuAnchorEl)}
                 onClose={handleProductsMenuClose}
                 anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
+                  vertical: "bottom",
+                  horizontal: "left",
                 }}
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
+                  vertical: "top",
+                  horizontal: "left",
                 }}
               >
-                <MenuItem onClick={() => handleProductClick("/products/ai-automation")}>
+                <MenuItem
+                  onClick={() => handleProductClick("/products/ai-automation")}
+                >
                   AI/Automation
                 </MenuItem>
-                <MenuItem onClick={() => handleProductClick("/products/web-development")}>
+                <MenuItem
+                  onClick={() =>
+                    handleProductClick("/products/web-development")
+                  }
+                >
                   Web Development
                 </MenuItem>
-                <MenuItem onClick={() => handleProductClick("/products/custom-applications")}>
+                <MenuItem
+                  onClick={() =>
+                    handleProductClick("/products/custom-applications")
+                  }
+                >
                   Custom Applications
                 </MenuItem>
               </Menu>
@@ -163,13 +175,23 @@ export function AppBar() {
                 open={Boolean(productsMenuAnchorEl)}
                 onClose={handleProductsMenuClose}
               >
-                <MenuItem onClick={() => handleProductClick("/products/ai-automation")}>
+                <MenuItem
+                  onClick={() => handleProductClick("/products/ai-automation")}
+                >
                   <Typography variant="body1">AI/Automation</Typography>
                 </MenuItem>
-                <MenuItem onClick={() => handleProductClick("/products/web-development")}>
+                <MenuItem
+                  onClick={() =>
+                    handleProductClick("/products/web-development")
+                  }
+                >
                   <Typography variant="body1">Web Development</Typography>
                 </MenuItem>
-                <MenuItem onClick={() => handleProductClick("/products/custom-applications")}>
+                <MenuItem
+                  onClick={() =>
+                    handleProductClick("/products/custom-applications")
+                  }
+                >
                   <Typography variant="body1">Custom Applications</Typography>
                 </MenuItem>
               </Menu>
