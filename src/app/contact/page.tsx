@@ -10,11 +10,13 @@ import {
   Radio,
   Typography,
   CircularProgress,
+  Container,
 } from "@mui/material";
 import { validateContact } from "@/utils/validation";
 import SuccessMessage from "@/components/SuccessMessage";
+import Head from "next/head";
 
-export default function Home() {
+export default function Contact() {
   const theme = useTheme();
   const [name, setName] = useState("");
   const [assistance, setAssistance] = useState("");
@@ -77,76 +79,133 @@ export default function Home() {
   }
 
   return (
-    <Box
-      sx={{
-        bgcolor: theme.palette.background.default,
-        color: theme.palette.text.primary,
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        p: 2,
-      }}
-    >
-      <Typography variant="h4" component="h1" gutterBottom>
-        Contact Us
-      </Typography>
+    <>
+      <Head>
+        <title>Contact Us | Senna Automation - AI Workflow Automation & Custom Software Development</title>
+        <meta 
+          name="description" 
+          content="Get in touch with Senna Automation for expert AI workflow automation, custom software development, and business AI integration. Serving Grand Rapids, Michigan and beyond." 
+        />
+        <meta name="keywords" content="AI automation consulting, business AI integration, chatbot development, process automation, custom software development, Grand Rapids web development, Michigan web design, contact AI experts" />
+      </Head>
       <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{ width: "100%", maxWidth: 600 }}
+        sx={{
+          bgcolor: theme.palette.background.default,
+          color: theme.palette.text.primary,
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          p: 2,
+        }}
       >
-        <TextField
-          fullWidth
-          label="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          margin="normal"
-        />
-        <TextField
-          fullWidth
-          label="How can we assist you?"
-          value={assistance}
-          onChange={(e) => setAssistance(e.target.value)}
-          margin="normal"
-        />
-        <RadioGroup
-          row
-          value={contactMethod}
-          onChange={(e) => setContactMethod(e.target.value)}
-        >
-          <FormControlLabel value="email" control={<Radio />} label="Email" />
-          <FormControlLabel value="sms" control={<Radio />} label="SMS" />
-        </RadioGroup>
-        <TextField
-          fullWidth
-          label={contactMethod === "email" ? "Email" : "Phone"}
-          value={contactValue}
-          onChange={(e) => setContactValue(e.target.value)}
-          onBlur={() => setTouched(true)}
-          margin="normal"
-          error={showError}
-          helperText={
-            showError
-              ? contactMethod === "email"
-                ? "Invalid email format"
-                : "Invalid phone format"
-              : ""
-          }
-        />
-        <Button
-          variant="contained"
-          type="submit"
-          sx={{ mt: 2 }}
-          disabled={!isValidContact}
-        >
-          Submit
-        </Button>
+        <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 } }}>
+          <Typography 
+            variant="h1" 
+            component="h1"
+            gutterBottom
+            align="center"
+            color="text.primary"
+          >
+            Contact Our AI Automation Experts
+          </Typography>
+          <Typography 
+            variant="h6" 
+            align="center" 
+            color="text.secondary"
+            sx={{ mb: 4 }}
+          >
+            Ready to transform your business with <strong>AI workflow automation</strong> and <strong>custom software development</strong>? 
+            Reach out to our team of experts serving Grand Rapids, Michigan.
+          </Typography>
+          
+          <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%", maxWidth: 600 }}>
+            <TextField
+              fullWidth
+              required
+              id="contact-name"
+              label="Your Name"
+              placeholder="John Smith"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              margin="normal"
+              aria-label="Enter your full name"
+            />
+            <TextField
+              fullWidth
+              required
+              id="contact-assistance"
+              label="How can we assist you?"
+              placeholder="I need help with AI automation..."
+              value={assistance}
+              onChange={(e) => setAssistance(e.target.value)}
+              margin="normal"
+              aria-label="Describe how we can help your business"
+              multiline
+              rows={3}
+            />
+            <Typography variant="body2" color="text.primary" sx={{ mt: 2, mb: 1 }}>
+              Preferred Contact Method *
+            </Typography>
+            <RadioGroup
+              row
+              aria-label="Select your preferred contact method"
+              value={contactMethod}
+              onChange={(e) => setContactMethod(e.target.value)}
+            >
+              <FormControlLabel 
+                value="email" 
+                control={<Radio />} 
+                label="Email"
+                id="contact-email"
+              />
+              <FormControlLabel 
+                value="sms" 
+                control={<Radio />} 
+                label="SMS / Phone"
+                id="contact-sms"
+              />
+            </RadioGroup>
+            <TextField
+              fullWidth
+              required
+              id="contact-value"
+              label={contactMethod === "email" ? "Your Email Address" : "Your Phone Number"}
+              type={contactMethod === "email" ? "email" : "tel"}
+              placeholder={contactMethod === "email" ? "john@company.com" : "(616) 555-1234"}
+              value={contactValue}
+              onChange={(e) => setContactValue(e.target.value)}
+              onBlur={() => setTouched(true)}
+              margin="normal"
+              aria-label={contactMethod === "email" ? "Enter your email address for us to contact you" : "Enter your phone number for us to contact you"}
+              error={showError}
+              helperText={
+                showError
+                  ? contactMethod === "email"
+                      ? "Please enter a valid email address (e.g., name@domain.com)"
+                      : "Please enter a valid phone number (e.g., (616) 555-1234)"
+                  : ""
+              }
+            />
+            <Button
+              variant="contained"
+              type="submit"
+              size="large"
+              fullWidth
+              sx={{ mt: 2, py: 1.5, fontSize: "1.1rem" }}
+              disabled={!isValidContact}
+              aria-label="Submit your contact request"
+            >
+              Send Message
+            </Button>
+          </Box>
+          
+          <Typography variant="body1" color="text.secondary" sx={{ mt: 4 }}>
+            Prefer to talk directly? Call us at <a href="tel:+16162873360" style={{ color: "inherit", textDecoration: "underline" }}>(616) 287-3360</a> for immediate assistance.
+          </Typography>
+        </Container>
       </Box>
-      <Typography sx={{ mt: 2 }}>
-        or call us at <a href="tel:+16162873360">(616) 287-3360</a>
-      </Typography>
-    </Box>
+    </>
   );
 }
