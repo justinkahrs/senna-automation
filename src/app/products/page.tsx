@@ -17,20 +17,20 @@ import { useRouter } from "next/navigation";
 
 const categories = [
   {
-    title: "AI/Automation",
-    description: "Powerful automation tools needing minimal customization.",
+    title: "AI Workflow Automation",
+    description: "Expert AI workflow automation and business AI integration services. We specialize in chatbot development, process automation consulting, and enterprise AI solutions that save your team 20+ hours per week and drive measurable ROI.",
     icon: SmartToyIcon,
     href: "/products/ai-automation",
   },
   {
-    title: "Custom Applications",
-    description: "Tailor-made software solutions for your specific needs.",
+    title: "Custom Web Applications & Enterprise AI Solutions",
+    description: "Custom web app development AI and B2B AI consulting for digital transformation AI. We build enterprise AI solutions, custom business applications, and intelligent workflow systems tailored to your unique operational needs.",
     icon: AppsIcon,
     href: "/products/custom-applications",
   },
   {
-    title: "Web Development",
-    description: "Modern, responsive websites to grow your business.",
+    title: "Modern Web Development & SEO-Optimized Websites",
+    description: "Professional modern web development and responsive web design services. We build high-performance websites and SEO-optimized websites that rank well on Google, generate more leads, and convert visitors into customers for your Grand Rapids, MI business.",
     icon: WebIcon,
     href: "/products/web-development",
   },
@@ -57,7 +57,7 @@ export default function Products() {
           color="text.primary"
           gutterBottom
         >
-          Our Solutions
+          AI Workflow Automation & Custom Software Solutions
         </Typography>
         <Typography
           variant="h6"
@@ -65,7 +65,7 @@ export default function Products() {
           color="text.secondary"
           sx={{ mb: 8, textAlign: isMobile ? "justify" : "center" }}
         >
-          Explore our range of services and products designed to elevate your business.
+          Transform your Grand Rapids, Michigan business with intelligent automation. From AI workflow automation and business AI integration to custom web app development AI and enterprise AI solutions, we deliver measurable results.
         </Typography>
 
         <Grid container spacing={4} justifyContent="center">
@@ -79,7 +79,7 @@ export default function Products() {
                   transition: "transform 0.2s",
                   "&:hover": {
                     transform: "translateY(-4px)",
-                    boxShadow: theme.shadows[4],
+                    boxShadow: theme.shadows[6],
                   },
                 }}
               >
