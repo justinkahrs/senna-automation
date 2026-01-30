@@ -30,6 +30,12 @@ export default function AnimatedHeroTitle() {
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%",
+      }}
     >
       <Typography
         variant="h1"
