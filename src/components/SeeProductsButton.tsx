@@ -1,4 +1,3 @@
-"use client";
 import { Button } from "@mui/material";
 import Link from "next/link";
 
@@ -17,11 +16,7 @@ export default function SeeProductsButton({
 }: SeeProductsButtonProps) {
   return (
     <Link href="/products" style={{ textDecoration: "none" }}>
-      <Button
-        variant={variant}
-        size={size}
-        fullWidth={fullWidth}
-      >
+      <Button variant={variant} size={size} fullWidth={fullWidth}>
         {text}
       </Button>
     </Link>

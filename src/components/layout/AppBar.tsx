@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import {
   AppBar as MUIAppBar,
   Toolbar,
@@ -30,6 +30,7 @@ export function AppBar() {
     useState<null | HTMLElement>(null);
   const [productsMenuAnchorEl, setProductsMenuAnchorEl] =
     useState<null | HTMLElement>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMenuAnchorEl(event.currentTarget);
@@ -40,17 +41,21 @@ export function AppBar() {
   };
 
   const handleProductsMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setProductsMenuAnchorEl(event.currentTarget);
   };
 
   const handleProductsMenuClose = () => {
-    setProductsMenuAnchorEl(null);
+    timeoutRef.current = setTimeout(() => {
+      setProductsMenuAnchorEl(null);
+    }, 150);
   };
 
   const handleProductClick = (path: string) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
     router.push(path);
-    handleProductsMenuClose();
-    handleMobileMenuClose();
+    setProductsMenuAnchorEl(null);
+    setMobileMenuAnchorEl(null);
   };
 
   return (
@@ -94,45 +99,36 @@ export function AppBar() {
               open={Boolean(mobileMenuAnchorEl)}
               onClose={handleMobileMenuClose}
             >
-              <MenuItem onClick={handleProductsMenuOpen}>
+              <MenuItem
+                component={Link}
+                href="/products"
+                onClick={handleMobileMenuClose}
+              >
                 <Typography color="inherit" variant="h6">
                   Products
                 </Typography>
-                <KeyboardArrowDownIcon />
               </MenuItem>
-              <Menu
-                anchorEl={productsMenuAnchorEl}
-                open={Boolean(productsMenuAnchorEl)}
-                onClose={handleProductsMenuClose}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
+              <MenuItem
+                onClick={() => handleProductClick("/products/ai-automation")}
+                sx={{ pl: 4 }}
               >
-                <MenuItem
-                  onClick={() => handleProductClick("/products/ai-automation")}
-                >
-                  AI/Automation
-                </MenuItem>
-                <MenuItem
-                  onClick={() =>
-                    handleProductClick("/products/web-development")
-                  }
-                >
-                  Web Development
-                </MenuItem>
-                <MenuItem
-                  onClick={() =>
-                    handleProductClick("/products/custom-applications")
-                  }
-                >
-                  Custom Applications
-                </MenuItem>
-              </Menu>
+                <Typography variant="body1">AI/Automation</Typography>
+              </MenuItem>
+              <MenuItem
+                onClick={() => handleProductClick("/products/web-development")}
+                sx={{ pl: 4 }}
+              >
+                <Typography variant="body1">Web Development</Typography>
+              </MenuItem>
+              <MenuItem
+                onClick={() =>
+                  handleProductClick("/products/custom-applications")
+                }
+                sx={{ pl: 4 }}
+              >
+                <Typography variant="body1">Custom Applications</Typography>
+              </MenuItem>
+
               <MenuItem
                 component={Link}
                 href="/about"
@@ -165,7 +161,10 @@ export function AppBar() {
             >
               <Button
                 color="inherit"
-                onClick={handleProductsMenuOpen}
+                component={Link}
+                href="/products"
+                onMouseEnter={handleProductsMenuOpen}
+                onMouseLeave={handleProductsMenuClose}
                 endIcon={<KeyboardArrowDownIcon />}
               >
                 <Typography variant="h5">Products</Typography>
@@ -174,6 +173,16 @@ export function AppBar() {
                 anchorEl={productsMenuAnchorEl}
                 open={Boolean(productsMenuAnchorEl)}
                 onClose={handleProductsMenuClose}
+                MenuListProps={{
+                  onMouseEnter: () => {
+                    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+                  },
+                  onMouseLeave: handleProductsMenuClose,
+                }}
+                sx={{ pointerEvents: "none" }}
+                PaperProps={{
+                  sx: { pointerEvents: "auto" },
+                }}
               >
                 <MenuItem
                   onClick={() => handleProductClick("/products/ai-automation")}
