@@ -131,6 +131,15 @@ export function AppBar() {
 
               <MenuItem
                 component={Link}
+                href="/blog"
+                onClick={handleMobileMenuClose}
+              >
+                <Typography color="inherit" variant="h6">
+                  Blog
+                </Typography>
+              </MenuItem>
+              <MenuItem
+                component={Link}
                 href="/about"
                 onClick={handleMobileMenuClose}
               >
@@ -204,6 +213,11 @@ export function AppBar() {
                   <Typography variant="body1">Custom Applications</Typography>
                 </MenuItem>
               </Menu>
+              <Link href="/blog" passHref>
+                <Button color="inherit">
+                  <Typography variant="h5">Blog</Typography>
+                </Button>
+              </Link>
               <Link href="/about" passHref>
                 <Button color="inherit">
                   <Typography variant="h5">About</Typography>
