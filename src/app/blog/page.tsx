@@ -161,9 +161,26 @@ export default function BlogPage() {
               </CardContent>
             </Card>
           ) : (
-            <Stack spacing={2}>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+                gap: 2,
+              }}
+            >
               {previewItems.map((item) => (
-                <Card key={item.link} variant="outlined">
+                <Card
+                  key={item.link}
+                  variant="outlined"
+                  sx={{
+                    height: "100%",
+                    transition: "transform 180ms ease, box-shadow 180ms ease",
+                    "&:hover": {
+                      transform: "translateY(-4px)",
+                      boxShadow: 6,
+                    },
+                  }}
+                >
                   <CardContent>
                     <Typography variant="h5" component="h3" sx={{ mb: 1 }}>
                       <a href={item.link} target="_blank" rel="noopener noreferrer">
@@ -181,7 +198,7 @@ export default function BlogPage() {
                   </CardContent>
                 </Card>
               ))}
-            </Stack>
+            </Box>
           )}
         </Container>
       </Box>
