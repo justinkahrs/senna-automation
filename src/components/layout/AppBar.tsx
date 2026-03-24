@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useContext, useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   AppBar as MUIAppBar,
   Toolbar,
@@ -12,25 +12,23 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { ColorModeContext } from "@/app/ClientProviders";
-import ThemeToggleIcon from "@/components/ThemeToggleIcon";
-import { useRouter } from "next/navigation";
 
 export function AppBar() {
-  const { toggleColorMode, mode } = useContext(ColorModeContext);
+  const mode = "light";
   const theme = useTheme();
+  const navTextColor = theme.palette.primary.contrastText;
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"), {
     defaultMatches: true,
   });
-  const router = useRouter();
   const [mobileMenuAnchorEl, setMobileMenuAnchorEl] =
     useState<null | HTMLElement>(null);
-  const [productsMenuAnchorEl, setProductsMenuAnchorEl] =
-    useState<null | HTMLElement>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMenuAnchorEl(event.currentTarget);
@@ -40,26 +38,30 @@ export function AppBar() {
     setMobileMenuAnchorEl(null);
   };
 
-  const handleProductsMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setProductsMenuAnchorEl(event.currentTarget);
-  };
-
-  const handleProductsMenuClose = () => {
-    timeoutRef.current = setTimeout(() => {
-      setProductsMenuAnchorEl(null);
-    }, 150);
-  };
-
-  const handleProductClick = (path: string) => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    router.push(path);
-    setProductsMenuAnchorEl(null);
-    setMobileMenuAnchorEl(null);
-  };
+  if (!mounted) {
+    return (
+      <MUIAppBar position="fixed" sx={{ color: navTextColor }}>
+        <Toolbar sx={{ width: "100%" }}>
+          <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-start" }}>
+            <Link href="/" passHref>
+              <Box
+                component="img"
+                src="/senna-automation-new.png"
+                alt="Senna Automation"
+                sx={{
+                  height: 40,
+                  cursor: "pointer",
+                }}
+              />
+            </Link>
+          </Box>
+        </Toolbar>
+      </MUIAppBar>
+    );
+  }
 
   return (
-    <MUIAppBar position="fixed">
+    <MUIAppBar position="fixed" sx={{ color: navTextColor }}>
       <Toolbar sx={{ width: "100%" }}>
         <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-start" }}>
           <Link href="/" passHref>
@@ -75,22 +77,22 @@ export function AppBar() {
           </Link>
         </Box>
         {isMobile ? (
-          <Box
-            sx={{
-              flex: 1,
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center",
-              gap: 2,
-            }}
-          >
-            <ThemeToggleIcon mode={mode} onToggle={toggleColorMode} />
+            <Box
+              sx={{
+                flex: 1,
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                gap: 2,
+              }}
+            >
 
             <IconButton
               edge="start"
               color="inherit"
               aria-label="menu"
               onClick={handleMobileMenuOpen}
+              sx={{ color: navTextColor }}
             >
               <MenuIcon />
             </IconButton>
@@ -101,34 +103,31 @@ export function AppBar() {
             >
               <MenuItem
                 component={Link}
-                href="/products"
+                href="/services"
                 onClick={handleMobileMenuClose}
               >
                 <Typography color="inherit" variant="h6">
-                  Products
+                  Services
                 </Typography>
               </MenuItem>
               <MenuItem
-                onClick={() => handleProductClick("/products/ai-automation")}
-                sx={{ pl: 4 }}
+                component={Link}
+                href="/solutions"
+                onClick={handleMobileMenuClose}
               >
-                <Typography variant="body1">AI/Automation</Typography>
+                <Typography color="inherit" variant="h6">
+                  Solutions
+                </Typography>
               </MenuItem>
               <MenuItem
-                onClick={() => handleProductClick("/products/web-development")}
-                sx={{ pl: 4 }}
+                component={Link}
+                href="/pricing"
+                onClick={handleMobileMenuClose}
               >
-                <Typography variant="body1">Web Development</Typography>
+                <Typography color="inherit" variant="h6">
+                  Pricing
+                </Typography>
               </MenuItem>
-              <MenuItem
-                onClick={() =>
-                  handleProductClick("/products/custom-applications")
-                }
-                sx={{ pl: 4 }}
-              >
-                <Typography variant="body1">Custom Applications</Typography>
-              </MenuItem>
-
               <MenuItem
                 component={Link}
                 href="/about"
@@ -142,9 +141,18 @@ export function AppBar() {
                 component={Link}
                 href="/contact"
                 onClick={handleMobileMenuClose}
+                sx={{
+                  backgroundColor: mode === "light" ? "#000000" : "#FFFFFF",
+                  color: mode === "light" ? "#FFFFFF" : "#000000",
+                  "&:hover": {
+                    backgroundColor: mode === "light" ? "#333333" : "#EEEEEE",
+                  },
+                  m: 1,
+                  borderRadius: 1,
+                }}
               >
-                <Typography color="inherit" variant="h6">
-                  Contact
+                <Typography variant="h6" sx={{ width: "100%", textAlign: "center" }}>
+                  Book a Demo
                 </Typography>
               </MenuItem>
             </Menu>
@@ -159,64 +167,54 @@ export function AppBar() {
                 gap: 2,
               }}
             >
-              <Button
-                color="inherit"
-                component={Link}
-                href="/products"
-                onMouseEnter={handleProductsMenuOpen}
-                onMouseLeave={handleProductsMenuClose}
-                endIcon={<KeyboardArrowDownIcon />}
-              >
-                <Typography variant="h5">Products</Typography>
+              <Button color="inherit" component={Link} href="/services">
+                <Typography variant="h5" sx={{ color: navTextColor }}>
+                  Services
+                </Typography>
               </Button>
-              <Menu
-                anchorEl={productsMenuAnchorEl}
-                open={Boolean(productsMenuAnchorEl)}
-                onClose={handleProductsMenuClose}
-                MenuListProps={{
-                  onMouseEnter: () => {
-                    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+              <Button color="inherit" component={Link} href="/solutions">
+                <Typography variant="h5" sx={{ color: navTextColor }}>
+                  Solutions
+                </Typography>
+              </Button>
+              <Button color="inherit" component={Link} href="/pricing">
+                <Typography variant="h5" sx={{ color: navTextColor }}>
+                  Pricing
+                </Typography>
+              </Button>
+              <Button color="inherit" component={Link} href="/about">
+                <Typography variant="h5" sx={{ color: navTextColor }}>
+                  About
+                </Typography>
+              </Button>
+            </Box>
+            <Box
+              sx={{
+                flex: 1,
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                gap: 2,
+              }}
+            >
+              <Button
+                component={Link}
+                href="/contact"
+                variant="contained"
+                sx={{
+                  backgroundColor: "#FFFFFF",
+                  color: "#000000",
+                  "&:hover": {
+                    backgroundColor: "#EEEEEE",
                   },
-                  onMouseLeave: handleProductsMenuClose,
-                }}
-                sx={{ pointerEvents: "none" }}
-                PaperProps={{
-                  sx: { pointerEvents: "auto" },
+                  borderRadius: "50px",
+                  px: 3,
                 }}
               >
-                <MenuItem
-                  onClick={() => handleProductClick("/products/ai-automation")}
-                >
-                  <Typography variant="body1">AI/Automation</Typography>
-                </MenuItem>
-                <MenuItem
-                  onClick={() =>
-                    handleProductClick("/products/web-development")
-                  }
-                >
-                  <Typography variant="body1">Web Development</Typography>
-                </MenuItem>
-                <MenuItem
-                  onClick={() =>
-                    handleProductClick("/products/custom-applications")
-                  }
-                >
-                  <Typography variant="body1">Custom Applications</Typography>
-                </MenuItem>
-              </Menu>
-              <Link href="/about" passHref>
-                <Button color="inherit">
-                  <Typography variant="h5">About</Typography>
-                </Button>
-              </Link>
-              <Link href="/contact" passHref>
-                <Button color="inherit">
-                  <Typography variant="h5">Contact</Typography>
-                </Button>
-              </Link>
-            </Box>
-            <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-              <ThemeToggleIcon mode={mode} onToggle={toggleColorMode} />
+                <Typography variant="button" sx={{ fontWeight: "bold" }}>
+                  Book a Demo
+                </Typography>
+              </Button>
             </Box>
           </>
         )}

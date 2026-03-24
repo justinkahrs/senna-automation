@@ -15,10 +15,15 @@ export default function SeeProductsButton({
   fullWidth = false,
 }: SeeProductsButtonProps) {
   return (
-    <Link href="/products" style={{ textDecoration: "none" }}>
-      <Button variant={variant} size={size} fullWidth={fullWidth}>
-        {text}
-      </Button>
-    </Link>
+    <Button
+      component={Link}
+      href="/products"
+      variant={variant}
+      size={size}
+      fullWidth={fullWidth}
+      sx={{ textDecoration: "none" }}
+    >
+      {text}
+    </Button>
   );
 }
