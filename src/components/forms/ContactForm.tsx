@@ -16,6 +16,7 @@ import SubmittingOverlay from "@/components/SubmittingOverlay";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
   const [assistance, setAssistance] = useState("");
   const [contactMethod, setContactMethod] = useState("email");
   const [contactValue, setContactValue] = useState("");
@@ -33,6 +34,7 @@ export default function ContactForm() {
     try {
       const formData = new FormData();
       formData.append("name", name);
+      formData.append("company", company);
       formData.append("assistance", assistance);
       formData.append("contactMethod", contactMethod);
       formData.append("contactValue", contactValue);
@@ -84,7 +86,7 @@ export default function ContactForm() {
           align="center"
           color="text.primary"
         >
-          Contact Our AI Automation Experts
+          See what you can automate
         </Typography>
         <Typography
           variant="h6"
@@ -92,10 +94,7 @@ export default function ContactForm() {
           color="text.secondary"
           sx={{ mb: 4, maxWidth: 600 }}
         >
-          Ready to transform your business with{" "}
-          <strong>AI workflow automation</strong> and{" "}
-          <strong>custom software development</strong>? Reach out to our team of
-          experts serving Grand Rapids, Michigan.
+          No prep needed. We’ll walk through your current process and where automation can help.
         </Typography>
 
         <Box
@@ -116,10 +115,20 @@ export default function ContactForm() {
           />
           <TextField
             fullWidth
+            id="contact-company"
+            label="Company (Optional)"
+            placeholder="Acme Corp"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            margin="normal"
+            aria-label="Enter your company name"
+          />
+          <TextField
+            fullWidth
             required
             id="contact-assistance"
             label="How can we assist you?"
-            placeholder="I need help with AI automation..."
+            placeholder="What’s taking too much time right now?"
             value={assistance}
             onChange={(e) => setAssistance(e.target.value)}
             margin="normal"
@@ -202,14 +211,13 @@ export default function ContactForm() {
           align="center"
           sx={{ mt: 4 }}
         >
-          Prefer to talk directly? Call us at{" "}
+          Prefer to talk directly? Call {" "}
           <a
             href="tel:+16162873360"
             style={{ color: "inherit", textDecoration: "underline" }}
           >
             (616) 287-3360
-          </a>{" "}
-          for immediate assistance.
+          </a>.
         </Typography>
       </Container>
     </Box>

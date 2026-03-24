@@ -16,23 +16,7 @@ export const ColorModeContext = createContext<ColorModeContextProps>({
 });
 
 export function ClientProviders({ children }: { children: React.ReactNode }) {
-  const [mode, setMode] = useState<"light" | "dark">("light");
+  const theme = useMemo(() => createTheme(getThemeTokens()), []);
 
-  const colorMode = useMemo(
-    () => ({
-      mode,
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-      },
-    }),
-    [mode]
-  );
-
-  const theme = useMemo(() => createTheme(getThemeTokens(mode)), [mode]);
-
-  return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </ColorModeContext.Provider>
-  );
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }

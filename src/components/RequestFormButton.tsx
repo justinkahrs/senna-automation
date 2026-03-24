@@ -15,10 +15,8 @@ export default function RequestFormButton({
   fullWidth = false,
 }: RequestFormButtonProps) {
   return (
-    <Link href="/contact" passHref>
-      <Button variant={variant} size={size} fullWidth={fullWidth}>
-        {text}
-      </Button>
-    </Link>
+    <Button component={Link} href="/contact" variant={variant} size={size} fullWidth={fullWidth}>
+      {text}
+    </Button>
   );
 }

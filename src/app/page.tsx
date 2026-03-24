@@ -2,7 +2,59 @@ import RequestFormButton from "@/components/RequestFormButton";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import SeeProductsButton from "@/components/SeeProductsButton";
 import AnimatedHeroTitle from "@/components/AnimatedHeroTitle";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Container,
+  Stack,
+  Typography,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
+const faqs = [
+  {
+    question: "Who is this a good fit for?",
+    answer:
+      "This is for businesses that feel slowed down by repetitive tasks, manual processes, or inconsistent follow-up. It works well for teams that want to save time, stay organized, and keep things moving without adding more overhead.",
+  },
+  {
+    question: "What challenges does this help address?",
+    answer:
+      "It reduces time spent on repetitive work, prevents things from slipping through the cracks, and helps leads and tasks move forward without constant manual effort. The goal is smoother operations and more consistency across the board.",
+  },
+  {
+    question: "What types of work can be automated?",
+    answer:
+      "Common examples include lead capture and follow-up, scheduling, onboarding, data entry, reporting, approvals, notifications, and internal workflows. If something is repetitive or rule-based, it can likely be automated.",
+  },
+  {
+    question: "Do you offer chatbot or AI assistant solutions?",
+    answer:
+      "Yes, when it makes sense. Chat-based tools can help with lead qualification, answering common questions, or guiding users through a process. The focus is always on usefulness, not just adding a chatbot for the sake of it.",
+  },
+  {
+    question: "Can this work with the tools already in use?",
+    answer:
+      "Yes. Most systems can connect with tools already in use, such as CRMs, email platforms, scheduling tools, and internal systems. The goal is to improve what’s already there, not replace everything.",
+  },
+  {
+    question: "Is technical experience required to manage it?",
+    answer:
+      "No. Everything is set up to be simple and easy to manage. Once it’s in place, it should feel like part of the normal workflow, not something that requires technical expertise.",
+  },
+  {
+    question: "Is it possible to start with a smaller scope?",
+    answer:
+      "Yes. Many projects start with one workflow or a single problem area. That makes it easy to see value quickly before expanding into other areas.",
+  },
+  {
+    question: "What does getting started look like?",
+    answer:
+      "Start with a quick conversation about current workflows and where time is being lost. From there, it’s easy to identify a few opportunities to automate and outline what that would look like.",
+  },
+];
 
 export default function Home() {
   return (
@@ -35,11 +87,8 @@ export default function Home() {
                 maxWidth: 800,
               }}
             >
-              Transform your Grand Rapids business with AI workflow automation,
-              custom software development, and intelligent process automation.
-              We help companies streamline operations, boost productivity, and
-              achieve measurable ROI through expert AI integration and modern
-              web solutions.
+              Support your team with systems that handle the repetitive work.
+              So they can focus on the work that moves things forward.
             </Typography>
             <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
               <Stack spacing={2} sx={{ textAlign: "center", width: 300 }}>
@@ -121,6 +170,65 @@ export default function Home() {
             reduced operational costs, improved efficiency, and enhanced
             customer experiences.
           </Typography>
+        </Container>
+      </Box>
+
+      <Box
+        component="section"
+        sx={{
+          bgcolor: "background.paper",
+          py: { xs: 8, md: 12 },
+          borderTop: "1px solid",
+          borderColor: "divider",
+        }}
+      >
+        <Container maxWidth="md">
+          <Typography
+            variant="h3"
+            component="h2"
+            align="center"
+            color="text.primary"
+            sx={{ mb: 2 }}
+          >
+            Frequently asked questions
+          </Typography>
+          <Typography
+            variant="body1"
+            align="center"
+            color="text.secondary"
+            sx={{ maxWidth: 720, mx: "auto", mb: 5 }}
+          >
+            A few common questions teams ask before they start automating their
+            workflows.
+          </Typography>
+          <Stack spacing={2}>
+            {faqs.map((faq) => (
+              <Accordion
+                key={faq.question}
+                disableGutters
+                sx={{
+                  border: "1px solid",
+                  borderColor: "divider",
+                  borderRadius: 2,
+                  boxShadow: "none",
+                  "&:before": {
+                    display: "none",
+                  },
+                }}
+              >
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography variant="h6" color="text.primary">
+                    {faq.question}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails sx={{ pt: 0 }}>
+                  <Typography variant="body1" color="text.secondary">
+                    {faq.answer}
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+          </Stack>
         </Container>
       </Box>
     </>

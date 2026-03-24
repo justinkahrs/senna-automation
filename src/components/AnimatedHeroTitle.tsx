@@ -4,26 +4,68 @@ import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 
 export default function AnimatedHeroTitle() {
+  const words = useRef([
+    "scheduling",
+    "follow-ups",
+    "onboarding",
+    "lead capture",
+    "reporting",
+    "invoicing",
+    "qualification",
+    "routing",
+    "handoffs",
+    "approvals",
+    "reminders",
+    "document prep",
+    "status updates",
+    "renewals",
+    "data entry",
+    "admin work",
+    "the busywork",
+  ]);
   const [index, setIndex] = useState(0);
   const [count, setCount] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const words = useRef(["work.", "business.", "day."]);
+  const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
     const current = words.current[index];
-    let speed = 150;
-    if (isDeleting) speed /= 2;
+
+    if (isFinished) {
+      return;
+    }
+
+    const isLastWord = index === words.current.length - 1;
+    const speed = isDeleting ? 28 : 52;
+    const pauseAfterWord = isLastWord ? 0 : 140;
+
     const timeout = setTimeout(() => {
-      setCount((c) => c + (isDeleting ? -1 : 1));
-      if (!isDeleting && count === current.length) {
-        setTimeout(() => setIsDeleting(true), 1000);
-      } else if (isDeleting && count === 0) {
-        setIsDeleting(false);
-        setIndex((i) => (i + 1) % words.current.length);
+      if (!isDeleting) {
+        if (count < current.length) {
+          setCount((c) => c + 1);
+          return;
+        }
+
+        if (isLastWord) {
+          setIsFinished(true);
+          return;
+        }
+
+        setTimeout(() => setIsDeleting(true), pauseAfterWord);
+        return;
       }
+
+      if (count > 0) {
+        setCount((c) => c - 1);
+        return;
+      }
+
+      setIsDeleting(false);
+      setIndex((i) => i + 1);
     }, speed);
+
     return () => clearTimeout(timeout);
-  }, [count, index, isDeleting]);
+  }, [count, index, isDeleting, isFinished]);
 
   return (
     <motion.div
@@ -43,7 +85,7 @@ export default function AnimatedHeroTitle() {
         color="text.primary"
         sx={{ fontSize: { xs: "2.5rem", md: "3.5rem", lg: "4rem" } }}
       >
-        Let&apos;s automate...
+        Let&apos;s take
       </Typography>
       <Typography
         variant="h1"
@@ -51,17 +93,27 @@ export default function AnimatedHeroTitle() {
         color="text.primary"
         sx={{ fontSize: { xs: "2.5rem", md: "3.5rem", lg: "4rem" } }}
       >
-        {`your ${words.current[index].substring(0, count)}`}
-        <motion.span
-          animate={{ opacity: [1, 0, 1] }}
-          transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY }}
-          style={{
-            marginLeft: 2,
-            display: "inline-block",
-          }}
-        >
-          |
-        </motion.span>
+        {words.current[index].substring(0, count)}
+        {!isFinished ? (
+          <motion.span
+            animate={{ opacity: [1, 0, 1] }}
+            transition={{ duration: 0.8, repeat: Number.POSITIVE_INFINITY }}
+            style={{
+              marginLeft: 2,
+              display: "inline-block",
+            }}
+          >
+            |
+          </motion.span>
+        ) : null}
+      </Typography>
+      <Typography
+        variant="h1"
+        align="center"
+        color="text.primary"
+        sx={{ fontSize: { xs: "2.5rem", md: "3.5rem", lg: "4rem" } }}
+      >
+        off your plate.
       </Typography>
     </motion.div>
   );

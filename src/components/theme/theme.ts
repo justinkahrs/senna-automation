@@ -27,54 +27,64 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-export function getThemeTokens(mode: PaletteMode): ThemeOptions {
+export function getThemeTokens(): ThemeOptions {
   return {
     keyframes: { blink },
     palette: {
-      mode,
+      mode: "light",
       primary: {
-        main: mode === "light" ? "#000000" : "#FFFFFF",
-        contrastText: mode === "light" ? "#FFFFFF" : "#000000",
+        main: "#000000",
+        contrastText: "#FFFFFF",
       },
       background: {
-        default: mode === "light" ? "#F5F6F7" : "#121212",
-        paper: mode === "light" ? "#FFFFFF" : "#181818",
+        default: "#F5F6F7",
+        paper: "#FFFFFF",
       },
       text: {
-        primary: mode === "light" ? "#1A1A1A" : "#FFFFFF",
-        secondary: mode === "light" ? "#4A4A4A" : "#AAAAAA",
+        primary: "#1A1A1A",
+        secondary: "#4A4A4A",
       },
-      divider: mode === "light" ? "#E3E5E7" : "#444444",
+      divider: "#E3E5E7",
     },
     typography: {
       fontFamily: inter.style.fontFamily,
       h1: {
         fontFamily: cormorant.style.fontFamily,
         fontWeight: 600,
+        color: "#0A0A0A",
       },
       h2: {
         fontFamily: cormorant.style.fontFamily,
         fontWeight: 600,
+        color: "#0A0A0A",
       },
       h3: {
         fontFamily: cormorant.style.fontFamily,
         fontWeight: 500,
+        color: "#0A0A0A",
       },
       h4: {
         fontFamily: cormorant.style.fontFamily,
         fontWeight: 500,
+        color: "#0A0A0A",
       },
       h5: {
         fontFamily: cormorant.style.fontFamily,
         fontWeight: 500,
+        color: "#0A0A0A",
       },
       h6: {
         fontFamily: cormorant.style.fontFamily,
         fontWeight: 500,
+        color: "#0A0A0A",
       },
       body1: {
         fontSize: "1rem",
-        lineHeight: 1.5,
+        lineHeight: 1.6,
+      },
+      body2: {
+        fontSize: "0.9rem",
+        lineHeight: 1.6,
       },
       button: {
         textTransform: "none",
@@ -84,11 +94,8 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
     components: {
       MuiAppBar: {
         styleOverrides: {
-          root: ({ theme }) => ({
-            backgroundColor:
-              theme.palette.mode === "dark"
-                ? theme.palette.grey[700]
-                : theme.palette.primary.main,
+          root: ({ theme }: { theme: Theme }) => ({
+            backgroundColor: theme.palette.primary.main,
             transition: "background-color 0.8s ease",
           }),
         },
@@ -120,17 +127,11 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
             borderRadius: 12,
             overflow: "hidden",
             position: "relative",
-            boxShadow:
-              theme.palette.mode === "dark"
-                ? "0 4px 12px rgba(255,255,255,.4)"
-                : "0 4px 12px rgba(0,0,0,.4)",
+            boxShadow: "0 4px 12px rgba(0,0,0,.4)",
             transition: "transform 0.3s ease, box-shadow 0.3s ease",
             "&:hover": {
               transform: "translateY(-2px)",
-              boxShadow:
-                theme.palette.mode === "dark"
-                  ? "0 4px 12px rgba(255,255,255,.9)"
-                  : "0 4px 12px rgba(0,0,0,.9)",
+              boxShadow: "0 4px 12px rgba(0,0,0,.9)",
             },
           }),
         },
@@ -258,23 +259,16 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
       },
       MuiMenu: {
         styleOverrides: {
-          paper: ({ theme }) => ({
-            backgroundColor:
-              theme.palette.mode === "dark"
-                ? theme.palette.grey[900]
-                : theme.palette.primary.main,
+          paper: ({ theme }: { theme: Theme }) => ({
+            backgroundColor: theme.palette.primary.main,
             width: "200px",
           }),
         },
       },
       MuiMenuItem: {
         styleOverrides: {
-          root: ({ theme }) => ({
-            backgroundColor:
-              theme.palette.mode === "dark"
-                ? // @ts-expect-error this value works but TS hates this one weird trick
-                  theme.palette.grey[750]
-                : theme.palette.primary.main,
+          root: ({ theme }: { theme: Theme }) => ({
+            backgroundColor: theme.palette.primary.main,
             color: "#FFF",
             "&:not(:last-child)": {
               borderBottom: "1px solid #FFF",
@@ -286,13 +280,13 @@ export function getThemeTokens(mode: PaletteMode): ThemeOptions {
       MuiSwitch: {
         styleOverrides: {
           switchBase: {
-            color: mode === "light" ? "#000000" : "#ffffff",
+            color: "#000000",
           },
           track: {
-            backgroundColor: mode === "light" ? "#cccccc" : "#000000",
+            backgroundColor: "#cccccc",
           },
           thumb: {
-            color: mode === "light" ? "#ffffff" : "#000000",
+            color: "#ffffff",
           },
         },
       },

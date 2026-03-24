@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -25,8 +25,13 @@ export default function ScheduleCallButton({
   fullWidth = false,
 }: ScheduleCallButtonProps) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleOpen = () => {
     setOpen(true);
@@ -59,7 +64,7 @@ export default function ScheduleCallButton({
             bgcolor: "background.paper",
             boxShadow: 24,
             width: "100%",
-            maxWidth: isMobile ? "95%" : "600px", // Smaller maxWidth on mobile
+            maxWidth: mounted && isMobile ? "95%" : "600px", // Smaller maxWidth on mobile
             maxHeight: "95vh",
             display: "flex",
             flexDirection: "column",
