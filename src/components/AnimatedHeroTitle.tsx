@@ -7,51 +7,45 @@ export default function AnimatedHeroTitle() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         width: "100%",
-        marginBottom: "1rem"
+        marginBottom: "1rem",
       }}
     >
+      {/* H1 — uses theme h1: Cormorant, clamp(2.75rem,5.5vw,4.209rem), w600, lh1.10 */}
       <Typography
         variant="h1"
         align="center"
         color="text.primary"
-        sx={{ 
-          fontSize: { xs: "3rem", md: "4.5rem", lg: "5rem" }, 
-          fontWeight: 800,
-          mb: 4,
-          lineHeight: 1.1,
-          letterSpacing: "-0.02em"
-        }}
+        sx={{ mb: 3 }}
       >
         You&apos;ve got a lot going on.
       </Typography>
 
+      {/* H3 used as tagline — Cormorant, lighter weight, readable scale */}
       <Typography
-        variant="h4"
+        variant="h3"
         component="div"
         align="center"
         color="text.secondary"
-        sx={{ 
-          fontSize: { xs: "1.2rem", sm: "1.5rem", md: "2rem", lg: "2.3rem" },
-          fontWeight: 400,
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
           gap: { xs: 0.5, sm: 1 },
-          lineHeight: 1.2
+          fontWeight: 400,
         }}
       >
         <span>Let&apos;s take</span>
         <Box
           component="span"
-          sx={{ 
+          sx={{
             color: "primary.main",
-            fontWeight: 700,
+            fontWeight: 600,
           }}
         >
           the busywork

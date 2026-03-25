@@ -1,6 +1,5 @@
 import RequestFormButton from "@/components/RequestFormButton";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
-
 import AnimatedHeroTitle from "@/components/AnimatedHeroTitle";
 import {
   Accordion,
@@ -37,12 +36,12 @@ const faqs = [
   {
     question: "Can this work with the tools already in use?",
     answer:
-      "Yes. Most systems can connect with tools already in use, such as CRMs, email platforms, scheduling tools, and internal systems. The goal is to improve what’s already there, not replace everything.",
+      "Yes. Most systems can connect with tools already in use, such as CRMs, email platforms, scheduling tools, and internal systems. The goal is to improve what's already there, not replace everything.",
   },
   {
     question: "Is technical experience required to manage it?",
     answer:
-      "No. Everything is set up to be simple and easy to manage. Once it’s in place, it should feel like part of the normal workflow, not something that requires technical expertise.",
+      "No. Everything is set up to be simple and easy to manage. Once it's in place, it should feel like part of the normal workflow, not something that requires technical expertise.",
   },
   {
     question: "Is it possible to start with a smaller scope?",
@@ -52,19 +51,19 @@ const faqs = [
   {
     question: "What does getting started look like?",
     answer:
-      "Start with a quick conversation about current workflows and where time is being lost. From there, it’s easy to identify a few opportunities to automate and outline what that would look like.",
+      "Start with a quick conversation about current workflows and where time is being lost. From there, it's easy to identify a few opportunities to automate and outline what that would look like.",
   },
 ];
 
 export default function Home() {
   return (
     <>
+      {/* ── Hero ─────────────────────────────────────── */}
       <Box
         component="section"
         aria-labelledby="hero-heading"
         sx={{
           bgcolor: "background.default",
-
           minHeight: "100vh",
           display: "flex",
           alignItems: "center",
@@ -75,21 +74,20 @@ export default function Home() {
         <Container maxWidth="lg">
           <Stack spacing={4} alignItems="center">
             <AnimatedHeroTitle />
+
+            {/* subtitle1 = body-large (18px, lh1.60) */}
             <Typography
               id="hero-description"
-              variant="h5"
+              variant="subtitle1"
               align="center"
               component="h2"
               color="text.secondary"
-              sx={{
-                mb: 6,
-                mx: "auto",
-                maxWidth: 800,
-              }}
+              sx={{ mb: 4, mx: "auto", maxWidth: 720 }}
             >
               Support your team with systems that handle the repetitive work.
               So they can focus on the work that moves things forward.
             </Typography>
+
             <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
               <Stack spacing={2} sx={{ textAlign: "center", width: 300 }}>
                 <ScheduleCallButton
@@ -98,7 +96,6 @@ export default function Home() {
                   text="Schedule a Call via"
                   aria-label="Schedule a consultation call with our AI automation experts via Calendly"
                 />
-
                 <RequestFormButton
                   fullWidth
                   size="large"
@@ -112,7 +109,7 @@ export default function Home() {
         </Container>
       </Box>
 
-      {/* Why Choose Section - Visually separated with white background */}
+      {/* ── Why Choose Section ───────────────────────── */}
       <Box
         component="section"
         sx={{
@@ -121,20 +118,19 @@ export default function Home() {
         }}
       >
         <Container maxWidth="lg">
+          {/* h4 = Cormorant display, clamp(1.5rem,2.5vw,1.777rem) */}
           <Typography
             variant="h4"
-            component="h3"
+            component="h2"
             align="center"
             color="text.primary"
             gutterBottom
-            sx={{ 
-              mb: 4,
-              fontSize: { xs: '1.8rem', md: '2.4rem' },
-              fontWeight: 700
-            }}
+            sx={{ mb: 4 }}
           >
             Why Choose Senna Automation for Your AI Transformation?
           </Typography>
+
+          {/* body1 = standard paragraph, lh1.65 */}
           <Typography
             variant="body1"
             align="center"
@@ -153,6 +149,7 @@ export default function Home() {
             <strong>enterprise AI solutions</strong>, we deliver tailored
             solutions that drive real business results.
           </Typography>
+
           <Typography
             variant="body1"
             align="center"
@@ -165,14 +162,15 @@ export default function Home() {
             <strong>SEO-optimized websites</strong> that help your business
             stand out online. Whether you need{" "}
             <strong>B2B AI consulting</strong>,{" "}
-            <strong>digital transformation AI</strong> strategies, or end-to-end
-            workflow automation, our team delivers measurable outcomes including
-            reduced operational costs, improved efficiency, and enhanced
-            customer experiences.
+            <strong>digital transformation AI</strong> strategies, or
+            end-to-end workflow automation, our team delivers measurable
+            outcomes including reduced operational costs, improved efficiency,
+            and enhanced customer experiences.
           </Typography>
         </Container>
       </Box>
 
+      {/* ── FAQ Section ──────────────────────────────── */}
       <Box
         component="section"
         sx={{
@@ -183,56 +181,39 @@ export default function Home() {
         }}
       >
         <Container maxWidth="md">
+          {/* h2 = Cormorant display, clamp(2.25rem,4.5vw,3.157rem) */}
           <Typography
-            variant="h3"
+            variant="h2"
             component="h2"
             align="center"
             color="text.primary"
-            sx={{ 
-              mb: 2,
-              fontSize: { xs: '2.2rem', md: '3rem' },
-              fontWeight: 700 
-            }}
+            sx={{ mb: 2 }}
           >
             Frequently asked questions
           </Typography>
+
+          {/* subtitle1 = body-large under the heading */}
           <Typography
-            variant="body1"
+            variant="subtitle1"
             align="center"
             color="text.secondary"
-            sx={{ maxWidth: 720, mx: "auto", mb: 5 }}
+            sx={{ maxWidth: 600, mx: "auto", mb: 6 }}
           >
             A few common questions teams ask before they start automating their
             workflows.
           </Typography>
+
           <Stack spacing={2}>
             {faqs.map((faq) => (
-              <Accordion
-                key={faq.question}
-                disableGutters
-                sx={{
-                  border: "1px solid",
-                  borderColor: "divider",
-                  borderRadius: 2,
-                  boxShadow: "none",
-                  "&:before": {
-                    display: "none",
-                  },
-                }}
-              >
+              <Accordion key={faq.question} disableGutters>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography 
-                    variant="h6" 
-                    color="text.primary"
-                    sx={{ 
-                      fontSize: { xs: '1.1rem', md: '1.25rem' },
-                      fontWeight: 600 
-                    }}
-                  >
+                  {/* h5 = Inter 600, 1.125rem, lh1.35 */}
+                  <Typography variant="h5" color="text.primary">
                     {faq.question}
                   </Typography>
                 </AccordionSummary>
-                <AccordionDetails sx={{ pt: 0 }}>
+                <AccordionDetails>
+                  {/* body1 = standard paragraph */}
                   <Typography variant="body1" color="text.secondary">
                     {faq.answer}
                   </Typography>

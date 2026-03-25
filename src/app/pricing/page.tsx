@@ -35,12 +35,10 @@ export default function PricingPage() {
         {/* Header */}
         <Stack spacing={3} alignItems="center" sx={{ mb: 10, textAlign: "center" }}>
           <Typography
-            variant="h2"
+            variant="h1"
             component="h1"
             sx={{
-              fontWeight: 700,
               maxWidth: "800px",
-              lineHeight: 1.2,
             }}
           >
             Automation That Pays for Itself
@@ -49,7 +47,7 @@ export default function PricingPage() {
 
         {/* Intro */}
         <Box sx={{ mb: 8, textAlign: "center" }}>
-          <Typography variant="body1" color="text.secondary" sx={{ maxWidth: "700px", mx: "auto", fontSize: "1.1rem" }}>
+          <Typography variant="subtitle1" color="text.secondary" sx={{ maxWidth: "700px", mx: "auto" }}>
             Every business has unique workflows. Our pricing reflects the complexity and scale of the automation we build for you. We provide clear, fixed-price project ranges so you know exactly what to expect before we start.
           </Typography>
         </Box>
@@ -75,14 +73,14 @@ export default function PricingPage() {
                 <Typography variant="h6" color="text.secondary" gutterBottom>
                   Starter Automation
                 </Typography>
-                <Typography variant="h3" sx={{ fontWeight: 700, my: 2 }}>
+                <Typography variant="h2" sx={{ my: 2 }}>
                   $1.5k – $3.5k
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
                   Perfect for small businesses looking to automate a single, high-impact workflow.
                 </Typography>
                 <Divider sx={{ my: 3 }} />
-                <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: "bold", textTransform: "uppercase", letterSpacing: 1 }}>
+                <Typography variant="overline" sx={{ mb: 2, display: "block" }}>
                   Includes:
                 </Typography>
                 <List dense disablePadding>
@@ -95,7 +93,7 @@ export default function PricingPage() {
                     <ListItemText primary="Basic integrations (CRM, email, forms)" />
                   </ListItem>
                 </List>
-                <Typography variant="subtitle2" sx={{ mt: 3, mb: 2, fontWeight: "bold", textTransform: "uppercase", letterSpacing: 1 }}>
+                <Typography variant="overline" sx={{ mt: 3, mb: 2, display: "block" }}>
                   Outcomes:
                 </Typography>
                 <List dense disablePadding>
@@ -111,7 +109,7 @@ export default function PricingPage() {
               </CardContent>
               <Box sx={{ p: 4, pt: 0 }}>
                 <Link href="/contact" passHref>
-                  <Button variant="contained" fullWidth sx={{ borderRadius: "50px", fontWeight: "bold", py: 1.5, backgroundColor: isDark ? "#FFFFFF" : "#000000", color: isDark ? "#000000" : "#FFFFFF" }}>
+                  <Button variant="contained" color="secondary" fullWidth sx={{ borderRadius: "50px", py: 1.5 }}>
                     Get Started
                   </Button>
                 </Link>
@@ -148,10 +146,10 @@ export default function PricingPage() {
                 }}
               />
               <CardContent sx={{ p: 4, flexGrow: 1 }}>
-                <Typography variant="h6" color="primary" gutterBottom sx={{ fontWeight: "bold" }}>
+                <Typography variant="h6" color="primary" gutterBottom>
                   Growth Systems
                 </Typography>
-                <Typography variant="h3" sx={{ fontWeight: 700, my: 2 }}>
+                <Typography variant="h2" sx={{ my: 2 }}>
                   $4k – $8k
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
@@ -191,7 +189,7 @@ export default function PricingPage() {
               </CardContent>
               <Box sx={{ p: 4, pt: 0 }}>
                 <Link href="/contact" passHref>
-                  <Button variant="contained" fullWidth sx={{ borderRadius: "50px", fontWeight: "bold", py: 1.5, backgroundColor: isDark ? "#FFFFFF" : "#000000", color: isDark ? "#000000" : "#FFFFFF" }}>
+                  <Button variant="contained" color="secondary" fullWidth sx={{ borderRadius: "50px", py: 1.5 }}>
                     Get Growing
                   </Button>
                 </Link>
@@ -218,7 +216,7 @@ export default function PricingPage() {
                 <Typography variant="h6" color="text.secondary" gutterBottom>
                   Custom AI Systems
                 </Typography>
-                <Typography variant="h3" sx={{ fontWeight: 700, my: 2 }}>
+                <Typography variant="h2" sx={{ my: 2 }}>
                   $10k+
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
@@ -263,7 +261,6 @@ export default function PricingPage() {
                   showIcon={true}
                   sx={{ 
                     borderRadius: "50px", 
-                    fontWeight: "bold", 
                     py: 1.5, 
                     backgroundColor: isDark ? "#FFFFFF" : "#000000", 
                     color: isDark ? "#000000" : "#FFFFFF" 
@@ -279,10 +276,10 @@ export default function PricingPage() {
 
         {/* Ongoing Support */}
         <Box sx={{ mt: 12, p: 6, borderRadius: 4, bgcolor: "background.paper", textAlign: "center", border: "1px solid", borderColor: "divider" }}>
-          <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
+          <Typography variant="h3" gutterBottom>
             Ongoing Support & Optimization
           </Typography>
-          <Typography variant="h5" color="primary" sx={{ mb: 3, fontWeight: "bold" }}>
+          <Typography variant="h4" color="primary" sx={{ mb: 3 }}>
             $500 – $2,000 / month
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ maxWidth: "600px", mx: "auto", mb: 4 }}>
@@ -303,7 +300,7 @@ export default function PricingPage() {
         {/* Factors & ROI */}
         <Grid container spacing={8} sx={{ mt: 8 }}>
           <Grid item xs={12} md={6}>
-            <Typography variant="h4" sx={{ fontWeight: 600, mb: 4 }}>
+            <Typography variant="h3" sx={{ mb: 4 }}>
               What Determines Pricing
             </Typography>
             <Typography variant="body1" sx={{ mb: 3 }} color="text.secondary">
@@ -324,7 +321,7 @@ export default function PricingPage() {
             </List>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography variant="h4" sx={{ fontWeight: 600, mb: 4 }}>
+            <Typography variant="h4" sx={{ mb: 4 }}>
               Your Return on Investment
             </Typography>
             <Stack spacing={4}>
@@ -361,10 +358,10 @@ export default function PricingPage() {
 
         {/* Final CTA */}
         <Box sx={{ mt: 15, mb: 5, textAlign: "center" }}>
-          <Typography variant="h3" sx={{ fontWeight: 700, mb: 3 }}>
+          <Typography variant="h2" sx={{ mb: 3 }}>
             Ready to Get Your Automation Plan?
           </Typography>
-          <Typography variant="h6" color="text.secondary" sx={{ mb: 5, maxWidth: "600px", mx: "auto" }}>
+          <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 5, maxWidth: "600px", mx: "auto" }}>
             Schedule a brief strategy call to walk through your current process. No pressure—just actionable insights on where automation can help you most.
           </Typography>
           <Link href="/contact" passHref>
@@ -375,8 +372,6 @@ export default function PricingPage() {
                 px: 6,
                 py: 2,
                 borderRadius: "50px",
-                fontSize: "1.2rem",
-                fontWeight: "bold",
                 backgroundColor: isDark ? "#FFFFFF" : "#000000",
                 color: isDark ? "#000000" : "#FFFFFF",
                 "&:hover": {

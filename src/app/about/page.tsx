@@ -26,22 +26,21 @@ export default function About() {
         <Container maxWidth="lg">
           <Typography
             component="h1"
-            variant="h3"
+            variant="h2"
             align="center"
             color="text.primary"
             gutterBottom
-            sx={{ fontWeight: 700 }}
           >
             Welcome to Senna Automation
           </Typography>
 
           <Typography
-            variant="h6"
+            variant="subtitle1"
             align="center"
             color="text.secondary"
-            sx={{ mt: 2, maxWidth: 800, mx: "auto", fontWeight: 400 }}
+            sx={{ mt: 2, maxWidth: 800, mx: "auto" }}
           >
-            We’re glad you’re here.
+            We're glad you're here.
           </Typography>
         </Container>
       </Box>
@@ -61,20 +60,20 @@ export default function About() {
             {/* Story Text (Left) */}
             <Grid item xs={12} md={7}>
               <Typography
-                variant="h4"
+                variant="h3"
                 component="h2"
                 color="text.primary"
                 gutterBottom
-                sx={{ fontWeight: 700, mb: 4 }}
+                sx={{ mb: 4 }}
               >
-                Work doesn’t need to feel this manual.
+                Work doesn't need to feel this manual.
               </Typography>
 
-              <Typography variant="body1" color="text.secondary" sx={{ mb: 3, fontSize: "1.1rem", lineHeight: 1.8 }}>
+              <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 3 }}>
                 Most businesses aren’t short on tools, they’re short on time. Between follow-ups, data entry, handoffs, and everything else that piles up, a lot of the day ends up being spent just keeping things moving.
               </Typography>
 
-              <Typography variant="body1" color="text.primary" sx={{ mb: 0, fontWeight: 700, fontSize: "1.2rem" }}>
+              <Typography variant="h5" color="text.primary" sx={{ mb: 0 }}>
                 Senna Automation helps take that off your plate.
               </Typography>
             </Grid>
@@ -103,7 +102,7 @@ export default function About() {
                       component="h2"
                       align="center"
                       gutterBottom
-                      sx={{ fontWeight: 600, color: "text.primary" }}
+                      sx={{ color: "text.primary" }}
                     >
                       Senna Automation
                     </Typography>
@@ -160,13 +159,11 @@ export default function About() {
                   boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
                 }}
               >
-                <Typography 
-                  variant="h3" 
-                  sx={{ 
-                    fontSize: { xs: "1.75rem", md: "2.5rem" }, 
+                <Typography
+                  variant="h3"
+                  sx={{
                     lineHeight: 1.2,
                     color: 'background.paper',
-                    fontWeight: 800,
                     textAlign: 'center',
                     mb: 5
                   }}
@@ -184,8 +181,6 @@ export default function About() {
                         borderRadius: '50px',
                         px: 6,
                         py: 2,
-                        fontWeight: 'bold',
-                        fontSize: '1.2rem',
                         '&:hover': {
                           borderColor: 'background.paper',
                           bgcolor: 'rgba(255,255,255,0.1)'

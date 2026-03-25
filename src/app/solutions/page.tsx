@@ -161,17 +161,15 @@ export default function SolutionsPage() {
           <Typography
             component="h1"
             variant="h1"
-            sx={{ fontSize: { xs: "2.4rem", md: "3.5rem" }, mb: 2, color: "#FFFFFF" }}
+            sx={{ mb: 2, color: "#FFFFFF" }}
           >
             Solve the work that slows you down
           </Typography>
           <Typography
-            variant="h5"
+            variant="subtitle1"
             sx={{
-              color: "rgba(255,255,255,0.9)",
+              color: "rgba(255,255,255,0.88)",
               mb: 4,
-              fontWeight: 400,
-              fontSize: { xs: "1.1rem", md: "1.3rem" },
             }}
           >
             Real-world automation for the repetitive work that drains time,
@@ -190,7 +188,6 @@ export default function SolutionsPage() {
               borderRadius: "50px",
               px: 4,
               py: 1.5,
-              fontWeight: "bold",
             }}
           >
             Get Your Automation Plan
@@ -203,11 +200,7 @@ export default function SolutionsPage() {
           <Typography variant="h4" component="h2" gutterBottom>
             Most bottlenecks look more familiar than you think
           </Typography>
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            sx={{ maxWidth: 720, mx: "auto", lineHeight: 1.8 }}
-          >
+          <Typography variant="subtitle1" color="text.secondary" sx={{ maxWidth: 720, mx: "auto" }}>
             Most businesses run into the same problems: too much admin work,
             inconsistent follow-up, messy handoffs, and not enough visibility.
             These are real examples of how those problems get solved with
@@ -264,9 +257,7 @@ export default function SolutionsPage() {
                       variant="h3"
                       component="h3"
                       sx={{ 
-                        mb: 3, 
-                        fontWeight: 700, 
-                        fontSize: { xs: "1.75rem", md: "2.25rem" },
+                        mb: 3,
                         lineHeight: 1.2
                       }}
                     >
@@ -293,7 +284,7 @@ export default function SolutionsPage() {
                         >
                           The Solution
                         </Typography>
-                        <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.1rem", lineHeight: 1.7 }}>
+                        <Typography variant="subtitle1" color="text.secondary">
                           {item.solution}
                         </Typography>
                       </Box>
@@ -421,18 +412,14 @@ export default function SolutionsPage() {
                       >
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                           <Typography 
-                            variant="h6" 
+                            variant="h5" 
                             color="text.primary"
-                            sx={{ 
-                              fontSize: { xs: '1.2rem', md: '1.4rem' },
-                              fontWeight: 700 
-                            }}
                           >
                             {faq.question}
                           </Typography>
                         </AccordionSummary>
                         <AccordionDetails sx={{ pt: 0 }}>
-                          <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          <Typography variant="body1" color="text.secondary">
                             {faq.answer}
                           </Typography>
                         </AccordionDetails>
@@ -454,19 +441,14 @@ export default function SolutionsPage() {
         }}
       >
         <Container maxWidth="sm">
-          <Typography
-            variant="h2"
-            sx={{ mb: 2, fontSize: { xs: "2rem", md: "2.8rem" }, color: "#FFFFFF" }}
-          >
+          <Typography variant="h2" sx={{ mb: 2, color: "#FFFFFF" }}>
             See what you can automate
           </Typography>
           <Typography
-            variant="body1"
+            variant="subtitle1"
             sx={{
-              color: "rgba(255,255,255,0.9)",
+              color: "rgba(255,255,255,0.88)",
               mb: 4,
-              fontSize: "1.05rem",
-              lineHeight: 1.8,
             }}
           >
             Start with a conversation about where time is being lost and what
@@ -486,7 +468,6 @@ export default function SolutionsPage() {
               borderRadius: "50px",
               px: 5,
               py: 1.5,
-              fontWeight: "bold",
             }}
           >
             Get Your Automation Plan
