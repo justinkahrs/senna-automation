@@ -28,24 +28,39 @@ export function Footer() {
     <Box
       component="footer"
       sx={{
-        py: 6,
+        py: 10,
         px: 2,
         mt: "auto",
-        backgroundColor: "background.paper",
-        borderTop: 1,
-        borderColor: "divider",
+        backgroundColor: "secondary.main",
+        color: "background.paper",
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
-      <Container maxWidth="lg">
-        <Grid container spacing={4}>
+      {/* Subtle texture overlay */}
+      <Box 
+        sx={{ 
+          position: 'absolute', 
+          top: 0, 
+          left: 0, 
+          right: 0, 
+          bottom: 0, 
+          opacity: 0.02,
+          backgroundImage: 'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
+          pointerEvents: 'none'
+        }} 
+      />
+      
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <Grid container spacing={8}>
           <Grid item xs={12} md={4}>
-            <Typography variant="h5" color="text.primary" gutterBottom>
+            <Typography variant="h5" color="inherit" gutterBottom sx={{ fontWeight: 600 }}>
               Senna Automation LLC
             </Typography>
-            <Typography variant="body2" color="text.secondary" gutterBottom>
+            <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)', mb: 0.5 }}>
               Grand Rapids, MI
             </Typography>
-            <Typography variant="body2" color="text.secondary" gutterBottom>
+            <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)', mb: 2 }}>
               (616) 287-3360
             </Typography>
           </Grid>
@@ -53,19 +68,21 @@ export function Footer() {
             <Grid item xs={12} sm={4} md={2} key={group.heading}>
               <Typography
                 variant="overline"
-                color="text.primary"
-                sx={{ fontWeight: 700, letterSpacing: 1, display: "block", mb: 1 }}
+                sx={{ color: 'primary.light', display: "block", mb: 3 }}
               >
                 {group.heading}
               </Typography>
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
                 {group.links.map((link) => (
                   <Link
                     key={link.label}
                     href={link.href}
-                    color="text.secondary"
-                    underline="hover"
-                    sx={{ width: "fit-content" }}
+                    sx={{ 
+                      color: 'rgba(255,255,255,0.6)', 
+                      textDecoration: 'none',
+                      transition: 'color 0.2s',
+                      '&:hover': { color: '#FFFFFF' }
+                    }}
                   >
                     <Typography variant="body2" color="inherit">
                       {link.label}
@@ -78,21 +95,20 @@ export function Footer() {
           <Grid item xs={12} sm={4} md={2}>
             <Typography
               variant="overline"
-              color="text.primary"
-              sx={{ fontWeight: 700, letterSpacing: 1, display: "block", mb: 1 }}
+              sx={{ color: 'primary.light', display: "block", mb: 3 }}
             >
               Socials
             </Typography>
-            <Box sx={{ display: "flex", gap: 1 }}>
+            <Box sx={{ display: "flex", gap: 2 }}>
               <IconButton 
                 component="a" 
                 href="https://linkedin.com/company/senna-automation" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 sx={{ 
-                  color: 'text.secondary',
+                  color: 'rgba(255,255,255,0.6)',
                   p: 0,
-                  '&:hover': { color: 'primary.main' }
+                  '&:hover': { color: 'primary.light' }
                 }}
               >
                 <LinkedInIcon />
@@ -103,9 +119,9 @@ export function Footer() {
                 target="_blank" 
                 rel="noopener noreferrer"
                 sx={{ 
-                  color: 'text.secondary',
+                  color: 'rgba(255,255,255,0.6)',
                   p: 0,
-                  '&:hover': { color: 'primary.main' }
+                  '&:hover': { color: 'primary.light' }
                 }}
               >
                 <InstagramIcon />
@@ -113,37 +129,31 @@ export function Footer() {
             </Box>
           </Grid>
         </Grid>
-        <Box
-          sx={{
-            pt: 4,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: 1,
-            color: "text.secondary",
+
+        <Box 
+          sx={{ 
+            mt: 10, 
+            pt: 4, 
+            borderTop: '1px solid rgba(255,255,255,0.06)', 
+            display: 'flex', 
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 2,
+            color: 'rgba(255,255,255,0.4)'
           }}
-          suppressHydrationWarning
         >
           <Typography variant="body2" color="inherit">
-            © {new Date().getFullYear()} Senna Automation LLC. All rights reserved.
+            © {new Date().getFullYear()} Senna Automation LLC.
           </Typography>
-          <Typography variant="body2" color="inherit">
-            |
-          </Typography>
-          <Link href="/privacy" color="inherit" underline="hover">
-            <Typography variant="body2" color="inherit">
-              Privacy Policy
-            </Typography>
-          </Link>
-          <Typography variant="body2" color="inherit">
-            |
-          </Typography>
-          <Link href="/terms" color="inherit" underline="hover">
-            <Typography variant="body2" color="inherit">
-              Terms of Service
-            </Typography>
-          </Link>
+          <Box sx={{ display: 'flex', gap: 3 }}>
+            <Link href="/privacy" sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: '#FFF' } }}>
+              <Typography variant="body2">Privacy</Typography>
+            </Link>
+            <Link href="/terms" sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: '#FFF' } }}>
+              <Typography variant="body2">Terms</Typography>
+            </Link>
+          </Box>
         </Box>
       </Container>
     </Box>

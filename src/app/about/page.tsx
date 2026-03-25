@@ -19,16 +19,32 @@ export default function About() {
       <Box
         component="section"
         sx={{
-          bgcolor: "background.default",
-          py: { xs: 8, md: 12 },
+          bgcolor: "secondary.main",
+          color: "background.paper",
+          pt: { xs: 12, md: 20 },
+          pb: { xs: 10, md: 16 },
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        <Container maxWidth="lg">
+        {/* Subtle noise texture */}
+        <Box 
+          sx={{ 
+            position: 'absolute', 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            bottom: 0, 
+            opacity: 0.03,
+            backgroundImage: 'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
+            pointerEvents: 'none'
+          }} 
+        />
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, textAlign: "center" }}>
           <Typography
             component="h1"
-            variant="h2"
-            align="center"
-            color="text.primary"
+            variant="h1"
+            color="inherit"
             gutterBottom
           >
             Welcome to Senna Automation
@@ -36,9 +52,8 @@ export default function About() {
 
           <Typography
             variant="subtitle1"
-            align="center"
-            color="text.secondary"
-            sx={{ mt: 2, maxWidth: 800, mx: "auto" }}
+            color="inherit"
+            sx={{ mt: 2, maxWidth: 800, mx: "auto", opacity: 0.7 }}
           >
             We're glad you're here.
           </Typography>
@@ -47,151 +62,167 @@ export default function About() {
 
 
 
-      {/* Story & Contact Section - Default background */}
       <Box
         component="section"
         sx={{
           bgcolor: "background.default",
-          py: { xs: 8, md: 12 },
+          py: { xs: 10, md: 15 },
         }}
       >
         <Container maxWidth="lg">
-          <Grid container spacing={8} alignItems="center">
-            {/* Story Text (Left) */}
+          <Grid container spacing={{ xs: 6, md: 10, lg: 12 }}>
+            {/* Story Text (Left - 7 columns) */}
             <Grid item xs={12} md={7}>
-              <Typography
-                variant="h3"
-                component="h2"
-                color="text.primary"
-                gutterBottom
-                sx={{ mb: 4 }}
-              >
-                Work doesn't need to feel this manual.
-              </Typography>
+              <Stack spacing={4}>
+                <Box>
+                  <Typography variant="overline" color="primary.main" sx={{ mb: 2, display: 'block' }}>
+                    Our Core Focus
+                  </Typography>
+                  <Typography
+                    variant="h2"
+                    component="h2"
+                    color="text.primary"
+                    gutterBottom
+                  >
+                    Systems built for people, not just for machines.
+                  </Typography>
+                </Box>
 
-              <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 3 }}>
-                Most businesses aren’t short on tools, they’re short on time. Between follow-ups, data entry, handoffs, and everything else that piles up, a lot of the day ends up being spent just keeping things moving.
-              </Typography>
+                <Typography variant="subtitle1" color="text.secondary" sx={{ maxWidth: '640px' }}>
+                  Most businesses aren’t short on tools, they’re short on time. Between follow-ups, data entry, handoffs, and everything else that piles up, a lot of the day ends up being spent just keeping things moving.
+                </Typography>
 
-              <Typography variant="h5" color="text.primary" sx={{ mb: 0 }}>
-                Senna Automation helps take that off your plate.
-              </Typography>
+                <Typography variant="h5" color="text.primary" sx={{ fontWeight: 600 }}>
+                  Senna Automation helps take that off your plate.
+                </Typography>
+
+                <Stack spacing={3} sx={{ mt: 2 }}>
+                  <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}>
+                    We're a full-stack automation and workflow consulting agency based in Grand Rapids, Michigan. Our approach comes from over 15 years of software development and working with automation long before it was something everyone had an opinion about. 
+                  </Typography>
+
+                  <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}>
+                    We focus on making the repetitive parts of your business run on their own. Not a big overhaul. Not a complicated rebuild. Just smarter systems that fit into how you already work. Leads get followed up, data goes where it needs to go, and tasks don’t sit around waiting for someone to notice them.
+                  </Typography>
+
+                  <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}>
+                    At the end of the day, this is about making work feel lighter. Fewer things slipping through the cracks, less time spent on routine tasks, and more time for the work that actually matters.
+                  </Typography>
+                </Stack>
+              </Grid>
             </Grid>
 
+            {/* Contact Card (Right - 5 columns) */}
             <Grid item xs={12} md={5}>
-              <Card 
-                sx={{ 
-                  bgcolor: "background.paper", 
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 4,
-                  boxShadow: 'none',
-                  transition: 'none',
-                  '&:hover': {
-                    bgcolor: 'background.paper',
-                    boxShadow: 'none',
-                    transform: 'none'
-                  }
-                }}
-              >
-                <CardContent sx={{ p: 4 }}>
-                  <Stack spacing={2} alignItems="center">
-                    <LocationOnIcon sx={{ fontSize: 48, color: "primary.main" }} />
-                    <Typography
-                      variant="h5"
-                      component="h2"
-                      align="center"
-                      gutterBottom
-                      sx={{ color: "text.primary" }}
-                    >
-                      Senna Automation
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      align="center"
-                      color="text.secondary"
-                    >
-                      AI Automation & Custom Software Development
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      align="center"
-                      color="text.secondary"
-                    >
-                      Serving Grand Rapids, Michigan and businesses nationwide
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      align="center"
-                      color="text.secondary"
-                      sx={{ mt: 2 }}
-                    >
-                      (616) 287-3360
-                    </Typography>
-                  </Stack>
-                </CardContent>
-              </Card>
+              <Box sx={{ position: { md: 'sticky' }, top: 120 }}>
+                <Card 
+                  sx={{ 
+                    bgcolor: "background.paper", 
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    borderRadius: 4,
+                    boxShadow: '0 20px 60px rgba(0,0,0,0.04)',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <CardContent sx={{ p: { xs: 4, md: 6 } }}>
+                    <Stack spacing={4} alignItems="center">
+                      <LocationOnIcon sx={{ fontSize: 48, color: "primary.main" }} />
+                      <Box sx={{ textAlign: 'center' }}>
+                        <Typography
+                          variant="h4"
+                          component="h2"
+                          gutterBottom
+                          sx={{ color: "text.primary" }}
+                        >
+                          Senna Automation
+                        </Typography>
+                        <Stack spacing={0.5}>
+                          <Typography
+                            variant="body1"
+                            color="text.secondary"
+                          >
+                            AI Automation & Custom Software Development
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="text.secondary"
+                          >
+                            Serving Grand Rapids, MI & Nationwide
+                          </Typography>
+                        </Stack>
+                      </Box>
+                      
+                      <Divider sx={{ width: '100%', opacity: 0.5 }} />
+
+                      <Stack spacing={2} alignItems="center">
+                        <Typography
+                          variant="h5"
+                          color="text.primary"
+                        >
+                          (616) 287-3360
+                        </Typography>
+                        <Typography
+                          variant="overline"
+                          color="text.secondary"
+                        >
+                          Est. 2024
+                        </Typography>
+                      </Stack>
+                    </Stack>
+                  </CardContent>
+                </Card>
+              </Box>
             </Grid>
           </Grid>
 
-          {/* Story Continuation Block */}
-          <Box sx={{ mt: 10, textAlign: 'left', maxWidth: '800px', mx: 'auto' }}>
-            <Stack spacing={4}>
-              <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.1rem", lineHeight: 1.8 }}>
-                We're a full-stack automation and workflow consulting agency based in Grand Rapids, Michigan. Our approach to comes from over 15 years in software development and working with automation long before it was something everyone had an opinion about. 
-              </Typography>
+          {/* Final CTA Area */}
+          <Box 
+            sx={{ 
+              mt: { xs: 12, md: 20 }, 
+              py: 12, 
+              px: { xs: 4, md: 8 }, 
+              bgcolor: 'secondary.main', 
+              borderRadius: 6,
+              boxShadow: '0 30px 90px rgba(0,0,0,0.18)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+          >
+            {/* Texture overlay */}
+            <Box 
+              sx={{ 
+                position: 'absolute', 
+                top: 0, 
+                left: 0, 
+                right: 0, 
+                bottom: 0, 
+                opacity: 0.03,
+                backgroundImage: 'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
+                pointerEvents: 'none'
+              }} 
+            />
 
-              <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.1rem", lineHeight: 1.8 }}>
-                We focus on making the repetitive parts of your business run on their own. Not a big overhaul. Not a complicated rebuild. Just smarter systems that fit into how you already work. Leads get followed up, data goes where it needs to go, and tasks don’t sit around waiting for someone to notice them.
-              </Typography>
-
-              <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.1rem", lineHeight: 1.8 }}>
-                At the end of the day, this is about making work feel lighter. Fewer things slipping through the cracks, less time spent on routine tasks, and more time for the work that actually matters.
-              </Typography>
-
-              <Box 
-                sx={{ 
-                  mt: 10, 
-                  py: 8, 
-                  px: { xs: 4, md: 8 }, 
-                  bgcolor: 'text.primary', 
-                  borderRadius: 4,
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
+            <Stack spacing={6} alignItems="center" sx={{ position: 'relative', zIndex: 1 }}>
+              <Typography
+                variant="h2"
+                sx={{
+                  color: 'background.paper',
+                  textAlign: 'center',
+                  maxWidth: '840px'
                 }}
               >
-                <Typography
-                  variant="h3"
-                  sx={{
-                    lineHeight: 1.2,
-                    color: 'background.paper',
-                    textAlign: 'center',
-                    mb: 5
-                  }}
+                If you’ve ever thought, ‘<Box component="span" sx={{ fontStyle: 'italic', color: 'primary.light' }}>there has to be a better way to do this,</Box>’ there probably is. It just hasn’t been set up yet.
+              </Typography>
+              <Link href="/contact" passHref>
+                <Button 
+                  variant="contained" 
+                  size="large"
+                  sx={{ px: 8 }}
                 >
-                  If you’ve ever thought, ‘<Box component="span" sx={{ fontStyle: 'italic', fontWeight: 700 }}>there has to be a better way to do this,</Box>’ there probably is. It just hasn’t been set up yet.
-                </Typography>
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                  <Link href="/contact" passHref>
-                    <Button 
-                      variant="outlined" 
-                      size="large"
-                      sx={{ 
-                        color: 'background.paper', 
-                        borderColor: 'background.paper',
-                        borderRadius: '50px',
-                        px: 6,
-                        py: 2,
-                        '&:hover': {
-                          borderColor: 'background.paper',
-                          bgcolor: 'rgba(255,255,255,0.1)'
-                        }
-                      }}
-                    >
-                      Let's fix that
-                    </Button>
-                  </Link>
-                </Box>
-              </Box>
+                  Let's fix that
+                </Button>
+              </Link>
             </Stack>
           </Box>
         </Container>

@@ -9,8 +9,10 @@ import {
   Container,
   Stack,
   Typography,
+  Grid,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CascadingStagger from "@/components/animations/CascadingStagger";
 
 const faqs = [
   {
@@ -113,60 +115,73 @@ export default function Home() {
       <Box
         component="section"
         sx={{
-          bgcolor: "#ffffff",
-          py: { xs: 8, md: 12 },
+          bgcolor: "background.paper",
+          py: { xs: 12, md: 24 },
         }}
       >
         <Container maxWidth="lg">
-          {/* h4 = Cormorant display, clamp(1.5rem,2.5vw,1.777rem) */}
-          <Typography
-            variant="h4"
-            component="h2"
-            align="center"
-            color="text.primary"
-            gutterBottom
-            sx={{ mb: 4 }}
-          >
-            Why Choose Senna Automation for Your AI Transformation?
-          </Typography>
+          <Grid container spacing={{ xs: 8, md: 10, lg: 12 }} alignItems="center">
+            {/* Text Content (7 Columns) */}
+            <Grid item xs={12} md={7}>
+              <Box sx={{ maxWidth: 640 }}>
+                <Typography variant="overline" color="primary.main" sx={{ mb: 2, display: 'block' }}>
+                  The Senna Advantage
+                </Typography>
+                <Typography
+                  variant="h2"
+                  component="h2"
+                  color="text.primary"
+                  gutterBottom
+                  sx={{ mb: 4 }}
+                >
+                  Systems that handle the work, so you can handle the business.
+                </Typography>
+                
+                <Stack spacing={3}>
+                  <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}>
+                    <strong>Senna Automation specializes in AI workflow automation and custom software development</strong>, helping businesses in Grand Rapids, Michigan and beyond harness the power of artificial intelligence.
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}>
+                    Whether you need <strong>B2B AI consulting</strong>, <strong>digital transformation</strong> strategies, or end-to-end workflow automation, our team delivers measurable outcomes—including reduced operational costs and improved efficiency.
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic', borderLeft: '2px solid', borderColor: 'primary.light', pl: 3, py: 1, mt: 2 }}>
+                    Expertise spans custom web app development, modern AI integration, and high-performance, SEO-optimized systems that help your business stand out.
+                  </Typography>
+                </Stack>
+              </Box>
+            </Grid>
 
-          {/* body1 = standard paragraph, lh1.65 */}
-          <Typography
-            variant="body1"
-            align="center"
-            color="text.secondary"
-            sx={{ maxWidth: 900, mx: "auto" }}
-          >
-            <strong>
-              Senna Automation specializes in AI workflow automation and custom
-              software development
-            </strong>
-            , helping businesses in Grand Rapids, Michigan and beyond harness
-            the power of artificial intelligence. From{" "}
-            <strong>business AI integration</strong> and{" "}
-            <strong>chatbot development</strong> to{" "}
-            <strong>process automation consulting</strong> and{" "}
-            <strong>enterprise AI solutions</strong>, we deliver tailored
-            solutions that drive real business results.
-          </Typography>
-
-          <Typography
-            variant="body1"
-            align="center"
-            color="text.secondary"
-            sx={{ mt: 3, maxWidth: 900, mx: "auto" }}
-          >
-            Our expertise spans <strong>custom web app development</strong>,{" "}
-            <strong>modern web development</strong>,{" "}
-            <strong>high-performance websites</strong>, and{" "}
-            <strong>SEO-optimized websites</strong> that help your business
-            stand out online. Whether you need{" "}
-            <strong>B2B AI consulting</strong>,{" "}
-            <strong>digital transformation AI</strong> strategies, or
-            end-to-end workflow automation, our team delivers measurable
-            outcomes including reduced operational costs, improved efficiency,
-            and enhanced customer experiences.
-          </Typography>
+            {/* Visual Element (5 Columns) */}
+            <Grid item xs={12} md={5}>
+              <Box 
+                sx={{ 
+                  position: 'relative',
+                  borderRadius: 6,
+                  overflow: 'hidden',
+                  lineHeight: 0,
+                  boxShadow: '0 20px 80px rgba(0,0,0,0.08)',
+                  transform: { md: 'translateX(20px)' } // Subtle grid break
+                }}
+              >
+                <img 
+                  src="/abstract_automation_craftsmanship_1774478842183.png" 
+                  alt="Minimalist architectural detail representing digital craftsmanship"
+                  style={{ width: '100%', height: 'auto', display: 'block' }}
+                />
+                <Box 
+                  sx={{ 
+                    position: 'absolute', 
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    background: 'linear-gradient(to bottom, transparent, rgba(28,25,23,0.05))',
+                    pointerEvents: 'none'
+                  }} 
+                />
+              </Box>
+            </Grid>
+          </Grid>
         </Container>
       </Box>
 
@@ -174,53 +189,76 @@ export default function Home() {
       <Box
         component="section"
         sx={{
-          bgcolor: "background.paper",
-          py: { xs: 8, md: 12 },
-          borderTop: "1px solid",
-          borderColor: "divider",
+          bgcolor: "secondary.main",
+          color: "background.paper",
+          py: { xs: 12, md: 20 },
+          position: "relative",
+          overflow: "hidden"
         }}
       >
-        <Container maxWidth="md">
-          {/* h2 = Cormorant display, clamp(2.25rem,4.5vw,3.157rem) */}
+        {/* Texture overlay */}
+        <Box 
+          sx={{ 
+            position: 'absolute', 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            bottom: 0, 
+            opacity: 0.03,
+            backgroundImage: 'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
+            pointerEvents: 'none'
+          }} 
+        />
+        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
           <Typography
             variant="h2"
             component="h2"
             align="center"
-            color="text.primary"
+            color="inherit"
             sx={{ mb: 2 }}
           >
             Frequently asked questions
           </Typography>
 
-          {/* subtitle1 = body-large under the heading */}
           <Typography
             variant="subtitle1"
             align="center"
-            color="text.secondary"
-            sx={{ maxWidth: 600, mx: "auto", mb: 6 }}
+            color="inherit"
+            sx={{ maxWidth: 600, mx: "auto", mb: 8, opacity: 0.7 }}
           >
             A few common questions teams ask before they start automating their
             workflows.
           </Typography>
 
-          <Stack spacing={2}>
+          <CascadingStagger spacing={2}>
             {faqs.map((faq) => (
-              <Accordion key={faq.question} disableGutters>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  {/* h5 = Inter 600, 1.125rem, lh1.35 */}
-                  <Typography variant="h5" color="text.primary">
+              <Accordion 
+                key={faq.question} 
+                disableGutters
+                sx={{
+                  bgcolor: 'rgba(255,255,255,0.03)',
+                  borderColor: 'rgba(255,255,255,0.1)',
+                  color: 'inherit',
+                  '&.Mui-expanded': {
+                    bgcolor: 'rgba(255,255,255,0.06)',
+                  }
+                }}
+              >
+                <AccordionSummary 
+                  expandIcon={<ExpandMoreIcon sx={{ color: 'primary.light' }} />}
+                >
+                  <Typography variant="h5" color="inherit">
                     {faq.question}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  {/* body1 = standard paragraph */}
-                  <Typography variant="body1" color="text.secondary">
+                  <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.7)' }}>
                     {faq.answer}
                   </Typography>
                 </AccordionDetails>
               </Accordion>
             ))}
-          </Stack>
+          </CascadingStagger>
         </Container>
       </Box>
     </>
