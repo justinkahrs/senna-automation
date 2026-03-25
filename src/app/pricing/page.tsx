@@ -23,6 +23,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import BoltIcon from "@mui/icons-material/Bolt";
+import ScheduleCallButton from "@/components/ScheduleCallButton";
 
 export default function PricingPage() {
   const theme = useTheme();
@@ -44,34 +45,6 @@ export default function PricingPage() {
           >
             Automation That Pays for Itself
           </Typography>
-          <Typography
-            variant="h5"
-            color="text.secondary"
-            sx={{ maxWidth: "600px", fontWeight: 400 }}
-          >
-            We build systems that reclaim your time and scale your revenue, so you can focus on growing your business.
-          </Typography>
-          <Link href="/contact" passHref>
-            <Button
-              variant="contained"
-              size="large"
-              endIcon={<ArrowForwardIcon />}
-              sx={{
-                px: 4,
-                py: 1.5,
-                borderRadius: "50px",
-                fontSize: "1.1rem",
-                fontWeight: "bold",
-                backgroundColor: isDark ? "#FFFFFF" : "#000000",
-                color: isDark ? "#000000" : "#FFFFFF",
-                "&:hover": {
-                  backgroundColor: isDark ? "#EEEEEE" : "#333333",
-                },
-              }}
-            >
-              Get Your Automation Plan
-            </Button>
-          </Link>
         </Stack>
 
         {/* Intro */}
@@ -138,8 +111,8 @@ export default function PricingPage() {
               </CardContent>
               <Box sx={{ p: 4, pt: 0 }}>
                 <Link href="/contact" passHref>
-                  <Button variant="outlined" fullWidth sx={{ borderRadius: 2, py: 1.5 }}>
-                    Select Starter
+                  <Button variant="contained" fullWidth sx={{ borderRadius: "50px", fontWeight: "bold", py: 1.5, backgroundColor: isDark ? "#FFFFFF" : "#000000", color: isDark ? "#000000" : "#FFFFFF" }}>
+                    Get Started
                   </Button>
                 </Link>
               </Box>
@@ -218,8 +191,8 @@ export default function PricingPage() {
               </CardContent>
               <Box sx={{ p: 4, pt: 0 }}>
                 <Link href="/contact" passHref>
-                  <Button variant="contained" fullWidth sx={{ borderRadius: 2, py: 1.5, backgroundColor: isDark ? "#FFFFFF" : "#000000", color: isDark ? "#000000" : "#FFFFFF" }}>
-                    Select Growth
+                  <Button variant="contained" fullWidth sx={{ borderRadius: "50px", fontWeight: "bold", py: 1.5, backgroundColor: isDark ? "#FFFFFF" : "#000000", color: isDark ? "#000000" : "#FFFFFF" }}>
+                    Get Growing
                   </Button>
                 </Link>
               </Box>
@@ -284,11 +257,21 @@ export default function PricingPage() {
                 </List>
               </CardContent>
               <Box sx={{ p: 4, pt: 0 }}>
-                <Link href="/contact" passHref>
-                  <Button variant="outlined" fullWidth sx={{ borderRadius: 2, py: 1.5 }}>
-                    Request Custom Quote
-                  </Button>
-                </Link>
+                <ScheduleCallButton
+                  text="Book a Demo via"
+                  fullWidth
+                  showIcon={true}
+                  sx={{ 
+                    borderRadius: "50px", 
+                    fontWeight: "bold", 
+                    py: 1.5, 
+                    backgroundColor: isDark ? "#FFFFFF" : "#000000", 
+                    color: isDark ? "#000000" : "#FFFFFF" 
+                  }}
+                />
+                <Typography variant="caption" align="center" display="block" color="text.secondary" sx={{ mt: 2 }}>
+                  Want more information? <Link href="/contact" style={{ color: "inherit", fontWeight: 600 }}>Contact sales</Link>
+                </Typography>
               </Box>
             </Card>
           </Grid>
