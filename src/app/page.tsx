@@ -1,6 +1,6 @@
 import RequestFormButton from "@/components/RequestFormButton";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
-import SeeProductsButton from "@/components/SeeProductsButton";
+
 import AnimatedHeroTitle from "@/components/AnimatedHeroTitle";
 import {
   Accordion,
@@ -95,20 +95,16 @@ export default function Home() {
                 <ScheduleCallButton
                   fullWidth
                   size="large"
-                  text="Schedule Call"
-                  aria-label="Schedule a consultation call with our AI automation experts"
+                  text="Schedule a Call via"
+                  aria-label="Schedule a consultation call with our AI automation experts via Calendly"
                 />
-                <SeeProductsButton
-                  fullWidth
-                  size="large"
-                  text="See Products"
-                  aria-label="View our AI automation and software development products"
-                />
+
                 <RequestFormButton
                   fullWidth
                   size="large"
-                  text="Custom Request"
-                  aria-label="Submit a custom project request"
+                  text="See What You Can Automate"
+                  href="/services"
+                  aria-label="See what you can automate"
                 />
               </Stack>
             </Box>
@@ -131,7 +127,11 @@ export default function Home() {
             align="center"
             color="text.primary"
             gutterBottom
-            sx={{ mb: 4 }}
+            sx={{ 
+              mb: 4,
+              fontSize: { xs: '1.8rem', md: '2.4rem' },
+              fontWeight: 700
+            }}
           >
             Why Choose Senna Automation for Your AI Transformation?
           </Typography>
@@ -188,7 +188,11 @@ export default function Home() {
             component="h2"
             align="center"
             color="text.primary"
-            sx={{ mb: 2 }}
+            sx={{ 
+              mb: 2,
+              fontSize: { xs: '2.2rem', md: '3rem' },
+              fontWeight: 700 
+            }}
           >
             Frequently asked questions
           </Typography>
@@ -217,7 +221,14 @@ export default function Home() {
                 }}
               >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography variant="h6" color="text.primary">
+                  <Typography 
+                    variant="h6" 
+                    color="text.primary"
+                    sx={{ 
+                      fontSize: { xs: '1.1rem', md: '1.25rem' },
+                      fontWeight: 600 
+                    }}
+                  >
                     {faq.question}
                   </Typography>
                 </AccordionSummary>

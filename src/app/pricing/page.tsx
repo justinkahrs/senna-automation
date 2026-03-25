@@ -157,6 +157,7 @@ export default function PricingPage() {
                 borderColor: "primary.main",
                 borderRadius: 4,
                 position: "relative",
+                overflow: "visible",
                 transition: "transform 0.3s ease",
                 "&:hover": { transform: "translateY(-4px)" },
               }}

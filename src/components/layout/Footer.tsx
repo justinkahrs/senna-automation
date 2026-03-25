@@ -20,7 +20,6 @@ const footerLinkGroups = [
   {
     heading: "Explore",
     links: [
-      { label: "Products", href: "/products" },
       { label: "Contact", href: "/contact" },
     ],
   },

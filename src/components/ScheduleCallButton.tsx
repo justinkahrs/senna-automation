@@ -16,6 +16,8 @@ interface ScheduleCallButtonProps {
   variant?: "text" | "outlined" | "contained";
   size?: "small" | "medium" | "large";
   fullWidth?: boolean;
+  sx?: any;
+  showIcon?: boolean;
 }
 
 export default function ScheduleCallButton({
@@ -23,6 +25,8 @@ export default function ScheduleCallButton({
   variant = "contained",
   size = "medium",
   fullWidth = false,
+  sx = {},
+  showIcon = true,
 }: ScheduleCallButtonProps) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -49,6 +53,34 @@ export default function ScheduleCallButton({
         size={size}
         onClick={handleOpen}
         fullWidth={fullWidth}
+        sx={{
+          borderRadius: "50px",
+          fontWeight: "bold",
+          px: 3,
+          ...(variant === "contained" && {
+            backgroundColor: "#000000",
+            color: "#FFFFFF",
+            "&:hover": {
+              backgroundColor: "#333333",
+            },
+          }),
+          ...sx,
+        }}
+        endIcon={showIcon ? (
+          <Box
+            component="img"
+            src="/Calendly.svg"
+            alt="Calendly"
+            sx={{
+              height: "1.2rem",
+              width: "auto",
+              filter: variant === "contained" ? "brightness(0) invert(1)" : "none",
+              ml: -0.5,
+              mt: 0.4,
+              verticalAlign: 'middle',
+            }}
+          />
+        ) : undefined}
       >
         {text}
       </Button>
