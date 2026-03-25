@@ -77,6 +77,16 @@ export function getThemeTokens(): ThemeOptions {
   return {
     keyframes: { blink },
 
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 640,
+        md: 960,
+        lg: 1200,
+        xl: 1280,
+      },
+    },
+
     /* ── Palette ── */
     palette: {
       mode:   "light",
@@ -637,6 +647,39 @@ export function getThemeTokens(): ThemeOptions {
       MuiDivider: {
         styleOverrides: {
           root: { borderColor: BORDER_SOFT },
+        },
+      },
+      /* ── Container ── */
+      MuiContainer: {
+        defaultProps: {
+          maxWidth: "lg",
+        },
+        styleOverrides: {
+          root: ({ theme }) => ({
+            paddingLeft: theme.spacing(2.5), // 20px Mobile
+            paddingRight: theme.spacing(2.5),
+            [theme.breakpoints.up("sm")]: {
+              paddingLeft: theme.spacing(4), // 32px Tablet
+              paddingRight: theme.spacing(4),
+            },
+            [theme.breakpoints.up("lg")]: {
+              paddingLeft: theme.spacing(10), // 80px Desktop Margins (Outer)
+              paddingRight: theme.spacing(10),
+              maxWidth: 1400, // 1200 content + 200 padding
+            },
+          }),
+          maxWidthLg: {
+            "&.MuiContainer-maxWidthLg": {
+              maxWidth: 1400, // Enforce the ~1200px content area
+            },
+          },
+        },
+      },
+
+      /* ── Grid ── */
+      MuiGrid: {
+        defaultProps: {
+          spacing: { xs: 2, sm: 3, md: 4 }, // 16px, 24px, 32px
         },
       },
     },

@@ -108,24 +108,40 @@ export default function ServicesPage() {
     <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
       {/* ── Hero ─────────────────────────────────────────── */}
       <Box
+        component="section"
         sx={{
-          bgcolor: "primary.main",
-          color: "primary.contrastText",
-          py: { xs: 10, md: 14 },
-          textAlign: "center",
+          bgcolor: "secondary.main",
+          color: "background.paper",
+          pt: { xs: 12, md: 20 },
+          pb: { xs: 10, md: 16 },
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        <Container maxWidth="md">
+        {/* Subtle noise texture */}
+        <Box 
+          sx={{ 
+            position: 'absolute', 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            bottom: 0, 
+            opacity: 0.03,
+            backgroundImage: 'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
+            pointerEvents: 'none'
+          }} 
+        />
+        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1, textAlign: "center" }}>
           <Typography
             component="h1"
             variant="h1"
-            sx={{ mb: 2, color: "#FFFFFF" }}
+            sx={{ mb: 2, color: "inherit" }}
           >
             Let the Routine Work Run in the Background
           </Typography>
           <Typography
             variant="subtitle1"
-            sx={{ color: "rgba(255,255,255,0.88)", mb: 4 }}
+            sx={{ color: "rgba(255,255,255,0.7)", mb: 4 }}
           >
             We build automation systems that save time, reduce manual work, and help your team focus
             on growing revenue.
@@ -136,14 +152,6 @@ export default function ServicesPage() {
             variant="contained"
             size="large"
             endIcon={<ArrowForwardIcon />}
-            sx={{
-              bgcolor: "#FFFFFF",
-              color: "#000000",
-              "&:hover": { bgcolor: "#EEEEEE" },
-              borderRadius: "50px",
-              px: 4,
-              py: 1.5,
-            }}
           >
             Get Your Automation Plan
           </Button>
@@ -311,19 +319,34 @@ export default function ServicesPage() {
       {/* ── Final CTA ─────────────────────────────────────── */}
       <Box
         sx={{
-          bgcolor: "primary.main",
-          color: "primary.contrastText",
+          bgcolor: "secondary.main",
+          color: "background.paper",
           py: { xs: 8, md: 12 },
           textAlign: "center",
+          position: 'relative',
+          overflow: 'hidden'
         }}
       >
-        <Container maxWidth="sm">
-          <Typography variant="h2" sx={{ mb: 2, color: "#FFFFFF" }}>
+        {/* Texture overlay */}
+        <Box 
+          sx={{ 
+            position: 'absolute', 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            bottom: 0, 
+            opacity: 0.03,
+            backgroundImage: 'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
+            pointerEvents: 'none'
+          }} 
+        />
+        <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1 }}>
+          <Typography variant="h2" sx={{ mb: 2, color: "inherit" }}>
             See what you can automate
           </Typography>
           <Typography
-            variant="body1"
-            sx={{ color: "rgba(255,255,255,0.88)", mb: 4 }}
+            variant="subtitle1"
+            sx={{ color: "rgba(255,255,255,0.7)", mb: 4 }}
           >
             We start with a free audit of your current workflows. No commitment, just a clear
             picture of where you can save time and reduce overhead.
@@ -334,14 +357,7 @@ export default function ServicesPage() {
             variant="contained"
             size="large"
             endIcon={<ArrowForwardIcon />}
-            sx={{
-              bgcolor: "#FFFFFF",
-              color: "#000000",
-              "&:hover": { bgcolor: "#EEEEEE" },
-              borderRadius: "50px",
-              px: 5,
-              py: 1.5,
-            }}
+            sx={{ px: 6 }}
           >
             Book a Free Audit
           </Button>

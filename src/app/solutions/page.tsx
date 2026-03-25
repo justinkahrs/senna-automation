@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { motion } from "framer-motion";
+import CascadingStagger from "@/components/animations/CascadingStagger";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -150,25 +151,41 @@ export default function SolutionsPage() {
   return (
     <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
       <Box
+        component="section"
         sx={{
-          bgcolor: "primary.main",
-          color: "primary.contrastText",
-          py: { xs: 10, md: 14 },
-          textAlign: "center",
+          bgcolor: "secondary.main",
+          color: "background.paper",
+          pt: { xs: 12, md: 20 },
+          pb: { xs: 10, md: 16 },
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        <Container maxWidth="md">
+        {/* Subtle noise texture */}
+        <Box 
+          sx={{ 
+            position: 'absolute', 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            bottom: 0, 
+            opacity: 0.03,
+            backgroundImage: 'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
+            pointerEvents: 'none'
+          }} 
+        />
+        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1, textAlign: "center" }}>
           <Typography
             component="h1"
             variant="h1"
-            sx={{ mb: 2, color: "#FFFFFF" }}
+            sx={{ mb: 2, color: "inherit" }}
           >
             Solve the work that slows you down
           </Typography>
           <Typography
             variant="subtitle1"
             sx={{
-              color: "rgba(255,255,255,0.88)",
+              color: "rgba(255,255,255,0.7)",
               mb: 4,
             }}
           >
@@ -181,14 +198,6 @@ export default function SolutionsPage() {
             variant="contained"
             size="large"
             endIcon={<ArrowForwardIcon />}
-            sx={{
-              bgcolor: "#FFFFFF",
-              color: "#000000",
-              "&:hover": { bgcolor: "#EEEEEE" },
-              borderRadius: "50px",
-              px: 4,
-              py: 1.5,
-            }}
           >
             Get Your Automation Plan
           </Button>
@@ -235,24 +244,18 @@ export default function SolutionsPage() {
                     border: "1px solid",
                     borderColor: "divider",
                     overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: { 
-                      xs: 'column', 
-                      md: index % 2 === 0 ? 'row' : 'row-reverse' 
-                    },
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+                    boxShadow: '0 20px 60px rgba(0,0,0,0.04)',
+                    position: 'relative'
                   }}
                 >
-                  {/* Content Side */}
-                  <Box
-                    sx={{
-                      flex: 1,
-                      p: { xs: 4, md: 6, lg: 8 },
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center'
-                    }}
-                  >
+                  <Grid container>
+                    {/* Content Side (7 Columns) */}
+                    <Grid item xs={12} md={7} order={{ xs: 2, md: index % 2 === 0 ? 1 : 2 }}>
+                      <Box
+                        sx={{
+                          p: { xs: 4, md: 6, lg: 8 },
+                        }}
+                      >
                     <Typography
                       variant="h3"
                       component="h3"
@@ -316,46 +319,50 @@ export default function SolutionsPage() {
                         </Stack>
                       </Box>
                     </Stack>
-                  </Box>
+                      </Box>
+                    </Grid>
 
-                  {/* Visualization Side */}
-                  <Box
-                    sx={{
-                      flex: 1,
-                      minHeight: { xs: 300, md: 'auto' },
-                      bgcolor: "rgba(0,0,0,0.02)",
-                      borderLeft: { 
-                        md: index % 2 === 0 ? "1px solid" : "none" 
-                      },
-                      borderRight: { 
-                        md: index % 2 !== 0 ? "1px solid" : "none" 
-                      },
-                      borderColor: "divider",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      position: "relative",
-                      overflow: "hidden",
-                      background: "linear-gradient(135deg, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.03) 100%)",
-                    }}
-                  >
-                    <Typography color="text.disabled" variant="subtitle2" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: 2, zIndex: 1 }}>
-                      Solution Visualization
-                    </Typography>
-                    {/* Subtle geometric pattern placeholder */}
-                    <Box 
-                      sx={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        opacity: 0.04,
-                        background: 'radial-gradient(circle at 2px 2px, black 1px, transparent 0)',
-                        backgroundSize: '32px 32px'
-                      }}
-                    />
-                  </Box>
+                    {/* Visualization Side (5 Columns) */}
+                    <Grid item xs={12} md={5} order={{ xs: 1, md: index % 2 === 0 ? 2 : 1 }}>
+                      <Box
+                        sx={{
+                          height: '100%',
+                          minHeight: { xs: 300, md: 'auto' },
+                          bgcolor: index % 2 === 0 ? "rgba(0,0,0,0.01)" : "rgba(0,0,0,0.02)",
+                          borderLeft: { 
+                            md: index % 2 === 0 ? "1px solid" : "none" 
+                          },
+                          borderRight: { 
+                            md: index % 2 !== 0 ? "1px solid" : "none" 
+                          },
+                          borderColor: "divider",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          position: "relative",
+                          overflow: "hidden",
+                          background: "linear-gradient(135deg, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.03) 100%)",
+                        }}
+                      >
+                        <Typography color="text.disabled" variant="subtitle2" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: 2, zIndex: 1 }}>
+                          Solution Visualization
+                        </Typography>
+                        {/* Subtle geometric pattern placeholder */}
+                        <Box 
+                          sx={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            opacity: 0.04,
+                            background: 'radial-gradient(circle at 2px 2px, black 1px, transparent 0)',
+                            backgroundSize: '32px 32px'
+                          }}
+                        />
+                      </Box>
+                    </Grid>
+                  </Grid>
                 </Box>
               </motion.div>
             ))}
@@ -389,44 +396,37 @@ export default function SolutionsPage() {
                 </Typography>
               </Grid>
               <Grid item xs={12} md={8}>
-                <motion.div
-                  initial={{ opacity: 0, y: 100, scaleY: 0.9 }}
-                  whileInView={{ opacity: 1, y: 0, scaleY: 1 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 1.2, ease: "easeOut" }}
-                >
-                  <Stack spacing={2}>
-                    {faqs.map((faq) => (
-                      <Accordion
-                        key={faq.question}
-                        disableGutters
-                        sx={{
-                          border: "1px solid",
-                          borderColor: "divider",
-                          borderRadius: 2,
-                          boxShadow: "none",
-                          "&:before": {
-                            display: "none",
-                          },
-                        }}
-                      >
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                          <Typography 
-                            variant="h5" 
-                            color="text.primary"
-                          >
-                            {faq.question}
-                          </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails sx={{ pt: 0 }}>
-                          <Typography variant="body1" color="text.secondary">
-                            {faq.answer}
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
-                    ))}
-                  </Stack>
-                </motion.div>
+                <CascadingStagger spacing={2}>
+                  {faqs.map((faq) => (
+                    <Accordion
+                      key={faq.question}
+                      disableGutters
+                      sx={{
+                        border: "1px solid",
+                        borderColor: "divider",
+                        borderRadius: 2,
+                        boxShadow: "none",
+                        "&:before": {
+                          display: "none",
+                        },
+                      }}
+                    >
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography 
+                          variant="h5" 
+                          color="text.primary"
+                        >
+                          {faq.question}
+                        </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails sx={{ pt: 0 }}>
+                        <Typography variant="body1" color="text.secondary">
+                          {faq.answer}
+                        </Typography>
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </CascadingStagger>
               </Grid>
             </Grid>
           </Container>
@@ -434,20 +434,35 @@ export default function SolutionsPage() {
 
       <Box
         sx={{
-          bgcolor: "primary.main",
-          color: "primary.contrastText",
+          bgcolor: "secondary.main",
+          color: "background.paper",
           py: { xs: 8, md: 12 },
           textAlign: "center",
+          position: 'relative',
+          overflow: 'hidden'
         }}
       >
-        <Container maxWidth="sm">
-          <Typography variant="h2" sx={{ mb: 2, color: "#FFFFFF" }}>
+        {/* Texture overlay */}
+        <Box 
+          sx={{ 
+            position: 'absolute', 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            bottom: 0, 
+            opacity: 0.03,
+            backgroundImage: 'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
+            pointerEvents: 'none'
+          }} 
+        />
+        <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1 }}>
+          <Typography variant="h2" sx={{ mb: 2, color: "inherit" }}>
             See what you can automate
           </Typography>
           <Typography
             variant="subtitle1"
             sx={{
-              color: "rgba(255,255,255,0.88)",
+              color: "rgba(255,255,255,0.7)",
               mb: 4,
             }}
           >
@@ -461,14 +476,7 @@ export default function SolutionsPage() {
             variant="contained"
             size="large"
             endIcon={<ArrowForwardIcon />}
-            sx={{
-              bgcolor: "#FFFFFF",
-              color: "#000000",
-              "&:hover": { bgcolor: "#EEEEEE" },
-              borderRadius: "50px",
-              px: 5,
-              py: 1.5,
-            }}
+            sx={{ px: 6 }}
           >
             Get Your Automation Plan
           </Button>
