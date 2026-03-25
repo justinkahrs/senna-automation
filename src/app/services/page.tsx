@@ -119,13 +119,13 @@ export default function ServicesPage() {
           <Typography
             component="h1"
             variant="h1"
-            sx={{ fontSize: { xs: "2.4rem", md: "3.5rem" }, mb: 2, color: "#FFFFFF" }}
+            sx={{ mb: 2, color: "#FFFFFF" }}
           >
             Let the Routine Work Run in the Background
           </Typography>
           <Typography
-            variant="h5"
-            sx={{ color: "rgba(255,255,255,0.9)", mb: 4, fontWeight: 400, fontSize: { xs: "1.1rem", md: "1.3rem" } }}
+            variant="subtitle1"
+            sx={{ color: "rgba(255,255,255,0.88)", mb: 4 }}
           >
             We build automation systems that save time, reduce manual work, and help your team focus
             on growing revenue.
@@ -143,7 +143,6 @@ export default function ServicesPage() {
               borderRadius: "50px",
               px: 4,
               py: 1.5,
-              fontWeight: "bold",
             }}
           >
             Get Your Automation Plan
@@ -154,10 +153,10 @@ export default function ServicesPage() {
       {/* ── Intro ─────────────────────────────────────────── */}
       <Box sx={{ py: { xs: 6, md: 8 }, bgcolor: "background.paper" }}>
         <Container maxWidth="md" sx={{ textAlign: "center" }}>
-          <Typography variant="h4" component="h2" gutterBottom>
+          <Typography variant="h3" component="h2" gutterBottom>
             Most businesses are losing hours to manual work
           </Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 680, mx: "auto", lineHeight: 1.8 }}>
+          <Typography variant="subtitle1" color="text.secondary" sx={{ maxWidth: 680, mx: "auto" }}>
             Repetitive tasks like data entry, follow-up emails, and lead routing eat up hours that should
             go toward growing your business. Our services are built to take that work off your
             plate, permanently.
@@ -208,7 +207,7 @@ export default function ServicesPage() {
                     >
                       <service.icon sx={{ fontSize: 28 }} />
                     </Box>
-                    <Typography variant="h4" component="h3" sx={{ fontWeight: 600 }}>
+                    <Typography variant="h4" component="h3">
                       {service.title}
                     </Typography>
                   </Box>
@@ -224,7 +223,7 @@ export default function ServicesPage() {
                   {/* Examples */}
                   <Typography
                     variant="overline"
-                    sx={{ fontWeight: 700, letterSpacing: 1, color: "text.primary" }}
+                    sx={{ color: "text.secondary" }}
                   >
                     Examples
                   </Typography>
@@ -245,7 +244,7 @@ export default function ServicesPage() {
                   {/* Outcomes */}
                   <Typography
                     variant="overline"
-                    sx={{ fontWeight: 700, letterSpacing: 1, color: "text.primary" }}
+                    sx={{ color: "text.secondary" }}
                   >
                     Outcomes
                   </Typography>
@@ -260,7 +259,7 @@ export default function ServicesPage() {
                         />
                         <Typography
                           variant="body2"
-                          sx={{ fontWeight: 600, color: "text.primary" }}
+                          sx={{ fontWeight: 500, color: "text.primary" }}
                         >
                           {outcome}
                         </Typography>
@@ -287,9 +286,9 @@ export default function ServicesPage() {
                   <Typography
                     variant="h2"
                     sx={{
-                      fontWeight: 700,
-                      color: "#767676",
-                      fontSize: "3.5rem",
+                      fontWeight: 600,
+                      color: "text.disabled",
+                      fontSize: "3rem",
                       fontFamily: "monospace",
                       mb: 1,
                     }}
@@ -319,12 +318,12 @@ export default function ServicesPage() {
         }}
       >
         <Container maxWidth="sm">
-          <Typography variant="h2" sx={{ mb: 2, fontSize: { xs: "2rem", md: "2.8rem" }, color: "#FFFFFF" }}>
+          <Typography variant="h2" sx={{ mb: 2, color: "#FFFFFF" }}>
             See what you can automate
           </Typography>
           <Typography
             variant="body1"
-            sx={{ color: "rgba(255,255,255,0.9)", mb: 4, fontSize: "1.05rem", lineHeight: 1.8 }}
+            sx={{ color: "rgba(255,255,255,0.88)", mb: 4 }}
           >
             We start with a free audit of your current workflows. No commitment, just a clear
             picture of where you can save time and reduce overhead.
@@ -342,7 +341,6 @@ export default function ServicesPage() {
               borderRadius: "50px",
               px: 5,
               py: 1.5,
-              fontWeight: "bold",
             }}
           >
             Book a Free Audit

@@ -1,29 +1,161 @@
+/* ============================================================
+   SENNA AUTOMATION — GLOBAL STYLES & DESIGN SYSTEM
+   ============================================================
+
+   TYPE SCALE REFERENCE
+   ─────────────────────────────────────────────────────────────
+   All type tokens are applied through the MUI theme (theme.ts).
+   This file documents the scale as CSS custom properties
+   for reference and provides global structural styles.
+
+   SCALE (1.265 augmented fourth — warm, readable, premium)
+   ─────────────────────────────────────────────────────────────
+   Token           Family        Size-desktop  Size-mobile  Wt   LH     LS
+   ─────────────────────────────────────────────────────────────────────────
+   --type-h1       Cormorant     4.209rem      2.75rem      600  1.10  -0.03em
+   --type-h2       Cormorant     3.157rem      2.25rem      600  1.13  -0.025em
+   --type-h3       Cormorant     2.369rem      1.85rem      500  1.18  -0.02em
+   --type-h4       Cormorant     1.777rem      1.5rem       500  1.25  -0.015em
+   --type-h5       Inter         1.125rem      1.0rem       600  1.35  -0.015em
+   --type-h6       Inter         0.9375rem     0.9375rem    600  1.40  -0.010em
+   --type-body-lg  Inter         1.125rem      1.0625rem    400  1.70  -0.010em
+   --type-body     Inter         1.0rem        1.0rem       400  1.65  -0.008em
+   --type-body-sm  Inter         0.875rem      0.875rem     400  1.60   0.000em
+   --type-eyebrow  Inter         0.6875rem     0.6875rem    700  1.50  +0.080em (uppercase)
+   --type-button   Inter         0.9375rem     0.9375rem    500  1.00  -0.010em
+   --type-caption  Inter         0.75rem       0.75rem      400  1.50  +0.010em
+   --type-pull     Cormorant     1.75rem       1.375rem     400i 1.45  -0.010em
+
+   ============================================================ */
+
+/* ---- CSS Custom Properties ---- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── Palette ── */
+  --bg-base:    #F7F6F4;
+  --bg-paper:   #FFFFFF;
+  --bg-subtle:  #F0EFEC;
+  --text-primary:   #1C1917;
+  --text-secondary: #57534E;
+  --text-muted:     #A8A29E;
+  --accent-main:    #2D6B5E;
+  --accent-light:   #3D8B78;
+  --accent-faint:   rgba(45, 107, 94, 0.08);
+  --border-soft:    #E7E5E4;
+  --border-medium:  #D6D3D1;
+
+  /* ── Type sizes ── */
+  --type-h1:      4.209rem;
+  --type-h2:      3.157rem;
+  --type-h3:      2.369rem;
+  --type-h4:      1.777rem;
+  --type-h5:      1.125rem;
+  --type-h6:      0.9375rem;
+  --type-body-lg: 1.125rem;
+  --type-body:    1.0rem;
+  --type-body-sm: 0.875rem;
+  --type-eyebrow: 0.6875rem;
+  --type-button:  0.9375rem;
+  --type-caption: 0.75rem;
+  --type-pull:    1.75rem;
+
+  /* ── Motion ── */
+  --ease-smooth:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-enter:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit:    cubic-bezier(0.55, 0, 1, 0.45);
+  --dur-fast:     160ms;
+  --dur-base:     280ms;
+  --dur-slow:     520ms;
+
+  /* ── MUI aliases ── */
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
+}
+
+/* ---- Base Reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  text-rendering: optimizeLegibility;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* ---- Selection ---- */
+::selection {
+  background-color: var(--accent-main);
+  color: #ffffff;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar            { width: 6px; }
+::-webkit-scrollbar-track      { background: transparent; }
+::-webkit-scrollbar-thumb      { background: var(--border-medium); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover{ background: var(--text-muted); }
+
+/* ---- Focus ring ---- */
+:focus-visible {
+  outline: 2px solid var(--accent-main);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---- Global transitions ---- */
+button, a {
+  transition:
+    color var(--dur-fast) var(--ease-smooth),
+    background-color var(--dur-fast) var(--ease-smooth),
+    border-color var(--dur-fast) var(--ease-smooth),
+    opacity var(--dur-fast) var(--ease-smooth),
+    transform var(--dur-fast) var(--ease-smooth),
+    box-shadow var(--dur-fast) var(--ease-smooth);
+}
+
+/* ── Pull quote helper class ── */
+.pull-quote {
+  font-style: italic;
+  letter-spacing: -0.01em;
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+
+/* ---- Keyframes ---- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes subtlePulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
 }
