@@ -94,7 +94,8 @@ export default function ContactForm() {
           color="text.secondary"
           sx={{ mb: 4, maxWidth: 600 }}
         >
-          No prep needed. We’ll walk through your current process and where automation can help.
+          No prep needed. We’ll walk through your current process and where
+          automation can help.
         </Typography>
 
         <Box
@@ -211,13 +212,14 @@ export default function ContactForm() {
           align="center"
           sx={{ mt: 4 }}
         >
-          Prefer to talk directly? Call {" "}
+          Prefer to talk directly? Call{" "}
           <a
             href="tel:+16162873360"
             style={{ color: "inherit", textDecoration: "underline" }}
           >
             (616) 287-3360
-          </a>.
+          </a>
+          .
         </Typography>
       </Container>
     </Box>
