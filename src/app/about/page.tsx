@@ -1,5 +1,7 @@
+import Link from "next/link";
 import {
   Box,
+  Button,
   Container,
   Stack,
   Typography,
@@ -28,137 +30,23 @@ export default function About() {
             align="center"
             color="text.primary"
             gutterBottom
+            sx={{ fontWeight: 700 }}
           >
-            Work Doesn't Need To Feel This Manual
+            Welcome to Senna Automation
           </Typography>
 
-        
-
           <Typography
-            variant="body1"
+            variant="h6"
             align="center"
             color="text.secondary"
-            sx={{ mt: 3, maxWidth: 800, mx: "auto" }}
+            sx={{ mt: 2, maxWidth: 800, mx: "auto", fontWeight: 400 }}
           >
-            Most businesses aren’t short on tools.
-They’re short on time.
-
-Between follow-ups, data entry, handoffs, and all the little things that pile up, a lot of work ends up being… just keeping things moving.
-
-That’s where Senna Automation comes in.
+            We’re glad you’re here.
           </Typography>
         </Container>
       </Box>
 
-      {/* Why Choose Section - White background */}
-      <Box
-        component="section"
-        sx={{
-          bgcolor: "#ffffff",
-          py: { xs: 8, md: 12 },
-        }}
-      >
-        <Container maxWidth="lg">
-          <Typography
-            variant="h4"
-            component="h2"
-            align="center"
-            color="text.primary"
-            gutterBottom
-            sx={{ fontWeight: 600, mb: 6 }}
-          >
-            Why Senna Automation?
-          </Typography>
 
-          <Grid container spacing={4} justifyContent="center">
-            <Grid item xs={12} md={6}>
-              <Card sx={{ 
-                height: "100%", 
-                bgcolor: "background.paper",
-                borderTop: '4px solid',
-                borderColor: 'primary.main',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
-              }}>
-                <CardContent sx={{ p: 4 }}>
-                  <Stack spacing={3}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                      <Typography
-                        variant="h5"
-                        sx={{ fontWeight: 700, color: "text.primary" }}
-                      >
-                        What this actually is
-                      </Typography>
-                    </Box>
-                    
-                    <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                      Not a big “AI transformation.” Not a complicated rebuild. Just a smarter way to handle the stuff that keeps repeating.
-                    </Typography>
-
-                    <Box>
-                      <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1, textTransform: 'uppercase', letterSpacing: 1, color: 'primary.main' }}>
-                        Things like:
-                      </Typography>
-                      <List disablePadding>
-                        {[
-                          "Leads getting followed up automatically",
-                          "Data moving where it needs to go",
-                          "Tasks getting assigned without chasing them down"
-                        ].map((item) => (
-                          <ListItem key={item} disableGutters sx={{ py: 0.2, display: 'list-item', ml: 3, listStyleType: 'disc', color: 'text.secondary' }}>
-                            <ListItemText 
-                              primary={item} 
-                              primaryTypographyProps={{ variant: 'body2', color: 'text.secondary' }} 
-                            />
-                          </ListItem>
-                        ))}
-                      </List>
-                    </Box>
-
-                    <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
-                      The goal isn’t to change how your business works. It’s to make it run a little smoother.
-                    </Typography>
-                  </Stack>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <Card sx={{ 
-                height: "100%", 
-                bgcolor: "background.paper",
-                borderTop: '4px solid',
-                borderColor: 'primary.main',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
-              }}>
-                <CardContent sx={{ p: 4 }}>
-                  <Stack spacing={3}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                      <Typography
-                        variant="h5"
-                        sx={{ fontWeight: 700, color: "text.primary" }}
-                      >
-                        Our approach
-                      </Typography>
-                    </Box>
-                    
-                    <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                      No black boxes. No endless meetings. We look at where you're losing time and build the simplest thing that solves it. 
-                    </Typography>
-
-                    <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                      Whether that’s a custom tool or just connecting your existing ones better, we focus on what gives you the most time back.
-                    </Typography>
-
-                    <Typography variant="body2" color="text.secondary" sx={{ mt: 'auto', pt: 2, borderTop: '1px solid', borderColor: 'divider' }}>
-                      We bring Silicon Valley expertise to Grand Rapids, making high-level automation accessible to teams of any size.
-                    </Typography>
-                  </Stack>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
 
       {/* Story & Contact Section - Default background */}
       <Box
@@ -170,9 +58,43 @@ That’s where Senna Automation comes in.
       >
         <Container maxWidth="lg">
           <Grid container spacing={8} alignItems="center">
-            {/* Contact Card (Left) */}
+            {/* Story Text (Left) */}
+            <Grid item xs={12} md={7}>
+              <Typography
+                variant="h4"
+                component="h2"
+                color="text.primary"
+                gutterBottom
+                sx={{ fontWeight: 700, mb: 4 }}
+              >
+                Work doesn’t need to feel this manual.
+              </Typography>
+
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 3, fontSize: "1.1rem", lineHeight: 1.8 }}>
+                Most businesses aren’t short on tools, they’re short on time. Between follow-ups, data entry, handoffs, and everything else that piles up, a lot of the day ends up being spent just keeping things moving.
+              </Typography>
+
+              <Typography variant="body1" color="text.primary" sx={{ mb: 0, fontWeight: 700, fontSize: "1.2rem" }}>
+                Senna Automation helps take that off your plate.
+              </Typography>
+            </Grid>
+
             <Grid item xs={12} md={5}>
-              <Card sx={{ bgcolor: "background.paper", boxShadow: '0 10px 30px rgba(0,0,0,0.05)', borderRadius: 4 }}>
+              <Card 
+                sx={{ 
+                  bgcolor: "background.paper", 
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  borderRadius: 4,
+                  boxShadow: 'none',
+                  transition: 'none',
+                  '&:hover': {
+                    bgcolor: 'background.paper',
+                    boxShadow: 'none',
+                    transform: 'none'
+                  }
+                }}
+              >
                 <CardContent sx={{ p: 4 }}>
                   <Stack spacing={2} alignItems="center">
                     <LocationOnIcon sx={{ fontSize: 48, color: "primary.main" }} />
@@ -211,51 +133,72 @@ That’s where Senna Automation comes in.
                 </CardContent>
               </Card>
             </Grid>
-
-            {/* Story Text (Right) */}
-            <Grid item xs={12} md={7}>
-              <Typography
-                variant="h4"
-                component="h2"
-                color="text.primary"
-                gutterBottom
-                sx={{ fontWeight: 600, mb: 4 }}
-              >
-                From Silicon Valley to Grand Rapids
-              </Typography>
-
-              <Typography
-                variant="body1"
-                color="text.secondary"
-                sx={{ mb: 3 }}
-              >
-                After working on automation in a startup environment, one thing became pretty clear. The systems that help larger companies stay efficient aren’t actually out of reach, they’re just usually overbuilt or not designed for how smaller teams operate. 
-              </Typography>
-
-              <Typography
-                variant="body1"
-                color="text.secondary"
-                sx={{ mb: 3 }}
-              >
-                A lot of businesses are dealing with the same kinds of problems—repetitive work, missed follow-ups, too many manual steps—but don’t have the time or resources to build something complex to fix it. 
-              </Typography>
-
-              <Typography
-                variant="body1"
-                color="text.secondary"
-                sx={{ mb: 3 }}
-              >
-                The focus here is bringing that same level of efficiency in a way that’s simpler, more practical, and actually fits how people already work. If you’ve ever found yourself thinking there has to be a better way to do this, there usually is. It just hasn’t been set up yet.
-              </Typography>
-
-              <Typography
-                variant="body1"
-                color="text.secondary"
-              >
-                Whether you need a single workflow automated or a more complete system to handle your operations, we focus on making sure it’s useful, reliable, and easy to use.
-              </Typography>
-            </Grid>
           </Grid>
+
+          {/* Story Continuation Block */}
+          <Box sx={{ mt: 10, textAlign: 'left', maxWidth: '800px', mx: 'auto' }}>
+            <Stack spacing={4}>
+              <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.1rem", lineHeight: 1.8 }}>
+                We're a full-stack automation and workflow consulting agency based in Grand Rapids, Michigan. Our approach to comes from over 15 years in software development and working with automation long before it was something everyone had an opinion about. 
+              </Typography>
+
+              <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.1rem", lineHeight: 1.8 }}>
+                We focus on making the repetitive parts of your business run on their own. Not a big overhaul. Not a complicated rebuild. Just smarter systems that fit into how you already work. Leads get followed up, data goes where it needs to go, and tasks don’t sit around waiting for someone to notice them.
+              </Typography>
+
+              <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.1rem", lineHeight: 1.8 }}>
+                At the end of the day, this is about making work feel lighter. Fewer things slipping through the cracks, less time spent on routine tasks, and more time for the work that actually matters.
+              </Typography>
+
+              <Box 
+                sx={{ 
+                  mt: 10, 
+                  py: 8, 
+                  px: { xs: 4, md: 8 }, 
+                  bgcolor: 'text.primary', 
+                  borderRadius: 4,
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
+                }}
+              >
+                <Typography 
+                  variant="h3" 
+                  sx={{ 
+                    fontSize: { xs: "1.75rem", md: "2.5rem" }, 
+                    lineHeight: 1.2,
+                    color: 'background.paper',
+                    fontWeight: 800,
+                    textAlign: 'center',
+                    mb: 5
+                  }}
+                >
+                  If you’ve ever thought, ‘<Box component="span" sx={{ fontStyle: 'italic', fontWeight: 700 }}>there has to be a better way to do this,</Box>’ there probably is. It just hasn’t been set up yet.
+                </Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <Link href="/contact" passHref>
+                    <Button 
+                      variant="outlined" 
+                      size="large"
+                      sx={{ 
+                        color: 'background.paper', 
+                        borderColor: 'background.paper',
+                        borderRadius: '50px',
+                        px: 6,
+                        py: 2,
+                        fontWeight: 'bold',
+                        fontSize: '1.2rem',
+                        '&:hover': {
+                          borderColor: 'background.paper',
+                          bgcolor: 'rgba(255,255,255,0.1)'
+                        }
+                      }}
+                    >
+                      Let's fix that
+                    </Button>
+                  </Link>
+                </Box>
+              </Box>
+            </Stack>
+          </Box>
         </Container>
       </Box>
 

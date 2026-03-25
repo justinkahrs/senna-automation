@@ -309,52 +309,6 @@ export default function ServicesPage() {
         </Container>
       </Box>
 
-      {/* ── Use Cases ─────────────────────────────────────── */}
-      <Box sx={{ py: { xs: 6, md: 10 } }}>
-        <Container maxWidth="md">
-          <Typography variant="h3" component="h2" align="center" gutterBottom sx={{ mb: 2 }}>
-            Real-world examples
-          </Typography>
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            align="center"
-            sx={{ mb: 5 }}
-          >
-            Here are some of the most common ways businesses like yours use automation.
-          </Typography>
-          <Box
-            sx={{
-              bgcolor: "background.paper",
-              borderRadius: 3,
-              border: "1px solid",
-              borderColor: "divider",
-              overflow: "hidden",
-            }}
-          >
-            {useCases.map((useCase, i) => (
-              <Box
-                key={useCase}
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: 2,
-                  px: 3,
-                  py: 2.5,
-                  borderBottom: i < useCases.length - 1 ? "1px solid" : "none",
-                  borderColor: "divider",
-                }}
-              >
-                <ArrowForwardIcon
-                  sx={{ fontSize: 18, color: "primary.main", mt: 0.3, flexShrink: 0 }}
-                />
-                <Typography variant="body1" color="text.primary">{useCase}</Typography>
-              </Box>
-            ))}
-          </Box>
-        </Container>
-      </Box>
-
       {/* ── Final CTA ─────────────────────────────────────── */}
       <Box
         sx={{

@@ -1,5 +1,6 @@
+"use client";
+
 import Link from "next/link";
-import type { Metadata } from "next";
 import {
   Box,
   Button,
@@ -8,14 +9,17 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { motion } from "framer-motion";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+} from "@mui/material";
 
-export const metadata: Metadata = {
-  title: "Solutions | Senna Automation",
-  description:
-    "See how Senna Automation helps businesses automate administrative work, lead generation, and sales workflows to save time, reduce manual work, and increase revenue.",
-};
+
 
 const solutions = [
   {
@@ -99,6 +103,49 @@ const bestFit = [
   "Operations-heavy businesses with lots of handoffs and admin work",
 ];
 
+const faqs = [
+  {
+    question: "Who is this a good fit for?",
+    answer:
+      "This is for businesses that feel slowed down by repetitive tasks, manual processes, or inconsistent follow-up. It works well for teams that want to save time, stay organized, and keep things moving without adding more overhead.",
+  },
+  {
+    question: "What challenges does this help address?",
+    answer:
+      "It reduces time spent on repetitive work, prevents things from slipping through the cracks, and helps leads and tasks move forward without constant manual effort. The goal is smoother operations and more consistency across the board.",
+  },
+  {
+    question: "What types of work can be automated?",
+    answer:
+      "Common examples include lead capture and follow-up, scheduling, onboarding, data entry, reporting, approvals, notifications, and internal workflows. If something is repetitive or rule-based, it can likely be automated.",
+  },
+  {
+    question: "Do you offer chatbot or AI assistant solutions?",
+    answer:
+      "Yes, when it makes sense. Chat-based tools can help with lead qualification, answering common questions, or guiding users through a process. The focus is always on usefulness, not just adding a chatbot for the sake of it.",
+  },
+  {
+    question: "Can this work with the tools already in use?",
+    answer:
+      "Yes. Most systems can connect with tools already in use, such as CRMs, email platforms, scheduling tools, and internal systems. The goal is to improve what’s already there, not replace everything.",
+  },
+  {
+    question: "Is technical experience required to manage it?",
+    answer:
+      "No. Everything is set up to be simple and easy to manage. Once it’s in place, it should feel like part of the normal workflow, not something that requires technical expertise.",
+  },
+  {
+    question: "Is it possible to start with a smaller scope?",
+    answer:
+      "Yes. Many projects start with one workflow or a single problem area. That makes it easy to see value quickly before expanding into other areas.",
+  },
+  {
+    question: "What does getting started look like?",
+    answer:
+      "Start with a quick conversation about current workflows and where time is being lost. From there, it’s easy to identify a few opportunities to automate and outline what that would look like.",
+  },
+];
+
 export default function SolutionsPage() {
   return (
     <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
@@ -179,132 +226,224 @@ export default function SolutionsPage() {
           >
             Common problems we solve
           </Typography>
-          <Grid container spacing={4}>
-            {solutions.map((item) => (
-              <Grid item xs={12} md={6} key={item.title}>
+          <Stack spacing={6}>
+            {solutions.map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
                 <Box
                   sx={{
                     bgcolor: "background.paper",
-                    borderRadius: 3,
+                    borderRadius: 4,
                     border: "1px solid",
                     borderColor: "divider",
-                    p: { xs: 3, md: 4 },
-                    height: "100%",
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: { 
+                      xs: 'column', 
+                      md: index % 2 === 0 ? 'row' : 'row-reverse' 
+                    },
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
                   }}
                 >
-                  <Typography
-                    variant="h4"
-                    component="h3"
-                    sx={{ mb: 3, fontWeight: 600 }}
+                  {/* Content Side */}
+                  <Box
+                    sx={{
+                      flex: 1,
+                      p: { xs: 4, md: 6, lg: 8 },
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center'
+                    }}
                   >
-                    {item.title}
-                  </Typography>
+                    <Typography
+                      variant="h3"
+                      component="h3"
+                      sx={{ 
+                        mb: 3, 
+                        fontWeight: 700, 
+                        fontSize: { xs: "1.75rem", md: "2.25rem" },
+                        lineHeight: 1.2
+                      }}
+                    >
+                      {item.title}
+                    </Typography>
 
-                  <Stack spacing={2.5}>
-                    <Box>
-                      <Typography
-                        variant="overline"
-                        sx={{ color: "text.primary", fontWeight: 700, letterSpacing: 1 }}
-                      >
-                        Problem
-                      </Typography>
-                      <Typography variant="body1" color="text.secondary">
-                        {item.problem}
-                      </Typography>
-                    </Box>
+                    <Stack spacing={4}>
+                      <Box>
+                        <Typography
+                          variant="overline"
+                          sx={{ color: "primary.main", fontWeight: 800, letterSpacing: 1.5, display: 'block', mb: 1 }}
+                        >
+                          The Problem
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.1rem", lineHeight: 1.7 }}>
+                          {item.problem}
+                        </Typography>
+                      </Box>
 
-                    <Box>
-                      <Typography
-                        variant="overline"
-                        sx={{ color: "text.primary", fontWeight: 700, letterSpacing: 1 }}
-                      >
-                        Solution
-                      </Typography>
-                      <Typography variant="body1" color="text.secondary">
-                        {item.solution}
-                      </Typography>
-                    </Box>
+                      <Box>
+                        <Typography
+                          variant="overline"
+                          sx={{ color: "primary.main", fontWeight: 800, letterSpacing: 1.5, display: 'block', mb: 1 }}
+                        >
+                          The Solution
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.1rem", lineHeight: 1.7 }}>
+                          {item.solution}
+                        </Typography>
+                      </Box>
 
-                    <Box>
-                      <Typography
-                        variant="overline"
-                        sx={{ color: "text.primary", fontWeight: 700, letterSpacing: 1 }}
-                      >
-                        Outcome
-                      </Typography>
-                      <Stack spacing={1} sx={{ mt: 1 }}>
-                        {item.outcomes.map((outcome) => (
-                          <Box
-                            key={outcome}
-                            sx={{ display: "flex", alignItems: "center", gap: 1 }}
-                          >
-                            <CheckCircleOutlineIcon
-                              sx={{ fontSize: 18, color: "primary.main" }}
-                            />
-                            <Typography
-                              variant="body2"
-                              sx={{ color: "text.primary", fontWeight: 600 }}
+                      <Box>
+                        <Typography
+                          variant="overline"
+                          sx={{ color: "primary.main", fontWeight: 800, letterSpacing: 1.5, display: 'block', mb: 1 }}
+                        >
+                          Key Outcomes
+                        </Typography>
+                        <Stack spacing={1.5} sx={{ mt: 1 }}>
+                          {item.outcomes.map((outcome) => (
+                            <Box
+                              key={outcome}
+                              sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}
                             >
-                              {outcome}
-                            </Typography>
-                          </Box>
-                        ))}
-                      </Stack>
-                    </Box>
-                  </Stack>
+                              <CheckCircleOutlineIcon
+                                sx={{ fontSize: 22, color: "primary.main", mt: 0.3 }}
+                              />
+                              <Typography
+                                variant="body1"
+                                sx={{ color: "text.primary", fontWeight: 600 }}
+                              >
+                                {outcome}
+                              </Typography>
+                            </Box>
+                          ))}
+                        </Stack>
+                      </Box>
+                    </Stack>
+                  </Box>
+
+                  {/* Visualization Side */}
+                  <Box
+                    sx={{
+                      flex: 1,
+                      minHeight: { xs: 300, md: 'auto' },
+                      bgcolor: "rgba(0,0,0,0.02)",
+                      borderLeft: { 
+                        md: index % 2 === 0 ? "1px solid" : "none" 
+                      },
+                      borderRight: { 
+                        md: index % 2 !== 0 ? "1px solid" : "none" 
+                      },
+                      borderColor: "divider",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      position: "relative",
+                      overflow: "hidden",
+                      background: "linear-gradient(135deg, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.03) 100%)",
+                    }}
+                  >
+                    <Typography color="text.disabled" variant="subtitle2" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: 2, zIndex: 1 }}>
+                      Solution Visualization
+                    </Typography>
+                    {/* Subtle geometric pattern placeholder */}
+                    <Box 
+                      sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        opacity: 0.04,
+                        background: 'radial-gradient(circle at 2px 2px, black 1px, transparent 0)',
+                        backgroundSize: '32px 32px'
+                      }}
+                    />
+                  </Box>
                 </Box>
-              </Grid>
+              </motion.div>
             ))}
-          </Grid>
+          </Stack>
         </Container>
       </Box>
 
-      <Box sx={{ py: { xs: 6, md: 10 }, bgcolor: "background.paper" }}>
-        <Container maxWidth="md">
-          <Typography
-            variant="h3"
-            component="h2"
-            align="center"
-            sx={{ mb: 2 }}
-          >
-            Where this works best
-          </Typography>
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            align="center"
-            sx={{ mb: 4, maxWidth: 720, mx: "auto" }}
-          >
-            These kinds of solutions are especially useful for teams that have
-            repeatable work, steady lead flow, and too many manual steps.
-          </Typography>
-          <Box
-            sx={{
-              bgcolor: "background.default",
-              borderRadius: 3,
-              border: "1px solid",
-              borderColor: "divider",
-              p: { xs: 3, md: 4 },
-            }}
-          >
-            <Stack spacing={2}>
-              {bestFit.map((item) => (
-                <Box
-                  key={item}
-                  sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}
+        <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: "background.paper", borderTop: "1px solid", borderColor: "divider" }}>
+          <Container maxWidth="lg">
+            <Grid container spacing={8}>
+              <Grid item xs={12} md={4}>
+                <Typography
+                  variant="h3"
+                  component="h2"
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '2.2rem', md: '3rem' },
+                    fontWeight: 700,
+                    lineHeight: 1.1
+                  }}
                 >
-                  <CheckCircleOutlineIcon
-                    sx={{ fontSize: 20, color: "primary.main", mt: 0.2 }}
-                  />
-                  <Typography variant="body1" color="text.primary">
-                    {item}
-                  </Typography>
-                </Box>
-              ))}
-            </Stack>
-          </Box>
-        </Container>
-      </Box>
+                  Frequently asked questions
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  sx={{ fontSize: "1.1rem", maxWidth: 320 }}
+                >
+                  A few common questions teams ask before they start automating their
+                  workflows.
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <motion.div
+                  initial={{ opacity: 0, y: 100, scaleY: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scaleY: 1 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 1.2, ease: "easeOut" }}
+                >
+                  <Stack spacing={2}>
+                    {faqs.map((faq) => (
+                      <Accordion
+                        key={faq.question}
+                        disableGutters
+                        sx={{
+                          border: "1px solid",
+                          borderColor: "divider",
+                          borderRadius: 2,
+                          boxShadow: "none",
+                          "&:before": {
+                            display: "none",
+                          },
+                        }}
+                      >
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                          <Typography 
+                            variant="h6" 
+                            color="text.primary"
+                            sx={{ 
+                              fontSize: { xs: '1.2rem', md: '1.4rem' },
+                              fontWeight: 700 
+                            }}
+                          >
+                            {faq.question}
+                          </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails sx={{ pt: 0 }}>
+                          <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                            {faq.answer}
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion>
+                    ))}
+                  </Stack>
+                </motion.div>
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
 
       <Box
         sx={{

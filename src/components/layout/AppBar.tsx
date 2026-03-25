@@ -66,7 +66,7 @@ export function AppBar() {
   return (
     <MUIAppBar position="fixed" sx={{ color: navTextColor }}>
       <Toolbar sx={{ width: "100%" }}>
-        <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-start" }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
           <Link href="/" passHref>
             <Box
               component="img"
@@ -78,7 +78,54 @@ export function AppBar() {
               }}
             />
           </Link>
+          
+          {!isMobile && (
+            <Box
+              sx={{
+                display: "flex",
+                gap: 2,
+              }}
+            >
+              <Button color="inherit" component={Link} href="/services">
+                <Typography variant="h5" sx={{ 
+                  color: navTextColor,
+                  borderBottom: pathname === '/services' ? `2px solid ${navTextColor}` : 'none',
+                  pb: 0.5
+                }}>
+                  Services
+                </Typography>
+              </Button>
+              <Button color="inherit" component={Link} href="/solutions">
+                <Typography variant="h5" sx={{ 
+                  color: navTextColor,
+                  borderBottom: pathname === '/solutions' ? `2px solid ${navTextColor}` : 'none',
+                  pb: 0.5
+                }}>
+                  Solutions
+                </Typography>
+              </Button>
+              <Button color="inherit" component={Link} href="/pricing">
+                <Typography variant="h5" sx={{ 
+                  color: navTextColor,
+                  borderBottom: pathname === '/pricing' ? `2px solid ${navTextColor}` : 'none',
+                  pb: 0.5
+                }}>
+                  Pricing
+                </Typography>
+              </Button>
+              <Button color="inherit" component={Link} href="/blog">
+                <Typography variant="h5" sx={{ 
+                  color: navTextColor,
+                  borderBottom: pathname === '/blog' ? `2px solid ${navTextColor}` : 'none',
+                  pb: 0.5
+                }}>
+                  Blog
+                </Typography>
+              </Button>
+            </Box>
+          )}
         </Box>
+
         {isMobile ? (
             <Box
               sx={{
@@ -89,7 +136,6 @@ export function AppBar() {
                 gap: 2,
               }}
             >
-
             <IconButton
               edge="start"
               color="inherit"
@@ -145,15 +191,15 @@ export function AppBar() {
               </MenuItem>
               <MenuItem
                 component={Link}
-                href="/about"
+                href="/blog"
                 onClick={handleMobileMenuClose}
               >
                 <Typography 
                   color="inherit" 
                   variant="h6"
-                  sx={{ borderBottom: pathname === '/about' ? '2px solid' : 'none' }}
+                  sx={{ borderBottom: pathname === '/blog' ? '2px solid' : 'none' }}
                 >
-                  About
+                  Blog
                 </Typography>
               </MenuItem>
               <MenuItem
@@ -184,95 +230,48 @@ export function AppBar() {
             </Menu>
           </Box>
         ) : (
-          <>
-            <Box
+          <Box
+            sx={{
+              flex: 1,
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              gap: 2,
+            }}
+          >
+            <Button
+              component={Link}
+              href="/contact"
+              variant="outlined"
               sx={{
-                flex: 1,
-                display: "flex",
-                justifyContent: "center",
-                gap: 2,
+                color: "#FFFFFF",
+                borderColor: "#FFFFFF",
+                "&:hover": {
+                  borderColor: "#EEEEEE",
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                },
+                borderRadius: "50px",
+                px: 3,
               }}
             >
-              <Button color="inherit" component={Link} href="/services">
-                <Typography variant="h5" sx={{ 
-                  color: navTextColor,
-                  borderBottom: pathname === '/services' ? `2px solid ${navTextColor}` : 'none',
-                  pb: 0.5
-                }}>
-                  Services
-                </Typography>
-              </Button>
-              <Button color="inherit" component={Link} href="/solutions">
-                <Typography variant="h5" sx={{ 
-                  color: navTextColor,
-                  borderBottom: pathname === '/solutions' ? `2px solid ${navTextColor}` : 'none',
-                  pb: 0.5
-                }}>
-                  Solutions
-                </Typography>
-              </Button>
-              <Button color="inherit" component={Link} href="/pricing">
-                <Typography variant="h5" sx={{ 
-                  color: navTextColor,
-                  borderBottom: pathname === '/pricing' ? `2px solid ${navTextColor}` : 'none',
-                  pb: 0.5
-                }}>
-                  Pricing
-                </Typography>
-              </Button>
-              <Button color="inherit" component={Link} href="/about">
-                <Typography variant="h5" sx={{ 
-                  color: navTextColor,
-                  borderBottom: pathname === '/about' ? `2px solid ${navTextColor}` : 'none',
-                  pb: 0.5
-                }}>
-                  About
-                </Typography>
-              </Button>
-            </Box>
-            <Box
+              <Typography variant="button" sx={{ fontWeight: "bold" }}>
+                Contact Sales
+              </Typography>
+            </Button>
+            <ScheduleCallButton
+              text="Book a Demo"
+              showIcon={false}
               sx={{
-                flex: 1,
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                gap: 2,
+                backgroundColor: "#FFFFFF", // Override to match the header's White button
+                color: "#000000",
+                "&:hover": {
+                  backgroundColor: "#EEEEEE",
+                },
+                borderRadius: "50px",
+                px: 3,
               }}
-            >
-              <Button
-                component={Link}
-                href="/contact"
-                variant="outlined"
-                sx={{
-                  color: "#FFFFFF",
-                  borderColor: "#FFFFFF",
-                  "&:hover": {
-                    borderColor: "#EEEEEE",
-                    backgroundColor: "rgba(255,255,255,0.1)",
-                  },
-                  borderRadius: "50px",
-                  px: 3,
-                }}
-              >
-                <Typography variant="button" sx={{ fontWeight: "bold" }}>
-                  Contact Sales
-                </Typography>
-              </Button>
-              <ScheduleCallButton
-                text="Book a Demo"
-                showIcon={false}
-                sx={{
-                  backgroundColor: "#FFFFFF", // Override to match the header's White button
-                  color: "#000000",
-                  "&:hover": {
-                    backgroundColor: "#EEEEEE",
-                  },
-                  borderRadius: "50px",
-                  px: 3,
-                }}
-              />
-            </Box>
-          </>
+            />
+          </Box>
         )}
       </Toolbar>
     </MUIAppBar>

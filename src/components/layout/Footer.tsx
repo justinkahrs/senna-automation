@@ -1,26 +1,23 @@
-import { Box, Container, Grid, Typography, Link } from "@mui/material";
+import { Box, Container, Grid, Typography, Link, IconButton } from "@mui/material";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 const footerLinkGroups = [
   {
     heading: "Company",
     links: [
-      { label: "About Us", href: "/about" },
+      { label: "Senna Blog", href: "/blog" },
       { label: "Services", href: "/services" },
       { label: "Solutions", href: "/solutions" },
       { label: "Pricing", href: "/pricing" },
     ],
   },
   {
-    heading: "Resources",
-    links: [
-      { label: "Senna Blog", href: "/blog" },
-      { label: "Prompt Library", href: "/prompt-library" },
-    ],
-  },
-  {
     heading: "Explore",
     links: [
       { label: "Contact", href: "/contact" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
     ],
   },
 ];
@@ -77,6 +74,43 @@ export function Footer() {
               </Box>
             </Grid>
           ))}
+          <Grid item xs={12} sm={4} md={2}>
+            <Typography
+              variant="overline"
+              color="text.primary"
+              sx={{ fontWeight: 700, letterSpacing: 1, display: "block", mb: 1 }}
+            >
+              Socials
+            </Typography>
+            <Box sx={{ display: "flex", gap: 1 }}>
+              <IconButton 
+                component="a" 
+                href="https://linkedin.com/company/senna-automation" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                sx={{ 
+                  color: 'text.secondary',
+                  p: 0,
+                  '&:hover': { color: 'primary.main' }
+                }}
+              >
+                <LinkedInIcon />
+              </IconButton>
+              <IconButton 
+                component="a" 
+                href="https://instagram.com/sennaautomation" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                sx={{ 
+                  color: 'text.secondary',
+                  p: 0,
+                  '&:hover': { color: 'primary.main' }
+                }}
+              >
+                <InstagramIcon />
+              </IconButton>
+            </Box>
+          </Grid>
         </Grid>
         <Box
           sx={{
