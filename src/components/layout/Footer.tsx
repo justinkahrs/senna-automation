@@ -6,6 +6,7 @@ const footerLinkGroups = [
   {
     heading: "Company",
     links: [
+      { label: "About Us", href: "/about" },
       { label: "Senna Blog", href: "/blog" },
       { label: "Services", href: "/services" },
       { label: "Solutions", href: "/solutions" },
