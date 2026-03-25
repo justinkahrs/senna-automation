@@ -6,6 +6,7 @@ interface RequestFormButtonProps {
   variant?: "text" | "outlined" | "contained";
   size?: "small" | "medium" | "large";
   fullWidth?: boolean;
+  href?: string;
 }
 
 export default function RequestFormButton({
@@ -13,9 +14,28 @@ export default function RequestFormButton({
   variant = "outlined",
   size = "medium",
   fullWidth = false,
+  href = "/contact",
 }: RequestFormButtonProps) {
   return (
-    <Button component={Link} href="/contact" variant={variant} size={size} fullWidth={fullWidth}>
+    <Button 
+      component={Link} 
+      href={href} 
+      variant={variant} 
+      size={size} 
+      fullWidth={fullWidth}
+      sx={{
+        borderRadius: "50px",
+        fontWeight: "bold",
+        px: 3,
+        ...(variant === "contained" && {
+          backgroundColor: "#000000",
+          color: "#FFFFFF",
+          "&:hover": {
+            backgroundColor: "#333333",
+          },
+        }),
+      }}
+    >
       {text}
     </Button>
   );

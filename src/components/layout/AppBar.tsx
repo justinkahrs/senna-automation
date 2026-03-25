@@ -12,8 +12,10 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import ScheduleCallButton from "../ScheduleCallButton";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { usePathname } from "next/navigation";
 
 export function AppBar() {
   const mode = "light";
@@ -22,6 +24,7 @@ export function AppBar() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"), {
     defaultMatches: true,
   });
+  const pathname = usePathname();
   const [mobileMenuAnchorEl, setMobileMenuAnchorEl] =
     useState<null | HTMLElement>(null);
   const [mounted, setMounted] = useState(false);
@@ -106,7 +109,11 @@ export function AppBar() {
                 href="/services"
                 onClick={handleMobileMenuClose}
               >
-                <Typography color="inherit" variant="h6">
+                <Typography 
+                  color="inherit" 
+                  variant="h6"
+                  sx={{ borderBottom: pathname === '/services' ? '2px solid' : 'none' }}
+                >
                   Services
                 </Typography>
               </MenuItem>
@@ -115,7 +122,11 @@ export function AppBar() {
                 href="/solutions"
                 onClick={handleMobileMenuClose}
               >
-                <Typography color="inherit" variant="h6">
+                <Typography 
+                  color="inherit" 
+                  variant="h6"
+                  sx={{ borderBottom: pathname === '/solutions' ? '2px solid' : 'none' }}
+                >
                   Solutions
                 </Typography>
               </MenuItem>
@@ -124,7 +135,11 @@ export function AppBar() {
                 href="/pricing"
                 onClick={handleMobileMenuClose}
               >
-                <Typography color="inherit" variant="h6">
+                <Typography 
+                  color="inherit" 
+                  variant="h6"
+                  sx={{ borderBottom: pathname === '/pricing' ? '2px solid' : 'none' }}
+                >
                   Pricing
                 </Typography>
               </MenuItem>
@@ -133,7 +148,11 @@ export function AppBar() {
                 href="/about"
                 onClick={handleMobileMenuClose}
               >
-                <Typography color="inherit" variant="h6">
+                <Typography 
+                  color="inherit" 
+                  variant="h6"
+                  sx={{ borderBottom: pathname === '/about' ? '2px solid' : 'none' }}
+                >
                   About
                 </Typography>
               </MenuItem>
@@ -141,20 +160,27 @@ export function AppBar() {
                 component={Link}
                 href="/contact"
                 onClick={handleMobileMenuClose}
-                sx={{
-                  backgroundColor: mode === "light" ? "#000000" : "#FFFFFF",
-                  color: mode === "light" ? "#FFFFFF" : "#000000",
-                  "&:hover": {
-                    backgroundColor: mode === "light" ? "#333333" : "#EEEEEE",
-                  },
-                  m: 1,
-                  borderRadius: 1,
-                }}
               >
-                <Typography variant="h6" sx={{ width: "100%", textAlign: "center" }}>
-                  Book a Demo
+                <Typography 
+                  color="inherit" 
+                  variant="h6"
+                  sx={{ borderBottom: pathname === '/contact' ? '2px solid' : 'none' }}
+                >
+                  Contact Sales
                 </Typography>
               </MenuItem>
+              <ScheduleCallButton 
+                text="Book a Demo"
+                fullWidth
+                showIcon={false}
+                sx={{
+                  m: 1,
+                  borderRadius: 1,
+                  py: 1.5,
+                  backgroundColor: mode === "light" ? "#000000" : "#FFFFFF",
+                  color: mode === "light" ? "#FFFFFF" : "#000000",
+                }}
+              />
             </Menu>
           </Box>
         ) : (
@@ -168,22 +194,38 @@ export function AppBar() {
               }}
             >
               <Button color="inherit" component={Link} href="/services">
-                <Typography variant="h5" sx={{ color: navTextColor }}>
+                <Typography variant="h5" sx={{ 
+                  color: navTextColor,
+                  borderBottom: pathname === '/services' ? `2px solid ${navTextColor}` : 'none',
+                  pb: 0.5
+                }}>
                   Services
                 </Typography>
               </Button>
               <Button color="inherit" component={Link} href="/solutions">
-                <Typography variant="h5" sx={{ color: navTextColor }}>
+                <Typography variant="h5" sx={{ 
+                  color: navTextColor,
+                  borderBottom: pathname === '/solutions' ? `2px solid ${navTextColor}` : 'none',
+                  pb: 0.5
+                }}>
                   Solutions
                 </Typography>
               </Button>
               <Button color="inherit" component={Link} href="/pricing">
-                <Typography variant="h5" sx={{ color: navTextColor }}>
+                <Typography variant="h5" sx={{ 
+                  color: navTextColor,
+                  borderBottom: pathname === '/pricing' ? `2px solid ${navTextColor}` : 'none',
+                  pb: 0.5
+                }}>
                   Pricing
                 </Typography>
               </Button>
               <Button color="inherit" component={Link} href="/about">
-                <Typography variant="h5" sx={{ color: navTextColor }}>
+                <Typography variant="h5" sx={{ 
+                  color: navTextColor,
+                  borderBottom: pathname === '/about' ? `2px solid ${navTextColor}` : 'none',
+                  pb: 0.5
+                }}>
                   About
                 </Typography>
               </Button>
@@ -200,9 +242,27 @@ export function AppBar() {
               <Button
                 component={Link}
                 href="/contact"
-                variant="contained"
+                variant="outlined"
                 sx={{
-                  backgroundColor: "#FFFFFF",
+                  color: "#FFFFFF",
+                  borderColor: "#FFFFFF",
+                  "&:hover": {
+                    borderColor: "#EEEEEE",
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                  },
+                  borderRadius: "50px",
+                  px: 3,
+                }}
+              >
+                <Typography variant="button" sx={{ fontWeight: "bold" }}>
+                  Contact Sales
+                </Typography>
+              </Button>
+              <ScheduleCallButton
+                text="Book a Demo"
+                showIcon={false}
+                sx={{
+                  backgroundColor: "#FFFFFF", // Override to match the header's White button
                   color: "#000000",
                   "&:hover": {
                     backgroundColor: "#EEEEEE",
@@ -210,11 +270,7 @@ export function AppBar() {
                   borderRadius: "50px",
                   px: 3,
                 }}
-              >
-                <Typography variant="button" sx={{ fontWeight: "bold" }}>
-                  Book a Demo
-                </Typography>
-              </Button>
+              />
             </Box>
           </>
         )}

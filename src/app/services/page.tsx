@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 const services = [
   {
     icon: AutoFixHighIcon,
-    title: "Workflow automation",
+    title: "Workflow",
     description:
       "Stop wasting hours on repetitive internal tasks. We map your existing processes and build systems that handle the work automatically, so your team can focus on what actually moves the business forward.",
     examples: ["Data entry automation", "Internal process routing", "Task handoffs between tools"],
@@ -32,7 +32,7 @@ const services = [
   },
   {
     icon: PersonSearchIcon,
-    title: "Lead generation automation",
+    title: "Lead generation",
     description:
       "Every lead that slips through the cracks is lost revenue. We set up systems that capture, qualify, and route leads automatically, so no opportunity goes unanswered.",
     examples: [
@@ -44,7 +44,7 @@ const services = [
   },
   {
     icon: TrendingUpIcon,
-    title: "Sales automation",
+    title: "Sales",
     description:
       "Following up manually is time-consuming and inconsistent. We build automated sequences that keep your pipeline moving without your team having to remember to send a single email.",
     examples: [
@@ -56,7 +56,7 @@ const services = [
   },
   {
     icon: SmartToyIcon,
-    title: "AI assistants & internal tools",
+    title: "Assistants & internal tools",
     description:
       "Give your team tools that actually help them work faster. We build lightweight AI assistants and internal systems that answer common questions, surface important info, and eliminate repetitive decision-making.",
     examples: [
@@ -121,7 +121,7 @@ export default function ServicesPage() {
             variant="h1"
             sx={{ fontSize: { xs: "2.4rem", md: "3.5rem" }, mb: 2, color: "#FFFFFF" }}
           >
-            Automate the work that slows your business down
+            Let the Routine Work Run in the Background
           </Typography>
           <Typography
             variant="h5"
@@ -177,7 +177,7 @@ export default function ServicesPage() {
             gutterBottom
             sx={{ mb: 6 }}
           >
-            What we do
+            How work gets simplified
           </Typography>
 
           <Grid container spacing={5}>
@@ -391,7 +391,7 @@ export default function ServicesPage() {
               fontWeight: "bold",
             }}
           >
-            Get Your Automation Plan
+            Book a Free Audit
           </Button>
         </Container>
       </Box>
