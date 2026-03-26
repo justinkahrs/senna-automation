@@ -34,22 +34,22 @@ const cormorant = Cormorant_Garamond({
    ================================================================ */
 
 // ── Palette ──────────────────────────────────────────────────────
-const WARM_BLACK    = "#1C1917";   // stone-900 warm near-black
-const WARM_DARK     = "#292524";   // stone-800
-const STONE_600     = "#57534E";   // readable warm mid-tone
-const STONE_400     = "#A8A29E";   // muted label / placeholder
-const ACCENT        = "#2D6B5E";   // muted sage-teal — trust, capability
-const ACCENT_LIGHT  = "#3D8B78";
-const ACCENT_DARK   = "#1E5244";
-const BG_BASE       = "#F7F6F4";   // warm off-white — calm, premium
-const BG_PAPER      = "#FFFFFF";
-const BG_SUBTLE     = "#F0EFEC";   // second-layer sections
-const BORDER_SOFT   = "#E7E5E4";
-const BORDER_MED    = "#D6D3D1";
+export const WARM_BLACK = "#1C1917"; // stone-900 warm near-black
+export const WARM_DARK = "#292524"; // stone-800
+export const STONE_600 = "#57534E"; // readable warm mid-tone
+export const STONE_400 = "#A8A29E"; // muted label / placeholder
+export const ACCENT = "#2D6B5E"; // muted sage-teal — trust, capability
+export const ACCENT_LIGHT = "#3D8B78";
+export const ACCENT_DARK = "#1E5244";
+export const BG_BASE = "#F7F6F4"; // warm off-white — calm, premium
+export const BG_PAPER = "#FFFFFF";
+export const BG_SUBTLE = "#F0EFEC"; // second-layer sections
+export const BORDER_SOFT = "#E7E5E4";
+export const BORDER_MED = "#D6D3D1";
 
 // ── Type families ─────────────────────────────────────────────────
-const SERIF  = cormorant.style.fontFamily;   // display heads
-const SANS   = inter.style.fontFamily;       // body, UI, labels
+const SERIF = cormorant.style.fontFamily; // display heads
+const SANS = inter.style.fontFamily; // body, UI, labels
 
 /* ================================================================
    TYPE SCALE — Senna Automation Design System
@@ -89,31 +89,31 @@ export function getThemeTokens(): ThemeOptions {
 
     /* ── Palette ── */
     palette: {
-      mode:   "light",
+      mode: "light",
       primary: {
-        main:          ACCENT,
-        light:         ACCENT_LIGHT,
-        dark:          ACCENT_DARK,
-        contrastText:  "#FFFFFF",
+        main: ACCENT,
+        light: ACCENT_LIGHT,
+        dark: ACCENT_DARK,
+        contrastText: "#FFFFFF",
       },
       secondary: {
-        main:          WARM_BLACK,
-        contrastText:  "#FFFFFF",
+        main: WARM_BLACK,
+        contrastText: "#FFFFFF",
       },
       background: {
         default: BG_BASE,
-        paper:   BG_PAPER,
+        paper: BG_PAPER,
       },
       text: {
-        primary:   WARM_BLACK,
+        primary: WARM_BLACK,
         secondary: STONE_600,
-        disabled:  STONE_400,
+        disabled: STONE_400,
       },
       divider: BORDER_SOFT,
       action: {
-        hover:    "rgba(45, 107, 94, 0.06)",
+        hover: "rgba(45, 107, 94, 0.06)",
         selected: "rgba(45, 107, 94, 0.10)",
-        focus:    "rgba(45, 107, 94, 0.12)",
+        focus: "rgba(45, 107, 94, 0.12)",
       },
     },
 
@@ -126,130 +126,130 @@ export function getThemeTokens(): ThemeOptions {
       /* ─── Display & section headings (Cormorant Garamond) ─── */
 
       h1: {
-        fontFamily:    SERIF,
-        fontWeight:    600,
+        fontFamily: SERIF,
+        fontWeight: 600,
         // Desktop: 67.34px | Mobile: 44px
-        fontSize:      "clamp(2.75rem, 5.5vw, 4.209rem)",
-        lineHeight:    1.10,
+        fontSize: "clamp(2.75rem, 5.5vw, 4.209rem)",
+        lineHeight: 1.1,
         letterSpacing: "-0.030em",
-        color:         WARM_BLACK,
+        color: WARM_BLACK,
       },
       h2: {
-        fontFamily:    SERIF,
-        fontWeight:    600,
+        fontFamily: SERIF,
+        fontWeight: 600,
         // Desktop: 50.5px | Mobile: 36px
-        fontSize:      "clamp(2.25rem, 4.5vw, 3.157rem)",
-        lineHeight:    1.13,
+        fontSize: "clamp(2.25rem, 4.5vw, 3.157rem)",
+        lineHeight: 1.13,
         letterSpacing: "-0.025em",
-        color:         WARM_BLACK,
+        color: WARM_BLACK,
       },
       h3: {
-        fontFamily:    SERIF,
-        fontWeight:    500,
+        fontFamily: SERIF,
+        fontWeight: 500,
         // Desktop: 37.9px | Mobile: 30px
-        fontSize:      "clamp(1.875rem, 3.5vw, 2.369rem)",
-        lineHeight:    1.18,
+        fontSize: "clamp(1.875rem, 3.5vw, 2.369rem)",
+        lineHeight: 1.18,
         letterSpacing: "-0.020em",
-        color:         WARM_BLACK,
+        color: WARM_BLACK,
       },
       h4: {
-        fontFamily:    SERIF,
-        fontWeight:    500,
+        fontFamily: SERIF,
+        fontWeight: 500,
         // Desktop: 28.4px | Mobile: 24px
-        fontSize:      "clamp(1.5rem, 2.5vw, 1.777rem)",
-        lineHeight:    1.25,
+        fontSize: "clamp(1.5rem, 2.5vw, 1.777rem)",
+        lineHeight: 1.25,
         letterSpacing: "-0.015em",
-        color:         WARM_BLACK,
+        color: WARM_BLACK,
       },
 
       /* ─── UI headings (Inter sans) ─── */
 
       h5: {
-        fontFamily:    SANS,
-        fontWeight:    600,
-        fontSize:      "1.125rem",     // 18px — same as body-lg, but bolder
-        lineHeight:    1.35,
+        fontFamily: SANS,
+        fontWeight: 600,
+        fontSize: "1.125rem", // 18px — same as body-lg, but bolder
+        lineHeight: 1.35,
         letterSpacing: "-0.015em",
-        color:         WARM_BLACK,
+        color: WARM_BLACK,
       },
       h6: {
-        fontFamily:    SANS,
-        fontWeight:    600,
-        fontSize:      "0.9375rem",    // 15px — same as button, headed feel
-        lineHeight:    1.40,
+        fontFamily: SANS,
+        fontWeight: 600,
+        fontSize: "0.9375rem", // 15px — same as button, headed feel
+        lineHeight: 1.4,
         letterSpacing: "-0.010em",
-        color:         WARM_BLACK,
+        color: WARM_BLACK,
       },
 
       /* ─── Body large / callout text ─── */
       subtitle1: {
-        fontFamily:    SANS,
-        fontWeight:    400,
-        fontSize:      "1.125rem",     // 18px
-        lineHeight:    1.60,
+        fontFamily: SANS,
+        fontWeight: 400,
+        fontSize: "1.125rem", // 18px
+        lineHeight: 1.6,
         letterSpacing: "-0.010em",
-        color:         STONE_600,
+        color: STONE_600,
       },
 
       /* ─── Body medium (cards, list items, secondary context) ─── */
       subtitle2: {
-        fontFamily:    SANS,
-        fontWeight:    500,
-        fontSize:      "0.9375rem",    // 15px
-        lineHeight:    1.55,
+        fontFamily: SANS,
+        fontWeight: 500,
+        fontSize: "0.9375rem", // 15px
+        lineHeight: 1.55,
         letterSpacing: "-0.008em",
-        color:         STONE_600,
+        color: STONE_600,
       },
 
       /* ─── Body (standard paragraphs) ─── */
       body1: {
-        fontFamily:    SANS,
-        fontWeight:    400,
-        fontSize:      "1.0rem",       // 16px
-        lineHeight:    1.65,
+        fontFamily: SANS,
+        fontWeight: 400,
+        fontSize: "1.0rem", // 16px
+        lineHeight: 1.65,
         letterSpacing: "-0.008em",
-        color:         STONE_600,
+        color: STONE_600,
       },
 
       /* ─── Small body (secondary descriptions, list items) ─── */
       body2: {
-        fontFamily:    SANS,
-        fontWeight:    400,
-        fontSize:      "0.875rem",     // 14px
-        lineHeight:    1.60,
+        fontFamily: SANS,
+        fontWeight: 400,
+        fontSize: "0.875rem", // 14px
+        lineHeight: 1.6,
         letterSpacing: "0.000em",
-        color:         STONE_600,
+        color: STONE_600,
       },
 
       /* ─── Button text ─── */
       button: {
-        fontFamily:    SANS,
-        fontWeight:    500,
-        fontSize:      "0.9375rem",    // 15px
-        lineHeight:    1.0,
+        fontFamily: SANS,
+        fontWeight: 500,
+        fontSize: "0.9375rem", // 15px
+        lineHeight: 1.0,
         letterSpacing: "-0.010em",
         textTransform: "none",
       },
 
       /* ─── Caption / meta text ─── */
       caption: {
-        fontFamily:    SANS,
-        fontWeight:    400,
-        fontSize:      "0.75rem",      // 12px
-        lineHeight:    1.50,
+        fontFamily: SANS,
+        fontWeight: 400,
+        fontSize: "0.75rem", // 12px
+        lineHeight: 1.5,
         letterSpacing: "0.010em",
-        color:         STONE_400,
+        color: STONE_400,
       },
 
       /* ─── Eyebrow / label ─── */
       overline: {
-        fontFamily:    SANS,
-        fontWeight:    700,
-        fontSize:      "0.6875rem",    // 11px
-        lineHeight:    1.50,
+        fontFamily: SANS,
+        fontWeight: 700,
+        fontSize: "0.6875rem", // 11px
+        lineHeight: 1.5,
         letterSpacing: "0.080em",
         textTransform: "uppercase",
-        color:         STONE_400,
+        color: STONE_400,
       },
     },
 
@@ -287,16 +287,15 @@ export function getThemeTokens(): ThemeOptions {
 
     /* ── Component overrides ── */
     components: {
-
       /* ── AppBar ── */
       MuiAppBar: {
         styleOverrides: {
           root: {
             backgroundColor: BG_PAPER,
-            color:           WARM_BLACK,
-            boxShadow:       `0 1px 0 ${BORDER_SOFT}`,
-            backdropFilter:  "blur(12px)",
-            transition:      "background-color 0.4s ease, box-shadow 0.4s ease",
+            color: WARM_BLACK,
+            boxShadow: `0 1px 0 ${BORDER_SOFT}`,
+            backdropFilter: "blur(12px)",
+            transition: "background-color 0.4s ease, box-shadow 0.4s ease",
           },
         },
       },
@@ -315,13 +314,13 @@ export function getThemeTokens(): ThemeOptions {
       MuiButton: {
         styleOverrides: {
           root: {
-            fontFamily:    SANS,
-            fontWeight:    500,
-            fontSize:      "0.9375rem",
+            fontFamily: SANS,
+            fontWeight: 500,
+            fontSize: "0.9375rem",
             letterSpacing: "-0.010em",
-            lineHeight:    1.0,
-            borderRadius:  "9999px",
-            padding:       "10px 28px",
+            lineHeight: 1.0,
+            borderRadius: "9999px",
+            padding: "10px 28px",
             textTransform: "none",
             transition: [
               "background-color 180ms cubic-bezier(0.25,0.46,0.45,0.94)",
@@ -338,14 +337,14 @@ export function getThemeTokens(): ThemeOptions {
           },
           outlined: {
             borderWidth: "1.5px",
-            "&:hover":   { borderWidth: "1.5px" },
+            "&:hover": { borderWidth: "1.5px" },
           },
           sizeSmall: {
-            padding:  "6px 18px",
+            padding: "6px 18px",
             fontSize: "0.8125rem",
           },
           sizeLarge: {
-            padding:  "13px 36px",
+            padding: "13px 36px",
             fontSize: "1.0625rem",
           },
         },
@@ -356,15 +355,17 @@ export function getThemeTokens(): ThemeOptions {
         styleOverrides: {
           root: {
             borderRadius: 14,
-            overflow:     "hidden",
-            position:     "relative",
-            boxShadow:    "0 1px 3px rgba(28,25,23,0.06), 0 1px 2px rgba(28,25,23,0.04)",
-            border:       `1px solid ${BORDER_SOFT}`,
+            overflow: "hidden",
+            position: "relative",
+            boxShadow:
+              "0 1px 3px rgba(28,25,23,0.06), 0 1px 2px rgba(28,25,23,0.04)",
+            border: `1px solid ${BORDER_SOFT}`,
             transition:
               "transform 280ms cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 280ms cubic-bezier(0.25,0.46,0.45,0.94), border-color 280ms cubic-bezier(0.25,0.46,0.45,0.94)",
             "&:hover": {
-              transform:   "translateY(-3px)",
-              boxShadow:   "0 8px 28px rgba(28,25,23,0.10), 0 3px 8px rgba(28,25,23,0.06)",
+              transform: "translateY(-3px)",
+              boxShadow:
+                "0 8px 28px rgba(28,25,23,0.10), 0 3px 8px rgba(28,25,23,0.06)",
               borderColor: BORDER_MED,
             },
           },
@@ -380,16 +381,16 @@ export function getThemeTokens(): ThemeOptions {
           root: {
             padding: "20px",
             "& .MuiCardHeader-title": {
-              fontFamily:    SANS,
-              fontWeight:    600,
-              fontSize:      "1.0625rem",
+              fontFamily: SANS,
+              fontWeight: 600,
+              fontSize: "1.0625rem",
               letterSpacing: "-0.010em",
             },
             "& .MuiCardHeader-subheader": {
               fontFamily: SANS,
-              fontSize:   "0.875rem",
-              color:      STONE_600,
-              marginTop:  2,
+              fontSize: "0.875rem",
+              color: STONE_600,
+              marginTop: 2,
             },
           },
         },
@@ -405,9 +406,9 @@ export function getThemeTokens(): ThemeOptions {
       MuiCardActions: {
         styleOverrides: {
           root: {
-            padding:        "12px 20px 20px",
-            display:        "flex",
-            alignItems:     "center",
+            padding: "12px 20px 20px",
+            display: "flex",
+            alignItems: "center",
             justifyContent: "space-between",
           },
         },
@@ -417,10 +418,10 @@ export function getThemeTokens(): ThemeOptions {
       MuiCssBaseline: {
         styleOverrides: {
           ".themeToggleIcon": {
-            display:        "inline-flex",
-            alignItems:     "center",
+            display: "inline-flex",
+            alignItems: "center",
             justifyContent: "center",
-            cursor:         "pointer",
+            cursor: "pointer",
           },
         },
       },
@@ -429,14 +430,14 @@ export function getThemeTokens(): ThemeOptions {
       MuiAccordion: {
         styleOverrides: {
           root: {
-            border:          `1px solid ${BORDER_SOFT}`,
-            borderRadius:    "12px !important",
-            boxShadow:       "none",
+            border: `1px solid ${BORDER_SOFT}`,
+            borderRadius: "12px !important",
+            boxShadow: "none",
             backgroundColor: BG_PAPER,
-            transition:      "background-color 220ms ease, border-color 220ms ease",
-            "&:before":      { display: "none" },
+            transition: "background-color 220ms ease, border-color 220ms ease",
+            "&:before": { display: "none" },
             "&.Mui-expanded": {
-              borderColor:     BORDER_MED,
+              borderColor: BORDER_MED,
               backgroundColor: BG_SUBTLE,
             },
           },
@@ -445,12 +446,13 @@ export function getThemeTokens(): ThemeOptions {
       MuiAccordionSummary: {
         styleOverrides: {
           root: {
-            padding:   "4px 20px",
+            padding: "4px 20px",
             minHeight: 58,
             "&.Mui-expanded": { minHeight: 58 },
             "& .MuiAccordionSummary-expandIconWrapper": {
-              color:      STONE_400,
-              transition: "transform 250ms cubic-bezier(0.25,0.46,0.45,0.94), color 220ms ease",
+              color: STONE_400,
+              transition:
+                "transform 250ms cubic-bezier(0.25,0.46,0.45,0.94), color 220ms ease",
             },
             "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
               color: ACCENT,
@@ -473,18 +475,19 @@ export function getThemeTokens(): ThemeOptions {
         styleOverrides: {
           paper: {
             borderRadius: 16,
-            overflow:     "hidden",
-            boxShadow:    "0 20px 64px rgba(28,25,23,0.14), 0 6px 16px rgba(28,25,23,0.08)",
+            overflow: "hidden",
+            boxShadow:
+              "0 20px 64px rgba(28,25,23,0.14), 0 6px 16px rgba(28,25,23,0.08)",
           },
         },
       },
       MuiDialogTitle: {
         styleOverrides: {
           root: {
-            fontFamily:    SANS,
-            padding:       "20px 24px 12px",
-            fontWeight:    600,
-            fontSize:      "1.125rem",
+            fontFamily: SANS,
+            padding: "20px 24px 12px",
+            fontWeight: 600,
+            fontSize: "1.125rem",
             letterSpacing: "-0.010em",
           },
         },
@@ -506,10 +509,12 @@ export function getThemeTokens(): ThemeOptions {
           root: {
             "& .MuiOutlinedInput-root": {
               borderRadius: 10,
-              transition:   "box-shadow 200ms ease",
-              fontFamily:   SANS,
-              fontSize:     "0.9375rem",
-              "&:hover .MuiOutlinedInput-notchedOutline":   { borderColor: BORDER_MED },
+              transition: "box-shadow 200ms ease",
+              fontFamily: SANS,
+              fontSize: "0.9375rem",
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: BORDER_MED,
+              },
               "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                 borderColor: ACCENT,
                 borderWidth: "1.5px",
@@ -518,11 +523,11 @@ export function getThemeTokens(): ThemeOptions {
             },
             "& .MuiOutlinedInput-notchedOutline": {
               borderColor: BORDER_SOFT,
-              transition:  "border-color 180ms ease",
+              transition: "border-color 180ms ease",
             },
             "& .MuiInputLabel-root": {
-              fontFamily:    SANS,
-              fontSize:      "0.9375rem",
+              fontFamily: SANS,
+              fontSize: "0.9375rem",
               letterSpacing: "-0.008em",
             },
           },
@@ -533,12 +538,18 @@ export function getThemeTokens(): ThemeOptions {
       MuiInputBase: {
         styleOverrides: {
           input: {
-            fontFamily:    SANS,
-            fontSize:      "0.9375rem",
+            fontFamily: SANS,
+            fontSize: "0.9375rem",
             letterSpacing: "-0.008em",
             "&[type=number]": { MozAppearance: "textfield" },
-            "&[type=number]::-webkit-outer-spin-button": { WebkitAppearance: "none", margin: 0 },
-            "&[type=number]::-webkit-inner-spin-button": { WebkitAppearance: "none", margin: 0 },
+            "&[type=number]::-webkit-outer-spin-button": {
+              WebkitAppearance: "none",
+              margin: 0,
+            },
+            "&[type=number]::-webkit-inner-spin-button": {
+              WebkitAppearance: "none",
+              margin: 0,
+            },
           },
         },
       },
@@ -547,18 +558,18 @@ export function getThemeTokens(): ThemeOptions {
       MuiListItemText: {
         styleOverrides: {
           primary: {
-            fontFamily:    SANS,
-            fontSize:      "0.9375rem",
-            fontWeight:    400,
-            lineHeight:    1.55,
+            fontFamily: SANS,
+            fontSize: "0.9375rem",
+            fontWeight: 400,
+            lineHeight: 1.55,
             letterSpacing: "-0.008em",
-            color:         STONE_600,
+            color: STONE_600,
           },
           secondary: {
             fontFamily: SANS,
-            fontSize:   "0.875rem",
+            fontSize: "0.875rem",
             lineHeight: 1.55,
-            color:      STONE_400,
+            color: STONE_400,
           },
         },
       },
@@ -568,10 +579,10 @@ export function getThemeTokens(): ThemeOptions {
         styleOverrides: {
           paper: {
             backgroundColor: WARM_DARK,
-            borderRadius:    12,
-            boxShadow:       "0 8px 32px rgba(28,25,23,0.16)",
-            border:          "1px solid rgba(255,255,255,0.06)",
-            width:           "200px",
+            borderRadius: 12,
+            boxShadow: "0 8px 32px rgba(28,25,23,0.16)",
+            border: "1px solid rgba(255,255,255,0.06)",
+            width: "200px",
           },
         },
       },
@@ -579,14 +590,16 @@ export function getThemeTokens(): ThemeOptions {
         styleOverrides: {
           root: {
             backgroundColor: WARM_DARK,
-            color:           "#FFFFFF",
-            fontFamily:      SANS,
-            fontSize:        "0.9375rem",
-            letterSpacing:   "-0.008em",
-            padding:         "10px 16px",
-            transition:      "background-color 150ms ease",
-            "&:hover":       { backgroundColor: "rgba(255,255,255,0.08)" },
-            "&:not(:last-child)": { borderBottom: "1px solid rgba(255,255,255,0.06)" },
+            color: "#FFFFFF",
+            fontFamily: SANS,
+            fontSize: "0.9375rem",
+            letterSpacing: "-0.008em",
+            padding: "10px 16px",
+            transition: "background-color 150ms ease",
+            "&:hover": { backgroundColor: "rgba(255,255,255,0.08)" },
+            "&:not(:last-child)": {
+              borderBottom: "1px solid rgba(255,255,255,0.06)",
+            },
           },
         },
       },
@@ -609,11 +622,11 @@ export function getThemeTokens(): ThemeOptions {
       MuiChip: {
         styleOverrides: {
           root: {
-            fontFamily:    SANS,
-            fontWeight:    600,
-            fontSize:      "0.75rem",
+            fontFamily: SANS,
+            fontWeight: 600,
+            fontSize: "0.75rem",
             letterSpacing: "0.010em",
-            borderRadius:  6,
+            borderRadius: 6,
           },
         },
       },
@@ -623,11 +636,11 @@ export function getThemeTokens(): ThemeOptions {
         styleOverrides: {
           tooltip: {
             backgroundColor: WARM_DARK,
-            fontFamily:      SANS,
-            fontSize:        "0.8125rem",
-            letterSpacing:   "-0.008em",
-            borderRadius:    6,
-            padding:         "6px 12px",
+            fontFamily: SANS,
+            fontSize: "0.8125rem",
+            letterSpacing: "-0.008em",
+            borderRadius: 6,
+            padding: "6px 12px",
           },
         },
       },
@@ -636,8 +649,9 @@ export function getThemeTokens(): ThemeOptions {
       MuiIconButton: {
         styleOverrides: {
           root: {
-            transition: "background-color 180ms ease, color 180ms ease, transform 120ms ease",
-            "&:hover":  { backgroundColor: "rgba(28,25,23,0.05)" },
+            transition:
+              "background-color 180ms ease, color 180ms ease, transform 120ms ease",
+            "&:hover": { backgroundColor: "rgba(28,25,23,0.05)" },
             "&:active": { transform: "scale(0.92)" },
           },
         },
