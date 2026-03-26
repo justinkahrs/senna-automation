@@ -10,7 +10,9 @@ import {
   Stack,
   Button,
 } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 
+import { ACCENT } from "@/components/theme/colors";
 import { getAllBlogPosts } from "@/utils/blog";
 
 const blogPosts = getAllBlogPosts();
@@ -71,7 +73,7 @@ export default function BlogPage() {
                 <Box sx={{ pt: 2 }}>
                   <Link href={`/blog/${blogPosts[0]?.slug || ""}`} passHref>
                     <Button variant="contained" size="large">
-                      Read the Post
+                      Read It
                     </Button>
                   </Link>
                 </Box>
@@ -80,6 +82,7 @@ export default function BlogPage() {
             <Grid item xs={12} md={5}>
               <Box
                 sx={{
+                  position: "relative",
                   borderRadius: 4,
                   overflow: "hidden",
                   boxShadow: "0 20px 80px rgba(0,0,0,0.4)",
@@ -95,6 +98,7 @@ export default function BlogPage() {
                   alt="Featured Post"
                   style={{ width: "100%", display: "block" }}
                 />
+                <Box sx={{ position: "absolute", inset: 0, bgcolor: alpha(ACCENT, 0.5), pointerEvents: "none" }} />
               </Box>
             </Grid>
           </Grid>
@@ -128,12 +132,15 @@ export default function BlogPage() {
                     bgcolor: "background.paper",
                   }}
                 >
-                  <CardMedia
-                    component="img"
-                    height="240"
-                    image={post.image}
-                    alt={post.title}
-                  />
+                  <Box sx={{ position: "relative" }}>
+                    <CardMedia
+                      component="img"
+                      height="240"
+                      image={post.image}
+                      alt={post.title}
+                    />
+                    <Box sx={{ position: "absolute", inset: 0, bgcolor: alpha(ACCENT, 0.5), pointerEvents: "none" }} />
+                  </Box>
                   <CardContent sx={{ flexGrow: 1, p: 4 }}>
                     <Stack
                       direction="row"
@@ -181,7 +188,7 @@ export default function BlogPage() {
                             fontSize: "0.8125rem",
                           }}
                         >
-                          Read the Article
+                          Read It
                           <Box
                             component="span"
                             sx={{

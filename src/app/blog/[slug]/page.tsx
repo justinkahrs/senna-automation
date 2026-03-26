@@ -8,6 +8,8 @@ import {
   Divider,
   Grid,
 } from "@mui/material";
+import { alpha } from "@mui/material/styles";
+import { ACCENT } from "@/components/theme/colors";
 import { getBlogPostBySlug } from "@/utils/blog";
 import { ConsultationCTA } from "@/components/blog/ConsultationCTA";
 import ReactMarkdown from "react-markdown";
@@ -31,17 +33,28 @@ const markdownComponents = {
     </Typography>
   ),
   img: ({ src, alt }: any) => (
-    <Box
-      component="img"
-      src={src}
-      alt={alt}
-      sx={{
-        width: "100%",
-        borderRadius: 4,
-        my: 6,
-        boxShadow: "0 20px 60px rgba(0,0,0,0.1)",
-      }}
-    />
+    <Box sx={{ position: "relative", my: 6 }}>
+      <Box
+        component="img"
+        src={src}
+        alt={alt}
+        sx={{
+          width: "100%",
+          borderRadius: 4,
+          display: "block",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.1)",
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          borderRadius: 4,
+          bgcolor: alpha(ACCENT, 0.5),
+          pointerEvents: "none",
+        }}
+      />
+    </Box>
   ),
   strong: ({ children }: any) => (
     <Box component="span" sx={{ fontWeight: 700 }}>
@@ -49,13 +62,20 @@ const markdownComponents = {
     </Box>
   ),
   ul: ({ children }: any) => (
-    <Box component="ul" sx={{ mb: 4, pl: 4 }}>
+    <Box component="ul" sx={{ mb: 4, pl: 4, "& li": { mb: 2 } }}>
+      {children}
+    </Box>
+  ),
+  ol: ({ children }: any) => (
+    <Box component="ol" sx={{ mb: 4, pl: 4, "& li": { mb: 2 } }}>
       {children}
     </Box>
   ),
   li: ({ children }: any) => (
-    <Box component="li" sx={{ mb: 1 }}>
-      <Typography variant="body1">{children}</Typography>
+    <Box component="li">
+      <Typography variant="body1" component="span">
+        {children}
+      </Typography>
     </Box>
   ),
 };
@@ -88,52 +108,114 @@ export default async function BlogPostPage({
         }}
       />
 
-      <Container maxWidth="lg" sx={{ pt: { xs: 8, md: 12 } }}>
-        <Box sx={{ mb: 6 }}>
-          <Typography variant="overline" color="primary.main" gutterBottom>
-            {post.category} • {post.date}
-          </Typography>
-          <Typography
-            variant="h1"
-            gutterBottom
-            sx={{ mb: 4, maxWidth: "900px" }}
-          >
-            {post.title}
-          </Typography>
-          {post.subtitle && (
-            <Typography
-              variant="subtitle1"
-              color="text.secondary"
-              sx={{
-                fontStyle: "italic",
-                borderLeft: "3px solid",
-                borderColor: "primary.main",
-                pl: 3,
-                py: 1,
-                maxWidth: "800px",
-              }}
-            >
-              "{post.subtitle}"
-            </Typography>
-          )}
-        </Box>
-
+      <Box
+        component="section"
+        sx={{
+          bgcolor: "secondary.main",
+          color: "background.paper",
+          position: "relative",
+          overflow: "hidden",
+          minHeight: { md: "600px" },
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        {/* Subtle texture overlay */}
         <Box
-          component="img"
-          src={post.image}
-          alt={post.title}
           sx={{
-            width: "100%",
-            height: { xs: "300px", md: "500px" },
-            objectFit: "cover",
-            borderRadius: 10,
-            mb: 8,
-            boxShadow: "0 20px 80px rgba(0,0,0,0.1)",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            opacity: 0.03,
+            backgroundImage:
+              'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
+            pointerEvents: "none",
+            zIndex: 1,
           }}
         />
 
-        <Divider sx={{ mb: 8 }} />
+        {/* Full-bleed right image */}
+        <Box
+          sx={{
+            position: { xs: "relative", md: "absolute" },
+            top: 0,
+            right: 0,
+            width: { xs: "100%", md: "50%" },
+            height: { xs: "300px", md: "100%" },
+            zIndex: 0,
+            "& img": {
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            },
+          }}
+        >
+          <img src={post.image} alt={post.title} />
+          {/* 50% opacity overlay */}
+          <Box
+            sx={{
+              position: "absolute",
+              inset: 0,
+              bgcolor: alpha(ACCENT, 0.5),
+              pointerEvents: "none",
+            }}
+          />
+          {/* Gradient overlay for better text contrast on mobile if image overlaps */}
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: {
+                xs: "linear-gradient(to bottom, rgba(28,25,23,0.8), transparent)",
+                md: "none",
+              },
+            }}
+          />
+        </Box>
 
+        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
+          <Grid container>
+            <Grid item xs={12} md={6}>
+              <Stack spacing={4} sx={{ py: { xs: 8, md: 16 }, pr: { md: 8 } }}>
+                <Typography variant="overline" sx={{ color: "primary.light" }}>
+                  {post.category} • {post.date}
+                </Typography>
+                <Typography
+                  variant="h1"
+                  color="inherit"
+                  sx={{ fontSize: { xs: "2.5rem", md: "4rem" } }}
+                >
+                  {post.title}
+                </Typography>
+                {post.subtitle && (
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      color: "rgba(255,255,255,0.7)",
+                      maxWidth: "500px",
+                      fontSize: "1.25rem",
+                      lineHeight: 1.6,
+                      fontStyle: "italic",
+                      borderLeft: "2px solid",
+                      borderColor: "primary.main",
+                      pl: 3,
+                    }}
+                  >
+                    "{post.subtitle}"
+                  </Typography>
+                )}
+              </Stack>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      <Container maxWidth="lg" sx={{ pt: { xs: 8, md: 12 } }}>
         <Grid container spacing={8}>
           <Grid item xs={12} md={8}>
             <Stack spacing={4}>
@@ -226,7 +308,7 @@ export default async function BlogPostPage({
 
         <ConsultationCTA />
 
-        <Box sx={{ pt: 10, textAlign: 'left' }}>
+        <Box sx={{ pt: 10, textAlign: "left" }}>
           <Link
             href="/blog"
             style={{ color: "inherit", textDecoration: "none" }}
@@ -239,7 +321,7 @@ export default async function BlogPostPage({
                 letterSpacing: 0.5,
               }}
             >
-              ← Back to Journal
+              ← Back to Blog
             </Typography>
           </Link>
         </Box>

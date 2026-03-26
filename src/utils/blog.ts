@@ -76,3 +76,8 @@ export function getBlogPostBySlug(slug: string): BlogPost | null {
     content,
   } as BlogPost;
 }
+
+export function getLatestPostByCategory(category: string): Omit<BlogPost, "content"> | null {
+  const allPosts = getAllBlogPosts();
+  return allPosts.find(post => post.category === category) || null;
+}

@@ -1,0 +1,12 @@
+export const WARM_BLACK = "#1C1917";
+export const WARM_DARK = "#292524";
+export const STONE_600 = "#57534E";
+export const STONE_400 = "#A8A29E";
+export const ACCENT = "#2D6B5E";
+export const ACCENT_LIGHT = "#3D8B78";
+export const ACCENT_DARK = "#1E5244";
+export const BG_BASE = "#F7F6F4";
+export const BG_PAPER = "#FFFFFF";
+export const BG_SUBTLE = "#F0EFEC";
+export const BORDER_SOFT = "#E7E5E4";
+export const BORDER_MED = "#D6D3D1";
