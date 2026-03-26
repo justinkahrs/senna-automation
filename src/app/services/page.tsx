@@ -1,10 +1,12 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import ScheduleCallButton from "@/components/ScheduleCallButton";
 import {
   Box,
   Button,
   Container,
   Grid,
+  Stack,
   Typography,
   Divider,
 } from "@mui/material";
@@ -16,9 +18,12 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 export const metadata: Metadata = {
-  title: "Services | Senna Automation",
+  title: "AI Workflow Automation Services — Business Process Automation | Senna Automation",
   description:
-    "Automate your business workflows, lead generation, and sales processes with Senna Automation. We help small and mid-sized businesses save time, reduce manual work, and grow revenue.",
+    "Automate lead follow-up, data entry, sales pipelines, and internal workflows. Senna Automation builds custom AI automation systems that save time and eliminate manual work. Book a free audit.",
+  alternates: {
+    canonical: "https://www.senna-automation.com/services",
+  },
 };
 
 const services = [
@@ -348,19 +353,28 @@ export default function ServicesPage() {
             variant="subtitle1"
             sx={{ color: "rgba(255,255,255,0.7)", mb: 4 }}
           >
-            We start with a free audit of your current workflows. No commitment, just a clear
-            picture of where you can save time and reduce overhead.
+            We start with a free 30-min call to walk through your workflows. No
+            commitment — just a clear picture of where you can save time.
           </Typography>
-          <Button
-            component={Link}
-            href="/contact"
-            variant="contained"
-            size="large"
-            endIcon={<ArrowForwardIcon />}
-            sx={{ px: 6 }}
-          >
-            Book a Free Audit
-          </Button>
+          <Stack spacing={2} alignItems="center">
+            <ScheduleCallButton
+              text="Book a Free 30-Min Call"
+              size="large"
+              sx={{ px: 6 }}
+            />
+            <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.4)" }}>
+              Prefer a form?{" "}
+              <Button
+                component={Link}
+                href="/contact"
+                variant="text"
+                size="small"
+                sx={{ color: "rgba(255,255,255,0.5)", p: 0, minWidth: 0, textDecoration: "underline", fontSize: "inherit" }}
+              >
+                Contact us here
+              </Button>
+            </Typography>
+          </Stack>
         </Container>
       </Box>
     </Box>

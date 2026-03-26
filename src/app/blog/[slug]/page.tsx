@@ -1,3 +1,6 @@
+import type { Metadata } from "next";
+import Script from "next/script";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Box,
@@ -10,11 +13,56 @@ import {
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { ACCENT } from "@/components/theme/colors";
-import { getBlogPostBySlug } from "@/utils/blog";
+import { getBlogPostBySlug, getAllBlogPosts } from "@/utils/blog";
 import { ConsultationCTA } from "@/components/blog/ConsultationCTA";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { notFound } from "next/navigation";
+
+const SITE_URL = "https://www.senna-automation.com";
+
+export async function generateStaticParams() {
+  const posts = getAllBlogPosts();
+  return posts.map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getBlogPostBySlug(slug);
+
+  if (!post) {
+    return { title: "Post Not Found | Senna Automation" };
+  }
+
+  return {
+    title: `${post.title} | Senna Automation`,
+    description: post.excerpt,
+    alternates: {
+      canonical: `${SITE_URL}/blog/${slug}`,
+    },
+    openGraph: {
+      type: "article",
+      url: `${SITE_URL}/blog/${slug}`,
+      title: post.title,
+      description: post.excerpt,
+      images: post.image
+        ? [{ url: post.image.startsWith("http") ? post.image : `${SITE_URL}${post.image}`, width: 1200, height: 630, alt: post.title }]
+        : [],
+      publishedTime: post.date ? new Date(post.date).toISOString() : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: post.image ? [post.image.startsWith("http") ? post.image : `${SITE_URL}${post.image}`] : [],
+    },
+  };
+}
+
 
 const markdownComponents = {
   h2: ({ children }: any) => (
@@ -145,14 +193,16 @@ export default async function BlogPostPage({
             width: { xs: "100%", md: "50%" },
             height: { xs: "300px", md: "100%" },
             zIndex: 0,
-            "& img": {
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            },
           }}
         >
-          <img src={post.image} alt={post.title} />
+          <Image
+            src={post.image || "/gradient-fallback.png"}
+            alt={post.title}
+            fill
+            style={{ objectFit: "cover" }}
+            priority
+            sizes="(max-width: 900px) 100vw, 50vw"
+          />
           {/* 50% opacity overlay */}
           <Box
             sx={{

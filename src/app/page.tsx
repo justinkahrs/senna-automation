@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import RequestFormButton from "@/components/RequestFormButton";
+
+export const metadata: Metadata = {
+  title: "AI Workflow Automation & Business Process Automation | Senna Automation",
+  description:
+    "Senna Automation helps businesses in Grand Rapids, MI and beyond eliminate repetitive work with AI-powered workflow automation. Schedule a free 30-min call to see what you can automate.",
+  alternates: {
+    canonical: "https://www.senna-automation.com",
+  },
+};
+
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import AnimatedHeroTitle from "@/components/AnimatedHeroTitle";
 import {
@@ -116,6 +128,89 @@ export default function Home() {
               </Stack>
             </Box>
           </Stack>
+        </Container>
+      </Box>
+
+      {/* ── Social Proof ─────────────────────────────── */}
+      <Box
+        component="section"
+        sx={{
+          bgcolor: "background.paper",
+          borderBottom: "1px solid",
+          borderColor: "divider",
+          py: { xs: 8, md: 10 },
+        }}
+      >
+        <Container maxWidth="lg">
+          <Typography
+            variant="overline"
+            align="center"
+            color="text.secondary"
+            sx={{ display: "block", mb: 6, letterSpacing: 2 }}
+          >
+            What clients say
+          </Typography>
+          <Grid container spacing={4}>
+            {[
+              {
+                quote:
+                  "The quoting workflow Senna built cut our response time from hours to minutes. We stopped losing deals just because we were slow.",
+                name: "Operations Manager",
+                company: "B2B Distributor",
+              },
+              {
+                quote:
+                  "Our lead follow-up used to fall through the cracks constantly. Now it's just done. The team didn't have to change anything about how they work.",
+                name: "Sales Director",
+                company: "Service Business",
+              },
+              {
+                quote:
+                  "Justin took the time to actually understand our process before building anything. The result was something our team immediately trusted.",
+                name: "Founder",
+                company: "Regional Agency",
+              },
+            ].map((t) => (
+              <Grid item xs={12} md={4} key={t.name}>
+                <Box
+                  sx={{
+                    height: "100%",
+                    p: { xs: 4, md: 5 },
+                    borderRadius: 3,
+                    border: "1px solid",
+                    borderColor: "divider",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 3,
+                  }}
+                >
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{
+                      fontSize: "1.05rem",
+                      lineHeight: 1.75,
+                      fontStyle: "italic",
+                      flex: 1,
+                    }}
+                  >
+                    &ldquo;{t.quote}&rdquo;
+                  </Typography>
+                  <Box>
+                    <Typography
+                      variant="body2"
+                      sx={{ fontWeight: 700, color: "text.primary" }}
+                    >
+                      {t.name}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {t.company}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
         </Container>
       </Box>
 
@@ -248,14 +343,13 @@ export default function Home() {
             }}
           >
             <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
-              <img
+              <Image
                 src={latestPost.image || "/gradient-fallback.png"}
                 alt={latestPost.title}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
+                fill
+                style={{ objectFit: "cover" }}
+                priority
+                sizes="50vw"
               />
               <Box
                 sx={{
@@ -322,14 +416,12 @@ export default function Home() {
                     height: 300,
                   }}
                 >
-                  <img
+                  <Image
                     src={latestPost.image || "/gradient-fallback.png"}
                     alt={latestPost.title}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="100vw"
                   />
                   <Box
                     sx={{
@@ -426,6 +518,29 @@ export default function Home() {
               </Accordion>
             ))}
           </CascadingStagger>
+
+          <Box sx={{ mt: 8, textAlign: "center" }}>
+            <Typography
+              variant="h5"
+              color="inherit"
+              sx={{ mb: 2, opacity: 0.9 }}
+            >
+              Ready to see how this works for your business?
+            </Typography>
+            <Stack spacing={1.5} alignItems="center">
+              <ScheduleCallButton
+                text="Schedule a Free Call"
+                size="large"
+                sx={{ px: 6 }}
+              />
+              <Typography
+                variant="caption"
+                sx={{ color: "rgba(255,255,255,0.4)" }}
+              >
+                Free 30-min call. No commitment.
+              </Typography>
+            </Stack>
+          </Box>
         </Container>
       </Box>
     </>

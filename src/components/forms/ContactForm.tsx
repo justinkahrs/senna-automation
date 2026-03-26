@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import ScheduleCallButton from "@/components/ScheduleCallButton";
 import {
   Box,
   TextField,
@@ -86,17 +87,34 @@ export default function ContactForm() {
           align="center"
           color="text.primary"
         >
-          See what you can automate
+          Get Your Free Automation Audit
         </Typography>
         <Typography
           variant="h6"
           align="center"
           color="text.secondary"
-          sx={{ mb: 4, maxWidth: 600 }}
+          sx={{ mb: 3, maxWidth: 600 }}
         >
-          No prep needed. We’ll walk through your current process and where
-          automation can help.
+          No prep needed. We&apos;ll walk through your current process and find
+          where automation can help.
         </Typography>
+
+        <Box
+          sx={{
+            mb: 4,
+            p: 3,
+            borderRadius: 3,
+            border: "1px solid",
+            borderColor: "divider",
+            textAlign: "center",
+            bgcolor: "background.paper",
+          }}
+        >
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+            Prefer to just talk? Skip the form.
+          </Typography>
+          <ScheduleCallButton text="Schedule a Free 30-Min Call" size="medium" />
+        </Box>
 
         <Box
           component="form"
@@ -203,7 +221,7 @@ export default function ContactForm() {
             disabled={!isValidContact}
             aria-label="Submit your contact request"
           >
-            Send Message
+            Request My Free Audit
           </Button>
         </Box>
         <Typography
