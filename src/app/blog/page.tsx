@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -105,10 +106,14 @@ export default function BlogPage() {
                   },
                 }}
               >
-                <img
+                <Image
                   src={blogPosts[0]?.image || "/gradient-fallback.png"}
                   alt={blogPosts[0]?.title || "Featured Post"}
-                  style={{ width: "100%", display: "block" }}
+                  width={700}
+                  height={480}
+                  style={{ width: "100%", display: "block", height: "auto" }}
+                  priority
+                  sizes="(max-width: 900px) 100vw, 41vw"
                 />
                 <Box sx={{ position: "absolute", inset: 0, bgcolor: alpha(ACCENT, 0.5), pointerEvents: "none" }} />
               </Box>

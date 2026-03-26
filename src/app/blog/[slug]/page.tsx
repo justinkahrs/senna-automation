@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Box,
@@ -192,14 +193,16 @@ export default async function BlogPostPage({
             width: { xs: "100%", md: "50%" },
             height: { xs: "300px", md: "100%" },
             zIndex: 0,
-            "& img": {
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            },
           }}
         >
-          <img src={post.image} alt={post.title} />
+          <Image
+            src={post.image || "/gradient-fallback.png"}
+            alt={post.title}
+            fill
+            style={{ objectFit: "cover" }}
+            priority
+            sizes="(max-width: 900px) 100vw, 50vw"
+          />
           {/* 50% opacity overlay */}
           <Box
             sx={{

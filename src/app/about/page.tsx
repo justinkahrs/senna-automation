@@ -56,7 +56,7 @@ export default function About() {
           sx={{ position: "relative", zIndex: 1, textAlign: "center" }}
         >
           <Typography component="h1" variant="h1" color="inherit" gutterBottom>
-            Welcome to Senna Automation
+            AI &amp; Workflow Automation Consulting
           </Typography>
 
           <Typography
@@ -64,7 +64,8 @@ export default function About() {
             color="inherit"
             sx={{ mt: 2, maxWidth: 800, mx: "auto", opacity: 0.7 }}
           >
-            We're glad you're here.
+            Based in Grand Rapids, MI — helping businesses eliminate repetitive
+            work with 15+ years of hands-on software experience.
           </Typography>
         </Container>
       </Box>
