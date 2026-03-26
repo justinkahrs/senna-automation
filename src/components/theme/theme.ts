@@ -34,18 +34,35 @@ const cormorant = Cormorant_Garamond({
    ================================================================ */
 
 // ── Palette ──────────────────────────────────────────────────────
-export const WARM_BLACK = "#1C1917"; // stone-900 warm near-black
-export const WARM_DARK = "#292524"; // stone-800
-export const STONE_600 = "#57534E"; // readable warm mid-tone
-export const STONE_400 = "#A8A29E"; // muted label / placeholder
-export const ACCENT = "#2D6B5E"; // muted sage-teal — trust, capability
-export const ACCENT_LIGHT = "#3D8B78";
-export const ACCENT_DARK = "#1E5244";
-export const BG_BASE = "#F7F6F4"; // warm off-white — calm, premium
-export const BG_PAPER = "#FFFFFF";
-export const BG_SUBTLE = "#F0EFEC"; // second-layer sections
-export const BORDER_SOFT = "#E7E5E4";
-export const BORDER_MED = "#D6D3D1";
+import {
+  WARM_BLACK,
+  WARM_DARK,
+  STONE_600,
+  STONE_400,
+  ACCENT,
+  ACCENT_LIGHT,
+  ACCENT_DARK,
+  BG_BASE,
+  BG_PAPER,
+  BG_SUBTLE,
+  BORDER_SOFT,
+  BORDER_MED,
+} from "./colors";
+
+export {
+  WARM_BLACK,
+  WARM_DARK,
+  STONE_600,
+  STONE_400,
+  ACCENT,
+  ACCENT_LIGHT,
+  ACCENT_DARK,
+  BG_BASE,
+  BG_PAPER,
+  BG_SUBTLE,
+  BORDER_SOFT,
+  BORDER_MED,
+};
 
 // ── Type families ─────────────────────────────────────────────────
 const SERIF = cormorant.style.fontFamily; // display heads

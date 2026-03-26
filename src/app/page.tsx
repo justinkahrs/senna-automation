@@ -13,6 +13,11 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CascadingStagger from "@/components/animations/CascadingStagger";
+import Link from "next/link";
+import { alpha } from "@mui/material/styles";
+import { ACCENT } from "@/components/theme/colors";
+import { getAllBlogPosts } from "@/utils/blog";
+import { Button } from "@mui/material";
 
 const faqs = [
   {
@@ -58,6 +63,9 @@ const faqs = [
 ];
 
 export default function Home() {
+  const blogPosts = getAllBlogPosts();
+  const latestPost = blogPosts[0];
+
   return (
     <>
       {/* ── Hero ─────────────────────────────────────── */}
@@ -194,6 +202,149 @@ export default function Home() {
           </Grid>
         </Container>
       </Box>
+
+      {/* ── Latest Insight Section ───────────────────── */}
+      {latestPost && (
+        <Box
+          component="section"
+          sx={{
+            position: "relative",
+            bgcolor: "background.default",
+            color: "secondary.main",
+            overflow: "hidden",
+            minHeight: { md: "600px" },
+            display: "flex",
+            alignItems: "center",
+            borderY: "1px solid",
+            borderColor: "rgba(255,255,255,0.1)",
+          }}
+        >
+          {/* Texture overlay matching blog hero */}
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              opacity: 0.03,
+              backgroundImage:
+                'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
+              pointerEvents: "none",
+              zIndex: 1,
+            }}
+          />
+
+          {/* Full-bleed background image for desktop */}
+          <Box
+            sx={{
+              display: { xs: "none", md: "block" },
+              position: "absolute",
+              top: 0,
+              right: 0,
+              bottom: 0,
+              width: "50%",
+              zIndex: 0,
+            }}
+          >
+            <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
+              <img
+                src={latestPost.image || "/gradient-fallback.png"}
+                alt={latestPost.title}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+              <Box
+                sx={{
+                  position: "absolute",
+                  inset: 0,
+                  bgcolor: alpha(ACCENT, 0.5),
+                  pointerEvents: "none",
+                }}
+              />
+            </Box>
+          </Box>
+
+          <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
+            <Grid container spacing={{ xs: 8, md: 10, lg: 12 }}>
+              <Grid item xs={12} md={6}>
+                <Box sx={{ py: { xs: 8, md: 16 }, pr: { md: 8 } }}>
+                  <Stack spacing={4}>
+                    <Box>
+                      <Typography
+                        variant="overline"
+                        sx={{ color: "primary.light", mb: 2, display: "block" }}
+                      >
+                        Latest Insight
+                      </Typography>
+                    </Box>
+
+                    <Stack spacing={3}>
+                      <Typography variant="h2" color="inherit">
+                        {latestPost.title}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: "text.secondary",
+                          fontSize: "1.25rem",
+                          lineHeight: 1.8,
+                        }}
+                      >
+                        {latestPost.excerpt}
+                      </Typography>
+                      <Box sx={{ pt: 2 }}>
+                        <Link href={`/blog/${latestPost.slug}`} passHref>
+                          <Button variant="contained" size="large">
+                            Read It
+                          </Button>
+                        </Link>
+                      </Box>
+                    </Stack>
+                  </Stack>
+                </Box>
+              </Grid>
+
+              {/* Mobile Image (hidden on desktop) */}
+              <Grid
+                item
+                xs={12}
+                sx={{ display: { xs: "block", md: "none" }, pb: 8 }}
+              >
+                <Box
+                  sx={{
+                    position: "relative",
+                    borderRadius: 2,
+                    overflow: "hidden",
+                    height: 300,
+                  }}
+                >
+                  <img
+                    src={latestPost.image || "/gradient-fallback.png"}
+                    alt={latestPost.title}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      inset: 0,
+                      bgcolor: alpha(ACCENT, 0.5),
+                      pointerEvents: "none",
+                    }}
+                  />
+                </Box>
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
+      )}
 
       {/* ── FAQ Section ──────────────────────────────── */}
       <Box

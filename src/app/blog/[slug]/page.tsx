@@ -6,94 +6,335 @@ import {
   Stack,
   Button,
   Divider,
+  Grid,
 } from "@mui/material";
+import { alpha } from "@mui/material/styles";
+import { ACCENT } from "@/components/theme/colors";
+import { getBlogPostBySlug } from "@/utils/blog";
+import { ConsultationCTA } from "@/components/blog/ConsultationCTA";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { notFound } from "next/navigation";
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+const markdownComponents = {
+  h2: ({ children }: any) => (
+    <Typography variant="h3" sx={{ mt: 8, mb: 3 }}>
+      {children}
+    </Typography>
+  ),
+  h3: ({ children }: any) => (
+    <Typography variant="h4" sx={{ mt: 6, mb: 3 }}>
+      {children}
+    </Typography>
+  ),
+  p: ({ children }: any) => (
+    <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.8 }}>
+      {children}
+    </Typography>
+  ),
+  img: ({ src, alt }: any) => (
+    <Box sx={{ position: "relative", my: 6 }}>
+      <Box
+        component="img"
+        src={src}
+        alt={alt}
+        sx={{
+          width: "100%",
+          borderRadius: 4,
+          display: "block",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.1)",
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          borderRadius: 4,
+          bgcolor: alpha(ACCENT, 0.5),
+          pointerEvents: "none",
+        }}
+      />
+    </Box>
+  ),
+  strong: ({ children }: any) => (
+    <Box component="span" sx={{ fontWeight: 700 }}>
+      {children}
+    </Box>
+  ),
+  ul: ({ children }: any) => (
+    <Box component="ul" sx={{ mb: 4, pl: 4, "& li": { mb: 2 } }}>
+      {children}
+    </Box>
+  ),
+  ol: ({ children }: any) => (
+    <Box component="ol" sx={{ mb: 4, pl: 4, "& li": { mb: 2 } }}>
+      {children}
+    </Box>
+  ),
+  li: ({ children }: any) => (
+    <Box component="li">
+      <Typography variant="body1" component="span">
+        {children}
+      </Typography>
+    </Box>
+  ),
+};
+
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = getBlogPostBySlug(slug);
+
+  if (!post) {
+    notFound();
+  }
+
   return (
-    <Box sx={{ bgcolor: "background.default", minHeight: '100vh', pb: 12 }}>
+    <Box sx={{ bgcolor: "background.default", minHeight: "100vh", pb: 12 }}>
       {/* ── Progress Bar Placeholder ── */}
-      <Box sx={{ 
-        position: 'fixed', 
-        top: 0, 
-        left: 0, 
-        right: 0, 
-        height: '3px', 
-        bgcolor: 'primary.main', 
-        zIndex: 2000,
-        width: '45%' // Static for demo
-      }} />
+      <Box
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "3px",
+          bgcolor: "primary.main",
+          zIndex: 2000,
+          width: "45%", // Static for demo
+        }}
+      />
 
-      <Container maxWidth="md" sx={{ pt: { xs: 8, md: 12 } }}>
-        <Stack spacing={4}>
-          <Box>
-            <Typography variant="overline" color="primary.main" gutterBottom>
-              Philosophy • Mar 24, 2026
-            </Typography>
-            <Typography variant="h1" gutterBottom sx={{ mb: 4 }}>
-              Why Human-First Automation is the Future of Work
-            </Typography>
-            <Typography variant="subtitle1" color="text.secondary" sx={{ fontStyle: 'italic', borderLeft: '3px solid', borderColor: 'primary.main', pl: 3, py: 1 }}>
-              "The most successful automation doesn't replace the human; it creates a stage for them to perform their best work."
-            </Typography>
-          </Box>
+      <Box
+        component="section"
+        sx={{
+          bgcolor: "secondary.main",
+          color: "background.paper",
+          position: "relative",
+          overflow: "hidden",
+          minHeight: { md: "600px" },
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        {/* Subtle texture overlay */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            opacity: 0.03,
+            backgroundImage:
+              'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
+            pointerEvents: "none",
+            zIndex: 1,
+          }}
+        />
 
-          <Divider sx={{ my: 4 }} />
+        {/* Full-bleed right image */}
+        <Box
+          sx={{
+            position: { xs: "relative", md: "absolute" },
+            top: 0,
+            right: 0,
+            width: { xs: "100%", md: "50%" },
+            height: { xs: "300px", md: "100%" },
+            zIndex: 0,
+            "& img": {
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            },
+          }}
+        >
+          <img src={post.image} alt={post.title} />
+          {/* 50% opacity overlay */}
+          <Box
+            sx={{
+              position: "absolute",
+              inset: 0,
+              bgcolor: alpha(ACCENT, 0.5),
+              pointerEvents: "none",
+            }}
+          />
+          {/* Gradient overlay for better text contrast on mobile if image overlaps */}
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: {
+                xs: "linear-gradient(to bottom, rgba(28,25,23,0.8), transparent)",
+                md: "none",
+              },
+            }}
+          />
+        </Box>
 
-          <Box sx={{ '& p': { mb: 4, lineHeight: 1.8 } }}>
-            <Typography variant="body1">
-              Most people think of automation as a way to cut costs. In the corporate world, it's often discussed in terms of "efficiency gains" and "headcount reduction." But this perspective misses the most transformative aspect of modern AI and workflow design: the restoration of human focus.
+        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
+          <Grid container>
+            <Grid item xs={12} md={6}>
+              <Stack spacing={4} sx={{ py: { xs: 8, md: 16 }, pr: { md: 8 } }}>
+                <Typography variant="overline" sx={{ color: "primary.light" }}>
+                  {post.category} • {post.date}
+                </Typography>
+                <Typography
+                  variant="h1"
+                  color="inherit"
+                  sx={{ fontSize: { xs: "2.5rem", md: "4rem" } }}
+                >
+                  {post.title}
+                </Typography>
+                {post.subtitle && (
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      color: "rgba(255,255,255,0.7)",
+                      maxWidth: "500px",
+                      fontSize: "1.25rem",
+                      lineHeight: 1.6,
+                      fontStyle: "italic",
+                      borderLeft: "2px solid",
+                      borderColor: "primary.main",
+                      pl: 3,
+                    }}
+                  >
+                    "{post.subtitle}"
+                  </Typography>
+                )}
+              </Stack>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      <Container maxWidth="lg" sx={{ pt: { xs: 8, md: 12 } }}>
+        <Grid container spacing={8}>
+          <Grid item xs={12} md={8}>
+            <Stack spacing={4}>
+              <Box sx={{ "& p": { mb: 4, lineHeight: 1.8 } }}>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={markdownComponents}
+                >
+                  {post.content}
+                </ReactMarkdown>
+              </Box>
+            </Stack>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Box sx={{ position: { md: "sticky" }, top: 120 }}>
+              <Stack spacing={4}>
+                {post.metadata.client && (
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                    >
+                      Client
+                    </Typography>
+                    <Typography variant="body1" color="text.primary">
+                      {post.metadata.client}
+                    </Typography>
+                  </Box>
+                )}
+                {post.metadata.company && (
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                    >
+                      Company
+                    </Typography>
+                    <Typography variant="body1" color="text.primary">
+                      {post.metadata.companyUrl &&
+                      post.metadata.companyUrl !== "#" ? (
+                        <Link
+                          href={post.metadata.companyUrl}
+                          style={{
+                            color: "inherit",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          {post.metadata.company}
+                        </Link>
+                      ) : (
+                        post.metadata.company
+                      )}
+                    </Typography>
+                  </Box>
+                )}
+                {post.metadata.year && (
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                    >
+                      Year
+                    </Typography>
+                    <Typography variant="body1" color="text.primary">
+                      {post.metadata.year}
+                    </Typography>
+                  </Box>
+                )}
+                {post.metadata.role && (
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                    >
+                      Role
+                    </Typography>
+                    <Typography variant="body1" color="text.primary">
+                      {post.metadata.role}
+                    </Typography>
+                  </Box>
+                )}
+                {post.metadata.tools && (
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                    >
+                      Tools
+                    </Typography>
+                    <Typography variant="body1" color="text.primary">
+                      {post.metadata.tools}
+                    </Typography>
+                  </Box>
+                )}
+              </Stack>
+            </Box>
+          </Grid>
+        </Grid>
+
+        <ConsultationCTA />
+
+        <Box sx={{ pt: 10, textAlign: "left" }}>
+          <Link
+            href="/blog"
+            style={{ color: "inherit", textDecoration: "none" }}
+          >
+            <Typography
+              variant="body2"
+              sx={{
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: 0.5,
+              }}
+            >
+              ← Back to Blog
             </Typography>
-
-            <Typography variant="h3" sx={{ mt: 6, mb: 3 }}>
-              The Burden of Administrative Friction
-            </Typography>
-
-            <Typography variant="body1">
-              Every day, brilliant people spend hours on "work-about-work." They're moving data from one spreadsheet to another, manually following up on leads that a machine could have qualified instantly, and chasing approvals through fragmented email threads. This is administrative friction, and it's the silent killer of innovation.
-            </Typography>
-
-            <Box 
-              component="img" 
-              src="/Users/annakahrs/.gemini/antigravity/brain/5ff63515-6bc1-482c-9777-5bdd64164302/blog_post_automation_hands_1774475499477.png"
-              alt="Hand sketching a process"
-              sx={{ width: '100%', borderRadius: 4, my: 6, boxShadow: '0 20px 60px rgba(0,0,0,0.1)' }}
-            />
-
-            <Typography variant="h4" sx={{ mt: 6, mb: 3 }}>
-              Crafting Systems with Intent
-            </Typography>
-
-            <Typography variant="body1">
-              When we build automation at Senna, we don't start with the tool. We start with the human experience. We ask: "Where is this person feeling stuck? What part of their day feels like a repetitive chore? How can we make their work feel lighter?"
-            </Typography>
-
-            <Typography variant="body1">
-              This is what we call **Digital Craftsmanship**. It's the intentional design of systems that feel invisible because they work so seamlessly. They don't fight against the human; they flow with them.
-            </Typography>
-          </Box>
-
-          <Box sx={{ mt: 10, bgcolor: 'secondary.main', color: 'background.paper', p: 6, borderRadius: 4, textAlign: 'center' }}>
-            <Typography variant="h3" gutterBottom color="inherit">
-              Need a smarter way to work?
-            </Typography>
-            <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.7)', mb: 4 }}>
-              Let's look at your current workflows and find the friction points together.
-            </Typography>
-            <Link href="/contact" passHref>
-              <Button variant="contained" size="large">
-                Schedule a Consultation
-              </Button>
-            </Link>
-          </Box>
-
-          <Box sx={{ pt: 6 }}>
-            <Link href="/blog" style={{ color: 'inherit', textDecoration: 'none' }}>
-              <Typography variant="body2" sx={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-                ← Back to Journal
-              </Typography>
-            </Link>
-          </Box>
-        </Stack>
+          </Link>
+        </Box>
       </Container>
     </Box>
   );
