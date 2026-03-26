@@ -94,8 +94,8 @@ export default function BlogPage() {
                 }}
               >
                 <img
-                  src="/gradient-fallback.png"
-                  alt="Featured Post"
+                  src={blogPosts[0]?.image || "/gradient-fallback.png"}
+                  alt={blogPosts[0]?.title || "Featured Post"}
                   style={{ width: "100%", display: "block" }}
                 />
                 <Box sx={{ position: "absolute", inset: 0, bgcolor: alpha(ACCENT, 0.5), pointerEvents: "none" }} />

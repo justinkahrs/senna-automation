@@ -233,74 +233,84 @@ export default async function BlogPostPage({
           <Grid item xs={12} md={4}>
             <Box sx={{ position: { md: "sticky" }, top: 120 }}>
               <Stack spacing={4}>
-                <Box>
-                  <Typography
-                    variant="h5"
-                    sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
-                  >
-                    Client
-                  </Typography>
-                  <Typography variant="body1" color="text.primary">
-                    {post.metadata.client}
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography
-                    variant="h5"
-                    sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
-                  >
-                    Company
-                  </Typography>
-                  <Typography variant="body1" color="text.primary">
-                    {post.metadata.companyUrl &&
-                    post.metadata.companyUrl !== "#" ? (
-                      <Link
-                        href={post.metadata.companyUrl}
-                        style={{
-                          color: "inherit",
-                          textDecoration: "underline",
-                        }}
-                      >
-                        {post.metadata.company}
-                      </Link>
-                    ) : (
-                      post.metadata.company
-                    )}
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography
-                    variant="h5"
-                    sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
-                  >
-                    Year
-                  </Typography>
-                  <Typography variant="body1" color="text.primary">
-                    {post.metadata.year}
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography
-                    variant="h5"
-                    sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
-                  >
-                    Role
-                  </Typography>
-                  <Typography variant="body1" color="text.primary">
-                    {post.metadata.role}
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography
-                    variant="h5"
-                    sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
-                  >
-                    Tools
-                  </Typography>
-                  <Typography variant="body1" color="text.primary">
-                    {post.metadata.tools}
-                  </Typography>
-                </Box>
+                {post.metadata.client && (
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                    >
+                      Client
+                    </Typography>
+                    <Typography variant="body1" color="text.primary">
+                      {post.metadata.client}
+                    </Typography>
+                  </Box>
+                )}
+                {post.metadata.company && (
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                    >
+                      Company
+                    </Typography>
+                    <Typography variant="body1" color="text.primary">
+                      {post.metadata.companyUrl &&
+                      post.metadata.companyUrl !== "#" ? (
+                        <Link
+                          href={post.metadata.companyUrl}
+                          style={{
+                            color: "inherit",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          {post.metadata.company}
+                        </Link>
+                      ) : (
+                        post.metadata.company
+                      )}
+                    </Typography>
+                  </Box>
+                )}
+                {post.metadata.year && (
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                    >
+                      Year
+                    </Typography>
+                    <Typography variant="body1" color="text.primary">
+                      {post.metadata.year}
+                    </Typography>
+                  </Box>
+                )}
+                {post.metadata.role && (
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                    >
+                      Role
+                    </Typography>
+                    <Typography variant="body1" color="text.primary">
+                      {post.metadata.role}
+                    </Typography>
+                  </Box>
+                )}
+                {post.metadata.tools && (
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                    >
+                      Tools
+                    </Typography>
+                    <Typography variant="body1" color="text.primary">
+                      {post.metadata.tools}
+                    </Typography>
+                  </Box>
+                )}
               </Stack>
             </Box>
           </Grid>
