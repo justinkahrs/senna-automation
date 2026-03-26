@@ -195,12 +195,6 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
         <Script
-          src="https://cdn.usefathom.com/script.js"
-          data-site="ZENVGNJZ"
-          defer
-          strategy="afterInteractive"
-        />
-        <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=AW-16832579878"
           async

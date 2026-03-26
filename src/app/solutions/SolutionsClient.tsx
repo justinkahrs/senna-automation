@@ -14,6 +14,7 @@ import CascadingStagger from "@/components/animations/CascadingStagger";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ScheduleCallButton from "@/components/ScheduleCallButton";
 import {
   Accordion,
   AccordionDetails,
@@ -428,16 +429,25 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
             feels most repetitive. We will identify practical opportunities and
             map out the best place to start.
           </Typography>
-          <Button
-            component={Link}
-            href="/contact"
-            variant="contained"
-            size="large"
-            endIcon={<ArrowForwardIcon />}
-            sx={{ px: 6 }}
-          >
-            Get Your Automation Plan
-          </Button>
+          <Stack spacing={2} alignItems="center">
+            <ScheduleCallButton
+              text="Book a Free 30-Min Call"
+              size="large"
+              sx={{ px: 6 }}
+            />
+            <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.4)" }}>
+              Prefer a form?{" "}
+              <Button
+                component={Link}
+                href="/contact"
+                variant="text"
+                size="small"
+                sx={{ color: "rgba(255,255,255,0.5)", p: 0, minWidth: 0, textDecoration: "underline", fontSize: "inherit" }}
+              >
+                Contact us here
+              </Button>
+            </Typography>
+          </Stack>
         </Container>
       </Box>
     </Box>

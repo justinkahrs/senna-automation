@@ -1,4 +1,15 @@
+import type { Metadata } from "next";
 import RequestFormButton from "@/components/RequestFormButton";
+
+export const metadata: Metadata = {
+  title: "AI Workflow Automation & Business Process Automation | Senna Automation",
+  description:
+    "Senna Automation helps businesses in Grand Rapids, MI and beyond eliminate repetitive work with AI-powered workflow automation. Schedule a free 30-min call to see what you can automate.",
+  alternates: {
+    canonical: "https://www.senna-automation.com",
+  },
+};
+
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import AnimatedHeroTitle from "@/components/AnimatedHeroTitle";
 import {
@@ -426,6 +437,29 @@ export default function Home() {
               </Accordion>
             ))}
           </CascadingStagger>
+
+          <Box sx={{ mt: 8, textAlign: "center" }}>
+            <Typography
+              variant="h5"
+              color="inherit"
+              sx={{ mb: 2, opacity: 0.9 }}
+            >
+              Ready to see how this works for your business?
+            </Typography>
+            <Stack spacing={1.5} alignItems="center">
+              <ScheduleCallButton
+                text="Schedule a Free Call"
+                size="large"
+                sx={{ px: 6 }}
+              />
+              <Typography
+                variant="caption"
+                sx={{ color: "rgba(255,255,255,0.4)" }}
+              >
+                Free 30-min call. No commitment.
+              </Typography>
+            </Stack>
+          </Box>
         </Container>
       </Box>
     </>

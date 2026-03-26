@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import ScheduleCallButton from "@/components/ScheduleCallButton";
+
+export const metadata: Metadata = {
+  title: "About Senna Automation — AI & Workflow Automation Consulting | Grand Rapids, MI",
+  description:
+    "Learn about Senna Automation: a Grand Rapids, MI-based AI workflow automation consultancy with 15+ years of software expertise. We help businesses eliminate repetitive work and move faster.",
+  alternates: {
+    canonical: "https://www.senna-automation.com/about",
+  },
+};
+
 import {
   Box,
   Button,
@@ -246,11 +258,16 @@ export default function About() {
                 there probably is. It just hasn’t been set up yet.
               </Typography>
 
-              <Link href="/contact" passHref>
-                <Button variant="contained" size="large" sx={{ px: 8 }}>
-                  Let&apos;s fix that
-                </Button>
-              </Link>
+              <Stack spacing={1.5} alignItems="center">
+                <ScheduleCallButton
+                  text="Let's fix that — book 30 minutes"
+                  size="large"
+                  sx={{ px: 6 }}
+                />
+                <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.4)" }}>
+                  Free call. No commitment.
+                </Typography>
+              </Stack>
             </Stack>
           </Box>
         </Container>

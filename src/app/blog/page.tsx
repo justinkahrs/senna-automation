@@ -1,4 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "AI Automation Insights & Case Studies | Senna Automation Blog",
+  description:
+    "Practical guides and real-world automation case studies from Senna Automation. Learn how businesses eliminate manual work, improve lead follow-up, and build smarter workflows with AI.",
+  alternates: {
+    canonical: "https://www.senna-automation.com/blog",
+  },
+};
+
 import {
   Box,
   Container,
@@ -14,6 +25,7 @@ import { alpha } from "@mui/material/styles";
 
 import { ACCENT } from "@/components/theme/colors";
 import { getAllBlogPosts } from "@/utils/blog";
+import ScheduleCallButton from "@/components/ScheduleCallButton";
 
 const blogPosts = getAllBlogPosts();
 
@@ -210,7 +222,7 @@ export default function BlogPage() {
         </Container>
       </Box>
 
-      {/* ── Bolder Call to Action ───────────────────────────── */}
+      {/* ── Call to Action ───────────────────────────── */}
       <Box
         sx={{
           bgcolor: "secondary.main",
@@ -221,41 +233,27 @@ export default function BlogPage() {
       >
         <Container maxWidth="sm">
           <Typography variant="h2" gutterBottom color="inherit">
-            Get automation patterns in your inbox.
+            Want to automate something in your business?
           </Typography>
           <Typography
             variant="subtitle1"
             sx={{ color: "rgba(255,255,255,0.7)", mb: 6 }}
           >
-            A curated monthly digest of the most effective AI workflows we're
-            seeing in the field. No fluff.
+            Book a free 30-min call. We&apos;ll identify the highest-impact
+            opportunities and map out exactly where to start.
           </Typography>
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-            justifyContent="center"
-          >
-            <Box
-              component="input"
-              placeholder="Your email address"
-              sx={{
-                bgcolor: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: "50px",
-                px: 3,
-                py: 2,
-                color: "white",
-                minWidth: { sm: 300 },
-                "&:focus": {
-                  outline: "none",
-                  borderColor: "primary.light",
-                  bgcolor: "rgba(255,255,255,0.1)",
-                },
-              }}
+          <Stack spacing={1.5} alignItems="center">
+            <ScheduleCallButton
+              text="Schedule a Free Call"
+              size="large"
+              sx={{ px: 6 }}
             />
-            <Button variant="contained" size="large">
-              Join the List
-            </Button>
+            <Typography
+              variant="caption"
+              sx={{ color: "rgba(255,255,255,0.4)" }}
+            >
+              Free call. No commitment.
+            </Typography>
           </Stack>
         </Container>
       </Box>
