@@ -14,15 +14,17 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import ScheduleCallButton from "../ScheduleCallButton";
+import { Logo } from "./Logo";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { usePathname } from "next/navigation";
+import { ACCENT, STONE_400 } from "../theme/theme";
 
 const NAV_LINKS = [
-  { label: "Services",  href: "/services" },
+  { label: "Services", href: "/services" },
   { label: "Solutions", href: "/solutions" },
-  { label: "Pricing",   href: "/pricing" },
-  { label: "Blog",      href: "/blog" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export function AppBar() {
@@ -67,12 +69,10 @@ export function AppBar() {
         }}
       >
         <Toolbar sx={{ width: "100%", minHeight: "64px !important" }}>
-          <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-start" }}>
-            <Link href="/" passHref>
-              <Box
-                component="img"
-                src="/senna-automation-new.png"
-                alt="Senna Automation"
+          <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
+            <Link href="/" passHref style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+              <Logo
+                // logoFontColor={"#BADA55"}
                 sx={{ height: 36, cursor: "pointer" }}
               />
             </Link>
@@ -87,12 +87,10 @@ export function AppBar() {
       position="relative"
       elevation={0}
       sx={{
-        backgroundColor: "background.paper",
+        // backgroundColor: STONE_400,
         borderBottom: "1px solid",
         borderColor: scrolled ? "divider" : "divider",
-        boxShadow: scrolled
-          ? "0 2px 16px rgba(28, 25, 23, 0.07)"
-          : "none",
+        boxShadow: scrolled ? "0 2px 16px rgba(28, 25, 23, 0.07)" : "none",
         transition:
           "box-shadow 300ms cubic-bezier(0.25,0.46,0.45,0.94), border-color 300ms ease",
       }}
@@ -109,11 +107,9 @@ export function AppBar() {
       >
         {/* Logo */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Link href="/" passHref>
-            <Box
-              component="img"
-              src="/senna-automation-new.png"
-              alt="Senna Automation"
+          <Link href="/" passHref style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+            <Logo
+              // logoFontColor={"#BADA55"}
               sx={{
                 height: 36,
                 cursor: "pointer",
@@ -156,8 +152,7 @@ export function AppBar() {
                       backgroundColor: "rgba(28,25,23,0.04)",
                       color: "text.primary",
                     },
-                    transition:
-                      "color 180ms ease, background-color 180ms ease",
+                    transition: "color 180ms ease, background-color 180ms ease",
                   }}
                 >
                   {label}
@@ -230,7 +225,11 @@ export function AppBar() {
                 transition: "background-color 180ms ease",
               }}
             >
-              {isOpen ? <CloseIcon fontSize="small" /> : <MenuIcon fontSize="small" />}
+              {isOpen ? (
+                <CloseIcon fontSize="small" />
+              ) : (
+                <MenuIcon fontSize="small" />
+              )}
             </IconButton>
 
             <Menu

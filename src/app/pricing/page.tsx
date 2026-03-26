@@ -36,7 +36,7 @@ export default function PricingPage() {
         <Box
           sx={{
             pt: { xs: 8, md: 12 },
-            pb: { xs: 8, md: 15 },
+            pb: { xs: 8, md: 10 },
             textAlign: "center"
           }}
         >
@@ -55,8 +55,42 @@ export default function PricingPage() {
             Automation that pays <br /> for itself.
           </Typography>
           <Typography variant="subtitle1" color="text.secondary" sx={{ maxWidth: "700px", mx: "auto" }}>
-            Every business has unique workflows. Our pricing reflects the complexity and scale of the systems we build. We provide clear, fixed-price project ranges so you know exactly what to expect.
+            Every business has unique workflows. Our pricing reflects the complexity and scale of the systems we build. We provide clear, fixed-price quotes tailored to your specific needs after a free assessment.
           </Typography>
+        </Box>
+
+        <Box 
+          sx={{ 
+            mb: { xs: 8, md: 10 }, 
+            p: { xs: 4, md: 6 }, 
+            borderRadius: 6, 
+            bgcolor: isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.02)",
+            border: "1px solid",
+            borderColor: "divider",
+            textAlign: "center",
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+        >
+          <Grid container spacing={4} alignItems="center" justifyContent="center">
+            <Grid item xs={12} sm={6}>
+              <Typography variant="h3" sx={{ fontWeight: 800, mb: 1 }}>
+                Pricing starting at $500
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                Professional automation for any budget
+              </Typography>
+            </Grid>
+            <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'block' }, mx: 4 }} />
+            <Grid item xs={12} sm={4}>
+              <Typography variant="h4" sx={{ fontWeight: 600, color: 'primary.main', mb: 1 }}>
+                4-6 Weeks
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                Typical implementation timeline
+              </Typography>
+            </Grid>
+          </Grid>
         </Box>
 
         {/* Pricing Tiers */}
@@ -82,9 +116,6 @@ export default function PricingPage() {
                 </Typography>
                 <Typography variant="h3" sx={{ mb: 1 }}>
                   Starter Automation
-                </Typography>
-                <Typography variant="h2" sx={{ my: 2 }}>
-                  $1.5k – $3.5k
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
                   Perfect for small businesses looking to automate a single, high-impact workflow.
@@ -165,9 +196,6 @@ export default function PricingPage() {
                 <Typography variant="h3" sx={{ mb: 1 }}>
                   Growth Systems
                 </Typography>
-                <Typography variant="h2" sx={{ my: 2, color: 'primary.main' }}>
-                  $4k – $8k
-                </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
                   For companies ready to scale lead generation and automate customer follow-up.
                 </Typography>
@@ -235,9 +263,6 @@ export default function PricingPage() {
                 <Typography variant="h3" sx={{ mb: 1 }}>
                   Custom AI Systems
                 </Typography>
-                <Typography variant="h2" sx={{ my: 2 }}>
-                  $10k+
-                </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
                   End-to-end automation and custom AI tools for complex, high-volume operations.
                 </Typography>
@@ -293,9 +318,6 @@ export default function PricingPage() {
           </Typography>
           <Typography variant="h2" gutterBottom>
             Ongoing Support & Optimization
-          </Typography>
-          <Typography variant="h3" color="primary" sx={{ mb: 3, fontWeight: 700 }}>
-            $500 – $2,000 / mo
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ maxWidth: "700px", mx: "auto", mb: 6, fontSize: '1.1rem' }}>
             Automation isn't "set it and forget it." We provide continuous monitoring, updates, and optimization to ensure your systems grow as your business evolves.
