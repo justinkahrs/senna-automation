@@ -63,16 +63,16 @@ export default function PricingToggleSection() {
               <Box sx={{ maxWidth: "860px" }}>
                 <Box
                   sx={{
-                    display: "inline-flex",
+                    display: "flex",
                     alignItems: "center",
-                    gap: 1,
+                    gap: 0.5,
                     p: 0.5,
                     mb: 2.5,
                     borderRadius: "999px",
                     border: "1px solid",
                     borderColor: alpha("#FFFFFF", 0.22),
                     bgcolor: alpha("#FFFFFF", 0.08),
-                    flexWrap: "wrap",
+                    width: { xs: "100%", sm: "fit-content" },
                   }}
                 >
                   {sharedPricingTiers.map((tier) => {
@@ -84,16 +84,18 @@ export default function PricingToggleSection() {
                         onClick={() => setActiveTierId(tier.id)}
                         disableElevation
                         sx={{
-                          minWidth: { xs: 104, md: 112 },
-                          px: 2,
+                          flex: { xs: 1, sm: "initial" },
+                          minWidth: { xs: 0, md: 112 },
+                          px: { xs: 1, sm: 2 },
                           py: 0.85,
                           borderRadius: "999px",
                           bgcolor: active ? "secondary.main" : "transparent",
                           color: "background.paper",
-                          fontSize: "0.78rem",
-                          fontWeight: active ? 700 : 600,
-                          letterSpacing: "0.08em",
+                          fontSize: { xs: "0.68rem", sm: "0.75rem", md: "0.78rem" },
+                          fontWeight: active ? 700 : 500,
+                          letterSpacing: "0.06em",
                           textTransform: "uppercase",
+                          whiteSpace: "nowrap",
                           "&:hover": {
                             bgcolor: active
                               ? "secondary.main"

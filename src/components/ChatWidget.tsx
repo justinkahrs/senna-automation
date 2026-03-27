@@ -87,13 +87,13 @@ export default function ChatWidget() {
               // Dedupe based on ID just in case
               const existingIds = new Set(prev.map((m) => m.id));
               const uniqueNew = newMessages.filter(
-                (m: Message) => !existingIds.has(m.id)
+                (m: Message) => !existingIds.has(m.id),
               );
               // Merge and sort
               const combined = [...prev, ...uniqueNew].sort(
                 (a, b) =>
                   new Date(a.created_at).getTime() -
-                  new Date(b.created_at).getTime()
+                  new Date(b.created_at).getTime(),
               );
               return combined;
             });
@@ -107,7 +107,7 @@ export default function ChatWidget() {
         console.error("Polling error", err);
       }
     },
-    [session]
+    [session],
   );
 
   // Poll for messages when chat is open and we have a session + consent
@@ -116,7 +116,7 @@ export default function ChatWidget() {
       fetchMessages(true); // Initial fetch
       pollIntervalRef.current = setInterval(
         () => fetchMessages(),
-        POLL_INTERVAL
+        POLL_INTERVAL,
       );
     } else {
       if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
@@ -244,9 +244,10 @@ export default function ChatWidget() {
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-end",
+        pointerEvents: "none",
       }}
     >
-      <Fade in={isOpen}>
+      <Fade in={isOpen} unmountOnExit>
         <Paper
           elevation={4}
           sx={{
@@ -259,6 +260,7 @@ export default function ChatWidget() {
             flexDirection: "column",
             borderRadius: 2,
             backgroundColor: theme.palette.background.paper,
+            pointerEvents: "auto",
           }}
         >
           {/* Header */}
@@ -469,6 +471,7 @@ export default function ChatWidget() {
           fontWeight: 700,
           textTransform: "none",
           color: BG_BASE,
+          pointerEvents: "auto",
         }}
       >
         <ChatIcon />
