@@ -358,7 +358,7 @@ export default function ServicesPage() {
           </Typography>
           <Stack spacing={2} alignItems="center">
             <ScheduleCallButton
-              text="Book a Free 30-Min Call"
+              text="Book a Demo via"
               size="large"
               sx={{ px: 6 }}
             />
@@ -371,7 +371,7 @@ export default function ServicesPage() {
                 size="small"
                 sx={{ color: "rgba(255,255,255,0.5)", p: 0, minWidth: 0, textDecoration: "underline", fontSize: "inherit" }}
               >
-                Contact us here
+                Contact us
               </Button>
             </Typography>
           </Stack>

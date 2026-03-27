@@ -273,7 +273,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
                               }
                             }}
                           >
-                            Read practical example
+                            Read the Case Study
                           </Button>
                         </Box>
                       )}
@@ -425,13 +425,13 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
               mb: 4,
             }}
           >
-            Start with a conversation about where time is being lost and what
+            Start with a quick 30-minute conversation about where time is being lost and what
             feels most repetitive. We will identify practical opportunities and
             map out the best place to start.
           </Typography>
           <Stack spacing={2} alignItems="center">
             <ScheduleCallButton
-              text="Book a Free 30-Min Call"
+              text="Book a Demo via"
               size="large"
               sx={{ px: 6 }}
             />
@@ -444,7 +444,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
                 size="small"
                 sx={{ color: "rgba(255,255,255,0.5)", p: 0, minWidth: 0, textDecoration: "underline", fontSize: "inherit" }}
               >
-                Contact us here
+                Contact us
               </Button>
             </Typography>
           </Stack>

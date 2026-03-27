@@ -18,6 +18,8 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Card,
+  CardContent,
   Container,
   Stack,
   Typography,
@@ -131,89 +133,6 @@ export default function Home() {
         </Container>
       </Box>
 
-      {/* ── Social Proof ─────────────────────────────── */}
-      <Box
-        component="section"
-        sx={{
-          bgcolor: "background.paper",
-          borderBottom: "1px solid",
-          borderColor: "divider",
-          py: { xs: 8, md: 10 },
-        }}
-      >
-        <Container maxWidth="lg">
-          <Typography
-            variant="overline"
-            align="center"
-            color="text.secondary"
-            sx={{ display: "block", mb: 6, letterSpacing: 2 }}
-          >
-            What clients say
-          </Typography>
-          <Grid container spacing={4}>
-            {[
-              {
-                quote:
-                  "The quoting workflow Senna built cut our response time from hours to minutes. We stopped losing deals just because we were slow.",
-                name: "Operations Manager",
-                company: "B2B Distributor",
-              },
-              {
-                quote:
-                  "Our lead follow-up used to fall through the cracks constantly. Now it's just done. The team didn't have to change anything about how they work.",
-                name: "Sales Director",
-                company: "Service Business",
-              },
-              {
-                quote:
-                  "Justin took the time to actually understand our process before building anything. The result was something our team immediately trusted.",
-                name: "Founder",
-                company: "Regional Agency",
-              },
-            ].map((t) => (
-              <Grid item xs={12} md={4} key={t.name}>
-                <Box
-                  sx={{
-                    height: "100%",
-                    p: { xs: 4, md: 5 },
-                    borderRadius: 3,
-                    border: "1px solid",
-                    borderColor: "divider",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 3,
-                  }}
-                >
-                  <Typography
-                    variant="body1"
-                    color="text.secondary"
-                    sx={{
-                      fontSize: "1.05rem",
-                      lineHeight: 1.75,
-                      fontStyle: "italic",
-                      flex: 1,
-                    }}
-                  >
-                    &ldquo;{t.quote}&rdquo;
-                  </Typography>
-                  <Box>
-                    <Typography
-                      variant="body2"
-                      sx={{ fontWeight: 700, color: "text.primary" }}
-                    >
-                      {t.name}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      {t.company}
-                    </Typography>
-                  </Box>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
-
       {/* ── Why Choose Section ───────────────────────── */}
       <Box
         component="section"
@@ -249,51 +168,143 @@ export default function Home() {
                 </Typography>
 
                 <Stack spacing={3}>
-                  <Typography
-                    variant="body1"
-                    color="text.secondary"
-                    sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
-                  >
-                    <strong>
-                      Senna Automation specializes in AI workflow automation and
-                      custom software development
-                    </strong>
-                    , helping businesses in Grand Rapids, Michigan and beyond
-                    harness the power of artificial intelligence.
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    color="text.secondary"
-                    sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
-                  >
-                    Whether you need <strong>B2B AI consulting</strong>,{" "}
-                    <strong>digital transformation</strong> strategies, or
-                    end-to-end workflow automation, our team delivers measurable
-                    outcomes—including reduced operational costs and improved
-                    efficiency.
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{
-                      fontStyle: "italic",
-                      borderLeft: "2px solid",
-                      borderColor: "primary.light",
-                      pl: 3,
-                      py: 1,
-                      mt: 2,
-                    }}
-                  >
-                    Expertise spans custom web app development, modern AI
-                    integration, and high-performance, SEO-optimized systems
-                    that help your business stand out.
-                  </Typography>
-                </Stack>
+  <Typography
+    variant="body1"
+    color="text.secondary"
+    sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
+  >
+    <strong>Senna Automation builds systems that take work off your plate</strong>{" "}
+    and keep your business moving. Instead of juggling emails, follow-ups, and
+    repetitive tasks, <strong>your workflows run quietly in the background</strong>,
+    turning inputs into <strong>completed outcomes</strong>.
+  </Typography>
+
+  <Typography
+    variant="body1"
+    color="text.secondary"
+    sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
+  >
+    We design and build <strong>custom automation systems</strong> for{" "}
+    <strong>small and mid-sized businesses</strong>, combining modern AI with
+    software that fits the tools you already use. The result is{" "}
+    <strong>less manual work</strong>, <strong>fewer gaps</strong>, and{" "}
+    <strong>more time focused on what actually matters</strong>.
+  </Typography>
+
+  <Typography
+    variant="body2"
+    color="text.secondary"
+    sx={{
+      fontStyle: "italic",
+      borderLeft: "2px solid",
+      borderColor: "primary.light",
+      pl: 3,
+      py: 1,
+      mt: 2,
+    }}
+  >
+    Based in Grand Rapids, Michigan, Senna Automation helps businesses{" "}
+    <strong>simplify operations</strong>, <strong>reduce back-and-forth</strong>,
+    and create systems they can rely on.
+  </Typography>
+</Stack>
               </Box>
             </Grid>
 
             {/* Visual Element (5 Columns) */}
             <Grid item xs={12} md={5}></Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* ── Social Proof ─────────────────────────────── */}
+      <Box
+        component="section"
+        sx={{
+          bgcolor: "background.paper",
+          py: { xs: 8, md: 10 },
+        }}
+      >
+        <Container maxWidth="lg">
+          <Typography
+            variant="overline"
+            align="center"
+            color="text.secondary"
+            sx={{ display: "block", mb: 6, letterSpacing: 2 }}
+          >
+            What clients say
+          </Typography>
+          <Grid container spacing={4}>
+            {[
+              {
+                quote:
+                  "The quoting workflow Senna built cut our response time from hours to minutes. We stopped losing deals just because we were slow.",
+                name: "Operations Manager",
+                company: "B2B Distributor",
+              },
+              {
+                quote:
+                  "Our lead follow-up used to fall through the cracks constantly. Now it's just done. The team didn't have to change anything about how they work.",
+                name: "Sales Director",
+                company: "Service Business",
+              },
+              {
+                quote:
+                  "Justin took the time to actually understand our process before building anything. The result was something our team immediately trusted.",
+                name: "Founder",
+                company: "Regional Agency",
+              },
+            ].map((t) => (
+              <Grid item xs={12} md={4} key={t.name}>
+                <Card
+                  sx={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    "&:hover": {
+                      transform: "none",
+                      boxShadow: "0 1px 3px rgba(28,25,23,0.06), 0 1px 2px rgba(28,25,23,0.04)",
+                      borderColor: "divider",
+                    },
+                  }}
+                >
+                  <CardContent
+                    sx={{
+                      p: { xs: 4, md: 5 },
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 3,
+                      "&:last-child": { pb: { xs: 4, md: 5 } },
+                    }}
+                  >
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{
+                      fontSize: "1.05rem",
+                      lineHeight: 1.75,
+                      fontStyle: "italic",
+                      flex: 1,
+                    }}
+                  >
+                    &ldquo;{t.quote}&rdquo;
+                  </Typography>
+                  <Box>
+                    <Typography
+                      variant="body2"
+                      sx={{ fontWeight: 700, color: "text.primary" }}
+                    >
+                      {t.name}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {t.company}
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+            ))}
           </Grid>
         </Container>
       </Box>
@@ -310,8 +321,6 @@ export default function Home() {
             minHeight: { md: "600px" },
             display: "flex",
             alignItems: "center",
-            borderY: "1px solid",
-            borderColor: "rgba(255,255,255,0.1)",
           }}
         >
           {/* Texture overlay matching blog hero */}
@@ -529,7 +538,7 @@ export default function Home() {
             </Typography>
             <Stack spacing={1.5} alignItems="center">
               <ScheduleCallButton
-                text="Schedule a Free Call"
+                text="Schedule a Free Assessment"
                 size="large"
                 sx={{ px: 6 }}
               />

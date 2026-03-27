@@ -261,7 +261,7 @@ export default function About() {
 
               <Stack spacing={1.5} alignItems="center">
                 <ScheduleCallButton
-                  text="Let's fix that — book 30 minutes"
+                  text="Let's fix that — book 30 minutes via"
                   size="large"
                   sx={{ px: 6 }}
                 />

@@ -24,7 +24,7 @@ Their team was sitting on a large universe of accounts, but turning that market 
 
 We built an AI-driven lead management system that automates that entire research and qualification process.
 
-## The Challenge: High-Value Leads Hidden in Public Data
+## The challenge: High-value leads hidden in public data
 
 In this market, the difference between a great prospect and a poor-fit one is not obvious from a basic list.
 
@@ -39,7 +39,7 @@ The client needed a way to answer questions like:
 
 Manually gathering that information across hundreds or thousands of districts is slow, inconsistent, and difficult to scale.
 
-## The Solution: AI-Powered Lead Research and Prioritization
+## The solution: AI-powered lead research and prioritization
 
 We designed a workflow that turns messy public information into structured sales intelligence automatically.
 
@@ -115,7 +115,7 @@ Now, instead of working from a flat account list, the sales and operations teams
 
 That changes lead management from reactive list chasing into proactive opportunity orchestration.
 
-## Why This Matters for Potential Clients
+## Why this matters for potential clients
 
 Most lead automation focuses on surface-level enrichment: contact details, company metadata, maybe a few intent signals. That can be useful, but it does not solve the real problem in complex sales environments where buying behavior is driven by public funding cycles, internal standards, procurement structure, and institutional decision-making processes.
 
@@ -127,7 +127,7 @@ For clients selling into education, construction, public sector, manufacturing, 
 
 Instead of asking your team to spend hours researching accounts manually, you can build a pipeline that continuously translates scattered external information into prioritized, explainable, sales-ready intelligence.
 
-## The Outcome: Better Pipeline Focus, Faster Decisions
+## The outcome: Better pipeline focus, faster decisions
 
 The end result is a lead management engine that helps the client focus on the right accounts earlier and with more confidence.
 
@@ -141,7 +141,7 @@ What used to require manual interpretation across multiple public systems is now
 
 For companies with long sales cycles and complex account qualification, that is not just a workflow improvement. It is a growth lever.
 
-## The Bigger Opportunity
+## The bigger opportunity
 
 Lead management automation becomes much more powerful when it moves beyond routing and reminders and starts producing actual judgment at scale.
 

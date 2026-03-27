@@ -38,12 +38,12 @@ export const ConsultationCTA = () => {
           variant="subtitle1"
           sx={{ color: "rgba(255,255,255,0.7)", mb: 6, maxWidth: "560px", mx: "auto" }}
         >
-          Book a free 30-min call. We&apos;ll walk through your workflows and
+          Book a free 30-minute call. We&apos;ll walk through your workflows and
           identify exactly where automation can save you time.
         </Typography>
         <Stack spacing={1.5} alignItems="center">
           <ScheduleCallButton
-            text="Schedule a Free Call"
+            text="Schedule a Call via"
             size="large"
             sx={{ px: 6, backgroundColor: "primary.main", "&:hover": { backgroundColor: "primary.dark" } }}
           />

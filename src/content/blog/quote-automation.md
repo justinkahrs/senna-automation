@@ -20,7 +20,7 @@ The Request for Quote (RFQ) process is the lifeblood of B2B sales, but it's ofte
 
 To eliminate this bottleneck, we designed a fully automated n8n workflow that uses artificial intelligence to digest unstructured emails and instantly output a formal Quote PDF.
 
-## The Challenge: Messy Inboxes and Complex Data
+## The challenge: Messy inboxes and complex data
 
 When an organization receives hundreds of emails a week in an unassigned inbox, just sorting through the noise is a massive undertaking. A potential workflow could easily break if it tries to generate a quote for a simple "Thank you" email, or if it accidentally picks up non-product numbers like phone numbers and ZIP codes.
 
@@ -30,7 +30,7 @@ We needed a system that was smart enough to understand the context of the emails
 
 Before attempting any data extraction, the system must confirm that an incoming email actually requires a quote. To solve this, the workflow monitors a targeted Front.com inbox and routes new unassigned email threads through an Azure OpenAI intent classifier. The AI is specifically prompted to detect if a message is requesting new quotes rather than asking about existing quantity discounts or order updates. Only verified quote requests are allowed to proceed down the pipeline, keeping the system efficient and preventing misfires.
 
-## The Solution: Intelligent Extraction & Automated Quoting
+## The solution: Intelligent extraction & automated quoting
 
 The core of the workflow leverages LangChain and GPT models as an intelligent translation layer between messy human requests and strict database schemas.
 
