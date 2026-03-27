@@ -38,15 +38,40 @@ export const ConsultationCTA = () => {
           variant="subtitle1"
           sx={{ color: "rgba(255,255,255,0.7)", mb: 6, maxWidth: "560px", mx: "auto" }}
         >
-          Book a free 30-min call. We&apos;ll walk through your workflows and
+          Book a free 30-minute call. We&apos;ll walk through your workflows and
           identify exactly where automation can save you time.
         </Typography>
         <Stack spacing={1.5} alignItems="center">
           <ScheduleCallButton
-            text="Schedule a Free Call"
+            text="Schedule a Call"
             size="large"
+            showIcon={false}
             sx={{ px: 6, backgroundColor: "primary.main", "&:hover": { backgroundColor: "primary.dark" } }}
           />
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 0.5,
+              color: "rgba(255,255,255,0.55)",
+            }}
+          >
+            <Typography variant="caption" sx={{ color: "inherit" }}>
+              via
+            </Typography>
+            <Box
+              component="img"
+              src="/Calendly.svg"
+              alt="Calendly"
+              sx={{
+                height: "0.95rem",
+                width: "auto",
+                opacity: 0.9,
+                filter: "brightness(0) invert(1)",
+                mt: "3px",
+              }}
+            />
+          </Box>
           <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.45)" }}>
             No commitment. No prep needed.
           </Typography>

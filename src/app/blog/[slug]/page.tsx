@@ -15,6 +15,10 @@ import { alpha } from "@mui/material/styles";
 import { ACCENT } from "@/components/theme/colors";
 import { getBlogPostBySlug, getAllBlogPosts } from "@/utils/blog";
 import { ConsultationCTA } from "@/components/blog/ConsultationCTA";
+import {
+  NumberedSteps,
+  parseNumberedSteps,
+} from "@/components/blog/NumberedSteps";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { notFound } from "next/navigation";
@@ -126,6 +130,77 @@ const markdownComponents = {
       </Typography>
     </Box>
   ),
+  blockquote: ({ children }: any) => (
+    <Box
+      sx={{
+        my: 8,
+        px: { xs: 4, md: 5 },
+        py: { xs: 4, md: 5 },
+        bgcolor: alpha(ACCENT, 0.06),
+        borderRadius: 3,
+        boxShadow: "0 24px 70px rgba(28,25,23,0.05)",
+        "& p": {
+          mb: 2.5,
+          lineHeight: 1.85,
+        },
+        "& p:last-child": {
+          mb: 0,
+        },
+        "& > p:first-of-type": {
+          mb: 3,
+          fontFamily: "Inter, sans-serif",
+          fontSize: "clamp(1.875rem, 3.5vw, 2.369rem)",
+          lineHeight: 1.18,
+          letterSpacing: "-0.02em",
+          color: "text.primary",
+        },
+        "& > p:first-of-type strong": {
+          fontSize: "inherit",
+          lineHeight: "inherit",
+          letterSpacing: "inherit",
+        },
+        "& strong": {
+          color: "text.primary",
+          fontWeight: 700,
+        },
+      }}
+    >
+      {children}
+    </Box>
+  ),
+  pre: ({ children }: any) => <>{children}</>,
+  code: ({ className, children, ...props }: any) => {
+    const language = className?.replace("language-", "");
+    const content = String(children).replace(/\n$/, "");
+
+    if (language === "steps") {
+      return (
+        <NumberedSteps
+          steps={parseNumberedSteps(content)}
+          layout="stack"
+          sx={{ my: 8 }}
+        />
+      );
+    }
+
+    return (
+      <Box
+        component="code"
+        className={className}
+        sx={{
+          fontFamily: "monospace",
+          fontSize: "0.95em",
+          bgcolor: "rgba(45,107,94,0.08)",
+          px: 0.75,
+          py: 0.25,
+          borderRadius: 1,
+        }}
+        {...props}
+      >
+        {children}
+      </Box>
+    );
+  },
 };
 
 export default async function BlogPostPage({
@@ -153,6 +228,7 @@ export default async function BlogPostPage({
           bgcolor: "primary.main",
           zIndex: 2000,
           width: "45%", // Static for demo
+          display: "none",
         }}
       />
 
@@ -256,7 +332,7 @@ export default async function BlogPostPage({
                       pl: 3,
                     }}
                   >
-                    "{post.subtitle}"
+                    {post.subtitle}
                   </Typography>
                 )}
               </Stack>

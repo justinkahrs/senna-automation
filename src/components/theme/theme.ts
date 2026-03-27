@@ -87,7 +87,7 @@ const SANS = inter.style.fontFamily; // body, UI, labels
    body2       Sans    0.875rem  0.875rem 400  1.60   0.000em  (small body)
    button      Sans    0.9375rem 0.9375rem 500 1.00  -0.010em
    caption     Sans    0.75rem   0.75rem  400  1.50  +0.010em
-   overline    Sans    0.6875rem 0.6875rem 700 1.50  +0.080em  uppercase (eyebrow)
+   overline    Sans    0.875rem  0.875rem  700 1.50  +0.080em  uppercase (eyebrow)
    ================================================================ */
 
 export function getThemeTokens(): ThemeOptions {
@@ -262,7 +262,7 @@ export function getThemeTokens(): ThemeOptions {
       overline: {
         fontFamily: SANS,
         fontWeight: 700,
-        fontSize: "0.6875rem", // 11px
+        fontSize: "0.875rem", // 14px
         lineHeight: 1.5,
         letterSpacing: "0.080em",
         textTransform: "uppercase",

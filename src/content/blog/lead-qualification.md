@@ -24,7 +24,7 @@ Their team was sitting on a large universe of accounts, but turning that market 
 
 We built an AI-driven lead management system that automates that entire research and qualification process.
 
-## The Challenge: High-Value Leads Hidden in Public Data
+## The challenge: High-value leads hidden in public data
 
 In this market, the difference between a great prospect and a poor-fit one is not obvious from a basic list.
 
@@ -39,14 +39,14 @@ The client needed a way to answer questions like:
 
 Manually gathering that information across hundreds or thousands of districts is slow, inconsistent, and difficult to scale.
 
-## The Solution: AI-Powered Lead Research and Prioritization
+## The solution: AI-powered lead research and prioritization
 
 We designed a workflow that turns messy public information into structured sales intelligence automatically.
 
 Instead of asking a salesperson to dig through procurement sites, board meeting systems, bond records, and district documents one by one, the system does the heavy lifting itself. It researches each district, extracts relevant evidence, scores the signals that matter, and produces a clean structured output that can feed dashboards, CRMs, and downstream prioritization workflows.
 
-### Step 1: Automated Public Research
-
+```steps
+01 | Automated Public Research
 The first layer of the system acts like a research analyst.
 
 For each district, it investigates public artifacts such as:
@@ -62,9 +62,8 @@ For each district, it investigates public artifacts such as:
 Rather than relying on a single exact document, the system follows the strongest public evidence trail available. That makes it resilient in the real world, where useful information is often scattered across district websites, meeting attachments, consultant PDFs, and local reporting.
 
 The result is not a vague narrative summary. It is a structured research object with clearly defined evidence, confidence levels, and district-specific signal scores.
-
-### Step 2: Converting Research Into Actionable Signals
-
+---
+02 | Converting Research Into Actionable Signals
 Raw research alone is still too messy for operations teams to use at scale, so the next layer converts the findings into standardized signals.
 
 The system evaluates factors such as:
@@ -83,9 +82,8 @@ The system evaluates factors such as:
 Each signal is scored independently based on documented evidence rather than assumptions. If evidence is missing, it is marked unknown instead of being filled in artificially.
 
 This is where the workflow becomes far more valuable than a generic enrichment tool. It does not just tell the client that a district exists or has a certain size. It reveals how that district tends to make purchasing decisions.
-
-### Step 3: Structural Purchasing Analysis
-
+---
+03 | Structural Purchasing Analysis
 Once the district research is complete, a second analysis layer evaluates overall purchasing posture.
 
 This model separates three things that are often conflated:
@@ -99,9 +97,8 @@ That distinction is critical.
 A district can have significant funding and still operate in a purely price-driven way. Another district may have more moderate funding but consistently evaluate vendors based on structured criteria, planning frameworks, and long-term considerations. By isolating purchasing philosophy from simple budget size, the client gets a much clearer view of where their offering is likely to resonate.
 
 The output is a clean composite score, along with a diagnostic breakdown of which signals support the opportunity, which weaken it, and which are still too uncertain to rely on heavily.
-
-### Step 4: Prioritized Lead Management at Scale
-
+---
+04 | Prioritized Lead Management at Scale
 Once that intelligence is structured, the system can drive the rest of the go-to-market motion automatically.
 
 Now, instead of working from a flat account list, the sales and operations teams can:
@@ -114,8 +111,9 @@ Now, instead of working from a flat account list, the sales and operations teams
 - reduce time wasted on low-likelihood accounts
 
 That changes lead management from reactive list chasing into proactive opportunity orchestration.
+```
 
-## Why This Matters for Potential Clients
+## Why this matters for potential clients
 
 Most lead automation focuses on surface-level enrichment: contact details, company metadata, maybe a few intent signals. That can be useful, but it does not solve the real problem in complex sales environments where buying behavior is driven by public funding cycles, internal standards, procurement structure, and institutional decision-making processes.
 
@@ -127,7 +125,7 @@ For clients selling into education, construction, public sector, manufacturing, 
 
 Instead of asking your team to spend hours researching accounts manually, you can build a pipeline that continuously translates scattered external information into prioritized, explainable, sales-ready intelligence.
 
-## The Outcome: Better Pipeline Focus, Faster Decisions
+## The outcome: Better pipeline focus, faster decisions
 
 The end result is a lead management engine that helps the client focus on the right accounts earlier and with more confidence.
 
@@ -141,12 +139,12 @@ What used to require manual interpretation across multiple public systems is now
 
 For companies with long sales cycles and complex account qualification, that is not just a workflow improvement. It is a growth lever.
 
-## The Bigger Opportunity
-
-Lead management automation becomes much more powerful when it moves beyond routing and reminders and starts producing actual judgment at scale.
-
-That is the real shift here.
-
-By combining AI research, structured scoring, and workflow automation, we built a system that gives a sales organization something far more valuable than another dashboard: a repeatable way to understand which opportunities deserve attention and why.
-
-For teams trying to scale outbound efforts in complex markets, that kind of intelligence can completely change how pipeline gets built.
+> **The bigger opportunity**
+>
+> Lead management automation becomes much more powerful when it moves beyond routing and reminders and starts producing actual judgment at scale.
+>
+> That is the real shift here.
+>
+> By combining AI research, structured scoring, and workflow automation, we built a system that gives a sales organization something far more valuable than another dashboard: a repeatable way to understand which opportunities deserve attention and why.
+>
+> For teams trying to scale outbound efforts in complex markets, that kind of intelligence can completely change how pipeline gets built.

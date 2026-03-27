@@ -3,7 +3,8 @@ import Image from "next/image";
 import RequestFormButton from "@/components/RequestFormButton";
 
 export const metadata: Metadata = {
-  title: "AI Workflow Automation & Business Process Automation | Senna Automation",
+  title:
+    "AI Workflow Automation & Business Process Automation | Senna Automation",
   description:
     "Senna Automation helps businesses in Grand Rapids, MI and beyond eliminate repetitive work with AI-powered workflow automation. Schedule a free 30-min call to see what you can automate.",
   alternates: {
@@ -18,6 +19,8 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Card,
+  CardContent,
   Container,
   Stack,
   Typography,
@@ -86,7 +89,7 @@ export default function Home() {
         aria-labelledby="hero-heading"
         sx={{
           bgcolor: "background.default",
-          minHeight: "100vh",
+          minHeight: { xs: "100svh", md: "min(100svh, 860px)" },
           display: "flex",
           alignItems: "center",
           position: "relative",
@@ -112,12 +115,37 @@ export default function Home() {
 
             <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
               <Stack spacing={2} sx={{ textAlign: "center", width: 300 }}>
-                <ScheduleCallButton
-                  fullWidth
-                  size="large"
-                  text="Schedule a Call via"
-                  aria-label="Schedule a consultation call with our AI automation experts via Calendly"
-                />
+                <Stack spacing={1.25} alignItems="center">
+                  <ScheduleCallButton
+                    fullWidth
+                    size="large"
+                    text="Schedule a Call"
+                    showIcon={false}
+                    aria-label="Schedule a consultation call with our AI automation experts via Calendly"
+                  />
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 0.5,
+                      color: "text.secondary",
+                    }}
+                  >
+                    <Typography variant="caption" sx={{ color: "inherit" }}>
+                      via
+                    </Typography>
+                    <Box
+                      component="img"
+                      src="/Calendly.svg"
+                      alt="Calendly"
+                      sx={{
+                        height: "0.95rem",
+                        width: "auto",
+                        mt: "2px",
+                      }}
+                    />
+                  </Box>
+                </Stack>
                 <RequestFormButton
                   fullWidth
                   size="large"
@@ -128,89 +156,6 @@ export default function Home() {
               </Stack>
             </Box>
           </Stack>
-        </Container>
-      </Box>
-
-      {/* ── Social Proof ─────────────────────────────── */}
-      <Box
-        component="section"
-        sx={{
-          bgcolor: "background.paper",
-          borderBottom: "1px solid",
-          borderColor: "divider",
-          py: { xs: 8, md: 10 },
-        }}
-      >
-        <Container maxWidth="lg">
-          <Typography
-            variant="overline"
-            align="center"
-            color="text.secondary"
-            sx={{ display: "block", mb: 6, letterSpacing: 2 }}
-          >
-            What clients say
-          </Typography>
-          <Grid container spacing={4}>
-            {[
-              {
-                quote:
-                  "The quoting workflow Senna built cut our response time from hours to minutes. We stopped losing deals just because we were slow.",
-                name: "Operations Manager",
-                company: "B2B Distributor",
-              },
-              {
-                quote:
-                  "Our lead follow-up used to fall through the cracks constantly. Now it's just done. The team didn't have to change anything about how they work.",
-                name: "Sales Director",
-                company: "Service Business",
-              },
-              {
-                quote:
-                  "Justin took the time to actually understand our process before building anything. The result was something our team immediately trusted.",
-                name: "Founder",
-                company: "Regional Agency",
-              },
-            ].map((t) => (
-              <Grid item xs={12} md={4} key={t.name}>
-                <Box
-                  sx={{
-                    height: "100%",
-                    p: { xs: 4, md: 5 },
-                    borderRadius: 3,
-                    border: "1px solid",
-                    borderColor: "divider",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 3,
-                  }}
-                >
-                  <Typography
-                    variant="body1"
-                    color="text.secondary"
-                    sx={{
-                      fontSize: "1.05rem",
-                      lineHeight: 1.75,
-                      fontStyle: "italic",
-                      flex: 1,
-                    }}
-                  >
-                    &ldquo;{t.quote}&rdquo;
-                  </Typography>
-                  <Box>
-                    <Typography
-                      variant="body2"
-                      sx={{ fontWeight: 700, color: "text.primary" }}
-                    >
-                      {t.name}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      {t.company}
-                    </Typography>
-                  </Box>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
         </Container>
       </Box>
 
@@ -255,23 +200,31 @@ export default function Home() {
                     sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
                   >
                     <strong>
-                      Senna Automation specializes in AI workflow automation and
-                      custom software development
+                      Senna Automation builds systems that take work off your
+                      plate
+                    </strong>{" "}
+                    and keep your business moving. Instead of juggling emails,
+                    follow-ups, and repetitive tasks,{" "}
+                    <strong>
+                      your workflows run quietly in the background
                     </strong>
-                    , helping businesses in Grand Rapids, Michigan and beyond
-                    harness the power of artificial intelligence.
+                    , turning inputs into <strong>completed outcomes</strong>.
                   </Typography>
+
                   <Typography
                     variant="body1"
                     color="text.secondary"
                     sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
                   >
-                    Whether you need <strong>B2B AI consulting</strong>,{" "}
-                    <strong>digital transformation</strong> strategies, or
-                    end-to-end workflow automation, our team delivers measurable
-                    outcomes—including reduced operational costs and improved
-                    efficiency.
+                    We design and build{" "}
+                    <strong>custom automation systems</strong> for{" "}
+                    <strong>small and mid-sized businesses</strong>, combining
+                    modern AI with software that fits the tools you already use.
+                    The result is <strong>less manual work</strong>,{" "}
+                    <strong>fewer gaps</strong>, and{" "}
+                    <strong>more time focused on what actually matters</strong>.
                   </Typography>
+
                   <Typography
                     variant="body2"
                     color="text.secondary"
@@ -284,16 +237,125 @@ export default function Home() {
                       mt: 2,
                     }}
                   >
-                    Expertise spans custom web app development, modern AI
-                    integration, and high-performance, SEO-optimized systems
-                    that help your business stand out.
+                    Based in Grand Rapids, Michigan, Senna Automation helps
+                    businesses <strong>simplify operations</strong>,{" "}
+                    <strong>reduce back-and-forth</strong>, and create systems
+                    they can rely on.
                   </Typography>
                 </Stack>
               </Box>
             </Grid>
-
             {/* Visual Element (5 Columns) */}
             <Grid item xs={12} md={5}></Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* ── Social Proof ─────────────────────────────── */}
+      <Box
+        component="section"
+        sx={{
+          bgcolor: "background.paper",
+          py: { xs: 8, md: 10 },
+          minHeight: { md: 640 },
+          display: "flex",
+          alignItems: "center",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <Container
+          maxWidth="lg"
+          sx={{
+            transform: { md: "translateY(-64px)" },
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
+          <Typography
+            variant="overline"
+            align="center"
+            color="text.secondary"
+            sx={{ display: "block", mb: 6, letterSpacing: 2 }}
+          >
+            What clients say
+          </Typography>
+          <Grid container spacing={4}>
+            {[
+              {
+                quote:
+                  "The quoting workflow Senna built cut our response time from hours to minutes. We stopped losing deals just because we were slow.",
+                name: "Operations Manager",
+                company: "B2B Distributor",
+              },
+              {
+                quote:
+                  "Our lead follow-up used to fall through the cracks constantly. Now it's just done. The team didn't have to change anything about how they work.",
+                name: "Sales Director",
+                company: "Service Business",
+              },
+              {
+                quote:
+                  "Justin took the time to actually understand our process before building anything. The result was something our team immediately trusted.",
+                name: "Founder",
+                company: "Regional Agency",
+              },
+            ].map((t) => (
+              <Grid item xs={12} md={4} key={t.name}>
+                <Card
+                  sx={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    bgcolor: "transparent",
+                    backgroundImage: "none",
+                    boxShadow: "none",
+                    border: "1px solid",
+                    borderColor: "rgba(28,25,23,0.08)",
+                    "&:hover": {
+                      transform: "none",
+                      boxShadow: "none",
+                      borderColor: "rgba(28,25,23,0.08)",
+                    },
+                  }}
+                >
+                  <CardContent
+                    sx={{
+                      p: { xs: 4, md: 5 },
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 3,
+                      "&:last-child": { pb: { xs: 4, md: 5 } },
+                    }}
+                  >
+                    <Typography
+                      variant="body1"
+                      color="text.secondary"
+                      sx={{
+                        fontSize: "1.05rem",
+                        lineHeight: 1.75,
+                        fontStyle: "italic",
+                        flex: 1,
+                      }}
+                    >
+                      &ldquo;{t.quote}&rdquo;
+                    </Typography>
+                    <Box>
+                      <Typography
+                        variant="body2"
+                        sx={{ fontWeight: 700, color: "text.primary" }}
+                      >
+                        {t.name}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {t.company}
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
         </Container>
       </Box>
@@ -310,8 +372,6 @@ export default function Home() {
             minHeight: { md: "600px" },
             display: "flex",
             alignItems: "center",
-            borderY: "1px solid",
-            borderColor: "rgba(255,255,255,0.1)",
           }}
         >
           {/* Texture overlay matching blog hero */}
@@ -330,42 +390,30 @@ export default function Home() {
             }}
           />
 
-          {/* Full-bleed background image for desktop */}
-          <Box
+          <Container
+            maxWidth={false}
             sx={{
-              display: { xs: "none", md: "block" },
-              position: "absolute",
-              top: 0,
-              right: 0,
-              bottom: 0,
-              width: "50%",
-              zIndex: 0,
+              position: "relative",
+              zIndex: 2,
+              width: "100%",
+              maxWidth: "1440px",
+              px: { xs: 3, sm: 4, md: 5, lg: 6 },
             }}
           >
-            <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
-              <Image
-                src={latestPost.image || "/gradient-fallback.png"}
-                alt={latestPost.title}
-                fill
-                style={{ objectFit: "cover" }}
-                priority
-                sizes="50vw"
-              />
-              <Box
-                sx={{
-                  position: "absolute",
-                  inset: 0,
-                  bgcolor: alpha(ACCENT, 0.5),
-                  pointerEvents: "none",
-                }}
-              />
-            </Box>
-          </Box>
-
-          <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
-            <Grid container spacing={{ xs: 8, md: 10, lg: 12 }}>
-              <Grid item xs={12} md={6}>
-                <Box sx={{ py: { xs: 8, md: 16 }, pr: { md: 8 } }}>
+            <Grid
+              container
+              spacing={{ xs: 8, md: 6, lg: 8 }}
+              alignItems="stretch"
+            >
+              <Grid item xs={12} md={7}>
+                <Box
+                  sx={{
+                    py: { xs: 8, md: 16 },
+                    pr: { md: 4, lg: 5 },
+                    ml: { md: -4, lg: -6 },
+                    maxWidth: { md: "680px", lg: "760px" },
+                  }}
+                >
                   <Stack spacing={4}>
                     <Box>
                       <Typography
@@ -399,6 +447,38 @@ export default function Home() {
                       </Box>
                     </Stack>
                   </Stack>
+                </Box>
+              </Grid>
+
+              <Grid item md={5} sx={{ display: { xs: "none", md: "block" } }}>
+                <Box
+                  sx={{
+                    position: "relative",
+                    height: "100%",
+                    minHeight: { md: 600 },
+                    width: {
+                      md: "calc(100% + 32px)",
+                      lg: "calc(100% + 48px)",
+                    },
+                    overflow: "hidden",
+                  }}
+                >
+                  <Image
+                    src={latestPost.image || "/gradient-fallback.png"}
+                    alt={latestPost.title}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    priority
+                    sizes="(max-width: 1440px) 38vw, 560px"
+                  />
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      inset: 0,
+                      bgcolor: alpha(ACCENT, 0.5),
+                      pointerEvents: "none",
+                    }}
+                  />
                 </Box>
               </Grid>
 
@@ -525,20 +605,40 @@ export default function Home() {
               color="inherit"
               sx={{ mb: 2, opacity: 0.9 }}
             >
-              Ready to see how this works for your business?
+              Ready to see how this works for your business? Thirty minutes, no
+              prep, no commitment.
             </Typography>
             <Stack spacing={1.5} alignItems="center">
               <ScheduleCallButton
-                text="Schedule a Free Call"
+                text="Schedule a Free Assessment"
                 size="large"
                 sx={{ px: 6 }}
+                showIcon={false}
               />
-              <Typography
-                variant="caption"
-                sx={{ color: "rgba(255,255,255,0.4)" }}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 0.5,
+                  color: "rgba(255,255,255,0.55)",
+                }}
               >
-                Free 30-min call. No commitment.
-              </Typography>
+                <Typography variant="caption" sx={{ color: "inherit" }}>
+                  via
+                </Typography>
+                <Box
+                  component="img"
+                  src="/Calendly.svg"
+                  alt="Calendly"
+                  sx={{
+                    height: "0.95rem",
+                    width: "auto",
+                    opacity: 0.9,
+                    filter: "brightness(0) invert(1)",
+                    mt: "3px",
+                  }}
+                />
+              </Box>
             </Stack>
           </Box>
         </Container>

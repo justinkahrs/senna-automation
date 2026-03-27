@@ -113,7 +113,7 @@ export default function ContactForm() {
           <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
             Prefer to just talk? Skip the form.
           </Typography>
-          <ScheduleCallButton text="Schedule a Free 30-Min Call" size="medium" />
+          <ScheduleCallButton text="Schedule a Free 30-Min Call via" size="medium" />
         </Box>
 
         <Box
