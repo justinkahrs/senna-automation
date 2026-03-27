@@ -27,6 +27,7 @@ interface ScheduleCallButtonProps {
   fullWidth?: boolean;
   sx?: any;
   showIcon?: boolean;
+  inverse?: boolean;
 }
 
 export default function ScheduleCallButton({
@@ -36,6 +37,7 @@ export default function ScheduleCallButton({
   fullWidth = false,
   sx = {},
   showIcon = true,
+  inverse = false,
 }: ScheduleCallButtonProps) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -66,11 +68,22 @@ export default function ScheduleCallButton({
           borderRadius: "50px",
           fontWeight: "bold",
           px: 3,
+          transition:
+            "background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease",
           ...(variant === "contained" && {
-            backgroundColor: WARM_BLACK,
-            color: "#FFFFFF",
+            backgroundColor: inverse ? "#FFFFFF" : WARM_BLACK,
+            color: inverse ? WARM_BLACK : "#FFFFFF",
+            border: inverse
+              ? `1px solid ${alpha(ACCENT, 0.18)}`
+              : "1px solid transparent",
+            boxShadow: inverse ? "none" : undefined,
             "&:hover": {
-              backgroundColor: WARM_BLACK,
+              backgroundColor: inverse ? alpha("#FFFFFF", 0.94) : WARM_BLACK,
+              color: inverse ? ACCENT : "#FFFFFF",
+              borderColor: inverse ? alpha(ACCENT, 0.36) : "transparent",
+              boxShadow: inverse
+                ? "0 10px 28px rgba(28,25,23,0.16)"
+                : "none",
             },
           }),
           ...sx,
@@ -83,7 +96,10 @@ export default function ScheduleCallButton({
             sx={{
               height: "1.2rem",
               width: "auto",
-              filter: variant === "contained" ? "brightness(0) invert(1)" : "none",
+              filter:
+                variant === "contained" && !inverse
+                  ? "brightness(0) invert(1)"
+                  : "none",
               ml: -0.5,
               mt: 0.4,
               verticalAlign: 'middle',

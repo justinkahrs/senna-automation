@@ -263,6 +263,7 @@ export default function About() {
                 <ScheduleCallButton
                   text="Let's fix that — book 30 minutes via"
                   size="large"
+                  inverse
                   sx={{ px: 6 }}
                 />
                 <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.4)" }}>

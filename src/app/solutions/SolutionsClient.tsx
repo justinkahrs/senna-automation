@@ -363,6 +363,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
                     <Accordion
                       key={faq.question}
                       disableGutters
+                      slotProps={{ transition: { timeout: 180 } }}
                       sx={{
                         border: "1px solid",
                         borderColor: "divider",
@@ -436,6 +437,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
             <ScheduleCallButton
               text="Book a Demo"
               size="large"
+              inverse
               sx={{ px: 6 }}
               showIcon={false}
             />
