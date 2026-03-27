@@ -2,13 +2,13 @@
 
 import React from "react";
 import { Box, BoxProps } from "@mui/material";
-import { ACCENT } from "../theme/theme";
+import { ACCENT, WARM_BLACK } from "../theme/theme";
 
 interface LogoProps extends BoxProps {
   logoFontColor?: string;
 }
 
-export function Logo({ logoFontColor = "#000000", ...props }: LogoProps) {
+export function Logo({ logoFontColor = WARM_BLACK, ...props }: LogoProps) {
   return (
     <Box
       component="svg"

@@ -88,7 +88,7 @@ export default function Home() {
         aria-labelledby="hero-heading"
         sx={{
           bgcolor: "background.default",
-          minHeight: "100vh",
+          minHeight: { xs: "100svh", md: "min(100svh, 860px)" },
           display: "flex",
           alignItems: "center",
           position: "relative",
@@ -114,12 +114,37 @@ export default function Home() {
 
             <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
               <Stack spacing={2} sx={{ textAlign: "center", width: 300 }}>
-                <ScheduleCallButton
-                  fullWidth
-                  size="large"
-                  text="Schedule a Call via"
-                  aria-label="Schedule a consultation call with our AI automation experts via Calendly"
-                />
+                <Stack spacing={1.25} alignItems="center">
+                  <ScheduleCallButton
+                    fullWidth
+                    size="large"
+                    text="Schedule a Call"
+                    showIcon={false}
+                    aria-label="Schedule a consultation call with our AI automation experts via Calendly"
+                  />
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 0.5,
+                      color: "text.secondary",
+                    }}
+                  >
+                    <Typography variant="caption" sx={{ color: "inherit" }}>
+                      via
+                    </Typography>
+                    <Box
+                      component="img"
+                      src="/Calendly.svg"
+                      alt="Calendly"
+                      sx={{
+                        height: "0.95rem",
+                        width: "auto",
+                        mt: "2px",
+                      }}
+                    />
+                  </Box>
+                </Stack>
                 <RequestFormButton
                   fullWidth
                   size="large"
@@ -223,9 +248,35 @@ export default function Home() {
         sx={{
           bgcolor: "background.paper",
           py: { xs: 8, md: 10 },
+          minHeight: { md: 640 },
+          display: "flex",
+          alignItems: "center",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ transform: { md: "translateY(-64px)" }, position: "relative", zIndex: 1 }}>
+          <Typography
+            aria-hidden="true"
+            sx={{
+              position: "absolute",
+              top: { xs: "62%", md: "72%" },
+              left: "50%",
+              color: "rgba(45,107,94,0.2)",
+              fontFamily: (theme) => theme.typography.h1.fontFamily,
+              fontStyle: "italic",
+              fontWeight: 500,
+              fontSize: { xs: "32rem", md: "72rem" },
+              lineHeight: 0.72,
+              pointerEvents: "none",
+              userSelect: "none",
+              transform: "translate(-50%, -50%)",
+              zIndex: 0,
+              whiteSpace: "nowrap",
+            }}
+          >
+            “
+          </Typography>
           <Typography
             variant="overline"
             align="center"
@@ -261,10 +312,15 @@ export default function Home() {
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
+                    bgcolor: "transparent",
+                    backgroundImage: "none",
+                    boxShadow: "none",
+                    border: "1px solid",
+                    borderColor: "rgba(28,25,23,0.08)",
                     "&:hover": {
                       transform: "none",
-                      boxShadow: "0 1px 3px rgba(28,25,23,0.06), 0 1px 2px rgba(28,25,23,0.04)",
-                      borderColor: "divider",
+                      boxShadow: "none",
+                      borderColor: "rgba(28,25,23,0.08)",
                     },
                   }}
                 >
@@ -339,42 +395,26 @@ export default function Home() {
             }}
           />
 
-          {/* Full-bleed background image for desktop */}
-          <Box
+          <Container
+            maxWidth={false}
             sx={{
-              display: { xs: "none", md: "block" },
-              position: "absolute",
-              top: 0,
-              right: 0,
-              bottom: 0,
-              width: "50%",
-              zIndex: 0,
+              position: "relative",
+              zIndex: 2,
+              width: "100%",
+              maxWidth: "1440px",
+              px: { xs: 3, sm: 4, md: 5, lg: 6 },
             }}
           >
-            <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
-              <Image
-                src={latestPost.image || "/gradient-fallback.png"}
-                alt={latestPost.title}
-                fill
-                style={{ objectFit: "cover" }}
-                priority
-                sizes="50vw"
-              />
-              <Box
-                sx={{
-                  position: "absolute",
-                  inset: 0,
-                  bgcolor: alpha(ACCENT, 0.5),
-                  pointerEvents: "none",
-                }}
-              />
-            </Box>
-          </Box>
-
-          <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
-            <Grid container spacing={{ xs: 8, md: 10, lg: 12 }}>
-              <Grid item xs={12} md={6}>
-                <Box sx={{ py: { xs: 8, md: 16 }, pr: { md: 8 } }}>
+            <Grid container spacing={{ xs: 8, md: 6, lg: 8 }} alignItems="stretch">
+              <Grid item xs={12} md={7}>
+                <Box
+                  sx={{
+                    py: { xs: 8, md: 16 },
+                    pr: { md: 4, lg: 5 },
+                    ml: { md: -4, lg: -6 },
+                    maxWidth: { md: "680px", lg: "760px" },
+                  }}
+                >
                   <Stack spacing={4}>
                     <Box>
                       <Typography
@@ -408,6 +448,38 @@ export default function Home() {
                       </Box>
                     </Stack>
                   </Stack>
+                </Box>
+              </Grid>
+
+              <Grid item md={5} sx={{ display: { xs: "none", md: "block" } }}>
+                <Box
+                  sx={{
+                    position: "relative",
+                    height: "100%",
+                    minHeight: { md: 600 },
+                    width: {
+                      md: "calc(100% + 32px)",
+                      lg: "calc(100% + 48px)",
+                    },
+                    overflow: "hidden",
+                  }}
+                >
+                  <Image
+                    src={latestPost.image || "/gradient-fallback.png"}
+                    alt={latestPost.title}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    priority
+                    sizes="(max-width: 1440px) 38vw, 560px"
+                  />
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      inset: 0,
+                      bgcolor: alpha(ACCENT, 0.5),
+                      pointerEvents: "none",
+                    }}
+                  />
                 </Box>
               </Grid>
 
@@ -534,20 +606,40 @@ export default function Home() {
               color="inherit"
               sx={{ mb: 2, opacity: 0.9 }}
             >
-              Ready to see how this works for your business?
+              Ready to see how this works for your business? Thirty minutes, no
+              prep, no commitment.
             </Typography>
             <Stack spacing={1.5} alignItems="center">
               <ScheduleCallButton
                 text="Schedule a Free Assessment"
                 size="large"
                 sx={{ px: 6 }}
+                showIcon={false}
               />
-              <Typography
-                variant="caption"
-                sx={{ color: "rgba(255,255,255,0.4)" }}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 0.5,
+                  color: "rgba(255,255,255,0.55)",
+                }}
               >
-                Free 30-min call. No commitment.
-              </Typography>
+                <Typography variant="caption" sx={{ color: "inherit" }}>
+                  via
+                </Typography>
+                <Box
+                  component="img"
+                  src="/Calendly.svg"
+                  alt="Calendly"
+                  sx={{
+                    height: "0.95rem",
+                    width: "auto",
+                    opacity: 0.9,
+                    filter: "brightness(0) invert(1)",
+                    mt: "3px",
+                  }}
+                />
+              </Box>
             </Stack>
           </Box>
         </Container>

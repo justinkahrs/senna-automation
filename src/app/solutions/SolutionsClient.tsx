@@ -21,6 +21,7 @@ import {
   AccordionSummary,
 } from "@mui/material";
 import { BlogPost } from "@/utils/blog";
+import { WARM_BLACK } from "@/components/theme/colors";
 
 interface Solution {
   title: string;
@@ -113,32 +114,34 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
           }} 
         />
         <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1, textAlign: "center" }}>
-          <Typography
-            component="h1"
-            variant="h1"
-            sx={{ mb: 2, color: "inherit" }}
-          >
-            Solve the work that slows you down
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            sx={{
-              color: "rgba(255,255,255,0.7)",
-              mb: 4,
-            }}
-          >
-            Real-world automation for the repetitive work that drains time,
-            slows follow-up, and makes growth harder than it should be.
-          </Typography>
-          <Button
-            component={Link}
-            href="/contact"
-            variant="contained"
-            size="large"
-            endIcon={<ArrowForwardIcon />}
-          >
-            Get Your Automation Plan
-          </Button>
+          <Box sx={{ maxWidth: "900px", mx: "auto" }}>
+            <Typography
+              component="h1"
+              variant="h1"
+              sx={{ mb: 2, color: "inherit" }}
+            >
+              Solve the work that slows you down
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                color: "rgba(255,255,255,0.7)",
+                mb: 4,
+              }}
+            >
+              Real-world automation for the repetitive work that drains time,
+              slows follow-up, and makes growth harder than it should be.
+            </Typography>
+            <Button
+              component={Link}
+              href="/contact"
+              variant="contained"
+              size="large"
+              endIcon={<ArrowForwardIcon />}
+            >
+              Get Your Automation Plan
+            </Button>
+          </Box>
         </Container>
       </Box>
 
@@ -315,7 +318,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
                             right: 0,
                             bottom: 0,
                             opacity: 0.04,
-                            background: 'radial-gradient(circle at 2px 2px, black 1px, transparent 0)',
+                            background: `radial-gradient(circle at 2px 2px, ${WARM_BLACK} 1px, transparent 0)`,
                             backgroundSize: '32px 32px'
                           }}
                         />
@@ -431,10 +434,35 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
           </Typography>
           <Stack spacing={2} alignItems="center">
             <ScheduleCallButton
-              text="Book a Demo via"
+              text="Book a Demo"
               size="large"
               sx={{ px: 6 }}
+              showIcon={false}
             />
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                color: "rgba(255,255,255,0.55)",
+              }}
+            >
+              <Typography variant="caption" sx={{ color: "inherit" }}>
+                via
+              </Typography>
+              <Box
+                component="img"
+                src="/Calendly.svg"
+                alt="Calendly"
+                sx={{
+                  height: "0.95rem",
+                  width: "auto",
+                  opacity: 0.9,
+                  filter: "brightness(0) invert(1)",
+                  mt: "3px",
+                }}
+              />
+            </Box>
             <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.4)" }}>
               Prefer a form?{" "}
               <Button

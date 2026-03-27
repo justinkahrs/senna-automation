@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@mui/material";
+import { WARM_BLACK } from "@/components/theme/colors";
 
 interface RequestFormButtonProps {
   text?: string;
@@ -28,10 +29,10 @@ export default function RequestFormButton({
         fontWeight: "bold",
         px: 3,
         ...(variant === "contained" && {
-          backgroundColor: "#000000",
+          backgroundColor: WARM_BLACK,
           color: "#FFFFFF",
           "&:hover": {
-            backgroundColor: "#333333",
+            backgroundColor: WARM_BLACK,
           },
         }),
       }}

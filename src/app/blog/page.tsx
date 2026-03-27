@@ -31,6 +31,14 @@ import ScheduleCallButton from "@/components/ScheduleCallButton";
 const blogPosts = getAllBlogPosts();
 
 export default function BlogPage() {
+  const featuredCategory = blogPosts[0]?.category || "Featured";
+  const [categoryLeadWord = "Featured", ...categoryTailWords] =
+    featuredCategory.split(" ");
+  const categoryLead =
+    categoryLeadWord.charAt(0).toUpperCase() +
+    categoryLeadWord.slice(1).toLowerCase();
+  const categoryTail = categoryTailWords.join(" ").toUpperCase();
+
   return (
     <Box sx={{ bgcolor: "background.default" }}>
       {/* ── Bolder, Darker Hero Section ───────────────────────── */}
@@ -96,26 +104,74 @@ export default function BlogPage() {
               <Box
                 sx={{
                   position: "relative",
-                  borderRadius: 4,
-                  overflow: "hidden",
-                  boxShadow: "0 20px 80px rgba(0,0,0,0.4)",
-                  transform: "rotate(2deg)",
-                  transition: "transform 0.6s var(--ease-enter)",
-                  "&:hover": {
-                    transform: "rotate(0deg) scale(1.02)",
-                  },
+                  width: "100%",
+                  maxWidth: { xs: 420, md: 460 },
+                  ml: { md: "auto" },
                 }}
               >
-                <Image
-                  src={blogPosts[0]?.image || "/gradient-fallback.png"}
-                  alt={blogPosts[0]?.title || "Featured Post"}
-                  width={700}
-                  height={480}
-                  style={{ width: "100%", display: "block", height: "auto" }}
-                  priority
-                  sizes="(max-width: 900px) 100vw, 41vw"
-                />
-                <Box sx={{ position: "absolute", inset: 0, bgcolor: alpha(ACCENT, 0.5), pointerEvents: "none" }} />
+                <Box
+                  sx={{
+                    position: "relative",
+                    aspectRatio: "4 / 5",
+                    overflow: "hidden",
+                    boxShadow: "0 20px 80px rgba(0,0,0,0.4)",
+                  }}
+                >
+                  <Image
+                    src={blogPosts[0]?.image || "/gradient-fallback.png"}
+                    alt={blogPosts[0]?.title || "Featured Post"}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    priority
+                    sizes="(max-width: 900px) 100vw, 460px"
+                  />
+                  <Box sx={{ position: "absolute", inset: 0, bgcolor: alpha(ACCENT, 0.5), pointerEvents: "none" }} />
+                </Box>
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    bgcolor: "background.paper",
+                    color: "primary.main",
+                    px: { xs: 3, md: 3.5 },
+                    py: { xs: 2.25, md: 2.5 },
+                    width: "fit-content",
+                    maxWidth: "100%",
+                    boxShadow: "0 18px 40px rgba(0,0,0,0.22)",
+                    zIndex: 2,
+                  }}
+                >
+                  <Box sx={{ color: "inherit" }}>
+                    <Typography
+                      sx={{
+                        color: "inherit",
+                        fontFamily: '"Cormorant Garamond", serif',
+                        fontSize: { xs: "1.35rem", md: "1.55rem" },
+                        fontWeight: 600,
+                        lineHeight: 1,
+                      }}
+                    >
+                      {categoryLead}
+                    </Typography>
+                    {categoryTail && (
+                      <Typography
+                        sx={{
+                          color: "inherit",
+                          fontFamily: "Inter, sans-serif",
+                          fontSize: { xs: "0.8rem", md: "0.9rem" },
+                          fontWeight: 800,
+                          lineHeight: 1.1,
+                          letterSpacing: "0.12em",
+                          textTransform: "uppercase",
+                          mt: 0.5,
+                        }}
+                      >
+                        {categoryTail}
+                      </Typography>
+                    )}
+                  </Box>
+                </Box>
               </Box>
             </Grid>
           </Grid>
@@ -252,7 +308,32 @@ export default function BlogPage() {
               text="Schedule a Free Call"
               size="large"
               sx={{ px: 6 }}
+              showIcon={false}
             />
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                color: "rgba(255,255,255,0.55)",
+              }}
+            >
+              <Typography variant="caption" sx={{ color: "inherit" }}>
+                via
+              </Typography>
+              <Box
+                component="img"
+                src="/Calendly.svg"
+                alt="Calendly"
+                sx={{
+                  height: "0.95rem",
+                  width: "auto",
+                  opacity: 0.9,
+                  filter: "brightness(0) invert(1)",
+                  mt: "3px",
+                }}
+              />
+            </Box>
             <Typography
               variant="caption"
               sx={{ color: "rgba(255,255,255,0.4)" }}

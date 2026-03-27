@@ -16,6 +16,7 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { NumberedSteps } from "@/components/blog/NumberedSteps";
 
 export const metadata: Metadata = {
   title: "AI Workflow Automation Services — Business Process Automation | Senna Automation",
@@ -137,29 +138,31 @@ export default function ServicesPage() {
           }} 
         />
         <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1, textAlign: "center" }}>
-          <Typography
-            component="h1"
-            variant="h1"
-            sx={{ mb: 2, color: "inherit" }}
-          >
-            Let the Routine Work Run in the Background
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            sx={{ color: "rgba(255,255,255,0.7)", mb: 4 }}
-          >
-            We build automation systems that save time, reduce manual work, and help your team focus
-            on growing revenue.
-          </Typography>
-          <Button
-            component={Link}
-            href="/contact"
-            variant="contained"
-            size="large"
-            endIcon={<ArrowForwardIcon />}
-          >
-            Get Your Automation Plan
-          </Button>
+          <Box sx={{ maxWidth: "900px", mx: "auto" }}>
+            <Typography
+              component="h1"
+              variant="h1"
+              sx={{ mb: 2, color: "inherit" }}
+            >
+              Let the Routine Work Run in the Background
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{ color: "rgba(255,255,255,0.7)", mb: 4 }}
+            >
+              We build automation systems that save time, reduce manual work, and help your team focus
+              on growing revenue.
+            </Typography>
+            <Button
+              component={Link}
+              href="/contact"
+              variant="contained"
+              size="large"
+              endIcon={<ArrowForwardIcon />}
+            >
+              Get Your Automation Plan
+            </Button>
+          </Box>
         </Container>
       </Box>
 
@@ -292,32 +295,7 @@ export default function ServicesPage() {
           <Typography variant="h3" component="h2" align="center" gutterBottom sx={{ mb: 6 }}>
             How it works
           </Typography>
-          <Grid container spacing={3}>
-            {steps.map((step) => (
-              <Grid item xs={12} sm={6} md={3} key={step.number}>
-                <Box sx={{ textAlign: "center", px: 1 }}>
-                  <Typography
-                    variant="h2"
-                    sx={{
-                      fontWeight: 600,
-                      color: "text.disabled",
-                      fontSize: "3rem",
-                      fontFamily: "monospace",
-                      mb: 1,
-                    }}
-                  >
-                    {step.number}
-                  </Typography>
-                  <Typography variant="h5" component="h3" gutterBottom>
-                    {step.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                    {step.description}
-                  </Typography>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
+          <NumberedSteps steps={steps} />
         </Container>
       </Box>
 
@@ -358,10 +336,35 @@ export default function ServicesPage() {
           </Typography>
           <Stack spacing={2} alignItems="center">
             <ScheduleCallButton
-              text="Book a Demo via"
+              text="Book a Demo"
               size="large"
               sx={{ px: 6 }}
+              showIcon={false}
             />
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                color: "rgba(255,255,255,0.55)",
+              }}
+            >
+              <Typography variant="caption" sx={{ color: "inherit" }}>
+                via
+              </Typography>
+              <Box
+                component="img"
+                src="/Calendly.svg"
+                alt="Calendly"
+                sx={{
+                  height: "0.95rem",
+                  width: "auto",
+                  opacity: 0.9,
+                  filter: "brightness(0) invert(1)",
+                  mt: "3px",
+                }}
+              />
+            </Box>
             <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.4)" }}>
               Prefer a form?{" "}
               <Button
