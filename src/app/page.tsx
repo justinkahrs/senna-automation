@@ -3,7 +3,8 @@ import Image from "next/image";
 import RequestFormButton from "@/components/RequestFormButton";
 
 export const metadata: Metadata = {
-  title: "AI Workflow Automation & Business Process Automation | Senna Automation",
+  title:
+    "AI Workflow Automation & Business Process Automation | Senna Automation",
   description:
     "Senna Automation helps businesses in Grand Rapids, MI and beyond eliminate repetitive work with AI-powered workflow automation. Schedule a free 30-min call to see what you can automate.",
   alternates: {
@@ -193,49 +194,57 @@ export default function Home() {
                 </Typography>
 
                 <Stack spacing={3}>
-  <Typography
-    variant="body1"
-    color="text.secondary"
-    sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
-  >
-    <strong>Senna Automation builds systems that take work off your plate</strong>{" "}
-    and keep your business moving. Instead of juggling emails, follow-ups, and
-    repetitive tasks, <strong>your workflows run quietly in the background</strong>,
-    turning inputs into <strong>completed outcomes</strong>.
-  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
+                  >
+                    <strong>
+                      Senna Automation builds systems that take work off your
+                      plate
+                    </strong>{" "}
+                    and keep your business moving. Instead of juggling emails,
+                    follow-ups, and repetitive tasks,{" "}
+                    <strong>
+                      your workflows run quietly in the background
+                    </strong>
+                    , turning inputs into <strong>completed outcomes</strong>.
+                  </Typography>
 
-  <Typography
-    variant="body1"
-    color="text.secondary"
-    sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
-  >
-    We design and build <strong>custom automation systems</strong> for{" "}
-    <strong>small and mid-sized businesses</strong>, combining modern AI with
-    software that fits the tools you already use. The result is{" "}
-    <strong>less manual work</strong>, <strong>fewer gaps</strong>, and{" "}
-    <strong>more time focused on what actually matters</strong>.
-  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
+                  >
+                    We design and build{" "}
+                    <strong>custom automation systems</strong> for{" "}
+                    <strong>small and mid-sized businesses</strong>, combining
+                    modern AI with software that fits the tools you already use.
+                    The result is <strong>less manual work</strong>,{" "}
+                    <strong>fewer gaps</strong>, and{" "}
+                    <strong>more time focused on what actually matters</strong>.
+                  </Typography>
 
-  <Typography
-    variant="body2"
-    color="text.secondary"
-    sx={{
-      fontStyle: "italic",
-      borderLeft: "2px solid",
-      borderColor: "primary.light",
-      pl: 3,
-      py: 1,
-      mt: 2,
-    }}
-  >
-    Based in Grand Rapids, Michigan, Senna Automation helps businesses{" "}
-    <strong>simplify operations</strong>, <strong>reduce back-and-forth</strong>,
-    and create systems they can rely on.
-  </Typography>
-</Stack>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{
+                      fontStyle: "italic",
+                      borderLeft: "2px solid",
+                      borderColor: "primary.light",
+                      pl: 3,
+                      py: 1,
+                      mt: 2,
+                    }}
+                  >
+                    Based in Grand Rapids, Michigan, Senna Automation helps
+                    businesses <strong>simplify operations</strong>,{" "}
+                    <strong>reduce back-and-forth</strong>, and create systems
+                    they can rely on.
+                  </Typography>
+                </Stack>
               </Box>
             </Grid>
-
             {/* Visual Element (5 Columns) */}
             <Grid item xs={12} md={5}></Grid>
           </Grid>
@@ -255,28 +264,14 @@ export default function Home() {
           overflow: "hidden",
         }}
       >
-        <Container maxWidth="lg" sx={{ transform: { md: "translateY(-64px)" }, position: "relative", zIndex: 1 }}>
-          <Typography
-            aria-hidden="true"
-            sx={{
-              position: "absolute",
-              top: { xs: "62%", md: "72%" },
-              left: "50%",
-              color: "rgba(45,107,94,0.2)",
-              fontFamily: (theme) => theme.typography.h1.fontFamily,
-              fontStyle: "italic",
-              fontWeight: 500,
-              fontSize: { xs: "32rem", md: "72rem" },
-              lineHeight: 0.72,
-              pointerEvents: "none",
-              userSelect: "none",
-              transform: "translate(-50%, -50%)",
-              zIndex: 0,
-              whiteSpace: "nowrap",
-            }}
-          >
-            “
-          </Typography>
+        <Container
+          maxWidth="lg"
+          sx={{
+            transform: { md: "translateY(-64px)" },
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
           <Typography
             variant="overline"
             align="center"
@@ -334,32 +329,32 @@ export default function Home() {
                       "&:last-child": { pb: { xs: 4, md: 5 } },
                     }}
                   >
-                  <Typography
-                    variant="body1"
-                    color="text.secondary"
-                    sx={{
-                      fontSize: "1.05rem",
-                      lineHeight: 1.75,
-                      fontStyle: "italic",
-                      flex: 1,
-                    }}
-                  >
-                    &ldquo;{t.quote}&rdquo;
-                  </Typography>
-                  <Box>
                     <Typography
-                      variant="body2"
-                      sx={{ fontWeight: 700, color: "text.primary" }}
+                      variant="body1"
+                      color="text.secondary"
+                      sx={{
+                        fontSize: "1.05rem",
+                        lineHeight: 1.75,
+                        fontStyle: "italic",
+                        flex: 1,
+                      }}
                     >
-                      {t.name}
+                      &ldquo;{t.quote}&rdquo;
                     </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      {t.company}
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
+                    <Box>
+                      <Typography
+                        variant="body2"
+                        sx={{ fontWeight: 700, color: "text.primary" }}
+                      >
+                        {t.name}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {t.company}
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
             ))}
           </Grid>
         </Container>
@@ -405,7 +400,11 @@ export default function Home() {
               px: { xs: 3, sm: 4, md: 5, lg: 6 },
             }}
           >
-            <Grid container spacing={{ xs: 8, md: 6, lg: 8 }} alignItems="stretch">
+            <Grid
+              container
+              spacing={{ xs: 8, md: 6, lg: 8 }}
+              alignItems="stretch"
+            >
               <Grid item xs={12} md={7}>
                 <Box
                   sx={{
