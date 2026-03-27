@@ -19,6 +19,8 @@ import {
   Send as SendIcon,
 } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
+import { BG_BASE, WARM_BLACK } from "@/components/theme/colors";
+import { Logo } from "@/components/layout/Logo";
 
 const POLL_INTERVAL = 3000;
 const STORAGE_KEY_SESSION = "tg_widget_session_id";
@@ -262,21 +264,52 @@ export default function ChatWidget() {
           {/* Header */}
           <Box
             sx={{
-              p: 2,
+              pt: 2,
+              px: 2,
+              pb: 0,
               backgroundColor: theme.palette.primary.main,
-              color: theme.palette.primary.contrastText,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              color: BG_BASE,
+              position: "relative",
             }}
           >
-            <Typography variant="subtitle1" fontWeight="bold">
-              Live Chat
-            </Typography>
+            <Box sx={{ minWidth: 0, width: "100%" }}>
+              <Typography
+                variant="subtitle1"
+                fontWeight="bold"
+                sx={{ color: BG_BASE, textAlign: "left" }}
+              >
+                Senna Assistant
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mt: 1,
+                  mx: -2,
+                  py: 1.25,
+                  width: "calc(100% + 32px)",
+                  bgcolor: "#F2F6F5",
+                }}
+              >
+                <Logo
+                  logoFontColor={WARM_BLACK}
+                  sx={{
+                    width: 128,
+                    height: "auto",
+                    display: "block",
+                  }}
+                />
+              </Box>
+            </Box>
             <IconButton
               size="small"
               onClick={toggleOpen}
-              sx={{ color: "inherit" }}
+              sx={{
+                color: "inherit",
+                position: "absolute",
+                top: 12,
+                right: 12,
+              }}
             >
               <CloseIcon />
             </IconButton>
@@ -424,8 +457,32 @@ export default function ChatWidget() {
         </Paper>
       </Fade>
 
-      <Fab color="primary" aria-label="chat" onClick={toggleOpen}>
+      <Fab
+        variant="extended"
+        color="primary"
+        aria-label="chat"
+        onClick={toggleOpen}
+        sx={{
+          px: 2.5,
+          gap: 1,
+          borderRadius: "999px",
+          fontWeight: 700,
+          textTransform: "none",
+          color: BG_BASE,
+        }}
+      >
         <ChatIcon />
+        <Typography
+          component="span"
+          sx={{
+            fontSize: "0.95rem",
+            fontWeight: 700,
+            lineHeight: 1,
+            color: BG_BASE,
+          }}
+        >
+          Chat with Sales
+        </Typography>
       </Fab>
     </Box>
   );

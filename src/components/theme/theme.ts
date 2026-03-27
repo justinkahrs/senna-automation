@@ -451,7 +451,7 @@ export function getThemeTokens(): ThemeOptions {
             borderRadius: "12px !important",
             boxShadow: "none",
             backgroundColor: BG_PAPER,
-            transition: "background-color 220ms ease, border-color 220ms ease",
+            transition: "background-color 160ms ease, border-color 160ms ease",
             "&:before": { display: "none" },
             "&.Mui-expanded": {
               borderColor: BORDER_MED,
@@ -469,7 +469,7 @@ export function getThemeTokens(): ThemeOptions {
             "& .MuiAccordionSummary-expandIconWrapper": {
               color: STONE_400,
               transition:
-                "transform 250ms cubic-bezier(0.25,0.46,0.45,0.94), color 220ms ease",
+                "transform 180ms cubic-bezier(0.25,0.46,0.45,0.94), color 160ms ease",
             },
             "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
               color: ACCENT,

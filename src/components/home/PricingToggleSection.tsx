@@ -1,0 +1,185 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import Link from "next/link";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { alpha } from "@mui/material/styles";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import {
+  growthTier,
+  sharedPricingTiers,
+  starterTier,
+} from "@/components/pricing/tierData";
+
+const tierMap = {
+  [starterTier.id]: starterTier,
+  [growthTier.id]: growthTier,
+};
+
+export default function PricingToggleSection() {
+  const [activeTierId, setActiveTierId] = useState<"starter" | "growth">(
+    starterTier.id
+  );
+
+  const activeTier = useMemo(() => tierMap[activeTierId], [activeTierId]);
+
+  return (
+    <Box
+      component="section"
+      sx={{
+        bgcolor: "primary.main",
+        color: "background.paper",
+        py: { xs: 8, md: 10 },
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(circle at 20% 20%, rgba(255,255,255,0.16), transparent 40%), radial-gradient(circle at 80% 30%, rgba(255,255,255,0.1), transparent 36%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+        <Stack spacing={{ xs: 4, md: 5 }}>
+          <Box
+            sx={{
+              maxWidth: "1120px",
+              mx: "auto",
+              borderRadius: { xs: 4, md: 5 },
+              bgcolor: alpha("#FFFFFF", 0.08),
+              border: "1px solid",
+              borderColor: alpha("#FFFFFF", 0.16),
+              px: { xs: 3, sm: 4, md: 6 },
+              py: { xs: 4, md: 5 },
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            <Stack spacing={{ xs: 2.5, md: 3 }}>
+              <Box sx={{ maxWidth: "860px" }}>
+                <Box
+                  sx={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 1,
+                    p: 0.5,
+                    mb: 2.5,
+                    borderRadius: "999px",
+                    border: "1px solid",
+                    borderColor: alpha("#FFFFFF", 0.22),
+                    bgcolor: alpha("#FFFFFF", 0.08),
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {sharedPricingTiers.map((tier) => {
+                    const active = tier.id === activeTierId;
+
+                    return (
+                      <Button
+                        key={tier.id}
+                        onClick={() => setActiveTierId(tier.id)}
+                        disableElevation
+                        sx={{
+                          minWidth: { xs: 104, md: 112 },
+                          px: 2,
+                          py: 0.85,
+                          borderRadius: "999px",
+                          bgcolor: active ? "secondary.main" : "transparent",
+                          color: "background.paper",
+                          fontSize: "0.78rem",
+                          fontWeight: active ? 700 : 600,
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          "&:hover": {
+                            bgcolor: active
+                              ? "secondary.main"
+                              : alpha("#FFFFFF", 0.08),
+                          },
+                        }}
+                      >
+                        {tier.toggleLabel}
+                      </Button>
+                    );
+                  })}
+                </Box>
+                <Typography
+                  variant="overline"
+                  sx={{
+                    color: alpha("#FFFFFF", 0.78),
+                    display: "block",
+                    mb: 2,
+                  }}
+                >
+                  {activeTier.eyebrow}
+                </Typography>
+                <Typography
+                  variant="h2"
+                  component="h2"
+                  sx={{
+                    maxWidth: "980px",
+                    mb: 3,
+                    color: "background.paper",
+                  }}
+                >
+                  {activeTier.homepageHeadline}
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  sx={{
+                    maxWidth: "760px",
+                    color: alpha("#FFFFFF", 0.84),
+                  }}
+                >
+                  {activeTier.homepageDescription}
+                </Typography>
+              </Box>
+
+              <Stack
+                direction="column"
+                spacing={1.5}
+                alignItems="flex-start"
+                sx={{ mt: { xs: 0.5, md: 1 } }}
+              >
+                <Typography
+                  variant="body1"
+                  sx={{
+                    maxWidth: "620px",
+                    color: alpha("#FFFFFF", 0.78),
+                  }}
+                >
+                  {activeTier.homepageNote}
+                </Typography>
+
+                <Button
+                  component={Link}
+                  href={activeTier.ctaHref}
+                  variant="contained"
+                  endIcon={<ArrowForwardIcon />}
+                  sx={{
+                    mt: { xs: 2.5, md: 3 },
+                    px: 3,
+                    py: 1.4,
+                    bgcolor: "background.paper",
+                    color: "secondary.main",
+                    boxShadow: "none",
+                    whiteSpace: "nowrap",
+                    "&:hover": {
+                      bgcolor: "background.paper",
+                      boxShadow: "none",
+                    },
+                  }}
+                >
+                  {activeTier.ctaLabel}
+                </Button>
+              </Stack>
+            </Stack>
+          </Box>
+        </Stack>
+      </Container>
+    </Box>
+  );
+}

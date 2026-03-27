@@ -307,6 +307,7 @@ export default function BlogPage() {
             <ScheduleCallButton
               text="Schedule a Free Call"
               size="large"
+              inverse
               sx={{ px: 6 }}
               showIcon={false}
             />

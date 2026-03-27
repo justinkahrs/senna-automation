@@ -338,6 +338,7 @@ export default function ServicesPage() {
             <ScheduleCallButton
               text="Book a Demo"
               size="large"
+              inverse
               sx={{ px: 6 }}
               showIcon={false}
             />

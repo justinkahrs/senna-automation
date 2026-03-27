@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import AnimatedHeroTitle from "@/components/AnimatedHeroTitle";
+import PricingToggleSection from "@/components/home/PricingToggleSection";
 import {
   Accordion,
   AccordionDetails,
@@ -74,6 +75,34 @@ const faqs = [
     question: "What does getting started look like?",
     answer:
       "Start with a quick conversation about current workflows and where time is being lost. From there, it's easy to identify a few opportunities to automate and outline what that would look like.",
+  },
+];
+
+const integrationLogos = [
+  { src: "/hubspot.png", alt: "HubSpot", width: { xs: 118, md: 152 } },
+  { src: "/quickbooks.png", alt: "QuickBooks", width: { xs: 126, md: 164 } },
+  { src: "/slack.png", alt: "Slack", width: { xs: 92, md: 120 } },
+  { src: "/asana.png", alt: "Asana", width: { xs: 98, md: 126 } },
+  { src: "/shopify.png", alt: "Shopify", width: { xs: 112, md: 144 } },
+  { src: "/stripe.png", alt: "Stripe", width: { xs: 96, md: 124 } },
+  { src: "/paypal.png", alt: "PayPal", width: { xs: 100, md: 128 } },
+  { src: "/airtable.png", alt: "Airtable", width: { xs: 108, md: 138 } },
+  { src: "/notion.png", alt: "Notion", width: { xs: 96, md: 122 } },
+  { src: "/clickup.png", alt: "ClickUp", width: { xs: 104, md: 136 } },
+  { src: "/dropbox.png", alt: "Dropbox", width: { xs: 112, md: 144 } },
+  { src: "/typeform.png", alt: "Typeform", width: { xs: 104, md: 134 } },
+  { src: "/monday.png", alt: "Monday.com", width: { xs: 126, md: 164 } },
+  { src: "/pipedrive.png", alt: "Pipedrive", width: { xs: 118, md: 152 } },
+  { src: "/servicenow.png", alt: "ServiceNow", width: { xs: 128, md: 166 } },
+  { src: "/zendesk.png", alt: "Zendesk", width: { xs: 112, md: 144 } },
+  {
+    group: [
+      { src: "/teams.png", alt: "Microsoft Teams", width: { xs: 122, md: 156 } },
+      { src: "/outlook.png", alt: "Outlook", width: { xs: 114, md: 146 } },
+      { src: "/excel.png", alt: "Excel", width: { xs: 88, md: 116 } },
+      { src: "/onedrive.png", alt: "OneDrive", width: { xs: 124, md: 160 } },
+    ],
+    alt: "Microsoft tools",
   },
 ];
 
@@ -164,7 +193,8 @@ export default function Home() {
         component="section"
         sx={{
           bgcolor: "background.paper",
-          py: { xs: 12, md: 24 },
+          pt: { xs: 12, md: 16 },
+          pb: { xs: 10, md: 12 },
         }}
       >
         <Container maxWidth="lg">
@@ -248,6 +278,134 @@ export default function Home() {
             {/* Visual Element (5 Columns) */}
             <Grid item xs={12} md={5}></Grid>
           </Grid>
+        </Container>
+      </Box>
+
+      <PricingToggleSection />
+
+      <Box
+        component="section"
+        sx={{
+          bgcolor: "background.paper",
+          pt: { xs: 8, md: 10 },
+          pb: { xs: 10, md: 16 },
+          overflow: "hidden",
+        }}
+      >
+        <Container maxWidth="lg">
+          <Typography
+            variant="h2"
+            component="h2"
+            align="center"
+            sx={{ mb: { xs: 4, md: 6 } }}
+          >
+            Building integrations across your core systems
+          </Typography>
+        </Container>
+
+        <Box
+          sx={{
+            position: "relative",
+            overflow: "hidden",
+            maskImage:
+              "linear-gradient(90deg, transparent 0%, black 7%, black 93%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(90deg, transparent 0%, black 7%, black 93%, transparent 100%)",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              width: "max-content",
+              alignItems: "center",
+              animation: "integration-marquee 48s linear infinite",
+              willChange: "transform",
+              "@keyframes integration-marquee": {
+                from: { transform: "translateX(0)" },
+                to: { transform: "translateX(-50%)" },
+              },
+            }}
+          >
+            {[...integrationLogos, ...integrationLogos].map((logo, index) => (
+              <Box
+                key={`${logo.alt}-${index}`}
+                sx={{
+                  flexShrink: 0,
+                  whiteSpace: "nowrap",
+                  pr: { xs: 3.5, md: 5 },
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                aria-label={logo.alt}
+              >
+                {Array.isArray(logo.group) ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: { xs: 0.5, md: 0.75 },
+                    }}
+                  >
+                    {logo.group.map((groupLogo) => (
+                      <Box
+                        key={groupLogo.alt}
+                        component="img"
+                        src={groupLogo.src}
+                        alt={groupLogo.alt}
+                        sx={{
+                          width: groupLogo.width,
+                          height: { xs: 22, md: 30 },
+                          objectFit: "contain",
+                          display: "block",
+                        }}
+                      />
+                    ))}
+                  </Box>
+                ) : (
+                  <Box
+                    component="img"
+                    src={logo.src}
+                    alt={logo.alt}
+                    sx={{
+                      width: logo.width,
+                      height: { xs: 22, md: 30 },
+                      objectFit: "contain",
+                      display: "block",
+                    }}
+                  />
+                )}
+              </Box>
+            ))}
+          </Box>
+        </Box>
+
+        <Container maxWidth="lg">
+          <Typography
+            variant="body2"
+            align="center"
+            color="text.secondary"
+            sx={{
+              mt: { xs: 4, md: 5 },
+              maxWidth: 760,
+              mx: "auto",
+              lineHeight: 1.8,
+            }}
+          >
+            Using homegrown tools or internal systems? We build automation
+            directly into those as well.{" "}
+            <Box
+              component={Link}
+              href="/services"
+              sx={{
+                color: "primary.main",
+                textDecoration: "none",
+                fontWeight: 600,
+              }}
+            >
+              See how
+            </Box>
+          </Typography>
         </Container>
       </Box>
 
@@ -569,6 +727,7 @@ export default function Home() {
               <Accordion
                 key={faq.question}
                 disableGutters
+                slotProps={{ transition: { timeout: 180 } }}
                 sx={{
                   bgcolor: "rgba(255,255,255,0.03)",
                   borderColor: "rgba(255,255,255,0.1)",
@@ -612,6 +771,7 @@ export default function Home() {
               <ScheduleCallButton
                 text="Schedule a Free Assessment"
                 size="large"
+                inverse
                 sx={{ px: 6 }}
                 showIcon={false}
               />

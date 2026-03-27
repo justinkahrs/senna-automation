@@ -24,6 +24,10 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import BoltIcon from "@mui/icons-material/Bolt";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
+import {
+  growthTier,
+  starterTier,
+} from "@/components/pricing/tierData";
 import { WARM_BLACK } from "@/components/theme/colors";
 
 export default function PricingPage() {
@@ -126,7 +130,13 @@ export default function PricingPage() {
         {/* Pricing Tiers */}
         <Grid container spacing={4} alignItems="stretch">
           {/* Starter */}
-          <Grid item xs={12} md={4}>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            id={starterTier.anchorId}
+            sx={{ scrollMarginTop: { xs: 96, md: 128 } }}
+          >
             <Card
               sx={{
                 height: "100%",
@@ -148,37 +158,33 @@ export default function PricingPage() {
             >
               <CardContent sx={{ p: 4, flexGrow: 1 }}>
                 <Typography variant="h3" sx={{ mb: 1 }}>
-                  Starter Automation
+                  {starterTier.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                  Perfect for small businesses looking to automate a single, high-impact workflow.
+                  {starterTier.description}
                 </Typography>
                 <Divider sx={{ my: 3 }} />
                 <Typography variant="overline" color="primary.main" sx={{ mb: 2, display: "block" }}>
                   Includes:
                 </Typography>
                 <List dense disablePadding>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 28 }}><CheckCircleOutlineIcon fontSize="small" color="primary" /></ListItemIcon>
-                    <ListItemText primary="1 core workflow automated" />
-                  </ListItem>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 28 }}><CheckCircleOutlineIcon fontSize="small" color="primary" /></ListItemIcon>
-                    <ListItemText primary="Basic integrations (CRM, email, forms)" />
-                  </ListItem>
+                  {starterTier.includes.map((item) => (
+                    <ListItem disableGutters key={item}>
+                      <ListItemIcon sx={{ minWidth: 28 }}><CheckCircleOutlineIcon fontSize="small" color="primary" /></ListItemIcon>
+                      <ListItemText primary={item} />
+                    </ListItem>
+                  ))}
                 </List>
                 <Typography variant="overline" color="primary.main" sx={{ mt: 3, mb: 2, display: "block" }}>
                   Outcomes:
                 </Typography>
                 <List dense disablePadding>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 28 }}><TrendingUpIcon fontSize="small" color="primary" /></ListItemIcon>
-                    <ListItemText primary="Save hours each week" />
-                  </ListItem>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 28 }}><TrendingUpIcon fontSize="small" color="primary" /></ListItemIcon>
-                    <ListItemText primary="Reduce repetitive tasks" />
-                  </ListItem>
+                  {starterTier.outcomes.map((item) => (
+                    <ListItem disableGutters key={item}>
+                      <ListItemIcon sx={{ minWidth: 28 }}><TrendingUpIcon fontSize="small" color="primary" /></ListItemIcon>
+                      <ListItemText primary={item} />
+                    </ListItem>
+                  ))}
                 </List>
               </CardContent>
               <Box sx={{ p: 4, pt: 0 }}>
@@ -205,7 +211,13 @@ export default function PricingPage() {
           </Grid>
 
           {/* Growth - Most Popular */}
-          <Grid item xs={12} md={4}>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            id={growthTier.anchorId}
+            sx={{ scrollMarginTop: { xs: 96, md: 128 } }}
+          >
             <Card
               sx={{
                 height: "100%",
@@ -247,41 +259,33 @@ export default function PricingPage() {
                   />
                 </Stack>
                 <Typography variant="h3" sx={{ mb: 1 }}>
-                  Growth Systems
+                  {growthTier.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                  For companies ready to scale lead generation and automate customer follow-up.
+                  {growthTier.description}
                 </Typography>
                 <Divider sx={{ my: 3 }} />
                 <Typography variant="overline" color="primary.main" sx={{ mb: 2, display: "block" }}>
                   Includes:
                 </Typography>
                 <List dense disablePadding>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 28 }}><CheckCircleOutlineIcon fontSize="small" color="primary" /></ListItemIcon>
-                    <ListItemText primary="Multi-step automated workflows" sx={{ fontWeight: 600 }} />
-                  </ListItem>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 28 }}><CheckCircleOutlineIcon fontSize="small" color="primary" /></ListItemIcon>
-                    <ListItemText primary="Lead capture + automated follow-up" sx={{ fontWeight: 600 }} />
-                  </ListItem>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 28 }}><CheckCircleOutlineIcon fontSize="small" color="primary" /></ListItemIcon>
-                    <ListItemText primary="Full CRM integration" sx={{ fontWeight: 600 }} />
-                  </ListItem>
+                  {growthTier.includes.map((item) => (
+                    <ListItem disableGutters key={item}>
+                      <ListItemIcon sx={{ minWidth: 28 }}><CheckCircleOutlineIcon fontSize="small" color="primary" /></ListItemIcon>
+                      <ListItemText primary={item} sx={{ fontWeight: 600 }} />
+                    </ListItem>
+                  ))}
                 </List>
                 <Typography variant="overline" color="primary.main" sx={{ mt: 3, mb: 2, display: "block" }}>
                   Outcomes:
                 </Typography>
                 <List dense disablePadding>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 28 }}><TrendingUpIcon fontSize="small" color="primary" /></ListItemIcon>
-                    <ListItemText primary="Capture and convert more leads" />
-                  </ListItem>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 28 }}><TrendingUpIcon fontSize="small" color="primary" /></ListItemIcon>
-                    <ListItemText primary="Significantly reduce manual work" />
-                  </ListItem>
+                  {growthTier.outcomes.map((item) => (
+                    <ListItem disableGutters key={item}>
+                      <ListItemIcon sx={{ minWidth: 28 }}><TrendingUpIcon fontSize="small" color="primary" /></ListItemIcon>
+                      <ListItemText primary={item} />
+                    </ListItem>
+                  ))}
                 </List>
               </CardContent>
               <Box sx={{ p: 4, pt: 0 }}>

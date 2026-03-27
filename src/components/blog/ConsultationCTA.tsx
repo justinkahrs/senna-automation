@@ -46,7 +46,8 @@ export const ConsultationCTA = () => {
             text="Schedule a Call"
             size="large"
             showIcon={false}
-            sx={{ px: 6, backgroundColor: "primary.main", "&:hover": { backgroundColor: "primary.dark" } }}
+            inverse
+            sx={{ px: 6 }}
           />
           <Box
             sx={{
