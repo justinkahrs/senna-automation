@@ -1,0 +1,166 @@
+"use client";
+
+import { useEffect, useId, useState } from "react";
+import { Box, Typography } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
+
+declare global {
+  interface Window {
+    mermaid?: {
+      initialize: (config: Record<string, unknown>) => void;
+      render: (
+        id: string,
+        chart: string
+      ) => Promise<{ svg: string }>;
+    };
+  }
+}
+
+interface MermaidDiagramProps {
+  chart: string;
+  sx?: SxProps<Theme>;
+}
+
+export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
+  const id = useId().replace(/:/g, "");
+  const [svg, setSvg] = useState("");
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const renderDiagram = async () => {
+      const mermaid = window.mermaid;
+
+      if (!mermaid) {
+        window.setTimeout(renderDiagram, 100);
+        return;
+      }
+
+      try {
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: "base",
+          securityLevel: "loose",
+          themeVariables: {
+            primaryColor: "#F7F6F4",
+            primaryTextColor: "#1C1917",
+            primaryBorderColor: "#D6D3D1",
+            lineColor: "#2D6B5E",
+            secondaryColor: "#FFFFFF",
+            tertiaryColor: "#F0EFEC",
+            fontFamily: "Inter, sans-serif",
+            fontSize: "16px",
+          },
+          flowchart: {
+            curve: "basis",
+            htmlLabels: true,
+            useMaxWidth: true,
+            nodeSpacing: 36,
+            rankSpacing: 54,
+            padding: 24,
+          },
+        });
+
+        const { svg: renderedSvg } = await mermaid.render(
+          `mermaid-${id}`,
+          chart
+        );
+
+        if (!cancelled) {
+          setSvg(renderedSvg);
+          setError(false);
+        }
+      } catch (renderError) {
+        console.error("Failed to render Mermaid diagram", renderError);
+        if (!cancelled) {
+          setError(true);
+        }
+      }
+    };
+
+    renderDiagram();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [chart, id]);
+
+  if (error) {
+    return (
+      <Box
+        sx={{
+          my: 8,
+          px: 3,
+          py: 2.5,
+          borderRadius: 3,
+          bgcolor: "rgba(45,107,94,0.06)",
+          ...sx,
+        }}
+      >
+        <Typography variant="body2" color="text.secondary">
+          Diagram unavailable.
+        </Typography>
+      </Box>
+    );
+  }
+
+  return (
+    <Box
+      sx={{
+        my: 8,
+        px: { xs: 2, md: 3 },
+        py: { xs: 2.5, md: 3 },
+        borderRadius: 3,
+        bgcolor: "rgba(45,107,94,0.04)",
+        border: "1px solid",
+        borderColor: "divider",
+        overflow: "hidden",
+        maxWidth: "1120px",
+        mx: "auto",
+        width: "100%",
+        "& p": {
+          mb: "0 !important",
+          lineHeight: "1.35 !important",
+        },
+        "& svg": {
+          overflow: "visible",
+          maxWidth: "100%",
+        },
+        "& svg .nodeLabel, & svg .edgeLabel": {
+          fontFamily: "Inter, sans-serif !important",
+          color: "#1C1917 !important",
+        },
+        "& svg .nodeLabel p, & svg .edgeLabel p": {
+          margin: "0 !important",
+          padding: "0 !important",
+          lineHeight: "1.35 !important",
+        },
+        "& svg .nodeLabel div, & svg .edgeLabel div": {
+          margin: "0 !important",
+          padding: "0 !important",
+          lineHeight: "1.35 !important",
+        },
+        "& svg foreignObject": {
+          overflow: "visible",
+        },
+        ...sx,
+      }}
+    >
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          "& svg": {
+            width: "100%",
+            maxWidth: "100%",
+            height: "auto",
+            display: "block",
+          },
+        }}
+        dangerouslySetInnerHTML={svg ? { __html: svg } : undefined}
+      />
+    </Box>
+  );
+}

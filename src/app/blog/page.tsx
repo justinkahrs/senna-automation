@@ -198,11 +198,19 @@ export default function BlogPage() {
             {blogPosts.map((post) => (
               <Grid item xs={12} md={4} key={post.slug}>
                 <Card
+                  component={Link}
+                  href={`/blog/${post.slug}`}
                   sx={{
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
                     bgcolor: "background.paper",
+                    color: "inherit",
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    "&:hover .blog-card-arrow": {
+                      transform: "translateX(4px)",
+                    },
                   }}
                 >
                   <Box sx={{ position: "relative" }}>
@@ -242,38 +250,30 @@ export default function BlogPage() {
                       {post.excerpt}
                     </Typography>
                     <Box sx={{ mt: "auto" }}>
-                      <Link
-                        href={`/blog/${post.slug}`}
-                        style={{
-                          color: "inherit",
-                          textDecoration: "none",
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          fontWeight: 700,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 1,
+                          letterSpacing: 0.5,
+                          textTransform: "uppercase",
+                          fontSize: "0.8125rem",
                         }}
                       >
-                        <Typography
-                          variant="body2"
+                        Read It
+                        <Box
+                          component="span"
+                          className="blog-card-arrow"
                           sx={{
-                            fontWeight: 700,
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 1,
-                            letterSpacing: 0.5,
-                            textTransform: "uppercase",
-                            fontSize: "0.8125rem",
+                            fontSize: "1.2rem",
+                            transition: "transform 0.2s",
                           }}
                         >
-                          Read It
-                          <Box
-                            component="span"
-                            sx={{
-                              fontSize: "1.2rem",
-                              transition: "transform 0.2s",
-                              "&:hover": { transform: "translateX(4px)" },
-                            }}
-                          >
-                            →
-                          </Box>
-                        </Typography>
-                      </Link>
+                          →
+                        </Box>
+                      </Typography>
                     </Box>
                   </CardContent>
                 </Card>
