@@ -16,7 +16,7 @@ metadata:
   tools: "n8n, Azure OpenAI, Front.com API, Custom ERP Integration"
 ---
 
-The Request for Quote (RFQ) process is the lifeblood of B2B sales, but it's often fraught with manual inefficiencies. Customers send messy, unstructured emails requesting pricing—sometimes in the body text, sometimes buried in an attached PDF. Historically, support agents have to read these emails, decipher part numbers from descriptive text, log into an ERP system, manually enter each line item to verify pricing, and then generate a quote document.
+The Request for Quote (RFQ) process is the lifeblood of B2B sales, but it's often fraught with manual inefficiencies. Customers send messy, unstructured emails requesting pricing, sometimes in the body text, sometimes buried in an attached PDF. Historically, support agents have to read these emails, decipher part numbers from descriptive text, log into an ERP system, manually enter each line item to verify pricing, and then generate a quote document.
 
 To eliminate this bottleneck, we designed a fully automated n8n workflow that uses artificial intelligence to digest unstructured emails and instantly output a formal Quote PDF.
 
@@ -34,6 +34,17 @@ Before attempting any data extraction, the system must confirm that an incoming 
 
 The core of the workflow leverages LangChain and GPT models as an intelligent translation layer between messy human requests and strict database schemas.
 
+```mermaid
+flowchart TD
+    A["Inbox Input<br/>Messy RFQ emails and PDFs"] --> B{"Classify<br/>Quote request or not?"}
+    B -->|Quote request| C["Extract<br/>Parts and quantities"]
+    B -->|Not a quote| X([Exit workflow])
+
+    C --> D["Validate<br/>Match items and pricing in ERP"]
+    D --> E["Assemble<br/>Build quote with customer data"]
+    E --> F["Output<br/>Formal Quote PDF"]
+```
+
 ### AI-Powered Data Extraction
 
 The most critical and complex step is pulling precise, structured product data out of raw text. If an email includes a PDF attachment, the workflow automatically downloads it, parses the text locally using a temporary container command, and deletes the file.
@@ -50,8 +61,6 @@ This strict extraction transforms a paragraph of text perfectly into a structure
 
 Once the AI locks down the structured list of parts and quantities, the workflow connects seamlessly to the company's internal "Control Tower" API:
 
-1. **Customer Discovery**: Using the sender's email address, the workflow executes a POST request to search the ERP for matching corporate accounts, fetching required shipping codes and addresses.
-2. **Item Validation**: Iterating over the structured AI extracted list, it queries the backend for every individual part number to dynamically pull real items and pricing.
-3. **Quote Generation**: Finally, the system packages the verified items, customer ID, and metadata into a final payload, generating a fully fleshed out Quote PDF file on the fly.
+[[QUOTE_AUTOMATION_ERP_STEPS]]
 
 By combining the reasoning capabilities of modern LLMs with rigid API orchestration, what traditionally took a sales team several minutes of tedious administrative work per email is now completed flawlessly in the background in just seconds.

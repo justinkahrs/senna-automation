@@ -64,7 +64,7 @@ export default function About() {
             color="inherit"
             sx={{ mt: 2, maxWidth: 800, mx: "auto", opacity: 0.7 }}
           >
-            Based in Grand Rapids, MI — helping businesses eliminate repetitive
+            Based in Grand Rapids, MI, helping businesses eliminate repetitive
             work with 15+ years of hands-on software experience.
           </Typography>
         </Container>
@@ -261,11 +261,36 @@ export default function About() {
 
               <Stack spacing={1.5} alignItems="center">
                 <ScheduleCallButton
-                  text="Let's fix that — book 30 minutes via"
+                  text="Let's fix that"
                   size="large"
                   inverse
                   sx={{ px: 6 }}
+                  showIcon={false}
                 />
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 0.5,
+                    color: "rgba(255,255,255,0.55)",
+                  }}
+                >
+                  <Typography variant="caption" sx={{ color: "inherit" }}>
+                    via
+                  </Typography>
+                  <Box
+                    component="img"
+                    src="/Calendly.svg"
+                    alt="Calendly"
+                    sx={{
+                      height: "0.95rem",
+                      width: "auto",
+                      opacity: 0.9,
+                      filter: "brightness(0) invert(1)",
+                      mt: "3px",
+                    }}
+                  />
+                </Box>
                 <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.4)" }}>
                   Free call. No commitment.
                 </Typography>

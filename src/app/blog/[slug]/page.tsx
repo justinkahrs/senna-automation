@@ -19,11 +19,33 @@ import {
   NumberedSteps,
   parseNumberedSteps,
 } from "@/components/blog/NumberedSteps";
+import { MermaidDiagram } from "@/components/blog/MermaidDiagram";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { notFound } from "next/navigation";
 
 const SITE_URL = "https://www.senna-automation.com";
+const QUOTE_AUTOMATION_ERP_STEPS_MARKER = "[[QUOTE_AUTOMATION_ERP_STEPS]]";
+const quoteAutomationErpSteps = [
+  {
+    number: "01",
+    title: "Customer Discovery",
+    description:
+      "Using the sender's email address, the workflow executes a POST request to search the ERP for matching corporate accounts, fetching required shipping codes and addresses.",
+  },
+  {
+    number: "02",
+    title: "Item Validation",
+    description:
+      "Iterating over the structured AI extracted list, it queries the backend for every individual part number to dynamically pull real items and pricing.",
+  },
+  {
+    number: "03",
+    title: "Quote Generation",
+    description:
+      "Finally, the system packages the verified items, customer ID, and metadata into a final payload, generating a fully fleshed out Quote PDF file on the fly.",
+  },
+];
 
 export async function generateStaticParams() {
   const posts = getAllBlogPosts();
@@ -183,6 +205,10 @@ const markdownComponents = {
       );
     }
 
+    if (language === "mermaid") {
+      return <MermaidDiagram chart={content} sx={{ my: 8 }} />;
+    }
+
     return (
       <Box
         component="code"
@@ -215,8 +241,22 @@ export default async function BlogPostPage({
     notFound();
   }
 
+  const contentParts =
+    slug === "quote-automation" &&
+    post.content.includes(QUOTE_AUTOMATION_ERP_STEPS_MARKER)
+      ? post.content.split(QUOTE_AUTOMATION_ERP_STEPS_MARKER)
+      : null;
+  const hasMermaidDiagram = post.content.includes("```mermaid");
+
   return (
     <Box sx={{ bgcolor: "background.default", minHeight: "100vh", pb: 12 }}>
+      {hasMermaidDiagram && (
+        <Script
+          src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
+          strategy="afterInteractive"
+        />
+      )}
+
       {/* ── Progress Bar Placeholder ── */}
       <Box
         sx={{
@@ -346,12 +386,34 @@ export default async function BlogPostPage({
           <Grid item xs={12} md={8}>
             <Stack spacing={4}>
               <Box sx={{ "& p": { mb: 4, lineHeight: 1.8 } }}>
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  components={markdownComponents}
-                >
-                  {post.content}
-                </ReactMarkdown>
+                {contentParts ? (
+                  <>
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={markdownComponents}
+                    >
+                      {contentParts[0]}
+                    </ReactMarkdown>
+                    <NumberedSteps
+                      steps={quoteAutomationErpSteps}
+                      layout="stack"
+                      sx={{ my: 8 }}
+                    />
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={markdownComponents}
+                    >
+                      {contentParts[1]}
+                    </ReactMarkdown>
+                  </>
+                ) : (
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={markdownComponents}
+                  >
+                    {post.content}
+                  </ReactMarkdown>
+                )}
               </Box>
             </Stack>
           </Grid>
