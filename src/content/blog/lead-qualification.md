@@ -8,11 +8,11 @@ heroSubtitle: "Transforming messy public data into prioritized, sales-ready oppo
 excerpt: "See how we built an AI system that researches school districts, scores purchasing signals, and surfaces the best opportunities automatically so sales teams can spend less time digging and more time closing."
 image: "/school.jpg"
 metadata:
-  client: "B2B Education Supplier"
+  client: "B2B Education Supplier\n50–200 employees"
   company: ""
   companyUrl: ""
   year: "2026"
-  role: "Automation Engineer"
+  role: "Automation Consultant"
   tools: "AI Research Pipeline, Structured Scoring Engine, Public Web Data, Workflow Automation"
 ---
 
@@ -39,11 +39,21 @@ The client needed a way to answer questions like:
 
 Manually gathering that information across hundreds or thousands of districts is slow, inconsistent, and difficult to scale.
 
+![Empty classroom with chairs and a desk](https://unsplash.com/photos/DOc0M_tfg64/download?force=true&w=1600&q=80)
+
 ## The solution: AI-powered lead research and prioritization
 
 We designed a workflow that turns messy public information into structured sales intelligence automatically.
 
 Instead of asking a salesperson to dig through procurement sites, board meeting systems, bond records, and district documents one by one, the system does the heavy lifting itself. It researches each district, extracts relevant evidence, scores the signals that matter, and produces a clean structured output that can feed dashboards, CRMs, and downstream prioritization workflows.
+
+```mermaid
+flowchart TD
+    A["External Signals<br/>Public data, planning activity, procurement signals"] --> B["Research"]
+    B --> C["Structure"]
+    C --> D["Score"]
+    D --> E["Prioritized Opportunities<br/>Ranked pipeline with fit and timing signals"]
+```
 
 ```steps
 01 | Automated Public Research

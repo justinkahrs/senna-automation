@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useState } from "react";
 import { Box, Typography } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import type { SxProps, Theme } from "@mui/material/styles";
 
 declare global {
@@ -108,6 +109,7 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
   return (
     <Box
       sx={{
+        position: "relative",
         my: 8,
         px: { xs: 2, md: 3 },
         py: { xs: 2.5, md: 3 },
@@ -149,6 +151,8 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
     >
       <Box
         sx={{
+          position: "relative",
+          zIndex: 1,
           width: "100%",
           display: "flex",
           justifyContent: "center",
@@ -160,6 +164,24 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
           },
         }}
         dangerouslySetInnerHTML={svg ? { __html: svg } : undefined}
+      />
+      <Box
+        component="img"
+        src="/senna.svg"
+        alt="Senna Automation watermark"
+        sx={{
+          position: "absolute",
+          right: { xs: 16, md: 20 },
+          bottom: { xs: 14, md: 18 },
+          width: { xs: 110, md: 148 },
+          height: "auto",
+          opacity: 0.1,
+          pointerEvents: "none",
+          userSelect: "none",
+          zIndex: 0,
+          filter: `grayscale(1) contrast(0.9) brightness(0.6)`,
+          backgroundColor: alpha("#FFFFFF", 0),
+        }}
       />
     </Box>
   );
