@@ -119,15 +119,6 @@ const markdownComponents = {
           boxShadow: "0 20px 60px rgba(0,0,0,0.1)",
         }}
       />
-      <Box
-        sx={{
-          position: "absolute",
-          inset: 0,
-          borderRadius: 4,
-          bgcolor: alpha(ACCENT, 0.5),
-          pointerEvents: "none",
-        }}
-      />
     </Box>
   ),
   strong: ({ children }: any) => (
@@ -236,6 +227,7 @@ export default async function BlogPostPage({
 }) {
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
+  const relatedPost = getAllBlogPosts().find((entry) => entry.slug !== slug);
 
   if (!post) {
     notFound();
@@ -429,7 +421,11 @@ export default async function BlogPostPage({
                     >
                       Client
                     </Typography>
-                    <Typography variant="body1" color="text.primary">
+                    <Typography
+                      variant="body1"
+                      color="text.primary"
+                      sx={{ whiteSpace: "pre-line" }}
+                    >
                       {post.metadata.client}
                     </Typography>
                   </Box>
@@ -496,6 +492,52 @@ export default async function BlogPostPage({
                     </Typography>
                     <Typography variant="body1" color="text.primary">
                       {post.metadata.tools}
+                    </Typography>
+                  </Box>
+                )}
+                {relatedPost && (
+                  <Box
+                    component={Link}
+                    href={`/blog/${relatedPost.slug}`}
+                    sx={{
+                      display: "block",
+                      textDecoration: "none",
+                      color: "inherit",
+                      mt: 1,
+                      px: 3,
+                      py: 3.5,
+                      borderRadius: 3,
+                      bgcolor: alpha(ACCENT, 0.06),
+                      border: "1px solid",
+                      borderColor: alpha(ACCENT, 0.14),
+                      boxShadow: "0 18px 50px rgba(28,25,23,0.05)",
+                      transition: "transform 180ms ease, box-shadow 180ms ease",
+                      "&:hover": {
+                        transform: "translateY(-2px)",
+                        boxShadow: "0 24px 60px rgba(28,25,23,0.08)",
+                      },
+                    }}
+                  >
+                    <Typography
+                      variant="overline"
+                      sx={{ color: "primary.main", letterSpacing: "0.14em" }}
+                    >
+                      Related Read
+                    </Typography>
+                    <Typography variant="h5" sx={{ mt: 1.25, mb: 1.25 }}>
+                      See the other side of this workflow.
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary", lineHeight: 1.75, mb: 2 }}
+                    >
+                      {relatedPost.excerpt}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ fontWeight: 700, color: "text.primary" }}
+                    >
+                      {relatedPost.title}
                     </Typography>
                   </Box>
                 )}

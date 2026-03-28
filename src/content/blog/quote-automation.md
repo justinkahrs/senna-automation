@@ -8,11 +8,11 @@ heroSubtitle: "Transforming messy inbox requests into polished PDF quotes instan
 excerpt: "Discover how we used n8n and Azure OpenAI to automatically read customer emails, extract structured product data (even from PDFs!), query internal databases, and generate final quote PDFs without human intervention."
 image: "/paperwork.jpg"
 metadata:
-  client: "B2B Distributor"
+  client: "B2B Equipment Manufacturer\n50–200 employees"
   company: ""
   companyUrl: ""
   year: "2026"
-  role: "Automation Engineer"
+  role: "Automation Consultant"
   tools: "n8n, Azure OpenAI, Front.com API, Custom ERP Integration"
 ---
 
@@ -25,6 +25,8 @@ To eliminate this bottleneck, we designed a fully automated n8n workflow that us
 When an organization receives hundreds of emails a week in an unassigned inbox, just sorting through the noise is a massive undertaking. A potential workflow could easily break if it tries to generate a quote for a simple "Thank you" email, or if it accidentally picks up non-product numbers like phone numbers and ZIP codes.
 
 We needed a system that was smart enough to understand the context of the emails, robust enough to extract highly specific technical part IDs, and capable of integrating deeply with existing internal databases.
+
+![Man in glasses reviewing documents at desk](https://unsplash.com/photos/xQydhL4LmlA/download?force=true&w=1600&q=80)
 
 ### Categorizing the Request
 
