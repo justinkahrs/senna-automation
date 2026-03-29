@@ -102,7 +102,7 @@ const markdownComponents = {
     </Typography>
   ),
   p: ({ children }: any) => (
-    <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.8 }}>
+    <Typography variant="body1" component="div" sx={{ mb: 4, lineHeight: 1.8 }}>
       {children}
     </Typography>
   ),
@@ -152,14 +152,14 @@ const markdownComponents = {
         bgcolor: alpha(ACCENT, 0.06),
         borderRadius: 3,
         boxShadow: "0 24px 70px rgba(28,25,23,0.05)",
-        "& p": {
+        "& .MuiTypography-body1": {
           mb: 2.5,
           lineHeight: 1.85,
         },
-        "& p:last-child": {
+        "& .MuiTypography-body1:last-child": {
           mb: 0,
         },
-        "& > p:first-of-type": {
+        "& > .MuiTypography-body1:first-of-type": {
           mb: 3,
           fontFamily: "Inter, sans-serif",
           fontSize: "clamp(1.875rem, 3.5vw, 2.369rem)",
@@ -167,7 +167,7 @@ const markdownComponents = {
           letterSpacing: "-0.02em",
           color: "text.primary",
         },
-        "& > p:first-of-type strong": {
+        "& > .MuiTypography-body1:first-of-type strong": {
           fontSize: "inherit",
           lineHeight: "inherit",
           letterSpacing: "inherit",
@@ -181,7 +181,7 @@ const markdownComponents = {
       {children}
     </Box>
   ),
-  pre: ({ children }: any) => <>{children}</>,
+  pre: ({ children }: any) => <Box component="div">{children}</Box>,
   code: ({ className, children, ...props }: any) => {
     const language = className?.replace("language-", "");
     const content = String(children).replace(/\n$/, "");
