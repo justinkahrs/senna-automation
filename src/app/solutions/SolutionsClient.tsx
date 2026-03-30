@@ -11,6 +11,7 @@ import ScheduleCallButton from "@/components/ScheduleCallButton";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { BlogPost } from "@/utils/blog";
 import { WARM_BLACK } from "@/components/theme/colors";
+import OrganicHighlight from "@/components/OrganicHighlight";
 
 interface Solution {
   title: string;
@@ -140,19 +141,18 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
       </Box>
 
       <Box sx={{ py: { xs: 6, md: 8 }, bgcolor: "background.paper" }}>
-        <Container maxWidth="md" sx={{ textAlign: "center" }}>
-          <Typography variant="h4" component="h2" gutterBottom>
-            Most bottlenecks look more familiar than you think
-          </Typography>
+        <Container maxWidth="md" sx={{ textAlign: "left" }}>
           <Typography
-            variant="subtitle1"
-            color="text.secondary"
-            sx={{ maxWidth: 720, mx: "auto" }}
+            variant="h4"
+            component="h2"
+            color="text.primary"
+            sx={{ maxWidth: 720, lineHeight: 1.35 }}
           >
-            Most businesses run into the same problems: too much admin work,
-            inconsistent follow-up, messy handoffs, and not enough visibility.
-            These are real examples of how those problems get solved with
-            practical automation that saves time and keeps work moving.
+            <OrganicHighlight>
+              Most bottlenecks look more familiar than you think.
+            </OrganicHighlight>{" "}
+            Too much admin work, inconsistent follow-up, messy handoffs, and
+            not enough visibility.
           </Typography>
         </Container>
       </Box>

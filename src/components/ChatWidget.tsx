@@ -395,7 +395,9 @@ export default function ChatWidget() {
                         boxShadow: 1,
                       }}
                     >
-                      <Typography variant="body2">{msg.text}</Typography>
+                      <Typography variant="body2" color="inherit">
+                        {msg.text}
+                      </Typography>
                     </Box>
                   );
                 })}

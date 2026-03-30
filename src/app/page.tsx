@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Image from "next/image";
 import RequestFormButton from "@/components/RequestFormButton";
 
@@ -34,47 +35,79 @@ import { alpha } from "@mui/material/styles";
 import { ACCENT } from "@/components/theme/colors";
 import { getAllBlogPosts } from "@/utils/blog";
 import { Button } from "@mui/material";
+import OrganicHighlight from "@/components/OrganicHighlight";
 
-const faqs = [
+const faqs: Array<{ question: string; answer: ReactNode }> = [
   {
-    question: "Who is this a good fit for?",
-    answer:
-      "This is for businesses that feel slowed down by repetitive tasks, manual processes, or inconsistent follow-up. It works well for teams that want to save time, stay organized, and keep things moving without adding more overhead.",
+    question: "How is this different from other automation tools?",
+    answer: (
+      <>
+        <Box component="p" sx={{ m: 0 }}>
+          There are already powerful automation platforms out there, but most
+          are built for large teams and require time to learn and maintain.
+        </Box>
+        <Box component="p" sx={{ mt: 2, mb: 0 }}>
+          This is different. You&apos;re getting a system designed around your
+          business that actually runs, not a tool you have to manage.
+        </Box>
+      </>
+    ),
   },
   {
-    question: "What challenges does this help address?",
-    answer:
-      "It reduces time spent on repetitive work, prevents things from slipping through the cracks, and helps leads and tasks move forward without constant manual effort. The goal is smoother operations and more consistency across the board.",
+    question: "Do I need to be technical to use this?",
+    answer: (
+      <>
+        <Box component="p" sx={{ m: 0 }}>
+          No.
+        </Box>
+        <Box component="p" sx={{ mt: 2, mb: 0 }}>
+          Everything is set up to match how your business already works. You
+          and your team just interact with simple inputs like emails, forms, or
+          messages, and the system handles the rest quietly in the background.
+        </Box>
+      </>
+    ),
   },
   {
-    question: "What types of work can be automated?",
-    answer:
-      "Common examples include lead capture and follow-up, scheduling, onboarding, data entry, reporting, approvals, notifications, and internal workflows. If something is repetitive or rule-based, it can likely be automated.",
+    question: "What kinds of things can actually be automated?",
+    answer: (
+      <>
+        <Box component="p" sx={{ m: 0 }}>
+          Anything that follows a pattern.
+        </Box>
+        <Box component="p" sx={{ mt: 2, mb: 0 }}>
+          That usually includes:
+        </Box>
+        <Box component="ul" sx={{ mt: 1.5, mb: 0, pl: 3 }}>
+          <Box component="li">Incoming leads getting organized and qualified</Box>
+          <Box component="li">Follow-ups happening without reminders</Box>
+          <Box component="li">Scheduling handled without back-and-forth</Box>
+          <Box component="li">
+            Invoices or documents created from conversations
+          </Box>
+          <Box component="li">
+            Tasks moving between people without manual coordination
+          </Box>
+        </Box>
+        <Box component="p" sx={{ mt: 2, mb: 0 }}>
+          Most businesses are already doing this work manually.
+        </Box>
+      </>
+    ),
   },
   {
-    question: "Do you offer chatbot or AI assistant solutions?",
-    answer:
-      "Yes, when it makes sense. Chat-based tools can help with lead qualification, answering common questions, or guiding users through a process. The focus is always on usefulness, not just adding a chatbot for the sake of it.",
-  },
-  {
-    question: "Can this work with the tools already in use?",
-    answer:
-      "Yes. Most systems can connect with tools already in use, such as CRMs, email platforms, scheduling tools, and internal systems. The goal is to improve what's already there, not replace everything.",
-  },
-  {
-    question: "Is technical experience required to manage it?",
-    answer:
-      "No. Everything is set up to be simple and easy to manage. Once it's in place, it should feel like part of the normal workflow, not something that requires technical expertise.",
-  },
-  {
-    question: "Is it possible to start with a smaller scope?",
-    answer:
-      "Yes. Many projects start with one workflow or a single problem area. That makes it easy to see value quickly before expanding into other areas.",
-  },
-  {
-    question: "What does getting started look like?",
-    answer:
-      "Start with a quick conversation about current workflows and where time is being lost. From there, it's easy to identify a few opportunities to automate and outline what that would look like.",
+    question: "How do I get started?",
+    answer: (
+      <>
+        <Box component="p" sx={{ m: 0 }}>
+          We start by looking at where work is getting stuck or repeated.
+        </Box>
+        <Box component="p" sx={{ mt: 2, mb: 0 }}>
+          From there, we build one system that takes that off your plate. Once
+          that&apos;s running, we expand into other areas.
+        </Box>
+      </>
+    ),
   },
 ];
 
@@ -224,7 +257,8 @@ export default function Home() {
                   gutterBottom
                   sx={{ mb: 4 }}
                 >
-                  Systems that handle the work, so you can handle the business.
+                  Systems that handle the work, so you can{" "}
+                  <OrganicHighlight>handle the business</OrganicHighlight>.
                 </Typography>
 
                 <Stack spacing={3}>
@@ -233,16 +267,11 @@ export default function Home() {
                     color="text.secondary"
                     sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
                   >
-                    <strong>
-                      Senna Automation builds systems that take work off your
-                      plate
-                    </strong>{" "}
-                    and keep your business moving. Instead of juggling emails,
-                    follow-ups, and repetitive tasks,{" "}
-                    <strong>
-                      your workflows run quietly in the background
-                    </strong>
-                    , turning inputs into <strong>completed outcomes</strong>.
+                    Senna Automation builds systems that take work off your
+                    plate and keep your business moving. Instead of juggling
+                    emails, follow-ups, and repetitive tasks, your workflows
+                    run quietly in the background, turning inputs into
+                    completed outcomes.
                   </Typography>
 
                   <Typography
@@ -250,13 +279,11 @@ export default function Home() {
                     color="text.secondary"
                     sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
                   >
-                    We design and build{" "}
-                    <strong>custom automation systems</strong> for{" "}
-                    <strong>small and mid-sized businesses</strong>, combining
-                    modern AI with software that fits the tools you already use.
-                    The result is <strong>less manual work</strong>,{" "}
-                    <strong>fewer gaps</strong>, and{" "}
-                    <strong>more time focused on what actually matters</strong>.
+                    We design and build custom automation systems for small and
+                    mid-sized businesses, combining modern AI with software
+                    that fits the tools you already use. The result is less
+                    manual work, fewer gaps, and more time focused on what
+                    actually matters.
                   </Typography>
 
                   <Typography
@@ -722,8 +749,8 @@ export default function Home() {
             color="inherit"
             sx={{ maxWidth: 600, mx: "auto", mb: 8, opacity: 0.7 }}
           >
-            A few common questions teams ask before they start automating their
-            workflows.
+            A few common questions about how automation works and where to
+            start.
           </Typography>
 
           <CascadingStagger spacing={2}>
@@ -752,6 +779,7 @@ export default function Home() {
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography
+                    component="div"
                     variant="body1"
                     sx={{ color: "rgba(255,255,255,0.7)" }}
                   >

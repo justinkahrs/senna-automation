@@ -17,6 +17,7 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { NumberedSteps } from "@/components/blog/NumberedSteps";
+import OrganicHighlight from "@/components/OrganicHighlight";
 
 export const metadata: Metadata = {
   title: "AI Workflow Automation Services — Business Process Automation | Senna Automation",
@@ -101,14 +102,6 @@ const steps = [
   },
 ];
 
-const useCases = [
-  "Automate lead follow-up for service businesses so no prospect goes cold",
-  "Eliminate manual data entry between tools like CRMs, spreadsheets, and email",
-  "Instantly qualify inbound leads and route them to the right team member",
-  "Send automated appointment reminders to reduce no-shows and cancellations",
-  "Build a knowledge assistant that answers common staff and customer questions",
-];
-
 export default function ServicesPage() {
   return (
     <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
@@ -168,15 +161,40 @@ export default function ServicesPage() {
 
       {/* ── Intro ─────────────────────────────────────────── */}
       <Box sx={{ py: { xs: 6, md: 8 }, bgcolor: "background.paper" }}>
-        <Container maxWidth="md" sx={{ textAlign: "center" }}>
-          <Typography variant="h3" component="h2" gutterBottom>
-            Most businesses are losing hours to manual work
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary" sx={{ maxWidth: 680, mx: "auto" }}>
-            Repetitive tasks like data entry, follow-up emails, and lead routing eat up hours that should
-            go toward growing your business. Our services are built to take that work off your
-            plate, permanently.
-          </Typography>
+        <Container maxWidth="lg">
+          <Stack spacing={5}>
+            <Box
+              sx={{
+                maxWidth: 720,
+                mx: "auto",
+                textAlign: "left",
+              }}
+            >
+              <Typography
+                variant="h4"
+                component="h3"
+                sx={{ lineHeight: 1.35 }}
+              >
+                You&apos;re not lacking capability.{" "}
+                <OrganicHighlight>
+                  You&apos;re carrying the overhead of keeping everything in
+                  sync.
+                </OrganicHighlight>
+              </Typography>
+              <Typography
+                variant="h4"
+                component="h3"
+                color="text.primary"
+                sx={{
+                  mt: 3,
+                  lineHeight: 1.35,
+                }}
+              >
+                We remove that overhead so things stay in motion without you
+                thinking about it.
+              </Typography>
+            </Box>
+          </Stack>
         </Container>
       </Box>
 
@@ -196,7 +214,7 @@ export default function ServicesPage() {
           </Typography>
 
           <Grid container spacing={5}>
-            {services.map((service, i) => (
+            {services.map((service) => (
               <Grid item xs={12} md={6} key={service.title}>
                 <Box
                   sx={{
