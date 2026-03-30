@@ -67,7 +67,7 @@ export default function ContactForm() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         p: 2,
       }}
     >
@@ -100,26 +100,15 @@ export default function ContactForm() {
         </Typography>
 
         <Box
-          sx={{
-            mb: 4,
-            p: 3,
-            borderRadius: 3,
-            border: "1px solid",
-            borderColor: "divider",
-            textAlign: "center",
-            bgcolor: "background.paper",
-          }}
-        >
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
-            Prefer to just talk? Skip the form.
-          </Typography>
-          <ScheduleCallButton text="Schedule a Free 30-Min Call via" size="medium" />
-        </Box>
-
-        <Box
           component="form"
           onSubmit={handleSubmit}
-          sx={{ width: "100%", maxWidth: 600 }}
+          sx={{
+            width: "100%",
+            maxWidth: 600,
+            maxHeight: "680px",
+            overflowY: "auto",
+            pr: 1,
+          }}
         >
           <TextField
             fullWidth
@@ -223,6 +212,53 @@ export default function ContactForm() {
           >
             Request My Free Audit
           </Button>
+        </Box>
+        <Box
+          sx={{
+            mt: 4,
+            p: 3,
+            width: "100%",
+            maxWidth: 600,
+            borderRadius: 3,
+            border: "1px solid",
+            borderColor: "divider",
+            textAlign: "center",
+            bgcolor: "background.paper",
+          }}
+        >
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+            Prefer to just talk? Skip the form.
+          </Typography>
+          <ScheduleCallButton
+            text="Schedule a Free 30-Min Call"
+            size="medium"
+            showIcon={false}
+          />
+          <Box
+            sx={{
+              mt: 1.5,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 0.5,
+              color: "text.secondary",
+            }}
+          >
+            <Typography variant="caption" sx={{ color: "inherit" }}>
+              via
+            </Typography>
+            <Box
+              component="img"
+              src="/Calendly.svg"
+              alt="Calendly"
+              sx={{
+                height: "0.95rem",
+                width: "auto",
+                opacity: 0.8,
+                mt: "2px",
+              }}
+            />
+          </Box>
         </Box>
         <Typography
           variant="body1"

@@ -38,13 +38,13 @@ The core of the workflow leverages LangChain and GPT models as an intelligent tr
 
 ```mermaid
 flowchart TD
-    A["Inbox Input<br/>Messy RFQ emails and PDFs"] --> B{"Classify<br/>Quote request or not?"}
-    B -->|Quote request| C["Extract<br/>Parts and quantities"]
+    A["RFQs<br/>(Plain text, PDFs, screenshots)"] --> B{"Classify"}
+    B -->|Quote request| C["Extract<br/>part numbers and quantities"]
     B -->|Not a quote| X([Exit workflow])
 
-    C --> D["Validate<br/>Match items and pricing in ERP"]
-    D --> E["Assemble<br/>Build quote with customer data"]
-    E --> F["Output<br/>Formal Quote PDF"]
+    C --> D["Validate and match<br/>items + pricing in ERP"]
+    D --> E["Assemble &<br/>build quote with customer data"]
+    E --> F@{ shape: doc, label: "Output<br/>formalized quote PDF via email manager" }
 ```
 
 ### AI-Powered Data Extraction
