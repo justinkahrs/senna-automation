@@ -5,7 +5,7 @@ const solutions = [
   {
     title: "Automate admin work",
     category: "Admin Automation",
-    video: "/overview.webm",
+    video: "/admin.webm",
     problem:
       "Your team is spending too much time on repetitive tasks that keep the business running but do not move it forward.",
     solution:
@@ -19,6 +19,7 @@ const solutions = [
   {
     title: "Capture and qualify leads",
     category: "Lead Management",
+    video: "/leads.webm",
     problem:
       "Leads come in, but response times are inconsistent and some opportunities slip through the cracks.",
     solution:
