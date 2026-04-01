@@ -3,6 +3,7 @@
 import type React from "react";
 import { createContext, useMemo, useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
 import { getThemeTokens } from "@/components/theme/theme";
 
 interface ColorModeContextProps {
@@ -18,5 +19,10 @@ export const ColorModeContext = createContext<ColorModeContextProps>({
 export function ClientProviders({ children }: { children: React.ReactNode }) {
   const theme = useMemo(() => createTheme(getThemeTokens()), []);
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
+  );
 }

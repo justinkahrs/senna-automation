@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ClientProviders } from "./ClientProviders";
 import { AppBar } from "@/components/layout/AppBar";
 import { Footer } from "@/components/layout/Footer";
@@ -214,20 +215,22 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning>
-        <ClientProviders>
-          <AppBar />
-          <main
-            style={{
-              minHeight: "100vh",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            {children}
-          </main>
-          <Footer />
-          <ChatWidget />
-        </ClientProviders>
+        <AppRouterCacheProvider options={{ key: "mui" }}>
+          <ClientProviders>
+            <AppBar />
+            <main
+              style={{
+                minHeight: "100vh",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              {children}
+            </main>
+            <Footer />
+            <ChatWidget />
+          </ClientProviders>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

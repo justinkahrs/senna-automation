@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import CascadingStagger from "@/components/animations/CascadingStagger";
@@ -12,6 +13,10 @@ import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { BlogPost } from "@/utils/blog";
 import { WARM_BLACK } from "@/components/theme/colors";
 import OrganicHighlight from "@/components/OrganicHighlight";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface Solution {
   title: string;
@@ -27,12 +32,8 @@ interface SolutionsClientProps {
   solutions: Solution[];
 }
 
-const bestFit = [
-  "Service businesses that handle a steady flow of client work",
-  "Agencies managing leads, projects, and recurring communication",
-  "Teams with high lead volume or slow response times",
-  "Operations-heavy businesses with lots of handoffs and admin work",
-];
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 const faqs = [
   {
@@ -76,6 +77,381 @@ const faqs = [
       "Start with a quick conversation about current workflows and where time is being lost. From there, it’s easy to identify a few opportunities to automate and outline what that would look like.",
   },
 ];
+
+const SolutionCard = ({
+  item,
+  index,
+  isDesktop = false,
+  cardSx,
+}: {
+  item: Solution;
+  index: number;
+  isDesktop?: boolean;
+  cardSx?: Record<string, unknown>;
+}) => {
+  return (
+    <Box
+      sx={{
+        bgcolor: "background.paper",
+        borderRadius: 4,
+        border: "1px solid",
+        borderColor: "divider",
+        overflow: "hidden",
+        boxShadow: "0 20px 60px rgba(0,0,0,0.04)",
+        position: "relative",
+        height: isDesktop ? "auto" : "100%",
+        minHeight: isDesktop ? { sm: 420, md: 500, lg: 540 } : undefined,
+        ...(cardSx || {}),
+      }}
+    >
+      <Grid container>
+        {/* Content Side */}
+        <Grid
+          item
+          xs={12}
+          md={5}
+          order={{ xs: 2, md: index % 2 === 0 ? 1 : 2 }}
+        >
+          <Box
+            sx={{
+              p: { xs: 4, md: 5, lg: 6 },
+            }}
+          >
+            <Typography
+              variant="h3"
+              component="h3"
+              sx={{
+                mb: 3,
+                lineHeight: 1.2,
+                fontSize: { xs: "1.75rem", md: "2.25rem" },
+              }}
+            >
+              {item.title}
+            </Typography>
+
+            <Stack spacing={4}>
+              <Box>
+                <Typography
+                  variant="overline"
+                  sx={{
+                    color: "primary.main",
+                    fontWeight: 800,
+                    letterSpacing: 1.5,
+                    display: "block",
+                    mb: 1,
+                  }}
+                >
+                  The Problem
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  sx={{ fontSize: "1.1rem", lineHeight: 1.7 }}
+                >
+                  {item.problem}
+                </Typography>
+              </Box>
+
+              <Box>
+                <Typography
+                  variant="overline"
+                  sx={{
+                    color: "primary.main",
+                    fontWeight: 800,
+                    letterSpacing: 1.5,
+                    display: "block",
+                    mb: 1,
+                  }}
+                >
+                  The Solution
+                </Typography>
+                <Typography variant="subtitle1" color="text.secondary">
+                  {item.solution}
+                </Typography>
+              </Box>
+
+              <Box>
+                <Typography
+                  variant="overline"
+                  sx={{
+                    color: "primary.main",
+                    fontWeight: 800,
+                    letterSpacing: 1.5,
+                    display: "block",
+                    mb: 1,
+                  }}
+                >
+                  Key Outcomes
+                </Typography>
+                <Stack spacing={1.5} sx={{ mt: 1 }}>
+                  {item.outcomes.map((outcome) => (
+                    <Box
+                      key={outcome}
+                      sx={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: 1.5,
+                      }}
+                    >
+                      <CheckCircleOutlineIcon
+                        sx={{
+                          fontSize: 22,
+                          color: "primary.main",
+                          mt: 0.3,
+                        }}
+                      />
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: "text.primary",
+                          fontWeight: 600,
+                        }}
+                      >
+                        {outcome}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Stack>
+              </Box>
+
+              {item.latestPost && (
+                <Box sx={{ pt: 2 }}>
+                  <Button
+                    component={Link}
+                    href={`/blog/${item.latestPost.slug}`}
+                    variant="outlined"
+                    size="large"
+                    sx={{
+                      borderColor: "divider",
+                      color: "text.primary",
+                      "&:hover": {
+                        borderColor: "primary.main",
+                        bgcolor: "transparent",
+                      },
+                    }}
+                  >
+                    Read the Case Study
+                  </Button>
+                </Box>
+              )}
+            </Stack>
+          </Box>
+        </Grid>
+
+        {/* Visualization Side */}
+        <Grid
+          item
+          xs={12}
+          md={7}
+          order={{ xs: 1, md: index % 2 === 0 ? 2 : 1 }}
+        >
+          <Box
+            sx={{
+              height: "100%",
+              minHeight: { xs: 300, md: "100%" },
+              bgcolor:
+                index % 2 === 0 ? "rgba(0,0,0,0.01)" : "rgba(0,0,0,0.02)",
+              borderLeft: {
+                md: index % 2 === 0 ? "1px solid" : "none",
+              },
+              borderRight: {
+                md: index % 2 !== 0 ? "1px solid" : "none",
+              },
+              borderColor: "divider",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+              overflow: "hidden",
+              background:
+                "linear-gradient(135deg, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.03) 100%)",
+            }}
+          >
+            {item.video ? (
+              <Box
+                component="video"
+                autoPlay
+                muted
+                loop
+                playsInline
+                src={item.video}
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  opacity: 1,
+                  display: "block",
+                }}
+              />
+            ) : (
+              <>
+                <Typography
+                  color="text.disabled"
+                  variant="subtitle2"
+                  sx={{
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                    letterSpacing: 2,
+                    zIndex: 1,
+                  }}
+                >
+                  Solution Visualization
+                </Typography>
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    opacity: 0.04,
+                    background: `radial-gradient(circle at 2px 2px, ${WARM_BLACK} 1px, transparent 0)`,
+                    backgroundSize: "32px 32px",
+                  }}
+                />
+              </>
+            )}
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};
+
+const DesktopScrollytelling = ({ solutions }: { solutions: Solution[] }) => {
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const activeIndexRef = useRef(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useIsomorphicLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section || solutions.length === 0) return;
+
+    activeIndexRef.current = 0;
+    setActiveIndex(0);
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 600px)", () => {
+      const trigger = ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: () =>
+          `+=${Math.round(
+            window.innerHeight * Math.max(solutions.length * 1.1, 2),
+          )}`,
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+        scrub: 0.35,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const nextIndex = Math.min(
+            solutions.length - 1,
+            Math.floor(self.progress * solutions.length),
+          );
+          if (nextIndex !== activeIndexRef.current) {
+            activeIndexRef.current = nextIndex;
+            setActiveIndex(nextIndex);
+          }
+        },
+        onRefresh: (self) => {
+          const nextIndex = Math.min(
+            solutions.length - 1,
+            Math.floor(self.progress * solutions.length),
+          );
+          activeIndexRef.current = nextIndex;
+          setActiveIndex(nextIndex);
+        },
+      });
+
+      return () => {
+        trigger.kill();
+      };
+    });
+
+    return () => {
+      mm.revert();
+    };
+  }, [solutions.length]);
+
+  const renderHeaderShell = () => (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        px: { xs: 2, md: 3 },
+        py: { xs: 1.5, md: 2 },
+      }}
+    >
+      <Typography variant="h3" component="h2" align="center">
+        Common problems we solve
+      </Typography>
+    </Box>
+  );
+
+  return (
+    <Box
+      sx={{
+        display: { xs: "none", sm: "block" },
+        py: { sm: 6, md: 10, lg: 12 },
+        bgcolor: "background.default",
+        position: "relative",
+        overflow: "visible",
+        isolation: "isolate",
+      }}
+    >
+      <Container maxWidth="lg">
+        <Box
+          ref={sectionRef}
+          sx={{
+            position: "relative",
+          }}
+        >
+          <Box
+            sx={{
+              position: "relative",
+              zIndex: 1,
+              px: { xs: 0, md: 0 },
+              py: { xs: 0, md: 0 },
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                mb: { sm: 4, md: 5 },
+              }}
+            >
+              {renderHeaderShell()}
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                px: { xs: 3, md: 5, lg: 6 },
+                pb: { xs: 4, md: 5, lg: 6 },
+              }}
+            >
+              <SolutionCard
+                item={solutions[activeIndex]}
+                index={activeIndex}
+                isDesktop
+                cardSx={{
+                  width: "100%",
+                  maxWidth: 1140,
+                  boxShadow: "0 28px 80px rgba(0,0,0,0.08)",
+                }}
+              />
+            </Box>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
+  );
+};
 
 export default function SolutionsClient({ solutions }: SolutionsClientProps) {
   return (
@@ -151,253 +527,37 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
             <OrganicHighlight>
               Most bottlenecks look more familiar than you think.
             </OrganicHighlight>{" "}
-            Too much admin work, inconsistent follow-up, messy handoffs, and
-            not enough visibility.
+            Too much admin work, inconsistent follow-up, messy handoffs, and not
+            enough visibility.
           </Typography>
         </Container>
       </Box>
 
-      <Box sx={{ py: { xs: 6, md: 10 } }}>
+      {/* Desktop Scrollytelling */}
+      <DesktopScrollytelling solutions={solutions} />
+
+      {/* Mobile Linear Stack */}
+      <Box
+        sx={{
+          py: 6,
+          display: { xs: "block", sm: "none" },
+          bgcolor: "background.default",
+        }}
+      >
         <Container maxWidth="lg">
           <Typography variant="h3" component="h2" align="center" sx={{ mb: 6 }}>
             Common problems we solve
           </Typography>
-          <Stack spacing={6}>
+          <Stack spacing={4}>
             {solutions.map((item, index) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                transition={{ duration: 0.6 }}
               >
-                <Box
-                  sx={{
-                    bgcolor: "background.paper",
-                    borderRadius: 4,
-                    border: "1px solid",
-                    borderColor: "divider",
-                    overflow: "hidden",
-                    boxShadow: "0 20px 60px rgba(0,0,0,0.04)",
-                    position: "relative",
-                  }}
-                >
-                  <Grid container>
-                    {/* Content Side (7 Columns) */}
-                    <Grid
-                      item
-                      xs={12}
-                      md={5}
-                      order={{ xs: 2, md: index % 2 === 0 ? 1 : 2 }}
-                    >
-                      <Box
-                        sx={{
-                          p: { xs: 4, md: 5, lg: 6 },
-                        }}
-                      >
-                        <Typography
-                          variant="h3"
-                          component="h3"
-                          sx={{
-                            mb: 3,
-                            lineHeight: 1.2,
-                          }}
-                        >
-                          {item.title}
-                        </Typography>
-
-                        <Stack spacing={4}>
-                          <Box>
-                            <Typography
-                              variant="overline"
-                              sx={{
-                                color: "primary.main",
-                                fontWeight: 800,
-                                letterSpacing: 1.5,
-                                display: "block",
-                                mb: 1,
-                              }}
-                            >
-                              The Problem
-                            </Typography>
-                            <Typography
-                              variant="body1"
-                              color="text.secondary"
-                              sx={{ fontSize: "1.1rem", lineHeight: 1.7 }}
-                            >
-                              {item.problem}
-                            </Typography>
-                          </Box>
-
-                          <Box>
-                            <Typography
-                              variant="overline"
-                              sx={{
-                                color: "primary.main",
-                                fontWeight: 800,
-                                letterSpacing: 1.5,
-                                display: "block",
-                                mb: 1,
-                              }}
-                            >
-                              The Solution
-                            </Typography>
-                            <Typography
-                              variant="subtitle1"
-                              color="text.secondary"
-                            >
-                              {item.solution}
-                            </Typography>
-                          </Box>
-
-                          <Box>
-                            <Typography
-                              variant="overline"
-                              sx={{
-                                color: "primary.main",
-                                fontWeight: 800,
-                                letterSpacing: 1.5,
-                                display: "block",
-                                mb: 1,
-                              }}
-                            >
-                              Key Outcomes
-                            </Typography>
-                            <Stack spacing={1.5} sx={{ mt: 1 }}>
-                              {item.outcomes.map((outcome) => (
-                                <Box
-                                  key={outcome}
-                                  sx={{
-                                    display: "flex",
-                                    alignItems: "flex-start",
-                                    gap: 1.5,
-                                  }}
-                                >
-                                  <CheckCircleOutlineIcon
-                                    sx={{
-                                      fontSize: 22,
-                                      color: "primary.main",
-                                      mt: 0.3,
-                                    }}
-                                  />
-                                  <Typography
-                                    variant="body1"
-                                    sx={{
-                                      color: "text.primary",
-                                      fontWeight: 600,
-                                    }}
-                                  >
-                                    {outcome}
-                                  </Typography>
-                                </Box>
-                              ))}
-                            </Stack>
-                          </Box>
-
-                          {item.latestPost && (
-                            <Box sx={{ pt: 2 }}>
-                              <Button
-                                component={Link}
-                                href={`/blog/${item.latestPost.slug}`}
-                                variant="outlined"
-                                size="large"
-                                sx={{
-                                  borderColor: "divider",
-                                  color: "text.primary",
-                                  "&:hover": {
-                                    borderColor: "primary.main",
-                                    bgcolor: "transparent",
-                                  },
-                                }}
-                              >
-                                Read the Case Study
-                              </Button>
-                            </Box>
-                          )}
-                        </Stack>
-                      </Box>
-                    </Grid>
-
-                    {/* Visualization Side (7 Columns) */}
-                    <Grid
-                      item
-                      xs={12}
-                      md={7}
-                      order={{ xs: 1, md: index % 2 === 0 ? 2 : 1 }}
-                    >
-                      <Box
-                        sx={{
-                          height: "100%",
-                          minHeight: { xs: 300, md: "auto" },
-                          bgcolor:
-                            index % 2 === 0
-                              ? "rgba(0,0,0,0.01)"
-                              : "rgba(0,0,0,0.02)",
-                          borderLeft: {
-                            md: index % 2 === 0 ? "1px solid" : "none",
-                          },
-                          borderRight: {
-                            md: index % 2 !== 0 ? "1px solid" : "none",
-                          },
-                          borderColor: "divider",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          position: "relative",
-                          overflow: "hidden",
-                          background:
-                            "linear-gradient(135deg, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.03) 100%)",
-                        }}
-                      >
-                        {item.video ? (
-                          <Box
-                            component="video"
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                            src={item.video}
-                            sx={{
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                              opacity: 1,
-                              display: "block",
-                            }}
-                          />
-                        ) : (
-                          <>
-                            <Typography
-                              color="text.disabled"
-                              variant="subtitle2"
-                              sx={{
-                                fontWeight: 600,
-                                textTransform: "uppercase",
-                                letterSpacing: 2,
-                                zIndex: 1,
-                              }}
-                            >
-                              Solution Visualization
-                            </Typography>
-                            {/* Subtle geometric pattern placeholder */}
-                            <Box
-                              sx={{
-                                position: "absolute",
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                opacity: 0.04,
-                                background: `radial-gradient(circle at 2px 2px, ${WARM_BLACK} 1px, transparent 0)`,
-                                backgroundSize: "32px 32px",
-                              }}
-                            />
-                          </>
-                        )}
-                      </Box>
-                    </Grid>
-                  </Grid>
-                </Box>
+                <SolutionCard item={item} index={index} />
               </motion.div>
             ))}
           </Stack>
