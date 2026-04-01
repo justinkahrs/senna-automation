@@ -24,6 +24,7 @@ interface Solution {
   solution: string;
   outcomes: string[];
   category?: string;
+  caseStudyCategory?: string;
   video?: string;
   latestPost?: Omit<BlogPost, "content"> | null;
 }
