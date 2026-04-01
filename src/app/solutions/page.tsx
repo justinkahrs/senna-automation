@@ -4,7 +4,7 @@ import SolutionsClient from "./SolutionsClient";
 const solutions = [
   {
     title: "Automate admin work",
-    category: "Admin Automation",
+    category: "Automation Workflow",
     video: "/admin.webm",
     problem:
       "Your team is spending too much time on repetitive tasks that keep the business running but do not move it forward.",

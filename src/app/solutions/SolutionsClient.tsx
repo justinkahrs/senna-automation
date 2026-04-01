@@ -721,7 +721,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
                   <Accordion
                     key={faq.question}
                     disableGutters
-                    slotProps={{ transition: { timeout: 180 } }}
+                    slotProps={{ transition: { timeout: 140 } }}
                     sx={{
                       border: "1px solid",
                       borderColor: "divider",
