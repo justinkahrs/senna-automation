@@ -4,8 +4,7 @@ import SolutionsClient from "./SolutionsClient";
 const solutions = [
   {
     title: "Automate admin work",
-    category: "Admin Automation",
-    caseStudyCategory: "Automation Workflow",
+    category: "Automation Workflow",
     video: "/admin.webm",
     problem:
       "Your team is spending too much time on repetitive tasks that keep the business running but do not move it forward.",
@@ -32,12 +31,13 @@ const solutions = [
     ],
   },
   {
-    title: "Turn scattered information into usable data",
+    title: "Create structured data from anything",
     category: "Data Processing",
+    video: "dashboard.webm",
     problem:
-      "Important information lives in emails, PDFs, notes, messages, and across the tools and sites you rely on, but it never makes it into your systems cleanly. Your team re-enters data, misses details, or works from incomplete information.",
+      "Information lives in emails, PDFs, and across the tools and sites you rely on, but it never makes it into your systems cleanly.",
     solution:
-      "We capture incoming information from wherever it appears, structure it, and send it into the right systems automatically so it is usable the moment it comes in.",
+      "Structure incoming information, and send it into the right systems automatically.",
     outcomes: [
       "No manual data entry across systems",
       "Important details do not get lost or missed",
@@ -88,9 +88,7 @@ const solutions = [
 export default function SolutionsPage() {
   const enrichedSolutions = solutions.map((solution) => ({
     ...solution,
-    latestPost: getLatestPostByCategory(
-      solution.caseStudyCategory ?? solution.category
-    ),
+    latestPost: getLatestPostByCategory(solution.category),
   }));
 
   return <SolutionsClient solutions={enrichedSolutions} />;

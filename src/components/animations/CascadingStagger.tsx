@@ -8,8 +8,8 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.4,
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
     },
   },
 };
@@ -20,7 +20,7 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1.0,
+      duration: 0.45,
       ease: [0.16, 1, 0.3, 1],
     },
   },

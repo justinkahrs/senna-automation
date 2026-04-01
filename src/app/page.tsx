@@ -758,7 +758,7 @@ export default function Home() {
               <Accordion
                 key={faq.question}
                 disableGutters
-                slotProps={{ transition: { timeout: 180 } }}
+                slotProps={{ transition: { timeout: 140 } }}
                 sx={{
                   bgcolor: "rgba(255,255,255,0.03)",
                   borderColor: "rgba(255,255,255,0.1)",
