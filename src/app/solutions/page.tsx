@@ -57,32 +57,6 @@ const solutions = [
       "Less time spent chasing next steps",
     ],
   },
-  {
-    title: "Reduce back-and-forth",
-    category: "Communication",
-    problem:
-      "Too much time is lost to scheduling, reminders, updates, and repeated communication just to keep work on track.",
-    solution:
-      "Automate scheduling, reminders, confirmations, and routine updates so people stay informed without extra coordination.",
-    outcomes: [
-      "Less friction across the process",
-      "Faster execution",
-      "Fewer delays caused by missed communication",
-    ],
-  },
-  {
-    title: "Reporting and visibility",
-    category: "Operations",
-    problem:
-      "It is hard to see what is happening, where work is stuck, or how performance is trending without manual reporting.",
-    solution:
-      "Automate reports, summaries, and dashboards that make activity, pipeline movement, and key numbers easier to track.",
-    outcomes: [
-      "Clearer visibility into operations",
-      "Less manual reporting work",
-      "Better decisions with less effort",
-    ],
-  },
 ];
 
 export default function SolutionsPage() {
