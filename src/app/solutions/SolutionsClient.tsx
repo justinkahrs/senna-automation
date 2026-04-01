@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import CascadingStagger from "@/components/animations/CascadingStagger";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -24,7 +24,6 @@ interface Solution {
   solution: string;
   outcomes: string[];
   category?: string;
-  caseStudyCategory?: string;
   video?: string;
   latestPost?: Omit<BlogPost, "content"> | null;
 }
@@ -84,14 +83,23 @@ const SolutionCard = ({
   index,
   isDesktop = false,
   cardSx,
+  forceLayout, // New prop to control side order
 }: {
   item: Solution;
   index: number;
   isDesktop?: boolean;
   cardSx?: Record<string, unknown>;
+  forceLayout?: "left" | "right";
 }) => {
+  const layoutIndex =
+    forceLayout === "left" ? 0 : forceLayout === "right" ? 1 : index;
+
   return (
     <Box
+      component={motion.div}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       sx={{
         bgcolor: "background.paper",
         borderRadius: 4,
@@ -101,93 +109,131 @@ const SolutionCard = ({
         boxShadow: "0 20px 60px rgba(0,0,0,0.04)",
         position: "relative",
         height: isDesktop ? "auto" : "100%",
-        minHeight: isDesktop ? { sm: 420, md: 500, lg: 540 } : undefined,
+        minHeight: isDesktop ? { sm: 580, md: 620, lg: 680 } : undefined,
+        display: "flex",
+        flexDirection: "column",
         ...(cardSx || {}),
       }}
     >
-      <Grid container>
+      <Grid container spacing={0} sx={{ flexGrow: 1 }}>
         {/* Content Side */}
         <Grid
           item
           xs={12}
           md={5}
-          order={{ xs: 2, md: index % 2 === 0 ? 1 : 2 }}
+          order={{ xs: 2, md: layoutIndex % 2 === 0 ? 1 : 2 }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+          }}
         >
           <Box
             sx={{
-              p: { xs: 4, md: 5, lg: 6 },
+              p: { xs: 4, md: 6, lg: 8 },
+              flexGrow: 1,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
             }}
           >
-            <Typography
-              variant="h3"
-              component="h3"
-              sx={{
-                mb: 3,
-                lineHeight: 1.2,
-                fontSize: { xs: "1.75rem", md: "2.25rem" },
-              }}
+            <motion.div
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.15, duration: 0.5 }}
             >
-              {item.title}
-            </Typography>
+              <Typography
+                variant="h3"
+                component="h3"
+                sx={{
+                  mb: 3,
+                  lineHeight: 1.2,
+                  fontSize: { xs: "1.75rem", md: "2.25rem" },
+                }}
+              >
+                {item.title}
+              </Typography>
+            </motion.div>
 
             <Stack spacing={4}>
-              <Box>
-                <Typography
-                  variant="overline"
-                  sx={{
-                    color: "primary.main",
-                    fontWeight: 800,
-                    letterSpacing: 1.5,
-                    display: "block",
-                    mb: 1,
-                  }}
-                >
-                  The Problem
-                </Typography>
-                <Typography
-                  variant="body1"
-                  color="text.secondary"
-                  sx={{ fontSize: "1.1rem", lineHeight: 1.7 }}
-                >
-                  {item.problem}
-                </Typography>
-              </Box>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25, duration: 0.5 }}
+              >
+                <Box>
+                  <Typography
+                    variant="overline"
+                    sx={{
+                      color: "primary.main",
+                      fontWeight: 800,
+                      letterSpacing: 1.5,
+                      display: "block",
+                      mb: 1,
+                    }}
+                  >
+                    The Problem
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ fontSize: "1.1rem", lineHeight: 1.7 }}
+                  >
+                    {item.problem}
+                  </Typography>
+                </Box>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+              >
+                <Box>
+                  <Typography
+                    variant="overline"
+                    sx={{
+                      color: "primary.main",
+                      fontWeight: 800,
+                      letterSpacing: 1.5,
+                      display: "block",
+                      mb: 1,
+                    }}
+                  >
+                    The Solution
+                  </Typography>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    {item.solution}
+                  </Typography>
+                </Box>
+              </motion.div>
 
               <Box>
-                <Typography
-                  variant="overline"
-                  sx={{
-                    color: "primary.main",
-                    fontWeight: 800,
-                    letterSpacing: 1.5,
-                    display: "block",
-                    mb: 1,
-                  }}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35, duration: 0.5 }}
                 >
-                  The Solution
-                </Typography>
-                <Typography variant="subtitle1" color="text.secondary">
-                  {item.solution}
-                </Typography>
-              </Box>
-
-              <Box>
-                <Typography
-                  variant="overline"
-                  sx={{
-                    color: "primary.main",
-                    fontWeight: 800,
-                    letterSpacing: 1.5,
-                    display: "block",
-                    mb: 1,
-                  }}
-                >
-                  Key Outcomes
-                </Typography>
+                  <Typography
+                    variant="overline"
+                    sx={{
+                      color: "primary.main",
+                      fontWeight: 800,
+                      letterSpacing: 1.5,
+                      display: "block",
+                      mb: 1,
+                    }}
+                  >
+                    Key Outcomes
+                  </Typography>
+                </motion.div>
                 <Stack spacing={1.5} sx={{ mt: 1 }}>
-                  {item.outcomes.map((outcome) => (
+                  {item.outcomes.map((outcome, idx) => (
                     <Box
                       key={outcome}
+                      component={motion.div}
+                      initial={{ opacity: 0, x: -5 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4 + idx * 0.05, duration: 0.4 }}
                       sx={{
                         display: "flex",
                         alignItems: "flex-start",
@@ -216,7 +262,13 @@ const SolutionCard = ({
               </Box>
 
               {item.latestPost && (
-                <Box sx={{ pt: 2 }}>
+                <Box
+                  sx={{ pt: 2 }}
+                  component={motion.div}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.6, duration: 0.5 }}
+                >
                   <Button
                     component={Link}
                     href={`/blog/${item.latestPost.slug}`}
@@ -244,60 +296,78 @@ const SolutionCard = ({
           item
           xs={12}
           md={7}
-          order={{ xs: 1, md: index % 2 === 0 ? 2 : 1 }}
+          order={{ xs: 1, md: layoutIndex % 2 === 0 ? 2 : 1 }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            borderLeft: {
+              md: layoutIndex % 2 === 0 ? "1px solid" : "none",
+            },
+            borderRight: {
+              md: layoutIndex % 2 !== 0 ? "1px solid" : "none",
+            },
+            borderColor: "divider",
+          }}
         >
           <Box
             sx={{
+              flexGrow: 1,
+              width: "100%",
               height: "100%",
               minHeight: { xs: 300, md: "100%" },
-              bgcolor:
-                index % 2 === 0 ? "rgba(0,0,0,0.01)" : "rgba(0,0,0,0.02)",
-              borderLeft: {
-                md: index % 2 === 0 ? "1px solid" : "none",
-              },
-              borderRight: {
-                md: index % 2 !== 0 ? "1px solid" : "none",
-              },
-              borderColor: "divider",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               position: "relative",
               overflow: "hidden",
-              background:
-                "linear-gradient(135deg, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.03) 100%)",
+              bgcolor: "#FBFBFB",
             }}
           >
             {item.video ? (
-              <Box
-                component="video"
-                autoPlay
-                muted
-                loop
-                playsInline
-                src={item.video}
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  opacity: 1,
-                  display: "block",
+              <motion.div
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                style={{
+                  width: "90%",
+                  height: "90%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-              />
+              >
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  src={item.video}
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    width: "auto",
+                    height: "auto",
+                    objectFit: "contain",
+                    display: "block",
+                  }}
+                />
+              </motion.div>
             ) : (
               <>
-                <Typography
-                  color="text.disabled"
-                  variant="subtitle2"
-                  sx={{
+                <motion.p
+                  initial={{ opacity: 0, letterSpacing: 0 }}
+                  animate={{ opacity: 1, letterSpacing: 2 }}
+                  transition={{ delay: 0.3, duration: 0.8 }}
+                  style={{
+                    color: "var(--text-muted)",
                     fontWeight: 600,
                     textTransform: "uppercase",
-                    letterSpacing: 2,
                     zIndex: 1,
+                    margin: 0,
                   }}
                 >
                   Solution Visualization
-                </Typography>
+                </motion.p>
                 <Box
                   sx={{
                     position: "absolute",
@@ -321,48 +391,44 @@ const SolutionCard = ({
 
 const DesktopScrollytelling = ({ solutions }: { solutions: Solution[] }) => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const activeIndexRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(0); // -1 for up, 1 for down
 
   useIsomorphicLayoutEffect(() => {
     const section = sectionRef.current;
     if (!section || solutions.length === 0) return;
 
-    activeIndexRef.current = 0;
     setActiveIndex(0);
 
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 600px)", () => {
+    mm.add("(min-width: 1280px) and (min-height: 800px)", () => {
       const trigger = ScrollTrigger.create({
         trigger: section,
         start: "top top",
         end: () =>
           `+=${Math.round(
-            window.innerHeight * Math.max(solutions.length * 1.1, 2),
+            window.innerHeight * Math.max(solutions.length * 1.5, 2),
           )}`,
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
-        scrub: 0.35,
+        scrub: 0.5,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
+          const progress = self.progress;
           const nextIndex = Math.min(
             solutions.length - 1,
-            Math.floor(self.progress * solutions.length),
+            Math.floor(progress * solutions.length),
           );
-          if (nextIndex !== activeIndexRef.current) {
-            activeIndexRef.current = nextIndex;
-            setActiveIndex(nextIndex);
-          }
-        },
-        onRefresh: (self) => {
-          const nextIndex = Math.min(
-            solutions.length - 1,
-            Math.floor(self.progress * solutions.length),
-          );
-          activeIndexRef.current = nextIndex;
-          setActiveIndex(nextIndex);
+
+          setActiveIndex((prev) => {
+            if (nextIndex !== prev) {
+              setDirection(nextIndex > prev ? 1 : -1);
+              return nextIndex;
+            }
+            return prev;
+          });
         },
       });
 
@@ -376,27 +442,38 @@ const DesktopScrollytelling = ({ solutions }: { solutions: Solution[] }) => {
     };
   }, [solutions.length]);
 
-  const renderHeaderShell = () => (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        px: { xs: 2, md: 3 },
-        py: { xs: 1.5, md: 2 },
-      }}
-    >
-      <Typography variant="h3" component="h2" align="center">
-        Common problems we solve
-      </Typography>
-    </Box>
-  );
+  const variants = {
+    initial: (direction: number) => ({
+      opacity: 0,
+      y: direction > 0 ? 60 : -60,
+      scale: 0.98,
+    }),
+    animate: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1], // Ease out quint
+        staggerChildren: 0.1,
+      },
+    },
+    exit: (direction: number) => ({
+      opacity: 0,
+      y: direction > 0 ? -60 : 60,
+      scale: 0.98,
+      transition: {
+        duration: 0.5,
+        ease: [0.7, 0, 0.84, 0], // Ease in quad
+      },
+    }),
+  };
 
   return (
     <Box
       sx={{
-        display: { xs: "none", sm: "block" },
-        py: { sm: 6, md: 10, lg: 12 },
+        display: { xs: "none", lg: "block" },
+        py: { sm: 8, md: 12, lg: 16 },
         bgcolor: "background.default",
         position: "relative",
         overflow: "visible",
@@ -408,44 +485,85 @@ const DesktopScrollytelling = ({ solutions }: { solutions: Solution[] }) => {
           ref={sectionRef}
           sx={{
             position: "relative",
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
           }}
         >
           <Box
             sx={{
-              position: "relative",
-              zIndex: 1,
-              px: { xs: 0, md: 0 },
-              py: { xs: 0, md: 0 },
+              display: "flex",
+              justifyContent: "center",
+              mb: { lg: 4, xl: 5 },
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                mb: { sm: 4, md: 5 },
-              }}
-            >
-              {renderHeaderShell()}
-            </Box>
+            <Typography variant="h3" component="h2" align="center">
+              Common problems we solve
+            </Typography>
+          </Box>
 
+          <Box
+            sx={{
+              position: "relative",
+              height: { lg: 620, xl: 720 },
+              width: "100%",
+              maxWidth: 1140,
+              mx: "auto",
+            }}
+          >
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={activeIndex}
+                custom={direction}
+                variants={variants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <SolutionCard
+                  item={solutions[activeIndex]}
+                  index={activeIndex}
+                  isDesktop
+                  forceLayout="left" // Keep layout consistent in scrollytelling
+                  cardSx={{
+                    height: "100%",
+                    boxShadow: "0 28px 80px rgba(0,0,0,0.08)",
+                  }}
+                />
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Progress Indicator */}
             <Box
               sx={{
+                position: "absolute",
+                right: -40,
+                top: "50%",
+                transform: "translateY(-50%)",
                 display: "flex",
-                justifyContent: "center",
-                px: { xs: 3, md: 5, lg: 6 },
-                pb: { xs: 4, md: 5, lg: 6 },
+                flexDirection: "column",
+                gap: 2,
+                zIndex: 10,
               }}
             >
-              <SolutionCard
-                item={solutions[activeIndex]}
-                index={activeIndex}
-                isDesktop
-                cardSx={{
-                  width: "100%",
-                  maxWidth: 1140,
-                  boxShadow: "0 28px 80px rgba(0,0,0,0.08)",
-                }}
-              />
+              {solutions.map((_, idx) => (
+                <Box
+                  key={idx}
+                  sx={{
+                    width: 4,
+                    height: idx === activeIndex ? 32 : 12,
+                    bgcolor: idx === activeIndex ? "primary.main" : "divider",
+                    borderRadius: 2,
+                    transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                  }}
+                />
+              ))}
             </Box>
           </Box>
         </Box>
@@ -541,7 +659,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
       <Box
         sx={{
           py: 6,
-          display: { xs: "block", sm: "none" },
+          display: { xs: "block", lg: "none" },
           bgcolor: "background.default",
         }}
       >
