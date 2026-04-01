@@ -61,7 +61,7 @@ export function Footer() {
 
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
         <Grid container spacing={8}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={2}>
             <Typography
               variant="h5"
               color="inherit"
@@ -147,7 +147,7 @@ export function Footer() {
               </IconButton>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={4} md={2}>
+          <Grid item xs={12} sm={4} md={4}>
             <Typography
               variant="overline"
               sx={{
@@ -167,7 +167,7 @@ export function Footer() {
                 display: "inline-flex",
                 opacity: 0.8,
                 transition: "opacity 0.2s, transform 0.2s",
-                marginLeft: "-32px", // Align with the heading above
+                marginLeft: "-42px", // Align with the heading above
                 "&:hover": {
                   opacity: 1,
                   transform: "translateY(-2px)",
@@ -179,7 +179,7 @@ export function Footer() {
                 src="/bbb.svg"
                 alt="BBB Profile"
                 sx={{
-                  height: 80,
+                  height: 100,
                   width: "auto",
                   borderRadius: "4px",
                 }}
