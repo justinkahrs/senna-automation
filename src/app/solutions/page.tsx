@@ -5,6 +5,7 @@ const solutions = [
   {
     title: "Automate admin work",
     category: "Admin Automation",
+    caseStudyCategory: "Automation Workflow",
     video: "/admin.webm",
     problem:
       "Your team is spending too much time on repetitive tasks that keep the business running but do not move it forward.",
@@ -31,8 +32,21 @@ const solutions = [
     ],
   },
   {
+    title: "Turn scattered information into usable data",
+    category: "Data Processing",
+    problem:
+      "Important information lives in emails, PDFs, notes, messages, and across the tools and sites you rely on, but it never makes it into your systems cleanly. Your team re-enters data, misses details, or works from incomplete information.",
+    solution:
+      "We capture incoming information from wherever it appears, structure it, and send it into the right systems automatically so it is usable the moment it comes in.",
+    outcomes: [
+      "No manual data entry across systems",
+      "Important details do not get lost or missed",
+      "Work starts with complete, structured information",
+    ],
+  },
+  {
     title: "Improve follow-up and sales",
-    category: "Automation Workflow",
+    category: "Sales Automation",
     problem:
       "Sales follow-up depends too much on memory, manual reminders, or inconsistent processes.",
     solution:
@@ -41,19 +55,6 @@ const solutions = [
       "More consistent follow-up",
       "Better conversion from active leads",
       "Less time spent chasing next steps",
-    ],
-  },
-  {
-    title: "Streamline onboarding",
-    category: "Client Onboarding",
-    problem:
-      "Manual onboarding creates delays, missed steps, and a frustrating experience for both your team and new clients or hires.",
-    solution:
-      "Use automated onboarding flows, checklists, document requests, notifications, and internal tasks to keep everything moving.",
-    outcomes: [
-      "Faster ramp-up",
-      "Fewer gaps in the process",
-      "A smoother experience from day one",
     ],
   },
   {
@@ -87,7 +88,9 @@ const solutions = [
 export default function SolutionsPage() {
   const enrichedSolutions = solutions.map((solution) => ({
     ...solution,
-    latestPost: getLatestPostByCategory(solution.category),
+    latestPost: getLatestPostByCategory(
+      solution.caseStudyCategory ?? solution.category
+    ),
   }));
 
   return <SolutionsClient solutions={enrichedSolutions} />;
