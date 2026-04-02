@@ -65,11 +65,11 @@ export default function ScheduleCallButton({
         onClick={handleOpen}
         fullWidth={fullWidth}
         sx={{
-          borderRadius: "50px",
+          borderRadius: "var(--radius-pill)",
           fontWeight: "bold",
           px: 3,
           transition:
-            "background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease",
+            "background-color var(--dur-base) ease, color var(--dur-base) ease, border-color var(--dur-base) ease, box-shadow var(--dur-base) ease",
           ...(variant === "contained" && {
             backgroundColor: inverse ? "#FFFFFF" : WARM_BLACK,
             color: inverse ? WARM_BLACK : "#FFFFFF",
@@ -131,7 +131,7 @@ export default function ScheduleCallButton({
             left: "50%",
             transform: "translate(-50%, -50%)",
             bgcolor: "background.paper",
-            boxShadow: "0 32px 120px rgba(28,25,23,0.28)",
+            boxShadow: "var(--shadow-schedule)",
             width: "100%",
             maxWidth: mounted && isMobile ? "96%" : "980px",
             maxHeight: "96vh",

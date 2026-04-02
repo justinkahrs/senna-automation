@@ -6,3 +6,25 @@ When writing or editing blog posts, follow these capitalization rules for headin
 - **H3**: Title Case
 
 **Exception**: Always capitalize proper nouns, regardless of the heading level or case rule.
+
+# Design System Rules
+
+Before writing or modifying any UI code, read the relevant
+spec file in `specs/`. Use only tokens from `src/app/tokens.css`.
+Run `node scripts/token-audit.js` before committing. Zero errors required.
+
+Key references:
+- **Token definitions:** `src/app/tokens.css` (three-layer architecture)
+- **Foundation specs:** `specs/foundations/` (color, spacing, typography, radius, elevation, motion)
+- **Component specs:** `specs/components/` (anatomy, tokens, states, examples)
+- **Token master map:** `specs/tokens/token-reference.md`
+
+Rules:
+1. Never use hardcoded hex/rgba colors, px spacing, raw font-sizes,
+   font-weights, box-shadows, or z-index values in CSS or `sx` props.
+2. Reference `var(--token-name)` from tokens.css for all visual values.
+3. In MUI `sx` props, keep MUI palette refs (`"primary.main"`, `"text.secondary"`)
+   where they map correctly to the design system. Only use `var()` for values
+   that MUI doesn't cover (raw shadows, on-dark colors, custom transitions).
+4. For Framer Motion, reference the numeric equivalents documented in
+   `specs/foundations/motion.md`.

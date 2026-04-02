@@ -98,7 +98,7 @@ const SolutionCard = ({
         border: "1px solid",
         borderColor: "divider",
         overflow: "hidden",
-        boxShadow: "0 20px 60px rgba(0,0,0,0.04)",
+        boxShadow: "var(--shadow-hero)",
         position: "relative",
         height: isDesktop ? "auto" : "100%",
         minHeight: isDesktop ? { sm: 580, md: 620, lg: 680 } : undefined,
@@ -424,7 +424,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
             <Typography
               variant="subtitle1"
               sx={{
-                color: "rgba(255,255,255,0.7)",
+                color: "var(--color-text-on-dark)",
                 mb: 4,
               }}
             >
@@ -591,7 +591,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
           <Typography
             variant="subtitle1"
             sx={{
-              color: "rgba(255,255,255,0.7)",
+              color: "var(--color-text-on-dark)",
               mb: 4,
             }}
           >
@@ -612,7 +612,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
                 display: "flex",
                 alignItems: "center",
                 gap: 0.5,
-                color: "rgba(255,255,255,0.55)",
+                color: "var(--color-text-on-dark-secondary)",
               }}
             >
               <Typography variant="caption" sx={{ color: "inherit" }}>
@@ -633,7 +633,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
             </Box>
             <Typography
               variant="caption"
-              sx={{ color: "rgba(255,255,255,0.4)" }}
+              sx={{ color: "var(--color-text-on-dark-muted)" }}
             >
               Prefer a form?{" "}
               <Button
@@ -642,7 +642,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
                 variant="text"
                 size="small"
                 sx={{
-                  color: "rgba(255,255,255,0.5)",
+                  color: "var(--color-text-on-dark-subtle)",
                   p: 0,
                   minWidth: 0,
                   textDecoration: "underline",

@@ -1,0 +1,346 @@
+/* ================================================================
+   SENNA AUTOMATION — DESIGN TOKENS (tokens.css)
+   ================================================================
+   Three-layer architecture:
+     Layer 1 — Upstream design-system primitives  (--ds-*)
+     Layer 2 — Project semantic aliases            (--color-*, --space-*, …)
+     Layer 3 — Components consume Layer 2 only
+
+   Rule: Component CSS / sx props must NEVER use raw hex, rgba,
+   px spacing, or font-size values. Reference these tokens instead.
+   ================================================================ */
+
+:root {
+
+  /* ================================================================
+     LAYER 1 — UPSTREAM PRIMITIVES
+     Source of truth mirrors src/components/theme/colors.ts
+     and the MUI theme defined in src/components/theme/theme.ts.
+     ================================================================ */
+
+  /* ── Core palette ────────────────────────────────────────────── */
+  --ds-warm-black:   #1C1917;
+  --ds-warm-dark:    #292524;
+  --ds-stone-600:    #57534E;
+  --ds-stone-400:    #A8A29E;
+  --ds-accent:       #2D6B5E;
+  --ds-accent-light: #3D8B78;
+  --ds-accent-dark:  #1E5244;
+  --ds-bg-base:      #F7F6F4;
+  --ds-bg-paper:     #FFFFFF;
+  --ds-bg-subtle:    #F0EFEC;
+  --ds-border-soft:  #E7E5E4;
+  --ds-border-med:   #D6D3D1;
+  --ds-white:        #FFFFFF;
+  --ds-black:        #000000;
+
+  /* ── Typography families ─────────────────────────────────────── */
+  /* Actual font-family values are set by Next.js font loaders
+     (Inter, Cormorant Garamond) at runtime. These are fallback
+     stacks for CSS-only contexts. */
+  --ds-font-sans:  "Inter", system-ui, -apple-system, sans-serif;
+  --ds-font-serif: "Cormorant Garamond", "Georgia", serif;
+
+  /* ── Type scale (desktop) ────────────────────────────────────── */
+  --ds-type-h1:       4.209rem;  /* 67.3px */
+  --ds-type-h2:       3.157rem;  /* 50.5px */
+  --ds-type-h3:       2.369rem;  /* 37.9px */
+  --ds-type-h4:       1.777rem;  /* 28.4px */
+  --ds-type-h5:       1.125rem;  /* 18px   */
+  --ds-type-h6:       0.9375rem; /* 15px   */
+  --ds-type-body-lg:  1.125rem;  /* 18px   */
+  --ds-type-body:     1.0rem;    /* 16px   */
+  --ds-type-body-sm:  0.875rem;  /* 14px   */
+  --ds-type-caption:  0.75rem;   /* 12px   */
+  --ds-type-eyebrow:  0.875rem;  /* 14px   */
+  --ds-type-button:   0.9375rem; /* 15px   */
+  --ds-type-pull:     1.75rem;   /* 28px   */
+
+  /* ── Font weights ────────────────────────────────────────────── */
+  --ds-weight-regular:  400;
+  --ds-weight-medium:   500;
+  --ds-weight-semibold: 600;
+  --ds-weight-bold:     700;
+  --ds-weight-extrabold: 800;
+
+  /* ── Line heights ────────────────────────────────────────────── */
+  --ds-leading-none:    1.0;
+  --ds-leading-tight:   1.1;
+  --ds-leading-snug:    1.25;
+  --ds-leading-normal:  1.5;
+  --ds-leading-relaxed: 1.65;
+  --ds-leading-loose:   1.8;
+
+  /* ── Spacing scale (8px base) ────────────────────────────────── */
+  --ds-space-0:   0px;
+  --ds-space-0-5: 2px;
+  --ds-space-1:   4px;
+  --ds-space-1-5: 6px;
+  --ds-space-2:   8px;
+  --ds-space-3:   12px;
+  --ds-space-4:   16px;
+  --ds-space-5:   20px;
+  --ds-space-6:   24px;
+  --ds-space-8:   32px;
+  --ds-space-10:  40px;
+  --ds-space-12:  48px;
+  --ds-space-16:  64px;
+  --ds-space-20:  80px;
+  --ds-space-24:  96px;
+
+  /* ── Border radius ───────────────────────────────────────────── */
+  --ds-radius-xs:   3px;
+  --ds-radius-sm:   4px;
+  --ds-radius-md:   6px;
+  --ds-radius-base: 10px;
+  --ds-radius-lg:   12px;
+  --ds-radius-xl:   14px;
+  --ds-radius-2xl:  16px;
+  --ds-radius-3xl:  20px;
+  --ds-radius-pill: 9999px;
+
+  /* ── Elevation / shadows ─────────────────────────────────────── */
+  --ds-shadow-none: none;
+  --ds-shadow-xs:   0 1px 3px rgba(28,25,23,0.06), 0 1px 2px rgba(28,25,23,0.04);
+  --ds-shadow-sm:   0 4px 16px rgba(28,25,23,0.08), 0 2px 6px rgba(28,25,23,0.05);
+  --ds-shadow-md:   0 8px 32px rgba(28,25,23,0.10), 0 3px 10px rgba(28,25,23,0.06);
+  --ds-shadow-lg:   0 20px 60px rgba(28,25,23,0.12), 0 6px 16px rgba(28,25,23,0.08);
+  --ds-shadow-xl:   0 32px 80px rgba(28,25,23,0.16), 0 8px 24px rgba(28,25,23,0.10);
+  --ds-shadow-2xl:  0 40px 100px rgba(28,25,23,0.20), 0 10px 32px rgba(28,25,23,0.12);
+
+  /* ── Z-index scale ───────────────────────────────────────────── */
+  --ds-z-base:      0;
+  --ds-z-raised:    1;
+  --ds-z-above:     2;
+  --ds-z-dropdown:  100;
+  --ds-z-sticky:    200;
+  --ds-z-overlay:   1000;
+  --ds-z-modal:     2000;
+  --ds-z-toast:     9999;
+
+  /* ── Motion / easing ─────────────────────────────────────────── */
+  --ds-ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ds-ease-enter:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ds-ease-exit:   cubic-bezier(0.55, 0, 1, 0.45);
+  --ds-dur-instant: 0ms;
+  --ds-dur-fast:    120ms;
+  --ds-dur-base:    180ms;
+  --ds-dur-moderate: 280ms;
+  --ds-dur-slow:    520ms;
+
+  /* ── Opacity / alpha scale ───────────────────────────────────── */
+  --ds-alpha-03: 0.03;
+  --ds-alpha-04: 0.04;
+  --ds-alpha-05: 0.05;
+  --ds-alpha-06: 0.06;
+  --ds-alpha-08: 0.08;
+  --ds-alpha-10: 0.10;
+  --ds-alpha-12: 0.12;
+  --ds-alpha-16: 0.16;
+  --ds-alpha-22: 0.22;
+  --ds-alpha-40: 0.40;
+  --ds-alpha-45: 0.45;
+  --ds-alpha-50: 0.50;
+  --ds-alpha-55: 0.55;
+  --ds-alpha-60: 0.60;
+  --ds-alpha-70: 0.70;
+  --ds-alpha-78: 0.78;
+  --ds-alpha-84: 0.84;
+
+
+  /* ================================================================
+     LAYER 2 — SEMANTIC ALIASES
+     Components reference ONLY these variables.
+     Each alias points to a Layer 1 primitive with a hardcoded fallback.
+     ================================================================ */
+
+  /* ── Text colors ─────────────────────────────────────────────── */
+  --color-text-primary:        var(--ds-warm-black,  #1C1917);
+  --color-text-secondary:      var(--ds-stone-600,   #57534E);
+  --color-text-muted:          var(--ds-stone-400,   #A8A29E);
+  --color-text-inverse:        var(--ds-white,       #FFFFFF);
+  --color-text-accent:         var(--ds-accent,      #2D6B5E);
+  --color-text-link:           var(--ds-accent,      #2D6B5E);
+  --color-text-link-hover:     var(--ds-accent-light,#3D8B78);
+
+  /* On-dark-surface text (white at varying opacities) */
+  --color-text-on-dark:            rgba(255,255,255, 0.70);
+  --color-text-on-dark-secondary:  rgba(255,255,255, 0.55);
+  --color-text-on-dark-muted:      rgba(255,255,255, 0.40);
+  --color-text-on-dark-faint:      rgba(255,255,255, 0.06);
+  --color-text-on-dark-subtle:     rgba(255,255,255, 0.50);
+  --color-text-on-dark-prominent:  rgba(255,255,255, 0.78);
+  --color-text-on-dark-strong:     rgba(255,255,255, 0.84);
+  --color-text-on-dark-body:       rgba(255,255,255, 0.60);
+
+  /* ── Background colors ───────────────────────────────────────── */
+  --color-bg-base:    var(--ds-bg-base,   #F7F6F4);
+  --color-bg-paper:   var(--ds-bg-paper,  #FFFFFF);
+  --color-bg-subtle:  var(--ds-bg-subtle, #F0EFEC);
+  --color-bg-inverse: var(--ds-warm-black,#1C1917);
+  --color-bg-dark:    var(--ds-warm-dark, #292524);
+  --color-bg-chat:    #F2F6F5;
+
+  /* Interactive surface states (accent-tinted) */
+  --color-bg-hover:           rgba(45, 107, 94, 0.06);
+  --color-bg-selected:        rgba(45, 107, 94, 0.10);
+  --color-bg-focus:           rgba(45, 107, 94, 0.12);
+  --color-bg-accent-faint:    rgba(45, 107, 94, 0.08);
+  --color-bg-accent-subtle:   rgba(45, 107, 94, 0.04);
+  --color-bg-accent-hover:    rgba(45, 107, 94, 0.07);
+
+  /* Interactive surface states (neutral) */
+  --color-bg-neutral-hover:   rgba(28, 25, 23, 0.04);
+  --color-bg-neutral-subtle:  rgba(28, 25, 23, 0.03);
+
+  /* On-dark surface states (white-tinted) */
+  --color-bg-on-dark-hover:   rgba(255, 255, 255, 0.08);
+  --color-bg-on-dark-subtle:  rgba(255, 255, 255, 0.03);
+  --color-bg-on-dark-raised:  rgba(255, 255, 255, 0.06);
+  --color-bg-on-dark-border:  rgba(255, 255, 255, 0.10);
+  --color-bg-on-dark-16:      rgba(255, 255, 255, 0.16);
+  --color-bg-on-dark-22:      rgba(255, 255, 255, 0.22);
+
+  /* ── Accent / brand colors ───────────────────────────────────── */
+  --color-accent:       var(--ds-accent,       #2D6B5E);
+  --color-accent-light: var(--ds-accent-light, #3D8B78);
+  --color-accent-dark:  var(--ds-accent-dark,  #1E5244);
+
+  /* ── Border colors ───────────────────────────────────────────── */
+  --color-border-soft:   var(--ds-border-soft, #E7E5E4);
+  --color-border-medium: var(--ds-border-med,  #D6D3D1);
+  --color-border-accent: var(--ds-accent,      #2D6B5E);
+  --color-border-on-dark: rgba(255, 255, 255, 0.06);
+  --color-border-neutral-light: rgba(28, 25, 23, 0.08);
+  --color-border-neutral:       rgba(0, 0, 0, 0.05);
+
+  /* ── Focus ring ──────────────────────────────────────────────── */
+  --color-focus-ring:   rgba(45, 107, 94, 0.12);
+
+  /* ── Spacing aliases ─────────────────────────────────────────── */
+  --space-0:   var(--ds-space-0,   0px);
+  --space-0-5: var(--ds-space-0-5, 2px);
+  --space-1:   var(--ds-space-1,   4px);
+  --space-1-5: var(--ds-space-1-5, 6px);
+  --space-2:   var(--ds-space-2,   8px);
+  --space-3:   var(--ds-space-3,   12px);
+  --space-4:   var(--ds-space-4,   16px);
+  --space-5:   var(--ds-space-5,   20px);
+  --space-6:   var(--ds-space-6,   24px);
+  --space-8:   var(--ds-space-8,   32px);
+  --space-10:  var(--ds-space-10,  40px);
+  --space-12:  var(--ds-space-12,  48px);
+  --space-16:  var(--ds-space-16,  64px);
+  --space-20:  var(--ds-space-20,  80px);
+  --space-24:  var(--ds-space-24,  96px);
+
+  /* ── Typography aliases ──────────────────────────────────────── */
+  --font-sans:  var(--ds-font-sans);
+  --font-serif: var(--ds-font-serif);
+
+  --type-h1:       var(--ds-type-h1,       4.209rem);
+  --type-h2:       var(--ds-type-h2,       3.157rem);
+  --type-h3:       var(--ds-type-h3,       2.369rem);
+  --type-h4:       var(--ds-type-h4,       1.777rem);
+  --type-h5:       var(--ds-type-h5,       1.125rem);
+  --type-h6:       var(--ds-type-h6,       0.9375rem);
+  --type-body-lg:  var(--ds-type-body-lg,  1.125rem);
+  --type-body:     var(--ds-type-body,     1.0rem);
+  --type-body-sm:  var(--ds-type-body-sm,  0.875rem);
+  --type-caption:  var(--ds-type-caption,  0.75rem);
+  --type-eyebrow:  var(--ds-type-eyebrow,  0.875rem);
+  --type-button:   var(--ds-type-button,   0.9375rem);
+  --type-pull:     var(--ds-type-pull,     1.75rem);
+
+  --weight-regular:  var(--ds-weight-regular,  400);
+  --weight-medium:   var(--ds-weight-medium,   500);
+  --weight-semibold: var(--ds-weight-semibold, 600);
+  --weight-bold:     var(--ds-weight-bold,     700);
+  --weight-extrabold: var(--ds-weight-extrabold, 800);
+
+  --leading-none:    var(--ds-leading-none,    1.0);
+  --leading-tight:   var(--ds-leading-tight,   1.1);
+  --leading-snug:    var(--ds-leading-snug,    1.25);
+  --leading-normal:  var(--ds-leading-normal,  1.5);
+  --leading-relaxed: var(--ds-leading-relaxed, 1.65);
+  --leading-loose:   var(--ds-leading-loose,   1.8);
+
+  /* ── Border radius aliases ───────────────────────────────────── */
+  --radius-xs:   var(--ds-radius-xs,   3px);
+  --radius-sm:   var(--ds-radius-sm,   4px);
+  --radius-md:   var(--ds-radius-md,   6px);
+  --radius-base: var(--ds-radius-base, 10px);
+  --radius-lg:   var(--ds-radius-lg,   12px);
+  --radius-xl:   var(--ds-radius-xl,   14px);
+  --radius-2xl:  var(--ds-radius-2xl,  16px);
+  --radius-3xl:  var(--ds-radius-3xl,  20px);
+  --radius-pill: var(--ds-radius-pill, 9999px);
+
+  /* ── Elevation / shadow aliases ──────────────────────────────── */
+  --shadow-none: var(--ds-shadow-none, none);
+  --shadow-xs:   var(--ds-shadow-xs);
+  --shadow-sm:   var(--ds-shadow-sm);
+  --shadow-md:   var(--ds-shadow-md);
+  --shadow-lg:   var(--ds-shadow-lg);
+  --shadow-xl:   var(--ds-shadow-xl);
+  --shadow-2xl:  var(--ds-shadow-2xl);
+
+  /* Context-specific shadows */
+  --shadow-card:         var(--shadow-xs);
+  --shadow-card-hover:   0 8px 28px rgba(28,25,23,0.10), 0 3px 8px rgba(28,25,23,0.06);
+  --shadow-dialog:       0 20px 64px rgba(28,25,23,0.14), 0 6px 16px rgba(28,25,23,0.08);
+  --shadow-dropdown:     0 8px 32px rgba(28,25,23,0.16);
+  --shadow-appbar:       0 2px 16px rgba(28,25,23,0.07);
+  --shadow-btn-accent:   0 4px 14px rgba(45,107,94,0.22);
+  --shadow-btn-dark:     0 4px 16px rgba(28,25,23,0.20);
+  --shadow-hero:         0 20px 60px rgba(0,0,0,0.04);
+  --shadow-hero-image:   0 30px 90px rgba(0,0,0,0.18);
+  --shadow-blog-card:    0 18px 50px rgba(28,25,23,0.05);
+  --shadow-blog-card-hover: 0 24px 60px rgba(28,25,23,0.08);
+  --shadow-cta:          0 40px 100px rgba(0,0,0,0.15);
+  --shadow-blog-hero:    0 20px 80px rgba(0,0,0,0.4);
+  --shadow-blog-featured: 0 18px 40px rgba(0,0,0,0.22);
+  --shadow-blog-article: 0 24px 70px rgba(28,25,23,0.05);
+  --shadow-blog-header:  0 20px 60px rgba(0,0,0,0.1);
+  --shadow-pricing:      0 20px 80px rgba(0,0,0,0.06);
+  --shadow-schedule:     0 32px 120px rgba(28,25,23,0.28);
+  --shadow-portfolio:    0 10px 30px rgba(0,0,0,0.08);
+  --shadow-portfolio-hover: 0 20px 40px rgba(0,0,0,0.12);
+
+  /* ── Z-index aliases ─────────────────────────────────────────── */
+  --z-base:     var(--ds-z-base,     0);
+  --z-raised:   var(--ds-z-raised,   1);
+  --z-above:    var(--ds-z-above,    2);
+  --z-dropdown: var(--ds-z-dropdown, 100);
+  --z-sticky:   var(--ds-z-sticky,   200);
+  --z-overlay:  var(--ds-z-overlay,  1000);
+  --z-modal:    var(--ds-z-modal,    2000);
+  --z-toast:    var(--ds-z-toast,    9999);
+
+  /* ── Motion aliases ──────────────────────────────────────────── */
+  --ease-smooth:   var(--ds-ease-smooth);
+  --ease-enter:    var(--ds-ease-enter);
+  --ease-exit:     var(--ds-ease-exit);
+  --dur-instant:   var(--ds-dur-instant, 0ms);
+  --dur-fast:      var(--ds-dur-fast,    120ms);
+  --dur-base:      var(--ds-dur-base,    180ms);
+  --dur-moderate:  var(--ds-dur-moderate, 280ms);
+  --dur-slow:      var(--ds-dur-slow,    520ms);
+
+  /* ── Composite transition shorthand aliases ──────────────────── */
+  --transition-colors: color var(--dur-base) var(--ease-smooth),
+                       background-color var(--dur-base) var(--ease-smooth),
+                       border-color var(--dur-base) var(--ease-smooth);
+  --transition-shadow: box-shadow var(--dur-moderate) var(--ease-smooth);
+  --transition-transform: transform var(--dur-fast) var(--ease-smooth);
+  --transition-all-fast: color var(--dur-fast) var(--ease-smooth),
+                         background-color var(--dur-fast) var(--ease-smooth),
+                         border-color var(--dur-fast) var(--ease-smooth),
+                         opacity var(--dur-fast) var(--ease-smooth),
+                         transform var(--dur-fast) var(--ease-smooth),
+                         box-shadow var(--dur-fast) var(--ease-smooth);
+
+  /* ── Legacy aliases (backward-compat with globals.css) ───────── */
+  --background:  var(--color-bg-base);
+  --foreground:  var(--color-text-primary);
+}

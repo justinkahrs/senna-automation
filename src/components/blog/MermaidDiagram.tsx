@@ -4,6 +4,7 @@ import { useEffect, useId, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import type { SxProps, Theme } from "@mui/material/styles";
+import { BG_BASE, WARM_BLACK, BORDER_MED, ACCENT, BG_PAPER, BG_SUBTLE } from "@/components/theme/colors";
 
 declare global {
   interface Window {
@@ -44,12 +45,12 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
           theme: "base",
           securityLevel: "loose",
           themeVariables: {
-            primaryColor: "#F7F6F4",
-            primaryTextColor: "#1C1917",
-            primaryBorderColor: "#D6D3D1",
-            lineColor: "#2D6B5E",
-            secondaryColor: "#FFFFFF",
-            tertiaryColor: "#F0EFEC",
+            primaryColor: BG_BASE,
+            primaryTextColor: WARM_BLACK,
+            primaryBorderColor: BORDER_MED,
+            lineColor: ACCENT,
+            secondaryColor: BG_PAPER,
+            tertiaryColor: BG_SUBTLE,
             fontFamily: "Inter, sans-serif",
             fontSize: "16px",
           },

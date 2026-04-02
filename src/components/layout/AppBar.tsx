@@ -90,9 +90,9 @@ export function AppBar() {
         // backgroundColor: STONE_400,
         borderBottom: "1px solid",
         borderColor: scrolled ? "divider" : "divider",
-        boxShadow: scrolled ? "0 2px 16px rgba(28, 25, 23, 0.07)" : "none",
+        boxShadow: scrolled ? "var(--shadow-appbar)" : "var(--shadow-none)",
         transition:
-          "box-shadow 300ms cubic-bezier(0.25,0.46,0.45,0.94), border-color 300ms ease",
+          "box-shadow var(--dur-moderate) var(--ease-smooth), border-color var(--dur-moderate) ease",
       }}
     >
       <Toolbar
@@ -113,7 +113,7 @@ export function AppBar() {
               sx={{
                 height: 36,
                 cursor: "pointer",
-                transition: "opacity 180ms ease",
+                transition: "opacity var(--dur-base) ease",
                 "&:hover": { opacity: 0.8 },
               }}
             />
@@ -138,21 +138,21 @@ export function AppBar() {
                   sx={{
                     color: isActive ? "primary.main" : "text.secondary",
                     fontWeight: isActive ? 600 : 500,
-                    fontSize: "0.9375rem",
+                    fontSize: "var(--type-button)",
                     letterSpacing: "-0.01em",
                     px: 1.5,
                     py: 0.75,
                     borderRadius: 2,
                     minWidth: 0,
                     backgroundColor: isActive
-                      ? "rgba(45,107,94,0.07)"
+                      ? "var(--color-bg-accent-hover)"
                       : "transparent",
                     position: "relative",
                     "&:hover": {
-                      backgroundColor: "rgba(28,25,23,0.04)",
+                      backgroundColor: "var(--color-bg-neutral-hover)",
                       color: "text.primary",
                     },
-                    transition: "color 180ms ease, background-color 180ms ease",
+                    transition: "color var(--dur-base) ease, background-color var(--dur-base) ease",
                   }}
                 >
                   {label}
@@ -176,14 +176,14 @@ export function AppBar() {
               sx={{
                 borderColor: "divider",
                 color: "text.secondary",
-                borderRadius: "9999px",
+                borderRadius: "var(--radius-pill)",
                 px: 2.5,
                 py: 0.875,
-                fontSize: "0.9375rem",
-                fontWeight: 500,
+                fontSize: "var(--type-button)",
+                fontWeight: "var(--weight-medium)",
                 "&:hover": {
                   borderColor: "text.secondary",
-                  backgroundColor: "rgba(28,25,23,0.03)",
+                  backgroundColor: "var(--color-bg-neutral-subtle)",
                   color: "text.primary",
                 },
               }}
@@ -195,15 +195,15 @@ export function AppBar() {
               showIcon={false}
               sx={{
                 backgroundColor: "secondary.main",
-                color: "#FFFFFF",
-                borderRadius: "9999px",
+                color: "var(--color-text-inverse)",
+                borderRadius: "var(--radius-pill)",
                 px: 2.5,
                 py: 0.875,
-                fontSize: "0.9375rem",
-                fontWeight: 500,
+                fontSize: "var(--type-button)",
+                fontWeight: "var(--weight-medium)",
                 "&:hover": {
-                  backgroundColor: "#292524",
-                  boxShadow: "0 4px 16px rgba(28,25,23,0.20)",
+                  backgroundColor: "var(--color-bg-dark)",
+                  boxShadow: "var(--shadow-btn-dark)",
                 },
               }}
             />
@@ -222,7 +222,7 @@ export function AppBar() {
                 width: 40,
                 height: 40,
                 borderRadius: 2,
-                transition: "background-color 180ms ease",
+                transition: "background-color var(--dur-base) ease",
               }}
             >
               {isOpen ? (
@@ -241,7 +241,7 @@ export function AppBar() {
                   backgroundColor: "background.paper",
                   border: "1px solid",
                   borderColor: "divider",
-                  boxShadow: "0 8px 32px rgba(28,25,23,0.10)",
+                  boxShadow: "var(--shadow-md)",
                   borderRadius: 3,
                   mt: 1,
                   minWidth: 220,
@@ -263,18 +263,18 @@ export function AppBar() {
                       backgroundColor: "transparent",
                       color: isActive ? "primary.main" : "text.primary",
                       fontWeight: isActive ? 600 : 400,
-                      fontSize: "0.9375rem",
+                      fontSize: "var(--type-button)",
                       py: 1.25,
                       px: 2,
                       borderRadius: 1,
                       mx: 0.5,
                       "&:not(:last-child)": { borderBottom: "none" },
                       "&:hover": {
-                        backgroundColor: "rgba(28,25,23,0.04)",
+                        backgroundColor: "var(--color-bg-neutral-hover)",
                         color: "text.primary",
                       },
                       "&.Mui-selected": {
-                        backgroundColor: "rgba(45,107,94,0.07)",
+                        backgroundColor: "var(--color-bg-accent-hover)",
                       },
                     }}
                   >
@@ -295,14 +295,14 @@ export function AppBar() {
                 sx={{
                   backgroundColor: "transparent",
                   color: "text.secondary",
-                  fontSize: "0.9375rem",
+                  fontSize: "var(--type-button)",
                   py: 1.25,
                   px: 2,
                   borderRadius: 1,
                   mx: 0.5,
                   "&:not(:last-child)": { borderBottom: "none" },
                   "&:hover": {
-                    backgroundColor: "rgba(28,25,23,0.04)",
+                    backgroundColor: "var(--color-bg-neutral-hover)",
                     color: "text.primary",
                   },
                 }}
@@ -319,12 +319,12 @@ export function AppBar() {
                   showIcon={false}
                   sx={{
                     backgroundColor: "secondary.main",
-                    color: "#FFFFFF",
-                    borderRadius: "9999px",
+                    color: "var(--color-text-inverse)",
+                    borderRadius: "var(--radius-pill)",
                     py: 1.25,
                     fontWeight: 500,
                     "&:hover": {
-                      backgroundColor: "#292524",
+                      backgroundColor: "var(--color-bg-dark)",
                     },
                   }}
                 />

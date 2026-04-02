@@ -500,11 +500,11 @@ export default function Home() {
                     backgroundImage: "none",
                     boxShadow: "none",
                     border: "1px solid",
-                    borderColor: "rgba(28,25,23,0.08)",
+                    borderColor: "var(--color-border-neutral-light)",
                     "&:hover": {
                       transform: "none",
                       boxShadow: "none",
-                      borderColor: "rgba(28,25,23,0.08)",
+                      borderColor: "var(--color-border-neutral-light)",
                     },
                   }}
                 >
@@ -760,11 +760,11 @@ export default function Home() {
                 disableGutters
                 slotProps={{ transition: { timeout: 140 } }}
                 sx={{
-                  bgcolor: "rgba(255,255,255,0.03)",
-                  borderColor: "rgba(255,255,255,0.1)",
+                  bgcolor: "var(--color-bg-on-dark-subtle)",
+                  borderColor: "var(--color-bg-on-dark-border)",
                   color: "inherit",
                   "&.Mui-expanded": {
-                    bgcolor: "rgba(255,255,255,0.06)",
+                    bgcolor: "var(--color-bg-on-dark-raised)",
                   },
                 }}
               >
@@ -781,7 +781,7 @@ export default function Home() {
                   <Typography
                     component="div"
                     variant="body1"
-                    sx={{ color: "rgba(255,255,255,0.7)" }}
+                    sx={{ color: "var(--color-text-on-dark)" }}
                   >
                     {faq.answer}
                   </Typography>
@@ -812,7 +812,7 @@ export default function Home() {
                   display: "flex",
                   alignItems: "center",
                   gap: 0.5,
-                  color: "rgba(255,255,255,0.55)",
+                  color: "var(--color-text-on-dark-secondary)",
                 }}
               >
                 <Typography variant="caption" sx={{ color: "inherit" }}>

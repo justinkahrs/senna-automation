@@ -116,7 +116,7 @@ const markdownComponents = {
           width: "100%",
           borderRadius: 4,
           display: "block",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.1)",
+          boxShadow: "var(--shadow-blog-header)",
         }}
       />
     </Box>
@@ -151,7 +151,7 @@ const markdownComponents = {
         py: { xs: 4, md: 5 },
         bgcolor: alpha(ACCENT, 0.06),
         borderRadius: 3,
-        boxShadow: "0 24px 70px rgba(28,25,23,0.05)",
+        boxShadow: "var(--shadow-blog-article)",
         "& .MuiTypography-body1": {
           mb: 2.5,
           lineHeight: 1.85,
@@ -207,7 +207,7 @@ const markdownComponents = {
         sx={{
           fontFamily: "monospace",
           fontSize: "0.95em",
-          bgcolor: "rgba(45,107,94,0.08)",
+          bgcolor: "var(--color-bg-accent-faint)",
           px: 0.75,
           py: 0.25,
           borderRadius: 1,
@@ -354,7 +354,7 @@ export default async function BlogPostPage({
                   <Typography
                     variant="subtitle1"
                     sx={{
-                      color: "rgba(255,255,255,0.7)",
+                      color: "var(--color-text-on-dark)",
                       maxWidth: "500px",
                       fontSize: "1.25rem",
                       lineHeight: 1.6,
@@ -510,11 +510,11 @@ export default async function BlogPostPage({
                       bgcolor: alpha(ACCENT, 0.06),
                       border: "1px solid",
                       borderColor: alpha(ACCENT, 0.14),
-                      boxShadow: "0 18px 50px rgba(28,25,23,0.05)",
+                      boxShadow: "var(--shadow-blog-card)",
                       transition: "transform 180ms ease, box-shadow 180ms ease",
                       "&:hover": {
                         transform: "translateY(-2px)",
-                        boxShadow: "0 24px 60px rgba(28,25,23,0.08)",
+                        boxShadow: "var(--shadow-blog-card-hover)",
                       },
                     }}
                   >
