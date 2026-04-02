@@ -13,7 +13,7 @@ export const ConsultationCTA = () => {
         p: { xs: 6, md: 10 },
         borderRadius: 4,
         textAlign: "center",
-        boxShadow: "0 40px 100px rgba(0,0,0,0.15)",
+        boxShadow: "var(--shadow-cta)",
         position: "relative",
         overflow: "hidden",
         "&::before": {
@@ -36,7 +36,7 @@ export const ConsultationCTA = () => {
         </Typography>
         <Typography
           variant="subtitle1"
-          sx={{ color: "rgba(255,255,255,0.7)", mb: 6, maxWidth: "560px", mx: "auto" }}
+          sx={{ color: "var(--color-text-on-dark)", mb: 6, maxWidth: "560px", mx: "auto" }}
         >
           Book a free 30-minute call. We&apos;ll walk through your workflows and
           identify exactly where automation can save you time.
@@ -54,7 +54,7 @@ export const ConsultationCTA = () => {
               display: "flex",
               alignItems: "center",
               gap: 0.5,
-              color: "rgba(255,255,255,0.55)",
+              color: "var(--color-text-on-dark-secondary)",
             }}
           >
             <Typography variant="caption" sx={{ color: "inherit" }}>
@@ -73,7 +73,7 @@ export const ConsultationCTA = () => {
               }}
             />
           </Box>
-          <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.45)" }}>
+          <Typography variant="caption" sx={{ color: "var(--color-text-on-dark-muted)" }}>
             No commitment. No prep needed.
           </Typography>
         </Stack>

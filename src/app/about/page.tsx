@@ -165,7 +165,7 @@ export default function About() {
                     border: "1px solid",
                     borderColor: "divider",
                     borderRadius: 4,
-                    boxShadow: "0 20px 60px rgba(0,0,0,0.04)",
+                    boxShadow: "var(--shadow-hero)",
                     overflow: "hidden",
                   }}
                 >
@@ -217,7 +217,7 @@ export default function About() {
               px: { xs: 4, md: 8 },
               bgcolor: "secondary.main",
               borderRadius: 6,
-              boxShadow: "0 30px 90px rgba(0,0,0,0.18)",
+              boxShadow: "var(--shadow-2xl)",
               position: "relative",
               overflow: "hidden",
             }}
@@ -272,7 +272,7 @@ export default function About() {
                     display: "flex",
                     alignItems: "center",
                     gap: 0.5,
-                    color: "rgba(255,255,255,0.55)",
+                    color: "var(--color-text-on-dark-secondary)",
                   }}
                 >
                   <Typography variant="caption" sx={{ color: "inherit" }}>
@@ -291,7 +291,7 @@ export default function About() {
                     }}
                   />
                 </Box>
-                <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.4)" }}>
+                <Typography variant="caption" sx={{ color: "var(--color-text-on-dark-muted)" }}>
                   Free call. No commitment.
                 </Typography>
               </Stack>

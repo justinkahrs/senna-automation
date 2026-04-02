@@ -290,7 +290,7 @@ export default function ChatWidget() {
                   mx: -2,
                   py: 1.25,
                   width: "calc(100% + 32px)",
-                  bgcolor: "#F2F6F5",
+                  bgcolor: "var(--color-bg-chat)",
                 }}
               >
                 <Logo
@@ -469,7 +469,7 @@ export default function ChatWidget() {
         sx={{
           px: 2.5,
           gap: 1,
-          borderRadius: "999px",
+          borderRadius: "var(--radius-pill)",
           fontWeight: 700,
           textTransform: "none",
           color: BG_BASE,
@@ -480,8 +480,8 @@ export default function ChatWidget() {
         <Typography
           component="span"
           sx={{
-            fontSize: "0.95rem",
-            fontWeight: 700,
+            fontSize: "var(--type-body)",
+            fontWeight: "var(--weight-bold)",
             lineHeight: 1,
             color: BG_BASE,
           }}

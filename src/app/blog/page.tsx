@@ -86,7 +86,7 @@ export default function BlogPage() {
                 />
                 <Typography
                   variant="subtitle1"
-                  sx={{ color: "rgba(255,255,255,0.7)", maxWidth: 600 }}
+                  sx={{ color: "var(--color-text-on-dark)", maxWidth: 600 }}
                 >
                   {blogPosts[0]?.heroSubtitle ||
                     "Automation is more than just script execution. It's the digital craftsmanship behind a calm, high-performing business."}
@@ -114,7 +114,7 @@ export default function BlogPage() {
                     position: "relative",
                     aspectRatio: "4 / 5",
                     overflow: "hidden",
-                    boxShadow: "0 20px 80px rgba(0,0,0,0.4)",
+                    boxShadow: "var(--shadow-blog-hero)",
                   }}
                 >
                   <Image
@@ -138,7 +138,7 @@ export default function BlogPage() {
                     py: { xs: 2.25, md: 2.5 },
                     width: "fit-content",
                     maxWidth: "100%",
-                    boxShadow: "0 18px 40px rgba(0,0,0,0.22)",
+                    boxShadow: "var(--shadow-blog-card)",
                     zIndex: 2,
                   }}
                 >
@@ -298,7 +298,7 @@ export default function BlogPage() {
           </Typography>
           <Typography
             variant="subtitle1"
-            sx={{ color: "rgba(255,255,255,0.7)", mb: 6 }}
+            sx={{ color: "var(--color-text-on-dark)", mb: 6 }}
           >
             Book a free 30-min call. We&apos;ll identify the highest-impact
             opportunities and map out exactly where to start.
@@ -316,7 +316,7 @@ export default function BlogPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: 0.5,
-                color: "rgba(255,255,255,0.55)",
+                color: "var(--color-text-on-dark-secondary)",
               }}
             >
               <Typography variant="caption" sx={{ color: "inherit" }}>
@@ -337,7 +337,7 @@ export default function BlogPage() {
             </Box>
             <Typography
               variant="caption"
-              sx={{ color: "rgba(255,255,255,0.4)" }}
+              sx={{ color: "var(--color-text-on-dark-muted)" }}
             >
               Free call. No commitment.
             </Typography>

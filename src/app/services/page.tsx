@@ -141,7 +141,7 @@ export default function ServicesPage() {
             </Typography>
             <Typography
               variant="subtitle1"
-              sx={{ color: "rgba(255,255,255,0.7)", mb: 4 }}
+              sx={{ color: "var(--color-text-on-dark)", mb: 4 }}
             >
               We build automation systems that save time, reduce manual work, and help your team focus
               on growing revenue.
@@ -365,7 +365,7 @@ export default function ServicesPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: 0.5,
-                color: "rgba(255,255,255,0.55)",
+                color: "var(--color-text-on-dark-secondary)",
               }}
             >
               <Typography variant="caption" sx={{ color: "inherit" }}>
@@ -384,14 +384,14 @@ export default function ServicesPage() {
                 }}
               />
             </Box>
-            <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.4)" }}>
+            <Typography variant="caption" sx={{ color: "var(--color-text-on-dark-muted)" }}>
               Prefer a form?{" "}
               <Button
                 component={Link}
                 href="/contact"
                 variant="text"
                 size="small"
-                sx={{ color: "rgba(255,255,255,0.5)", p: 0, minWidth: 0, textDecoration: "underline", fontSize: "inherit" }}
+                sx={{ color: "var(--color-text-on-dark-subtle)", p: 0, minWidth: 0, textDecoration: "underline", fontSize: "inherit" }}
               >
                 Contact us
               </Button>

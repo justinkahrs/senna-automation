@@ -77,7 +77,7 @@ export default function PricingPage() {
             left: "50%",
             transform: "translateX(-50%)",
             width: "100vw",
-            bgcolor: isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.03)",
+            bgcolor: isDark ? "var(--color-bg-on-dark-subtle)" : "var(--color-bg-neutral-subtle)",
             py: { xs: 4, md: 6 },
             px: { xs: 3, sm: 4, md: 5 },
           }}
@@ -225,7 +225,7 @@ export default function PricingPage() {
                 flexDirection: "column",
                 bgcolor: "background.paper",
                 borderRadius: 4,
-                boxShadow: "0 20px 80px rgba(0,0,0,0.06)",
+                boxShadow: "var(--shadow-pricing)",
                 border: "2px solid",
                 borderColor: "primary.main",
                 zIndex: 1,
@@ -251,7 +251,7 @@ export default function PricingPage() {
                     size="small" 
                     sx={{ 
                       bgcolor: 'primary.main', 
-                      color: '#FFF', 
+                      color: 'var(--color-text-inverse)', 
                       fontWeight: 700,
                       fontSize: '0.625rem',
                       height: 20
@@ -541,7 +541,7 @@ export default function PricingPage() {
                         <AccessTimeIcon sx={{ color: 'primary.light', mt: 0.5 }} />
                         <Box>
                           <Typography variant="h6" sx={{ fontWeight: 600 }}>10-20 Hours Saved</Typography>
-                          <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)' }}>Average weekly time reclaimed for leadership by automating routine admin.</Typography>
+                          <Typography variant="body2" sx={{ color: 'var(--color-text-on-dark-body)' }}>Average weekly time reclaimed for leadership by automating routine admin.</Typography>
                         </Box>
                       </Stack>
                     </Box>
@@ -550,7 +550,7 @@ export default function PricingPage() {
                         <TrendingUpIcon sx={{ color: 'primary.light', mt: 0.5 }} />
                         <Box>
                           <Typography variant="h6" sx={{ fontWeight: 600 }}>50% Higher Conversion</Typography>
-                          <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)' }}>Increase in meeting booking rates through instant automated lead response.</Typography>
+                          <Typography variant="body2" sx={{ color: 'var(--color-text-on-dark-body)' }}>Increase in meeting booking rates through instant automated lead response.</Typography>
                         </Box>
                       </Stack>
                     </Box>
@@ -559,7 +559,7 @@ export default function PricingPage() {
                         <BoltIcon sx={{ color: 'primary.light', mt: 0.5 }} />
                         <Box>
                           <Typography variant="h6" sx={{ fontWeight: 600 }}>10x Throughput</Typography>
-                          <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)' }}>Scaling your operational capacity without needing to scale your headcount.</Typography>
+                          <Typography variant="body2" sx={{ color: 'var(--color-text-on-dark-body)' }}>Scaling your operational capacity without needing to scale your headcount.</Typography>
                         </Box>
                       </Stack>
                     </Box>
@@ -587,11 +587,11 @@ export default function PricingPage() {
               sx={{
                 px: 6,
                 py: 2,
-                borderRadius: "50px",
-                backgroundColor: isDark ? "#FFFFFF" : WARM_BLACK,
-                color: isDark ? WARM_BLACK : "#FFFFFF",
+                borderRadius: "var(--radius-pill)",
+                backgroundColor: isDark ? "var(--color-bg-paper)" : WARM_BLACK,
+                color: isDark ? WARM_BLACK : "var(--color-text-inverse)",
                 "&:hover": {
-                  backgroundColor: isDark ? "#EEEEEE" : WARM_BLACK,
+                  backgroundColor: isDark ? "var(--color-bg-subtle)" : WARM_BLACK,
                 },
               }}
             >

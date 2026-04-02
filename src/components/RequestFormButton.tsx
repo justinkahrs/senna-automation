@@ -25,7 +25,7 @@ export default function RequestFormButton({
       size={size} 
       fullWidth={fullWidth}
       sx={{
-        borderRadius: "50px",
+        borderRadius: "var(--radius-pill)",
         fontWeight: "bold",
         px: 3,
         ...(variant === "contained" && {

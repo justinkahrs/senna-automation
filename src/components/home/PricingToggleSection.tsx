@@ -39,7 +39,7 @@ export default function PricingToggleSection() {
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(circle at 20% 20%, rgba(255,255,255,0.16), transparent 40%), radial-gradient(circle at 80% 30%, rgba(255,255,255,0.1), transparent 36%)",
+            "radial-gradient(circle at 20% 20%, var(--color-bg-on-dark-16), transparent 40%), radial-gradient(circle at 80% 30%, var(--color-bg-on-dark-border), transparent 36%)",
           pointerEvents: "none",
         }}
       />
@@ -51,9 +51,9 @@ export default function PricingToggleSection() {
               maxWidth: "1120px",
               mx: "auto",
               borderRadius: { xs: 4, md: 5 },
-              bgcolor: alpha("#FFFFFF", 0.08),
+              bgcolor: "var(--color-bg-on-dark-hover)",
               border: "1px solid",
-              borderColor: alpha("#FFFFFF", 0.16),
+              borderColor: "var(--color-bg-on-dark-16)",
               px: { xs: 3, sm: 4, md: 6 },
               py: { xs: 4, md: 5 },
               backdropFilter: "blur(8px)",
@@ -68,10 +68,10 @@ export default function PricingToggleSection() {
                     gap: 0.5,
                     p: 0.5,
                     mb: 2.5,
-                    borderRadius: "999px",
+                    borderRadius: "var(--radius-pill)",
                     border: "1px solid",
-                    borderColor: alpha("#FFFFFF", 0.22),
-                    bgcolor: alpha("#FFFFFF", 0.08),
+                    borderColor: "var(--color-bg-on-dark-22)",
+                    bgcolor: "var(--color-bg-on-dark-hover)",
                     width: { xs: "100%", sm: "fit-content" },
                   }}
                 >
@@ -88,7 +88,7 @@ export default function PricingToggleSection() {
                           minWidth: { xs: 0, md: 112 },
                           px: { xs: 1, sm: 2 },
                           py: 0.85,
-                          borderRadius: "999px",
+                          borderRadius: "var(--radius-pill)",
                           bgcolor: active ? "secondary.main" : "transparent",
                           color: "background.paper",
                           fontSize: { xs: "0.68rem", sm: "0.75rem", md: "0.78rem" },
@@ -99,7 +99,7 @@ export default function PricingToggleSection() {
                           "&:hover": {
                             bgcolor: active
                               ? "secondary.main"
-                              : alpha("#FFFFFF", 0.08),
+                              : "var(--color-bg-on-dark-hover)",
                           },
                         }}
                       >
@@ -111,7 +111,7 @@ export default function PricingToggleSection() {
                 <Typography
                   variant="overline"
                   sx={{
-                    color: alpha("#FFFFFF", 0.78),
+                    color: "var(--color-text-on-dark-prominent)",
                     display: "block",
                     mb: 2,
                   }}
@@ -133,7 +133,7 @@ export default function PricingToggleSection() {
                   variant="subtitle1"
                   sx={{
                     maxWidth: "760px",
-                    color: alpha("#FFFFFF", 0.84),
+                    color: "var(--color-text-on-dark-strong)",
                   }}
                 >
                   {activeTier.homepageDescription}
@@ -150,7 +150,7 @@ export default function PricingToggleSection() {
                   variant="body1"
                   sx={{
                     maxWidth: "620px",
-                    color: alpha("#FFFFFF", 0.78),
+                    color: "var(--color-text-on-dark-prominent)",
                   }}
                 >
                   {activeTier.homepageNote}

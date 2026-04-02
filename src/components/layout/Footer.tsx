@@ -72,13 +72,13 @@ export function Footer() {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ color: "rgba(255,255,255,0.6)", mb: 0.5 }}
+              sx={{ color: "var(--color-text-on-dark-body)", mb: 0.5 }}
             >
               Grand Rapids, MI
             </Typography>
             <Typography
               variant="body2"
-              sx={{ color: "rgba(255,255,255,0.6)", mb: 2 }}
+              sx={{ color: "var(--color-text-on-dark-body)", mb: 2 }}
             >
               (616) 287-3360
             </Typography>
@@ -97,10 +97,10 @@ export function Footer() {
                     key={link.label}
                     href={link.href}
                     sx={{
-                      color: "rgba(255,255,255,0.6)",
+                      color: "var(--color-text-on-dark-body)",
                       textDecoration: "none",
-                      transition: "color 0.2s",
-                      "&:hover": { color: "#FFFFFF" },
+                      transition: "color var(--dur-base) ease",
+                      "&:hover": { color: "var(--color-text-inverse)" },
                     }}
                   >
                     <Typography variant="body2" color="inherit">
@@ -125,7 +125,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
-                  color: "rgba(255,255,255,0.6)",
+                  color: "var(--color-text-on-dark-body)",
                   p: 0,
                   "&:hover": { color: "primary.light" },
                 }}
@@ -138,7 +138,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
-                  color: "rgba(255,255,255,0.6)",
+                  color: "var(--color-text-on-dark-body)",
                   p: 0,
                   "&:hover": { color: "primary.light" },
                 }}
@@ -166,7 +166,7 @@ export function Footer() {
               sx={{
                 display: "inline-flex",
                 opacity: 0.8,
-                transition: "opacity 0.2s, transform 0.2s",
+                transition: "opacity var(--dur-base) ease, transform var(--dur-base) ease",
                 marginLeft: "-42px", // Align with the heading above
                 "&:hover": {
                   opacity: 1,
@@ -181,7 +181,7 @@ export function Footer() {
                 sx={{
                   height: 100,
                   width: "auto",
-                  borderRadius: "4px",
+                  borderRadius: "var(--radius-sm)",
                 }}
               />
             </Link>
@@ -192,13 +192,13 @@ export function Footer() {
           sx={{
             mt: 10,
             pt: 4,
-            borderTop: "1px solid rgba(255,255,255,0.06)",
+            borderTop: "1px solid var(--color-border-on-dark)",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             flexWrap: "wrap",
             gap: 2,
-            color: "rgba(255,255,255,0.4)",
+            color: "var(--color-text-on-dark-muted)",
           }}
         >
           <Typography variant="body2" color="inherit">
@@ -210,7 +210,7 @@ export function Footer() {
               sx={{
                 color: "inherit",
                 textDecoration: "none",
-                "&:hover": { color: "#FFF" },
+                "&:hover": { color: "var(--color-text-inverse)" },
               }}
             >
               <Typography variant="body2">Privacy</Typography>
@@ -220,7 +220,7 @@ export function Footer() {
               sx={{
                 color: "inherit",
                 textDecoration: "none",
-                "&:hover": { color: "#FFF" },
+                "&:hover": { color: "var(--color-text-inverse)" },
               }}
             >
               <Typography variant="body2">Terms</Typography>
