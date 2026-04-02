@@ -45,16 +45,17 @@ const solutions = [
     ],
   },
   {
-    title: "Improve follow-up and sales",
-    category: "Sales Automation",
+    title: "Your custom algorithm",
+    category: "Decision Intelligence",
+    video: "/businessFormula.webm",
     problem:
-      "Sales follow-up depends too much on memory, manual reminders, or inconsistent processes.",
+      "Your business runs on experience, instincts, and scattered data, but turning that into consistent, repeatable decisions takes time and breaks down as you grow.",
     solution:
-      "Build automated follow-up sequences, pipeline triggers, reminders, and simple sales workflows that keep communication moving.",
+      "Turn your inputs into automated decisions using your own logic, with a custom system that calculates plans and triggers actions in real time.",
     outcomes: [
-      "More consistent follow-up",
-      "Better conversion from active leads",
-      "Less time spent chasing next steps",
+      "Standardize decisions using your own proven logic",
+      "Automatically generate plans, tasks, or next steps from inputs",
+      "Operate with a system that scales instead of relying on memory",
     ],
   },
 ];

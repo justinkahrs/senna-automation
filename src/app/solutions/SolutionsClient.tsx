@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import CascadingStagger from "@/components/animations/CascadingStagger";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -13,10 +12,6 @@ import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { BlogPost } from "@/utils/blog";
 import { WARM_BLACK } from "@/components/theme/colors";
 import OrganicHighlight from "@/components/OrganicHighlight";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface Solution {
   title: string;
@@ -31,9 +26,6 @@ interface Solution {
 interface SolutionsClientProps {
   solutions: Solution[];
 }
-
-const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 const faqs = [
   {
@@ -300,12 +292,12 @@ const SolutionCard = ({
           sx={{
             display: "flex",
             flexDirection: "column",
-            borderLeft: {
-              md: layoutIndex % 2 === 0 ? "1px solid" : "none",
-            },
-            borderRight: {
-              md: layoutIndex % 2 !== 0 ? "1px solid" : "none",
-            },
+            // borderLeft: {
+            //   md: layoutIndex % 2 === 0 ? "1px solid" : "none",
+            // },
+            // borderRight: {
+            //   md: layoutIndex % 2 !== 0 ? "1px solid" : "none",
+            // },
             borderColor: "divider",
           }}
         >
@@ -320,7 +312,7 @@ const SolutionCard = ({
               justifyContent: "center",
               position: "relative",
               overflow: "hidden",
-              bgcolor: "#FBFBFB",
+              // bgcolor: "#FBFBFB",
             }}
           >
             {item.video ? (
@@ -385,189 +377,6 @@ const SolutionCard = ({
           </Box>
         </Grid>
       </Grid>
-    </Box>
-  );
-};
-
-const DesktopScrollytelling = ({ solutions }: { solutions: Solution[] }) => {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(0); // -1 for up, 1 for down
-
-  useIsomorphicLayoutEffect(() => {
-    const section = sectionRef.current;
-    if (!section || solutions.length === 0) return;
-
-    setActiveIndex(0);
-
-    const mm = gsap.matchMedia();
-
-    mm.add("(min-width: 1280px) and (min-height: 800px)", () => {
-      const trigger = ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        end: () =>
-          `+=${Math.round(
-            window.innerHeight * Math.max(solutions.length * 1.5, 2),
-          )}`,
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-        scrub: 0.5,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const nextIndex = Math.min(
-            solutions.length - 1,
-            Math.floor(progress * solutions.length),
-          );
-
-          setActiveIndex((prev) => {
-            if (nextIndex !== prev) {
-              setDirection(nextIndex > prev ? 1 : -1);
-              return nextIndex;
-            }
-            return prev;
-          });
-        },
-      });
-
-      return () => {
-        trigger.kill();
-      };
-    });
-
-    return () => {
-      mm.revert();
-    };
-  }, [solutions.length]);
-
-  const variants = {
-    initial: (direction: number) => ({
-      opacity: 0,
-      y: direction > 0 ? 60 : -60,
-      scale: 0.98,
-    }),
-    animate: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1], // Ease out quint
-        staggerChildren: 0.1,
-      },
-    },
-    exit: (direction: number) => ({
-      opacity: 0,
-      y: direction > 0 ? -60 : 60,
-      scale: 0.98,
-      transition: {
-        duration: 0.5,
-        ease: [0.7, 0, 0.84, 0], // Ease in quad
-      },
-    }),
-  };
-
-  return (
-    <Box
-      sx={{
-        display: { xs: "none", lg: "block" },
-        py: { sm: 8, md: 12, lg: 16 },
-        bgcolor: "background.default",
-        position: "relative",
-        overflow: "visible",
-        isolation: "isolate",
-      }}
-    >
-      <Container maxWidth="lg">
-        <Box
-          ref={sectionRef}
-          sx={{
-            position: "relative",
-            minHeight: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              mb: { lg: 4, xl: 5 },
-            }}
-          >
-            <Typography variant="h3" component="h2" align="center">
-              Common problems we solve
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              position: "relative",
-              height: { lg: 620, xl: 720 },
-              width: "100%",
-              maxWidth: 1140,
-              mx: "auto",
-            }}
-          >
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={activeIndex}
-                custom={direction}
-                variants={variants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                }}
-              >
-                <SolutionCard
-                  item={solutions[activeIndex]}
-                  index={activeIndex}
-                  isDesktop
-                  forceLayout="left" // Keep layout consistent in scrollytelling
-                  cardSx={{
-                    height: "100%",
-                    boxShadow: "0 28px 80px rgba(0,0,0,0.08)",
-                  }}
-                />
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Progress Indicator */}
-            <Box
-              sx={{
-                position: "absolute",
-                right: -40,
-                top: "50%",
-                transform: "translateY(-50%)",
-                display: "flex",
-                flexDirection: "column",
-                gap: 2,
-                zIndex: 10,
-              }}
-            >
-              {solutions.map((_, idx) => (
-                <Box
-                  key={idx}
-                  sx={{
-                    width: 4,
-                    height: idx === activeIndex ? 32 : 12,
-                    bgcolor: idx === activeIndex ? "primary.main" : "divider",
-                    borderRadius: 2,
-                    transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-                  }}
-                />
-              ))}
-            </Box>
-          </Box>
-        </Box>
-      </Container>
     </Box>
   );
 };
@@ -652,29 +461,30 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
         </Container>
       </Box>
 
-      {/* Desktop Scrollytelling */}
-      <DesktopScrollytelling solutions={solutions} />
-
-      {/* Mobile Linear Stack */}
+      {/* Linear Stack for All screen sizes */}
       <Box
         sx={{
-          py: 6,
-          display: { xs: "block", lg: "none" },
+          py: { xs: 8, md: 12, lg: 16 },
           bgcolor: "background.default",
         }}
       >
         <Container maxWidth="lg">
-          <Typography variant="h3" component="h2" align="center" sx={{ mb: 6 }}>
+          <Typography
+            variant="h3"
+            component="h2"
+            align="center"
+            sx={{ mb: { xs: 6, lg: 8 } }}
+          >
             Common problems we solve
           </Typography>
-          <Stack spacing={4}>
+          <Stack spacing={8}>
             {solutions.map((item, index) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
                 <SolutionCard item={item} index={index} />
               </motion.div>

@@ -21,7 +21,6 @@
     "axios": "^1.7.9",
     "framer-motion": "^10.12.7",
     "gray-matter": "^4.0.3",
-    "gsap": "^3.14.2",
     "next": "15.1.9",
     "next-auth": "^4.24.7",
     "react": "18.3.1",
