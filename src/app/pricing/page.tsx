@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import FinalCTA from "@/components/sections/FinalCTA";
 import {
   Box,
   Button,
@@ -571,35 +572,11 @@ export default function PricingPage() {
         </Grid>
       </Container>
 
-      <Container maxWidth="lg">
-        {/* Final CTA */}
-        <Box sx={{ mt: 15, mb: 5, textAlign: "center" }}>
-          <Typography variant="h2" sx={{ mb: 3 }}>
-            Ready to Get Your Automation Plan?
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 5, maxWidth: "600px", mx: "auto" }}>
-            Schedule a brief strategy call to walk through your current process. No pressure, just actionable insights on where automation can help you most.
-          </Typography>
-          <Link href="/contact" passHref>
-            <Button
-              variant="contained"
-              size="large"
-              sx={{
-                px: 6,
-                py: 2,
-                borderRadius: "var(--radius-pill)",
-                backgroundColor: isDark ? "var(--color-bg-paper)" : WARM_BLACK,
-                color: isDark ? WARM_BLACK : "var(--color-text-inverse)",
-                "&:hover": {
-                  backgroundColor: isDark ? "var(--color-bg-subtle)" : WARM_BLACK,
-                },
-              }}
-            >
-              Start Your Free Assessment
-            </Button>
-          </Link>
-        </Box>
-      </Container>
+      <FinalCTA 
+        title="Ready to Get Your Automation Plan?"
+        subtitle="Schedule a brief strategy call to walk through your current process. No pressure, just actionable insights on where automation can help you most."
+        buttonText="Start Your Free Assessment"
+      />
     </Box>
   );
 }

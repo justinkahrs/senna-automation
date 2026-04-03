@@ -7,9 +7,7 @@ interface OrganicHighlightProps {
   children: ReactNode;
 }
 
-export default function OrganicHighlight({
-  children,
-}: OrganicHighlightProps) {
+export default function OrganicHighlight({ children }: OrganicHighlightProps) {
   const prefersReducedMotion = useReducedMotion();
 
   return (
@@ -28,7 +26,7 @@ export default function OrganicHighlight({
         margin: "0 -0.06em",
         borderRadius: "0.2em 0.35em 0.18em 0.3em",
         backgroundImage:
-          "linear-gradient(178deg, transparent 0 24%, rgba(212, 176, 92, 0.16) 24% 70%, transparent 70% 100%), linear-gradient(182deg, transparent 0 34%, rgba(212, 176, 92, 0.32) 34% 86%, transparent 86% 100%)",
+          "linear-gradient(178deg, transparent 0 24%, var(--color-bg-highlight-faint) 24% 70%, transparent 70% 100%), linear-gradient(182deg, transparent 0 34%, var(--color-bg-highlight-subtle) 34% 86%, transparent 86% 100%)",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "0 0, 0 0",
         boxDecorationBreak: "clone",

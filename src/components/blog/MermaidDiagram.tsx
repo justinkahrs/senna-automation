@@ -96,7 +96,7 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
           px: 3,
           py: 2.5,
           borderRadius: 3,
-          bgcolor: "rgba(45,107,94,0.06)",
+          bgcolor: "rgba(143,0,107,0.06)",
           ...sx,
         }}
       >
@@ -116,7 +116,7 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
         pt: { xs: 3, md: 5 },
         pb: { xs: 7, md: 5 },
         borderRadius: 3,
-        bgcolor: "rgba(45,107,94,0.04)",
+        bgcolor: "rgba(143,0,107,0.04)",
         border: "1px solid",
         borderColor: "divider",
         overflow: "hidden",
@@ -133,7 +133,7 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
         },
         "& svg .nodeLabel, & svg .edgeLabel": {
           fontFamily: "Inter, sans-serif !important",
-          color: "#1C1917 !important",
+          color: "#181925 !important",
         },
         "& svg .nodeLabel p, & svg .edgeLabel p": {
           margin: "0 !important",

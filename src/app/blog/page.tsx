@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import FinalCTA from "@/components/sections/FinalCTA";
 
 export const metadata: Metadata = {
   title: "AI Automation Insights & Case Studies | Senna Automation Blog",
@@ -24,9 +25,8 @@ import {
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 
-import { ACCENT } from "@/components/theme/colors";
+import { ACCENT, LIGHT_CYAN } from "@/components/theme/colors";
 import { getAllBlogPosts } from "@/utils/blog";
-import ScheduleCallButton from "@/components/ScheduleCallButton";
 
 const blogPosts = getAllBlogPosts();
 
@@ -45,7 +45,7 @@ export default function BlogPage() {
       <Box
         component="section"
         sx={{
-          bgcolor: "secondary.main", // WARM_BLACK (#1C1917)
+          bgcolor: "secondary.main", // SPACE_INDIGO (#181925)
           color: "background.paper",
           pt: { xs: 12, md: 20 },
           pb: { xs: 10, md: 16 },
@@ -125,7 +125,7 @@ export default function BlogPage() {
                     priority
                     sizes="(max-width: 900px) 100vw, 460px"
                   />
-                  <Box sx={{ position: "absolute", inset: 0, bgcolor: alpha(ACCENT, 0.5), pointerEvents: "none" }} />
+                  <Box sx={{ position: "absolute", inset: 0, bgcolor: alpha(LIGHT_CYAN, 0.4), pointerEvents: "none" }} />
                 </Box>
                 <Box
                   sx={{
@@ -220,7 +220,7 @@ export default function BlogPage() {
                       image={post.image}
                       alt={post.title}
                     />
-                    <Box sx={{ position: "absolute", inset: 0, bgcolor: alpha(ACCENT, 0.5), pointerEvents: "none" }} />
+                    <Box sx={{ position: "absolute", inset: 0, bgcolor: alpha(LIGHT_CYAN, 0.4), pointerEvents: "none" }} />
                   </Box>
                   <CardContent sx={{ flexGrow: 1, p: 4 }}>
                     <Stack
@@ -283,67 +283,12 @@ export default function BlogPage() {
         </Container>
       </Box>
 
-      {/* ── Call to Action ───────────────────────────── */}
-      <Box
-        sx={{
-          bgcolor: "secondary.main",
-          color: "background.paper",
-          py: 12,
-          textAlign: "center",
-        }}
-      >
-        <Container maxWidth="sm">
-          <Typography variant="h2" gutterBottom color="inherit">
-            Want to automate something in your business?
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            sx={{ color: "var(--color-text-on-dark)", mb: 6 }}
-          >
-            Book a free 30-min call. We&apos;ll identify the highest-impact
-            opportunities and map out exactly where to start.
-          </Typography>
-          <Stack spacing={1.5} alignItems="center">
-            <ScheduleCallButton
-              text="Schedule a Free Call"
-              size="large"
-              inverse
-              sx={{ px: 6 }}
-              showIcon={false}
-            />
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 0.5,
-                color: "var(--color-text-on-dark-secondary)",
-              }}
-            >
-              <Typography variant="caption" sx={{ color: "inherit" }}>
-                via
-              </Typography>
-              <Box
-                component="img"
-                src="/Calendly.svg"
-                alt="Calendly"
-                sx={{
-                  height: "0.95rem",
-                  width: "auto",
-                  opacity: 0.9,
-                  filter: "brightness(0) invert(1)",
-                  mt: "3px",
-                }}
-              />
-            </Box>
-            <Typography
-              variant="caption"
-              sx={{ color: "var(--color-text-on-dark-muted)" }}
-            >
-              Free call. No commitment.
-            </Typography>
-          </Stack>
-        </Container>
-      </Box>
+      {/* ── Final CTA ─────────────────────────────────── */}
+      <FinalCTA 
+        title="Want to automate something in your business?"
+        subtitle="Book a free 30-min call. We'll identify the highest-impact opportunities and map out exactly where to start."
+        buttonText="Schedule a Free Call"
+      />
     </Box>
   );
 }

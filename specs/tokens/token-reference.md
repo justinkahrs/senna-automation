@@ -13,13 +13,14 @@ Complete index of every CSS custom property in `src/app/tokens.css`.
 
 | Token | Value | When to use |
 |-------|-------|-------------|
-| `--color-text-primary` | `var(--ds-warm-black, #1C1917)` | Primary headings, body text on light backgrounds |
-| `--color-text-secondary` | `var(--ds-stone-600, #57534E)` | Secondary body text, descriptions |
-| `--color-text-muted` | `var(--ds-stone-400, #A8A29E)` | Captions, placeholders, disabled text |
+| `--color-text-primary` | `var(--ds-space-indigo, #181925)` | Primary headings, body text on light backgrounds |
+| `--color-text-secondary` | `var(--ds-airforce-blue, #5f8594)` | Secondary body text, descriptions |
+| `--color-text-muted` | `var(--ds-airforce-blue, #5f8594)` | Captions, placeholders, disabled text |
 | `--color-text-inverse` | `var(--ds-white, #FFFFFF)` | Text on dark/accent backgrounds |
-| `--color-text-accent` | `var(--ds-accent, #2D6B5E)` | Accent-colored text, active items |
-| `--color-text-link` | `var(--ds-accent, #2D6B5E)` | Hyperlinks |
-| `--color-text-link-hover` | `var(--ds-accent-light, #3D8B78)` | Hovered hyperlinks |
+| `--color-text-accent` | `var(--ds-magenta, #8f006b)` | Accent-colored text, active items |
+| `--color-text-link` | `var(--ds-magenta, #8f006b)` | Hyperlinks |
+| `--color-text-link-hover` | `var(--ds-magenta-light, #991778)` | Hovered hyperlinks |
+| `--color-text-highlight` | `var(--ds-banana, #f7ec59)` | Highlight text, badge text |
 | `--color-text-on-dark` | `rgba(255,255,255, 0.70)` | Body text on dark surfaces |
 | `--color-text-on-dark-secondary` | `rgba(255,255,255, 0.55)` | Secondary text on dark surfaces |
 | `--color-text-on-dark-muted` | `rgba(255,255,255, 0.40)` | Muted/caption text on dark surfaces |
@@ -33,20 +34,20 @@ Complete index of every CSS custom property in `src/app/tokens.css`.
 
 | Token | Value | When to use |
 |-------|-------|-------------|
-| `--color-bg-base` | `var(--ds-bg-base, #F7F6F4)` | Page background |
+| `--color-bg-base` | `var(--ds-bg-base, #f8f7f9)` | Page background (Bright Snow) |
 | `--color-bg-paper` | `var(--ds-bg-paper, #FFFFFF)` | Cards, dialogs, paper surfaces |
-| `--color-bg-subtle` | `var(--ds-bg-subtle, #F0EFEC)` | Subtle background distinction |
-| `--color-bg-inverse` | `var(--ds-warm-black, #1C1917)` | Dark sections (footer, hero CTA) |
-| `--color-bg-dark` | `var(--ds-warm-dark, #292524)` | Menus, tooltips, dark UI |
+| `--color-bg-subtle` | `var(--ds-bg-subtle, #f8f7f9)` | Subtle background distinction |
+| `--color-bg-inverse` | `var(--ds-space-indigo, #181925)` | Dark sections (footer, hero CTA) |
+| `--color-bg-dark` | `var(--ds-shadow-grey, #2b2d42)` | Menus, tooltips, dark UI |
 | `--color-bg-chat` | `#F2F6F5` | Chat widget logo bar |
-| `--color-bg-hover` | `rgba(45,107,94,0.06)` | Accent-tinted hover state |
-| `--color-bg-selected` | `rgba(45,107,94,0.10)` | Accent-tinted selected state |
-| `--color-bg-focus` | `rgba(45,107,94,0.12)` | Focus ring fill |
-| `--color-bg-accent-faint` | `rgba(45,107,94,0.08)` | Very light accent wash |
-| `--color-bg-accent-subtle` | `rgba(45,107,94,0.04)` | Barely visible accent |
-| `--color-bg-accent-hover` | `rgba(45,107,94,0.07)` | Accent hover for nav items |
-| `--color-bg-neutral-hover` | `rgba(28,25,23,0.04)` | Neutral element hover |
-| `--color-bg-neutral-subtle` | `rgba(28,25,23,0.03)` | Very subtle neutral wash |
+| `--color-bg-hover` | `rgba(143,0,107,0.06)` | Accent-tinted hover state |
+| `--color-bg-selected` | `rgba(143,0,107,0.10)` | Accent-tinted selected state |
+| `--color-bg-focus` | `rgba(143,0,107,0.12)` | Focus ring fill |
+| `--color-bg-accent-faint` | `rgba(143,0,107,0.08)` | Very light accent wash |
+| `--color-bg-accent-subtle` | `rgba(143,0,107,0.04)` | Barely visible accent |
+| `--color-bg-accent-hover` | `rgba(143,0,107,0.07)` | Accent hover for nav items |
+| `--color-bg-neutral-hover` | `rgba(24,25,37,0.04)` | Neutral element hover |
+| `--color-bg-neutral-subtle` | `rgba(24,25,37,0.03)` | Very subtle neutral wash |
 | `--color-bg-on-dark-hover` | `rgba(255,255,255,0.08)` | Hover on dark surfaces |
 | `--color-bg-on-dark-subtle` | `rgba(255,255,255,0.03)` | Subtle fill on dark surfaces |
 | `--color-bg-on-dark-raised` | `rgba(255,255,255,0.06)` | Raised element on dark surfaces |
@@ -58,26 +59,28 @@ Complete index of every CSS custom property in `src/app/tokens.css`.
 
 | Token | Value | When to use |
 |-------|-------|-------------|
-| `--color-accent` | `var(--ds-accent, #2D6B5E)` | Primary action, brand color |
-| `--color-accent-light` | `var(--ds-accent-light, #3D8B78)` | Hover, lighter accent |
-| `--color-accent-dark` | `var(--ds-accent-dark, #1E5244)` | Pressed, darker accent |
+| `--color-accent` | `var(--ds-magenta, #8f006b)` | Primary action, brand magenta |
+| `--color-accent-light` | `var(--ds-magenta-light, #991778)` | Hover, lighter accent |
+| `--color-accent-dark` | `var(--ds-magenta-dark, #8f006b)` | Pressed, darker accent |
+| `--color-accent-cyan` | `var(--ds-light-cyan, #92dce5)` | Bright cyan accent |
+| `--color-highlight` | `var(--ds-banana, #f7ec59)` | Highlight, energy accent |
 
 ## Colors — Border
 
 | Token | Value | When to use |
 |-------|-------|-------------|
-| `--color-border-soft` | `var(--ds-border-soft, #E7E5E4)` | Default borders |
-| `--color-border-medium` | `var(--ds-border-med, #D6D3D1)` | Hover borders |
-| `--color-border-accent` | `var(--ds-accent, #2D6B5E)` | Focused input borders |
+| `--color-border-soft` | `var(--ds-border-soft, #c5eaef)` | Default borders (Frosted Blue) |
+| `--color-border-medium` | `var(--ds-border-med, #92dce5)` | Hover borders (Light Cyan) |
+| `--color-border-accent` | `var(--ds-magenta, #8f006b)` | Focused input borders |
 | `--color-border-on-dark` | `rgba(255,255,255,0.06)` | Borders on dark surfaces |
-| `--color-border-neutral-light` | `rgba(28,25,23,0.08)` | Light neutral border |
+| `--color-border-neutral-light` | `rgba(24,25,37,0.08)` | Light neutral border |
 | `--color-border-neutral` | `rgba(0,0,0,0.05)` | Very light neutral border |
 
 ## Colors — Focus
 
 | Token | Value | When to use |
 |-------|-------|-------------|
-| `--color-focus-ring` | `rgba(45,107,94,0.12)` | Input focus glow, focus ring |
+| `--color-focus-ring` | `rgba(143,0,107,0.12)` | Input focus glow, focus ring |
 
 ---
 

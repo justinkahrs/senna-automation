@@ -82,7 +82,7 @@ export default function ScheduleCallButton({
               color: inverse ? ACCENT : "#FFFFFF",
               borderColor: inverse ? alpha(ACCENT, 0.36) : "transparent",
               boxShadow: inverse
-                ? "0 10px 28px rgba(28,25,23,0.16)"
+                ? "0 10px 28px rgba(24,25,37,0.16)"
                 : "none",
             },
           }),
@@ -116,7 +116,7 @@ export default function ScheduleCallButton({
           backdrop: {
             sx: {
               background:
-                "linear-gradient(180deg, rgba(28,25,23,0.68) 0%, rgba(28,25,23,0.78) 100%)",
+                "linear-gradient(180deg, rgba(24,25,37,0.68) 0%, rgba(24,25,37,0.78) 100%)",
               backdropFilter: "blur(8px)",
             },
           },
@@ -149,7 +149,7 @@ export default function ScheduleCallButton({
               pb: { xs: 2, md: 2.25 },
               borderBottom: `1px solid ${alpha(ACCENT, 0.12)}`,
               background:
-                "linear-gradient(180deg, rgba(45,107,94,0.06) 0%, rgba(45,107,94,0.02) 100%)",
+                "linear-gradient(180deg, rgba(143,0,107,0.06) 0%, rgba(143,0,107,0.02) 100%)",
             }}
           >
             <Stack direction="row" spacing={2} alignItems="flex-start">

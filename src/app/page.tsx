@@ -31,8 +31,6 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CascadingStagger from "@/components/animations/CascadingStagger";
 import Link from "next/link";
-import { alpha } from "@mui/material/styles";
-import { ACCENT } from "@/components/theme/colors";
 import { getAllBlogPosts } from "@/utils/blog";
 import { Button } from "@mui/material";
 import OrganicHighlight from "@/components/OrganicHighlight";
@@ -61,8 +59,8 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
           No.
         </Box>
         <Box component="p" sx={{ mt: 2, mb: 0 }}>
-          Everything is set up to match how your business already works. You
-          and your team just interact with simple inputs like emails, forms, or
+          Everything is set up to match how your business already works. You and
+          your team just interact with simple inputs like emails, forms, or
           messages, and the system handles the rest quietly in the background.
         </Box>
       </>
@@ -79,7 +77,9 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
           That usually includes:
         </Box>
         <Box component="ul" sx={{ mt: 1.5, mb: 0, pl: 3 }}>
-          <Box component="li">Incoming leads getting organized and qualified</Box>
+          <Box component="li">
+            Incoming leads getting organized and qualified
+          </Box>
           <Box component="li">Follow-ups happening without reminders</Box>
           <Box component="li">Scheduling handled without back-and-forth</Box>
           <Box component="li">
@@ -134,7 +134,11 @@ const integrationLogos = [
   { src: "/zendesk.png", alt: "Zendesk", width: { xs: 112, md: 144 } },
   {
     group: [
-      { src: "/teams.png", alt: "Microsoft Teams", width: { xs: 122, md: 156 } },
+      {
+        src: "/teams.png",
+        alt: "Microsoft Teams",
+        width: { xs: 122, md: 156 },
+      },
       { src: "/outlook.png", alt: "Outlook", width: { xs: 114, md: 146 } },
       { src: "/excel.png", alt: "Excel", width: { xs: 88, md: 116 } },
       { src: "/onedrive.png", alt: "OneDrive", width: { xs: 124, md: 160 } },
@@ -269,9 +273,9 @@ export default function Home() {
                   >
                     Senna Automation builds systems that take work off your
                     plate and keep your business moving. Instead of juggling
-                    emails, follow-ups, and repetitive tasks, your workflows
-                    run quietly in the background, turning inputs into
-                    completed outcomes.
+                    emails, follow-ups, and repetitive tasks, your workflows run
+                    quietly in the background, turning inputs into completed
+                    outcomes.
                   </Typography>
 
                   <Typography
@@ -280,10 +284,10 @@ export default function Home() {
                     sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
                   >
                     We design and build custom automation systems for small and
-                    mid-sized businesses, combining modern AI with software
-                    that fits the tools you already use. The result is less
-                    manual work, fewer gaps, and more time focused on what
-                    actually matters.
+                    mid-sized businesses, combining modern AI with software that
+                    fits the tools you already use. The result is less manual
+                    work, fewer gaps, and more time focused on what actually
+                    matters.
                   </Typography>
 
                   <Typography
@@ -464,7 +468,7 @@ export default function Home() {
           <Typography
             variant="overline"
             align="center"
-            color="text.secondary"
+            color="var(--color-accent)"
             sx={{ display: "block", mb: 6, letterSpacing: 2 }}
           >
             What clients say
@@ -586,7 +590,7 @@ export default function Home() {
               zIndex: 2,
               width: "100%",
               maxWidth: "1440px",
-              px: { xs: 3, sm: 4, md: 5, lg: 6 },
+              px: { xs: 4, sm: 6, md: 8, lg: 10 },
             }}
           >
             <Grid
@@ -599,7 +603,6 @@ export default function Home() {
                   sx={{
                     py: { xs: 8, md: 16 },
                     pr: { md: 4, lg: 5 },
-                    ml: { md: -4, lg: -6 },
                     maxWidth: { md: "680px", lg: "760px" },
                   }}
                 >
@@ -664,7 +667,8 @@ export default function Home() {
                     sx={{
                       position: "absolute",
                       inset: 0,
-                      bgcolor: alpha(ACCENT, 0.5),
+                      bgcolor:
+                        "color-mix(in srgb, var(--color-accent-cyan), transparent 50%)",
                       pointerEvents: "none",
                     }}
                   />
@@ -696,7 +700,8 @@ export default function Home() {
                     sx={{
                       position: "absolute",
                       inset: 0,
-                      bgcolor: alpha(ACCENT, 0.5),
+                      bgcolor:
+                        "color-mix(in srgb, var(--color-accent-cyan), transparent 50%)",
                       pointerEvents: "none",
                     }}
                   />

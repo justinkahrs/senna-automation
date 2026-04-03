@@ -19,20 +19,33 @@
      ================================================================ */
 
   /* ── Core palette ────────────────────────────────────────────── */
-  --ds-warm-black:   #1C1917;
-  --ds-warm-dark:    #292524;
-  --ds-stone-600:    #57534E;
-  --ds-stone-400:    #A8A29E;
-  --ds-accent:       #2D6B5E;
-  --ds-accent-light: #3D8B78;
-  --ds-accent-dark:  #1E5244;
-  --ds-bg-base:      #F7F6F4;
-  --ds-bg-paper:     #FFFFFF;
-  --ds-bg-subtle:    #F0EFEC;
-  --ds-border-soft:  #E7E5E4;
-  --ds-border-med:   #D6D3D1;
-  --ds-white:        #FFFFFF;
-  --ds-black:        #000000;
+  --ds-space-indigo:   #181925;
+  --ds-shadow-grey:    #2b2d42;
+  --ds-airforce-blue:  #5f8594;
+  --ds-magenta:        #8f006b;
+  --ds-magenta-light:  #991778;
+  --ds-magenta-dark:   #8f006b;
+  --ds-bg-base:        #f8f7f9;
+  --ds-bg-paper:       #FFFFFF;
+  --ds-bg-subtle:      #f8f7f9;
+  --ds-border-soft:    #c5eaef;
+  --ds-border-med:     #92dce5;
+  --ds-white:          #FFFFFF;
+  --ds-black:          #000000;
+
+  /* ── New palette additions ────────────────────────────────────── */
+  --ds-banana:         #f7ec59;
+  --ds-light-cyan:     #92dce5;
+  --ds-frosted-blue:   #c5eaef;
+
+  /* ── Legacy aliases (map old names → new values) ──────────────── */
+  --ds-warm-black:     var(--ds-space-indigo);
+  --ds-warm-dark:      var(--ds-shadow-grey);
+  --ds-stone-600:      var(--ds-airforce-blue);
+  --ds-stone-400:      var(--ds-airforce-blue);
+  --ds-accent:         var(--ds-magenta);
+  --ds-accent-light:   var(--ds-magenta-light);
+  --ds-accent-dark:    var(--ds-magenta-dark);
 
   /* ── Typography families ─────────────────────────────────────── */
   /* Actual font-family values are set by Next.js font loaders
@@ -101,12 +114,12 @@
 
   /* ── Elevation / shadows ─────────────────────────────────────── */
   --ds-shadow-none: none;
-  --ds-shadow-xs:   0 1px 3px rgba(28,25,23,0.06), 0 1px 2px rgba(28,25,23,0.04);
-  --ds-shadow-sm:   0 4px 16px rgba(28,25,23,0.08), 0 2px 6px rgba(28,25,23,0.05);
-  --ds-shadow-md:   0 8px 32px rgba(28,25,23,0.10), 0 3px 10px rgba(28,25,23,0.06);
-  --ds-shadow-lg:   0 20px 60px rgba(28,25,23,0.12), 0 6px 16px rgba(28,25,23,0.08);
-  --ds-shadow-xl:   0 32px 80px rgba(28,25,23,0.16), 0 8px 24px rgba(28,25,23,0.10);
-  --ds-shadow-2xl:  0 40px 100px rgba(28,25,23,0.20), 0 10px 32px rgba(28,25,23,0.12);
+  --ds-shadow-xs:   0 1px 3px rgba(24,25,37,0.06), 0 1px 2px rgba(24,25,37,0.04);
+  --ds-shadow-sm:   0 4px 16px rgba(24,25,37,0.08), 0 2px 6px rgba(24,25,37,0.05);
+  --ds-shadow-md:   0 8px 32px rgba(24,25,37,0.10), 0 3px 10px rgba(24,25,37,0.06);
+  --ds-shadow-lg:   0 20px 60px rgba(24,25,37,0.12), 0 6px 16px rgba(24,25,37,0.08);
+  --ds-shadow-xl:   0 32px 80px rgba(24,25,37,0.16), 0 8px 24px rgba(24,25,37,0.10);
+  --ds-shadow-2xl:  0 40px 100px rgba(24,25,37,0.20), 0 10px 32px rgba(24,25,37,0.12);
 
   /* ── Z-index scale ───────────────────────────────────────────── */
   --ds-z-base:      0;
@@ -155,13 +168,14 @@
      ================================================================ */
 
   /* ── Text colors ─────────────────────────────────────────────── */
-  --color-text-primary:        var(--ds-warm-black,  #1C1917);
-  --color-text-secondary:      var(--ds-stone-600,   #57534E);
-  --color-text-muted:          var(--ds-stone-400,   #A8A29E);
-  --color-text-inverse:        var(--ds-white,       #FFFFFF);
-  --color-text-accent:         var(--ds-accent,      #2D6B5E);
-  --color-text-link:           var(--ds-accent,      #2D6B5E);
-  --color-text-link-hover:     var(--ds-accent-light,#3D8B78);
+  --color-text-primary:        var(--ds-space-indigo,  #181925);
+  --color-text-secondary:      var(--ds-airforce-blue, #5f8594);
+  --color-text-muted:          var(--ds-airforce-blue, #5f8594);
+  --color-text-inverse:        var(--ds-white,         #FFFFFF);
+  --color-text-accent:         var(--ds-magenta,       #8f006b);
+  --color-text-link:           var(--ds-magenta,       #8f006b);
+  --color-text-link-hover:     var(--ds-magenta-light, #991778);
+  --color-text-highlight:      var(--ds-banana,        #f7ec59);
 
   /* On-dark-surface text (white at varying opacities) */
   --color-text-on-dark:            rgba(255,255,255, 0.70);
@@ -174,24 +188,24 @@
   --color-text-on-dark-body:       rgba(255,255,255, 0.60);
 
   /* ── Background colors ───────────────────────────────────────── */
-  --color-bg-base:    var(--ds-bg-base,   #F7F6F4);
+  --color-bg-base:    var(--ds-bg-base,   #f8f7f9);
   --color-bg-paper:   var(--ds-bg-paper,  #FFFFFF);
-  --color-bg-subtle:  var(--ds-bg-subtle, #F0EFEC);
-  --color-bg-inverse: var(--ds-warm-black,#1C1917);
-  --color-bg-dark:    var(--ds-warm-dark, #292524);
+  --color-bg-subtle:  var(--ds-bg-subtle, #f8f7f9);
+  --color-bg-inverse: var(--ds-space-indigo, #181925);
+  --color-bg-dark:    var(--ds-shadow-grey,  #2b2d42);
   --color-bg-chat:    #F2F6F5;
 
   /* Interactive surface states (accent-tinted) */
-  --color-bg-hover:           rgba(45, 107, 94, 0.06);
-  --color-bg-selected:        rgba(45, 107, 94, 0.10);
-  --color-bg-focus:           rgba(45, 107, 94, 0.12);
-  --color-bg-accent-faint:    rgba(45, 107, 94, 0.08);
-  --color-bg-accent-subtle:   rgba(45, 107, 94, 0.04);
-  --color-bg-accent-hover:    rgba(45, 107, 94, 0.07);
+  --color-bg-hover:           rgba(143, 0, 107, 0.06);
+  --color-bg-selected:        rgba(143, 0, 107, 0.10);
+  --color-bg-focus:           rgba(143, 0, 107, 0.12);
+  --color-bg-accent-faint:    rgba(143, 0, 107, 0.08);
+  --color-bg-accent-subtle:   rgba(143, 0, 107, 0.04);
+  --color-bg-accent-hover:    rgba(143, 0, 107, 0.07);
 
   /* Interactive surface states (neutral) */
-  --color-bg-neutral-hover:   rgba(28, 25, 23, 0.04);
-  --color-bg-neutral-subtle:  rgba(28, 25, 23, 0.03);
+  --color-bg-neutral-hover:   rgba(24, 25, 37, 0.04);
+  --color-bg-neutral-subtle:  rgba(24, 25, 37, 0.03);
 
   /* On-dark surface states (white-tinted) */
   --color-bg-on-dark-hover:   rgba(255, 255, 255, 0.08);
@@ -202,20 +216,24 @@
   --color-bg-on-dark-22:      rgba(255, 255, 255, 0.22);
 
   /* ── Accent / brand colors ───────────────────────────────────── */
-  --color-accent:       var(--ds-accent,       #2D6B5E);
-  --color-accent-light: var(--ds-accent-light, #3D8B78);
-  --color-accent-dark:  var(--ds-accent-dark,  #1E5244);
+  --color-accent:       var(--ds-magenta,       #8f006b);
+  --color-accent-light: var(--ds-magenta-light, #991778);
+  --color-accent-dark:  var(--ds-magenta-dark,  #8f006b);
+  --color-accent-cyan:  var(--ds-light-cyan,    #92dce5);
+  --color-highlight:    var(--ds-banana,        #f7ec59);
+  --color-bg-highlight-subtle: color-mix(in srgb, var(--color-highlight), transparent 68%);
+  --color-bg-highlight-faint:  color-mix(in srgb, var(--color-highlight), transparent 84%);
 
   /* ── Border colors ───────────────────────────────────────────── */
-  --color-border-soft:   var(--ds-border-soft, #E7E5E4);
-  --color-border-medium: var(--ds-border-med,  #D6D3D1);
-  --color-border-accent: var(--ds-accent,      #2D6B5E);
+  --color-border-soft:   var(--ds-border-soft, #c5eaef);
+  --color-border-medium: var(--ds-border-med,  #92dce5);
+  --color-border-accent: var(--ds-magenta,     #8f006b);
   --color-border-on-dark: rgba(255, 255, 255, 0.06);
-  --color-border-neutral-light: rgba(28, 25, 23, 0.08);
+  --color-border-neutral-light: rgba(24, 25, 37, 0.08);
   --color-border-neutral:       rgba(0, 0, 0, 0.05);
 
   /* ── Focus ring ──────────────────────────────────────────────── */
-  --color-focus-ring:   rgba(45, 107, 94, 0.12);
+  --color-focus-ring:   rgba(143, 0, 107, 0.12);
 
   /* ── Spacing aliases ─────────────────────────────────────────── */
   --space-0:   var(--ds-space-0,   0px);
@@ -287,23 +305,23 @@
 
   /* Context-specific shadows */
   --shadow-card:         var(--shadow-xs);
-  --shadow-card-hover:   0 8px 28px rgba(28,25,23,0.10), 0 3px 8px rgba(28,25,23,0.06);
-  --shadow-dialog:       0 20px 64px rgba(28,25,23,0.14), 0 6px 16px rgba(28,25,23,0.08);
-  --shadow-dropdown:     0 8px 32px rgba(28,25,23,0.16);
-  --shadow-appbar:       0 2px 16px rgba(28,25,23,0.07);
-  --shadow-btn-accent:   0 4px 14px rgba(45,107,94,0.22);
-  --shadow-btn-dark:     0 4px 16px rgba(28,25,23,0.20);
+  --shadow-card-hover:   0 8px 28px rgba(24,25,37,0.10), 0 3px 8px rgba(24,25,37,0.06);
+  --shadow-dialog:       0 20px 64px rgba(24,25,37,0.14), 0 6px 16px rgba(24,25,37,0.08);
+  --shadow-dropdown:     0 8px 32px rgba(24,25,37,0.16);
+  --shadow-appbar:       0 2px 16px rgba(24,25,37,0.07);
+  --shadow-btn-accent:   0 4px 14px rgba(143,0,107,0.22);
+  --shadow-btn-dark:     0 4px 16px rgba(24,25,37,0.20);
   --shadow-hero:         0 20px 60px rgba(0,0,0,0.04);
   --shadow-hero-image:   0 30px 90px rgba(0,0,0,0.18);
-  --shadow-blog-card:    0 18px 50px rgba(28,25,23,0.05);
-  --shadow-blog-card-hover: 0 24px 60px rgba(28,25,23,0.08);
+  --shadow-blog-card:    0 18px 50px rgba(24,25,37,0.05);
+  --shadow-blog-card-hover: 0 24px 60px rgba(24,25,37,0.08);
   --shadow-cta:          0 40px 100px rgba(0,0,0,0.15);
   --shadow-blog-hero:    0 20px 80px rgba(0,0,0,0.4);
   --shadow-blog-featured: 0 18px 40px rgba(0,0,0,0.22);
-  --shadow-blog-article: 0 24px 70px rgba(28,25,23,0.05);
+  --shadow-blog-article: 0 24px 70px rgba(24,25,37,0.05);
   --shadow-blog-header:  0 20px 60px rgba(0,0,0,0.1);
   --shadow-pricing:      0 20px 80px rgba(0,0,0,0.06);
-  --shadow-schedule:     0 32px 120px rgba(28,25,23,0.28);
+  --shadow-schedule:     0 32px 120px rgba(24,25,37,0.28);
   --shadow-portfolio:    0 10px 30px rgba(0,0,0,0.08);
   --shadow-portfolio-hover: 0 20px 40px rgba(0,0,0,0.12);
 

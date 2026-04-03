@@ -38,8 +38,8 @@ export function Footer() {
         py: 10,
         px: 2,
         mt: "auto",
-        backgroundColor: "secondary.main",
-        color: "background.paper",
+        backgroundColor: "var(--ds-space-indigo)",
+        color: "var(--color-bg-subtle)",
         position: "relative",
         overflow: "hidden",
       }}
@@ -66,7 +66,7 @@ export function Footer() {
               variant="h5"
               color="inherit"
               gutterBottom
-              sx={{ fontWeight: 600 }}
+              sx={{ fontWeight: 600, color: "var(--color-text-inverse)" }}
             >
               Senna Automation LLC
             </Typography>
@@ -87,7 +87,7 @@ export function Footer() {
             <Grid item xs={12} sm={4} md={2} key={group.heading}>
               <Typography
                 variant="overline"
-                sx={{ color: "primary.light", display: "block", mb: 3 }}
+                sx={{ color: "var(--color-text-on-dark-prominent)", display: "block", mb: 3 }}
               >
                 {group.heading}
               </Typography>
@@ -97,10 +97,10 @@ export function Footer() {
                     key={link.label}
                     href={link.href}
                     sx={{
-                      color: "var(--color-text-on-dark-body)",
+                      color: "var(--color-accent-cyan)",
                       textDecoration: "none",
                       transition: "color var(--dur-base) ease",
-                      "&:hover": { color: "var(--color-text-inverse)" },
+                      "&:hover": { color: "var(--color-bg-subtle)" },
                     }}
                   >
                     <Typography variant="body2" color="inherit">
@@ -114,7 +114,7 @@ export function Footer() {
           <Grid item xs={12} sm={4} md={2}>
             <Typography
               variant="overline"
-              sx={{ color: "primary.light", display: "block", mb: 3 }}
+              sx={{ color: "var(--color-text-on-dark-prominent)", display: "block", mb: 3 }}
             >
               Connect
             </Typography>
@@ -127,7 +127,7 @@ export function Footer() {
                 sx={{
                   color: "var(--color-text-on-dark-body)",
                   p: 0,
-                  "&:hover": { color: "primary.light" },
+                  "&:hover": { color: "var(--color-accent-cyan)" },
                 }}
               >
                 <LinkedInIcon />
@@ -140,7 +140,7 @@ export function Footer() {
                 sx={{
                   color: "var(--color-text-on-dark-body)",
                   p: 0,
-                  "&:hover": { color: "primary.light" },
+                  "&:hover": { color: "var(--color-accent-cyan)" },
                 }}
               >
                 <InstagramIcon />
@@ -151,9 +151,9 @@ export function Footer() {
             <Typography
               variant="overline"
               sx={{
-                color: "primary.light",
+                color: "var(--color-text-on-dark-prominent)",
                 display: "block",
-                mb: 2, // Reduced margin slightly since logo is taller
+                mb: 2, 
                 letterSpacing: "0.1em",
               }}
             >
@@ -166,7 +166,8 @@ export function Footer() {
               sx={{
                 display: "inline-flex",
                 opacity: 0.8,
-                transition: "opacity var(--dur-base) ease, transform var(--dur-base) ease",
+                transition:
+                  "opacity var(--dur-base) ease, transform var(--dur-base) ease",
                 marginLeft: "-42px", // Align with the heading above
                 "&:hover": {
                   opacity: 1,

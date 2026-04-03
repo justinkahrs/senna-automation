@@ -329,7 +329,7 @@ export default async function BlogPostPage({
               right: 0,
               bottom: 0,
               background: {
-                xs: "linear-gradient(to bottom, rgba(28,25,23,0.8), transparent)",
+                xs: "linear-gradient(to bottom, rgba(24,25,37,0.8), transparent)",
                 md: "none",
               },
             }}

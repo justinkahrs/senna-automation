@@ -18,7 +18,7 @@ const tierMap = {
 
 export default function PricingToggleSection() {
   const [activeTierId, setActiveTierId] = useState<"starter" | "growth">(
-    starterTier.id
+    starterTier.id,
   );
 
   const activeTier = useMemo(() => tierMap[activeTierId], [activeTierId]);
@@ -89,16 +89,22 @@ export default function PricingToggleSection() {
                           px: { xs: 1, sm: 2 },
                           py: 0.85,
                           borderRadius: "var(--radius-pill)",
-                          bgcolor: active ? "secondary.main" : "transparent",
+                          bgcolor: active
+                            ? "var(--color-text-secondary)"
+                            : "transparent",
                           color: "background.paper",
-                          fontSize: { xs: "0.68rem", sm: "0.75rem", md: "0.78rem" },
+                          fontSize: {
+                            xs: "0.68rem",
+                            sm: "0.75rem",
+                            md: "0.78rem",
+                          },
                           fontWeight: active ? 700 : 500,
                           letterSpacing: "0.06em",
                           textTransform: "uppercase",
                           whiteSpace: "nowrap",
                           "&:hover": {
                             bgcolor: active
-                              ? "secondary.main"
+                              ? "var(--color-bg-dark)"
                               : "var(--color-bg-on-dark-hover)",
                           },
                         }}
@@ -142,7 +148,7 @@ export default function PricingToggleSection() {
 
               <Stack
                 direction="column"
-                spacing={1.5}
+                spacing={4}
                 alignItems="flex-start"
                 sx={{ mt: { xs: 0.5, md: 1 } }}
               >
@@ -162,15 +168,15 @@ export default function PricingToggleSection() {
                   variant="contained"
                   endIcon={<ArrowForwardIcon />}
                   sx={{
-                    mt: { xs: 2.5, md: 3 },
                     px: 3,
                     py: 1.4,
-                    bgcolor: "background.paper",
+                    bgcolor: "var(--color-highlight)",
                     color: "secondary.main",
                     boxShadow: "none",
                     whiteSpace: "nowrap",
                     "&:hover": {
-                      bgcolor: "background.paper",
+                      bgcolor: "var(--color-highlight)",
+                      filter: "brightness(0.95)",
                       boxShadow: "none",
                     },
                   }}

@@ -172,19 +172,18 @@ export function AppBar() {
               component={Link}
               href="/contact"
               variant="outlined"
-              color="secondary"
               sx={{
-                borderColor: "divider",
-                color: "text.secondary",
+                borderColor: "var(--ds-space-indigo)",
+                color: "var(--ds-space-indigo)",
                 borderRadius: "var(--radius-pill)",
                 px: 2.5,
                 py: 0.875,
                 fontSize: "var(--type-button)",
-                fontWeight: "var(--weight-medium)",
+                fontWeight: "var(--weight-semibold)",
                 "&:hover": {
-                  borderColor: "text.secondary",
-                  backgroundColor: "var(--color-bg-neutral-subtle)",
-                  color: "text.primary",
+                  borderColor: "var(--ds-space-indigo)",
+                  backgroundColor: "var(--color-bg-neutral-hover)",
+                  color: "var(--ds-space-indigo)",
                 },
               }}
             >
@@ -194,16 +193,17 @@ export function AppBar() {
               text="Book a Demo"
               showIcon={false}
               sx={{
-                backgroundColor: "secondary.main",
+                backgroundColor: "var(--color-accent)",
                 color: "var(--color-text-inverse)",
                 borderRadius: "var(--radius-pill)",
                 px: 2.5,
                 py: 0.875,
                 fontSize: "var(--type-button)",
                 fontWeight: "var(--weight-medium)",
+                boxShadow: "var(--shadow-btn-accent)",
                 "&:hover": {
-                  backgroundColor: "var(--color-bg-dark)",
-                  boxShadow: "var(--shadow-btn-dark)",
+                  backgroundColor: "var(--color-accent-light)",
+                  boxShadow: "var(--shadow-lg)",
                 },
               }}
             />
@@ -294,7 +294,8 @@ export function AppBar() {
                 onClick={handleMobileMenuClose}
                 sx={{
                   backgroundColor: "transparent",
-                  color: "text.secondary",
+                  color: "var(--ds-space-indigo)",
+                  fontWeight: 600,
                   fontSize: "var(--type-button)",
                   py: 1.25,
                   px: 2,
@@ -303,11 +304,11 @@ export function AppBar() {
                   "&:not(:last-child)": { borderBottom: "none" },
                   "&:hover": {
                     backgroundColor: "var(--color-bg-neutral-hover)",
-                    color: "text.primary",
+                    color: "var(--ds-space-indigo)",
                   },
                 }}
               >
-                <Typography variant="body1" sx={{ color: "inherit" }}>
+                <Typography variant="body1" sx={{ color: "inherit", fontWeight: "inherit" }}>
                   Contact Sales
                 </Typography>
               </MenuItem>
@@ -318,13 +319,14 @@ export function AppBar() {
                   fullWidth
                   showIcon={false}
                   sx={{
-                    backgroundColor: "secondary.main",
+                    backgroundColor: "var(--color-accent)",
                     color: "var(--color-text-inverse)",
                     borderRadius: "var(--radius-pill)",
                     py: 1.25,
                     fontWeight: 500,
+                    boxShadow: "var(--shadow-btn-accent)",
                     "&:hover": {
-                      backgroundColor: "var(--color-bg-dark)",
+                      backgroundColor: "var(--color-accent-light)",
                     },
                   }}
                 />
