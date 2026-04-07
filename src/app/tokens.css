@@ -48,11 +48,12 @@
   --ds-accent-dark:    var(--ds-magenta-dark);
 
   /* ── Typography families ─────────────────────────────────────── */
-  /* Actual font-family values are set by Next.js font loaders
-     (Inter, Cormorant Garamond) at runtime. These are fallback
+  /* Actual font-family values are set by loaded font stylesheets
+     (muli, ITC Avant Garde Gothic Pro, posh) at runtime. These are fallback
      stacks for CSS-only contexts. */
-  --ds-font-sans:  "Inter", system-ui, -apple-system, sans-serif;
+  --ds-font-sans:  "muli", system-ui, -apple-system, sans-serif;
   --ds-font-serif: "Cormorant Garamond", "Georgia", serif;
+  --ds-font-accent: "posh", sans-serif;
 
   /* ── Type scale (desktop) ────────────────────────────────────── */
   --ds-type-h1:       4.209rem;  /* 67.3px */
@@ -171,7 +172,7 @@
   --color-text-primary:        var(--ds-space-indigo,  #181925);
   --color-text-secondary:      var(--ds-airforce-blue, #5f8594);
   --color-text-muted:          var(--ds-airforce-blue, #5f8594);
-  --color-text-inverse:        var(--ds-white,         #FFFFFF);
+  --color-text-inverse:        var(--ds-snow,         #F8F7F9);
   --color-text-accent:         var(--ds-magenta,       #8f006b);
   --color-text-link:           var(--ds-magenta,       #8f006b);
   --color-text-link-hover:     var(--ds-magenta-light, #991778);
@@ -255,6 +256,7 @@
   /* ── Typography aliases ──────────────────────────────────────── */
   --font-sans:  var(--ds-font-sans);
   --font-serif: var(--ds-font-serif);
+  --font-accent: var(--ds-font-accent);
 
   --type-h1:       var(--ds-type-h1,       4.209rem);
   --type-h2:       var(--ds-type-h2,       3.157rem);

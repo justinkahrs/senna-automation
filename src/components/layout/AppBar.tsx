@@ -10,6 +10,7 @@ import {
   Menu,
   MenuItem,
   Typography,
+  Stack,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -60,23 +61,24 @@ export function AppBar() {
   if (!mounted) {
     return (
       <MUIAppBar
-        position="relative"
+        position="fixed"
         elevation={0}
         sx={{
-          backgroundColor: "background.paper",
-          borderBottom: "1px solid",
-          borderColor: "divider",
+          backgroundColor: "transparent",
+          borderBottom: "none",
+          top: 0,
+          left: 0,
+          right: 0,
         }}
       >
-        <Toolbar sx={{ width: "100%", minHeight: "64px !important" }}>
-          <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
+        <Toolbar sx={{ width: "100%", minHeight: "112px !important" }}>
+          <Stack direction="row" spacing={5} sx={{ flex: 1, justifyContent: "flex-start", alignItems: "center" }}>
             <Link href="/" passHref style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
               <Logo
-                // logoFontColor={"#BADA55"}
-                sx={{ height: 36, cursor: "pointer" }}
+                sx={{ height: 80, cursor: "pointer" }}
               />
             </Link>
-          </Box>
+          </Stack>
         </Toolbar>
       </MUIAppBar>
     );
@@ -84,15 +86,18 @@ export function AppBar() {
 
   return (
     <MUIAppBar
-      position="relative"
+      position="fixed"
       elevation={0}
       sx={{
-        // backgroundColor: STONE_400,
-        borderBottom: "1px solid",
-        borderColor: scrolled ? "divider" : "divider",
+        backgroundColor: scrolled ? "rgba(255, 255, 255, 0.94)" : "transparent",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        borderBottom: "none",
         boxShadow: scrolled ? "var(--shadow-appbar)" : "var(--shadow-none)",
         transition:
-          "box-shadow var(--dur-moderate) var(--ease-smooth), border-color var(--dur-moderate) ease",
+          "background-color var(--dur-moderate) ease, backdrop-filter var(--dur-moderate) ease, border-color var(--dur-moderate) ease, box-shadow var(--dur-moderate) ease",
+        top: 0,
+        left: 0,
+        right: 0,
       }}
     >
       <Toolbar
@@ -101,7 +106,9 @@ export function AppBar() {
           maxWidth: 1440,
           mx: "auto",
           px: { xs: 2, md: 4 },
-          minHeight: "64px !important",
+          minHeight: scrolled ? "64px !important" : "112px !important",
+          py: scrolled ? 0.5 : 3.5,
+          transition: "min-height 0.4s ease, padding 0.4s ease",
           gap: 2,
         }}
       >
@@ -111,9 +118,9 @@ export function AppBar() {
             <Logo
               // logoFontColor={"#BADA55"}
               sx={{
-                height: 36,
+                height: scrolled ? 56 : 80,
                 cursor: "pointer",
-                transition: "opacity var(--dur-base) ease",
+                transition: "height 0.4s ease, opacity var(--dur-base) ease",
                 "&:hover": { opacity: 0.8 },
               }}
             />
@@ -125,7 +132,7 @@ export function AppBar() {
           <Box
             component="nav"
             aria-label="Main navigation"
-            sx={{ display: "flex", alignItems: "center", gap: 0.5, ml: 2 }}
+            sx={{ display: "flex", alignItems: "center", gap: 5, ml: 6 }}
           >
             {NAV_LINKS.map(({ label, href }) => {
               const isActive = pathname === href;
@@ -140,7 +147,7 @@ export function AppBar() {
                     fontWeight: isActive ? 600 : 500,
                     fontSize: "var(--type-button)",
                     letterSpacing: "-0.01em",
-                    px: 1.5,
+                    px: 3,
                     py: 0.75,
                     borderRadius: 2,
                     minWidth: 0,
@@ -171,9 +178,8 @@ export function AppBar() {
             <Button
               component={Link}
               href="/contact"
-              variant="outlined"
+              variant="text"
               sx={{
-                borderColor: "var(--ds-space-indigo)",
                 color: "var(--ds-space-indigo)",
                 borderRadius: "var(--radius-pill)",
                 px: 2.5,
@@ -181,7 +187,6 @@ export function AppBar() {
                 fontSize: "var(--type-button)",
                 fontWeight: "var(--weight-semibold)",
                 "&:hover": {
-                  borderColor: "var(--ds-space-indigo)",
                   backgroundColor: "var(--color-bg-neutral-hover)",
                   color: "var(--ds-space-indigo)",
                 },
@@ -196,14 +201,14 @@ export function AppBar() {
                 backgroundColor: "var(--color-accent)",
                 color: "var(--color-text-inverse)",
                 borderRadius: "var(--radius-pill)",
-                px: 2.5,
+                px: 1.5,
                 py: 0.875,
                 fontSize: "var(--type-button)",
                 fontWeight: "var(--weight-medium)",
-                boxShadow: "var(--shadow-btn-accent)",
+                boxShadow: "none",
                 "&:hover": {
                   backgroundColor: "var(--color-accent-light)",
-                  boxShadow: "var(--shadow-lg)",
+                  boxShadow: "none",
                 },
               }}
             />
@@ -324,9 +329,10 @@ export function AppBar() {
                     borderRadius: "var(--radius-pill)",
                     py: 1.25,
                     fontWeight: 500,
-                    boxShadow: "var(--shadow-btn-accent)",
+                    boxShadow: "none",
                     "&:hover": {
                       backgroundColor: "var(--color-accent-light)",
+                      boxShadow: "none",
                     },
                   }}
                 />

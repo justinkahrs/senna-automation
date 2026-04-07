@@ -463,7 +463,6 @@ export default function ChatWidget() {
 
       <Fab
         variant="extended"
-        color="primary"
         aria-label="chat"
         onClick={toggleOpen}
         sx={{
@@ -472,8 +471,13 @@ export default function ChatWidget() {
           borderRadius: "var(--radius-pill)",
           fontWeight: 700,
           textTransform: "none",
-          color: BG_BASE,
+          bgcolor: "var(--ds-banana)",
+          color: "var(--ds-space-indigo)",
           pointerEvents: "auto",
+          "&:hover": {
+            bgcolor: "var(--ds-banana)",
+            filter: "brightness(0.95)",
+          },
         }}
       >
         <ChatIcon />
@@ -483,7 +487,7 @@ export default function ChatWidget() {
             fontSize: "var(--type-body)",
             fontWeight: "var(--weight-bold)",
             lineHeight: 1,
-            color: BG_BASE,
+            color: "var(--ds-space-indigo)",
           }}
         >
           Chat with Sales

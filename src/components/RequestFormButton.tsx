@@ -8,6 +8,7 @@ interface RequestFormButtonProps {
   size?: "small" | "medium" | "large";
   fullWidth?: boolean;
   href?: string;
+  sx?: any;
 }
 
 export default function RequestFormButton({
@@ -16,6 +17,7 @@ export default function RequestFormButton({
   size = "medium",
   fullWidth = false,
   href = "/contact",
+  sx = {},
 }: RequestFormButtonProps) {
   return (
     <Button 
@@ -27,7 +29,7 @@ export default function RequestFormButton({
       sx={{
         borderRadius: "var(--radius-pill)",
         fontWeight: "bold",
-        px: 3,
+        px: 2,
         ...(variant === "contained" && {
           backgroundColor: WARM_BLACK,
           color: "#FFFFFF",
@@ -35,6 +37,7 @@ export default function RequestFormButton({
             backgroundColor: WARM_BLACK,
           },
         }),
+        ...sx,
       }}
     >
       {text}

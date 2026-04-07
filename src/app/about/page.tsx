@@ -264,7 +264,6 @@ export default function About() {
                   text="Let's fix that"
                   size="large"
                   inverse
-                  sx={{ px: 6 }}
                   showIcon={false}
                 />
                 <Box

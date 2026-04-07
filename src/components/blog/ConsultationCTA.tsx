@@ -47,7 +47,6 @@ export const ConsultationCTA = () => {
             size="large"
             showIcon={false}
             inverse
-            sx={{ px: 6 }}
           />
           <Box
             sx={{

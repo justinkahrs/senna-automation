@@ -163,6 +163,7 @@ export default function RootLayout({
   return (
     <html lang="en-US">
       <head>
+        <link rel="stylesheet" href="https://use.typekit.net/alo5gqx.css" />
         {/* JSON-LD Structured Data */}
         <Script
           id="organization-structured-data"

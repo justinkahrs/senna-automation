@@ -40,7 +40,12 @@ export default function BlogPage() {
   const categoryTail = categoryTailWords.join(" ").toUpperCase();
 
   return (
-    <Box sx={{ bgcolor: "background.default" }}>
+    <Box
+      sx={{
+        bgcolor: "background.default",
+        pb: 0,
+      }}
+    >
       {/* ── Bolder, Darker Hero Section ───────────────────────── */}
       <Box
         component="section"
@@ -146,22 +151,22 @@ export default function BlogPage() {
                     <Typography
                       sx={{
                         color: "inherit",
-                        fontFamily: '"Cormorant Garamond", serif',
+                        fontFamily: "var(--font-sans)",
                         fontSize: { xs: "1.35rem", md: "1.55rem" },
-                        fontWeight: 600,
+                        fontWeight: 700,
                         lineHeight: 1,
                       }}
                     >
                       {categoryLead}
                     </Typography>
                     {categoryTail && (
-                      <Typography
-                        sx={{
-                          color: "inherit",
-                          fontFamily: "Inter, sans-serif",
-                          fontSize: { xs: "0.8rem", md: "0.9rem" },
-                          fontWeight: 800,
-                          lineHeight: 1.1,
+                        <Typography
+                          sx={{
+                            color: "inherit",
+                            fontFamily: "var(--font-sans)",
+                            fontSize: { xs: "0.8rem", md: "0.9rem" },
+                            fontWeight: 800,
+                            lineHeight: 1.1,
                           letterSpacing: "0.12em",
                           textTransform: "uppercase",
                           mt: 0.5,

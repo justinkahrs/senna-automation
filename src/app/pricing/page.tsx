@@ -31,12 +31,33 @@ import {
 } from "@/components/pricing/tierData";
 import { WARM_BLACK } from "@/components/theme/colors";
 
+const homeEyebrowSx = {
+  display: "inline-flex",
+  alignItems: "center",
+  width: "fit-content",
+  px: 1.75,
+  py: 0.5,
+  border: "1px solid",
+  borderColor: "var(--color-border-medium)",
+  borderRadius: "var(--radius-pill)",
+  bgcolor:
+    "color-mix(in srgb, var(--color-accent-cyan), transparent 84%)",
+  color: "var(--color-text-secondary)",
+  letterSpacing: "0.12em",
+};
+
 export default function PricingPage() {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
 
   return (
-    <Box sx={{ bgcolor: "background.default", py: { xs: 8, md: 12 } }}>
+    <Box
+      sx={{
+        bgcolor: "background.default",
+        pt: { xs: 8, md: 12 },
+        pb: 0,
+      }}
+    >
       <Container maxWidth="lg">
         {/* Header Hero */}
         <Box
@@ -51,7 +72,10 @@ export default function PricingPage() {
           }}
         >
           <Box sx={{ maxWidth: "900px", mx: "auto", transform: { md: "translateY(-56px)" } }}>
-            <Typography variant="overline" color="primary.main" gutterBottom sx={{ display: 'block', mb: 1 }}>
+            <Typography
+              variant="overline"
+              sx={{ ...homeEyebrowSx, mb: 2, mx: "auto" }}
+            >
               Transparent Investment
             </Typography>
             <Typography
@@ -422,7 +446,7 @@ export default function PricingPage() {
             Long-term Value
           </Typography>
           <Typography variant="h2" gutterBottom>
-            Ongoing Support & Optimization
+            Ongoing support & optimization
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ maxWidth: "700px", mx: "auto", mb: 6, fontSize: '1.1rem' }}>
             Automation isn't "set it and forget it." We provide continuous monitoring, updates, and optimization to ensure your systems grow as your business evolves.
@@ -462,7 +486,7 @@ export default function PricingPage() {
                 maxWidth: { md: "760px", lg: "820px" },
               }}
             >
-              <Typography variant="overline" color="primary.main" gutterBottom sx={{ display: 'block', mb: 2 }}>
+              <Typography variant="overline" sx={{ ...homeEyebrowSx, mb: 2 }}>
                 Investment Factors
               </Typography>
               <Typography variant="h2" sx={{ mb: 4 }}>

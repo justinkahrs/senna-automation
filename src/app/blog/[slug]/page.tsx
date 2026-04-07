@@ -161,7 +161,7 @@ const markdownComponents = {
         },
         "& > .MuiTypography-body1:first-of-type": {
           mb: 3,
-          fontFamily: "Inter, sans-serif",
+          fontFamily: "var(--font-sans)",
           fontSize: "clamp(1.875rem, 3.5vw, 2.369rem)",
           lineHeight: 1.18,
           letterSpacing: "-0.02em",

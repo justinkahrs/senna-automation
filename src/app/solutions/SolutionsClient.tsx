@@ -383,7 +383,13 @@ const SolutionCard = ({
 
 export default function SolutionsClient({ solutions }: SolutionsClientProps) {
   return (
-    <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
+    <Box
+      sx={{
+        bgcolor: "background.default",
+        minHeight: "100vh",
+        pb: 0,
+      }}
+    >
       <Box
         component="section"
         sx={{

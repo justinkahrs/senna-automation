@@ -67,20 +67,21 @@ export default function ScheduleCallButton({
         sx={{
           borderRadius: "var(--radius-pill)",
           fontWeight: "bold",
-          px: 3,
+          px: 2,
           transition:
             "background-color var(--dur-base) ease, color var(--dur-base) ease, border-color var(--dur-base) ease, box-shadow var(--dur-base) ease",
           ...(variant === "contained" && {
-            backgroundColor: inverse ? "#FFFFFF" : WARM_BLACK,
+            backgroundColor: inverse ? "#FFFFFF" : ACCENT,
             color: inverse ? WARM_BLACK : "#FFFFFF",
             border: inverse
               ? `1px solid ${alpha(ACCENT, 0.18)}`
               : "1px solid transparent",
             boxShadow: inverse ? "none" : undefined,
             "&:hover": {
-              backgroundColor: inverse ? alpha("#FFFFFF", 0.94) : WARM_BLACK,
+              backgroundColor: inverse ? alpha("#FFFFFF", 0.94) : ACCENT,
               color: inverse ? ACCENT : "#FFFFFF",
               borderColor: inverse ? alpha(ACCENT, 0.36) : "transparent",
+              filter: inverse ? "none" : "brightness(0.92)",
               boxShadow: inverse
                 ? "0 10px 28px rgba(24,25,37,0.16)"
                 : "none",
@@ -156,9 +157,10 @@ export default function ScheduleCallButton({
               <Box sx={{ flex: 1, minWidth: 0 }}>
                 <Typography
                   sx={{
-                    fontFamily: '"Cormorant Garamond", serif',
+                    fontFamily: "var(--font-sans)",
                     color: WARM_BLACK,
                     fontSize: { xs: "1.65rem", md: "1.95rem" },
+                    fontWeight: 700,
                     lineHeight: 1,
                     letterSpacing: "-0.02em",
                     mb: 0.5,

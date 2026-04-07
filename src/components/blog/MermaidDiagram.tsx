@@ -51,7 +51,8 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
             lineColor: ACCENT,
             secondaryColor: BG_PAPER,
             tertiaryColor: BG_SUBTLE,
-            fontFamily: "Inter, sans-serif",
+            fontFamily:
+              '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif',
             fontSize: "16px",
           },
           flowchart: {
@@ -132,7 +133,8 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
           maxWidth: "100%",
         },
         "& svg .nodeLabel, & svg .edgeLabel": {
-          fontFamily: "Inter, sans-serif !important",
+          fontFamily:
+            '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif !important',
           color: "#181925 !important",
         },
         "& svg .nodeLabel p, & svg .edgeLabel p": {

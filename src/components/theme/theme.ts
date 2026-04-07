@@ -1,5 +1,4 @@
 "use client";
-import { Cormorant_Garamond, Inter } from "next/font/google";
 import { blink } from "./animations";
 
 import type { Theme, ThemeOptions } from "@mui/material/styles";
@@ -11,23 +10,6 @@ declare module "@mui/material/styles" {
     keyframes?: { blink?: object };
   }
 }
-
-/* ================================================================
-   FONTS
-   ================================================================ */
-
-const inter = Inter({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const cormorant = Cormorant_Garamond({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-  style: ["normal", "italic"],
-});
 
 /* ================================================================
    DESIGN TOKENS
@@ -78,8 +60,12 @@ export {
 };
 
 // ── Type families ─────────────────────────────────────────────────
-const SERIF = cormorant.style.fontFamily; // display heads
-const SANS = inter.style.fontFamily; // body, UI, labels
+const HEADING =
+  '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif';
+const SANS = '"muli", system-ui, -apple-system, sans-serif'; // body, UI, labels
+const ACCENT_FONT = '"posh", sans-serif';
+
+export { ACCENT_FONT };
 
 /* ================================================================
    TYPE SCALE — Senna Automation Design System
@@ -88,12 +74,12 @@ const SANS = inter.style.fontFamily; // body, UI, labels
    Base: 16px
 
    Variant     Family  Desktop   Mobile   Wt   LH    LS
-   h1          Serif   4.209rem  2.75rem  600  1.10  -0.030em
-   h2          Serif   3.157rem  2.25rem  600  1.13  -0.025em
-   h3          Serif   2.369rem  1.875rem 500  1.18  -0.020em
-   h4          Serif   1.777rem  1.5rem   500  1.25  -0.015em
-   h5          Sans    1.125rem  1.0rem   600  1.35  -0.015em
-   h6          Sans    0.9375rem 0.875rem 600  1.40  -0.010em
+   h1          Heading 4.209rem  2.75rem  700  1.10  -0.030em
+   h2          Heading 3.157rem  2.25rem  600  1.13  -0.025em
+   h3          Heading 2.369rem  1.875rem 600  1.18  -0.020em
+   h4          Heading 1.777rem  1.5rem   600  1.25  -0.015em
+   h5          Heading 1.125rem  1.0rem   600  1.35  -0.015em
+   h6          Heading 0.9375rem 0.875rem 600  1.40  -0.010em
    subtitle1   Sans    1.125rem  1.0625rem 500 1.60  -0.010em  (body large)
    subtitle2   Sans    0.9375rem 0.875rem 500  1.55  -0.008em  (body medium)
    body1       Sans    1.0rem    1.0rem   400  1.65  -0.008em  (body)
@@ -153,11 +139,11 @@ export function getThemeTokens(): ThemeOptions {
       // base is 16px (browser default)
       htmlFontSize: 16,
 
-      /* ─── Display & section headings (Cormorant Garamond) ─── */
+      /* ─── Display & section headings (ITC Avant Garde Gothic Pro) ─── */
 
       h1: {
-        fontFamily: SERIF,
-        fontWeight: 600,
+        fontFamily: HEADING,
+        fontWeight: 700,
         // Desktop: 67.34px | Mobile: 44px
         fontSize: "clamp(2.75rem, 5.5vw, 4.209rem)",
         lineHeight: 1.1,
@@ -165,7 +151,7 @@ export function getThemeTokens(): ThemeOptions {
         color: SPACE_INDIGO,
       },
       h2: {
-        fontFamily: SERIF,
+        fontFamily: HEADING,
         fontWeight: 600,
         // Desktop: 50.5px | Mobile: 36px
         fontSize: "clamp(2.25rem, 4.5vw, 3.157rem)",
@@ -174,8 +160,8 @@ export function getThemeTokens(): ThemeOptions {
         color: SPACE_INDIGO,
       },
       h3: {
-        fontFamily: SERIF,
-        fontWeight: 500,
+        fontFamily: HEADING,
+        fontWeight: 600,
         // Desktop: 37.9px | Mobile: 30px
         fontSize: "clamp(1.875rem, 3.5vw, 2.369rem)",
         lineHeight: 1.18,
@@ -183,8 +169,8 @@ export function getThemeTokens(): ThemeOptions {
         color: SPACE_INDIGO,
       },
       h4: {
-        fontFamily: SERIF,
-        fontWeight: 500,
+        fontFamily: HEADING,
+        fontWeight: 600,
         // Desktop: 28.4px | Mobile: 24px
         fontSize: "clamp(1.5rem, 2.5vw, 1.777rem)",
         lineHeight: 1.25,
@@ -192,10 +178,10 @@ export function getThemeTokens(): ThemeOptions {
         color: SPACE_INDIGO,
       },
 
-      /* ─── UI headings (Inter sans) ─── */
+      /* ─── Smaller headings ─── */
 
       h5: {
-        fontFamily: SANS,
+        fontFamily: HEADING,
         fontWeight: 600,
         fontSize: "1.125rem", // 18px — same as body-lg, but bolder
         lineHeight: 1.35,
@@ -203,7 +189,7 @@ export function getThemeTokens(): ThemeOptions {
         color: SPACE_INDIGO,
       },
       h6: {
-        fontFamily: SANS,
+        fontFamily: HEADING,
         fontWeight: 600,
         fontSize: "0.9375rem", // 15px — same as button, headed feel
         lineHeight: 1.4,
@@ -350,7 +336,7 @@ export function getThemeTokens(): ThemeOptions {
             letterSpacing: "-0.010em",
             lineHeight: 1.0,
             borderRadius: "9999px",
-            padding: "10px 28px",
+            padding: "10px 18px",
             textTransform: "none",
             transition: [
               "background-color 180ms cubic-bezier(0.25,0.46,0.45,0.94)",
@@ -370,11 +356,11 @@ export function getThemeTokens(): ThemeOptions {
             "&:hover": { borderWidth: "1.5px" },
           },
           sizeSmall: {
-            padding: "6px 18px",
+            padding: "6px 12px",
             fontSize: "0.8125rem",
           },
           sizeLarge: {
-            padding: "13px 36px",
+            padding: "13px 22px",
             fontSize: "1.0625rem",
           },
         },
