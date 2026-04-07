@@ -83,6 +83,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: SITE_URL,
   },
+  icons: {
+    icon: "/favicon32px.svg",
+  },
 };
 
 // JSON-LD Structured Data for Organization
