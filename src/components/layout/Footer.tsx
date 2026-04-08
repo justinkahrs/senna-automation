@@ -17,18 +17,18 @@ const footerLinkGroups = [
     heading: "Company",
     links: [
       { label: "About Us", href: "/about" },
-      { label: "Senna Blog", href: "/blog" },
       { label: "Services", href: "/services" },
       { label: "Solutions", href: "/solutions" },
       { label: "Pricing", href: "/pricing" },
+      { label: "Blog", href: "/blog" },
     ],
   },
   {
     heading: "Explore",
     links: [
       { label: "Contact", href: "/contact" },
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "Terms of Service", href: "/terms" },
+      { label: "Privacy", href: "/privacy" },
+      { label: "Terms", href: "/terms" },
     ],
   },
 ];
@@ -36,7 +36,13 @@ const footerLinkGroups = [
 export function Footer() {
   const pathname = usePathname();
   const usesYellowFooterBleed = ["/", "/about", "/contact"].includes(pathname);
-  const usesExtendedCtaBackdrop = ["/blog", "/pricing", "/services", "/solutions"].some(p => pathname.startsWith(p));
+  const usesExtendedCtaBackdrop = [
+    "/blog",
+    "/pricing",
+    "/services",
+    "/solutions",
+  ].some((p) => pathname.startsWith(p));
+  const isLegalPage = ["/privacy", "/terms"].includes(pathname);
 
   return (
     <Box
@@ -96,23 +102,27 @@ export function Footer() {
                   zIndex: -1,
                 },
               }
-          : {
-              background:
-                "linear-gradient(-45deg, var(--color-accent), var(--ds-shadow-grey), var(--color-accent))",
-              backgroundSize: "400% 400%",
-              animation: "footerGradientBG 15s ease infinite",
-              "@keyframes footerGradientBG": {
-                "0%": {
-                  backgroundPosition: "0% 50%",
-                },
-                "50%": {
-                  backgroundPosition: "100% 50%",
-                },
-                "100%": {
-                  backgroundPosition: "0% 50%",
-                },
-              },
-            }),
+            : isLegalPage
+              ? {
+                  backgroundColor: "var(--color-bg-base)",
+                }
+              : {
+                  background:
+                    "linear-gradient(-45deg, var(--color-accent), var(--ds-shadow-grey), var(--color-accent))",
+                  backgroundSize: "400% 400%",
+                  animation: "footerGradientBG 15s ease infinite",
+                  "@keyframes footerGradientBG": {
+                    "0%": {
+                      backgroundPosition: "0% 50%",
+                    },
+                    "50%": {
+                      backgroundPosition: "100% 50%",
+                    },
+                    "100%": {
+                      backgroundPosition: "0% 50%",
+                    },
+                  },
+                }),
       }}
     >
       <Box
@@ -152,142 +162,152 @@ export function Footer() {
           }}
         >
           <Grid container spacing={8}>
-          <Grid item xs={12} md={2}>
-            <Box
-              component="img"
-              src="/master-logo.svg"
-              alt="Senna Automation"
-              sx={{
-                display: "block",
-                width: { xs: 180, md: 200 },
-                height: "auto",
-                mb: 2,
-                filter: "brightness(0) invert(1)",
-              }}
-            />
-            <Typography
-              variant="body2"
-              sx={{ color: "var(--color-text-on-dark-body)", mb: 0.5 }}
-            >
-              Grand Rapids, MI
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ color: "var(--color-text-on-dark-body)", mb: 2 }}
-            >
-              (616) 287-3360
-            </Typography>
-          </Grid>
-          {footerLinkGroups.map((group) => (
-            <Grid item xs={12} sm={4} md={2} key={group.heading}>
+            <Grid item xs={12} md={2}>
+              <Box
+                component="img"
+                src="/master-logo.svg"
+                alt="Senna Automation"
+                sx={{
+                  display: "block",
+                  width: { xs: 180, md: 200 },
+                  height: "auto",
+                  mb: 2,
+                  filter: "brightness(0) invert(1)",
+                }}
+              />
+              <Typography
+                variant="body2"
+                sx={{ color: "var(--color-text-on-dark-body)", mb: 0.5 }}
+              >
+                Grand Rapids, MI
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ color: "var(--color-text-on-dark-body)", mb: 2 }}
+              >
+                (616) 287-3360
+              </Typography>
+            </Grid>
+            {footerLinkGroups.map((group) => (
+              <Grid item xs={12} sm={4} md={2} key={group.heading}>
+                <Box sx={{ ml: { md: 5 } }}>
+                  <Typography
+                    variant="overline"
+                    sx={{
+                      color: "var(--color-text-on-dark-prominent)",
+                      display: "block",
+                      mb: 3,
+                    }}
+                  >
+                    {group.heading}
+                  </Typography>
+                  <Box
+                    sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}
+                  >
+                    {group.links.map((link) => (
+                      <Link
+                        key={link.label}
+                        href={link.href}
+                        sx={{
+                          color: "var(--color-accent-cyan)",
+                          textDecoration: "none",
+                          transition: "color var(--dur-base) ease",
+                          "&:hover": { color: "var(--color-bg-subtle)" },
+                        }}
+                      >
+                        <Typography variant="body2" color="inherit">
+                          {link.label}
+                        </Typography>
+                      </Link>
+                    ))}
+                  </Box>
+                </Box>
+              </Grid>
+            ))}
+            <Grid item xs={12} sm={4} md={2}>
               <Box sx={{ ml: { md: 5 } }}>
                 <Typography
                   variant="overline"
-                  sx={{ color: "var(--color-text-on-dark-prominent)", display: "block", mb: 3 }}
+                  sx={{
+                    color: "var(--color-text-on-dark-prominent)",
+                    display: "block",
+                    mb: 3,
+                  }}
                 >
-                  {group.heading}
+                  Connect
                 </Typography>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-                  {group.links.map((link) => (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      sx={{
-                        color: "var(--color-accent-cyan)",
-                        textDecoration: "none",
-                        transition: "color var(--dur-base) ease",
-                        "&:hover": { color: "var(--color-bg-subtle)" },
-                      }}
-                    >
-                      <Typography variant="body2" color="inherit">
-                        {link.label}
-                      </Typography>
-                    </Link>
-                  ))}
+                <Box sx={{ display: "flex", gap: 2 }}>
+                  <IconButton
+                    component="a"
+                    href="https://linkedin.com/company/senna-automation"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      color: "var(--color-text-on-dark-body)",
+                      p: 0,
+                      "&:hover": { color: "var(--color-accent-cyan)" },
+                    }}
+                  >
+                    <LinkedInIcon />
+                  </IconButton>
+                  <IconButton
+                    component="a"
+                    href="https://instagram.com/sennaautomation"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      color: "var(--color-text-on-dark-body)",
+                      p: 0,
+                      "&:hover": { color: "var(--color-accent-cyan)" },
+                    }}
+                  >
+                    <InstagramIcon />
+                  </IconButton>
                 </Box>
               </Box>
             </Grid>
-          ))}
-          <Grid item xs={12} sm={4} md={2}>
-            <Box sx={{ ml: { md: 5 } }}>
-              <Typography
-                variant="overline"
-                sx={{ color: "var(--color-text-on-dark-prominent)", display: "block", mb: 3 }}
-              >
-                Connect
-              </Typography>
-              <Box sx={{ display: "flex", gap: 2 }}>
-                <IconButton
-                  component="a"
-                  href="https://linkedin.com/company/senna-automation"
+            <Grid item xs={12} sm={4} md={4}>
+              <Box sx={{ ml: { md: 5 } }}>
+                <Typography
+                  variant="overline"
+                  sx={{
+                    color: "var(--color-text-on-dark-prominent)",
+                    display: "block",
+                    mb: 2,
+                    letterSpacing: "0.1em",
+                  }}
+                >
+                  Trust
+                </Typography>
+                <Link
+                  href="https://www.bbb.org/us/mi/grand-rapids/profile/artificial-intelligence/senna-automation-0372-90070205"
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
-                    color: "var(--color-text-on-dark-body)",
-                    p: 0,
-                    "&:hover": { color: "var(--color-accent-cyan)" },
+                    display: "inline-flex",
+                    opacity: 0.8,
+                    transition:
+                      "opacity var(--dur-base) ease, transform var(--dur-base) ease",
+                    marginLeft: "-42px", // Align with the heading above
+                    "&:hover": {
+                      opacity: 1,
+                      transform: "translateY(-2px)",
+                    },
                   }}
                 >
-                  <LinkedInIcon />
-                </IconButton>
-                <IconButton
-                  component="a"
-                  href="https://instagram.com/sennaautomation"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                    color: "var(--color-text-on-dark-body)",
-                    p: 0,
-                    "&:hover": { color: "var(--color-accent-cyan)" },
-                  }}
-                >
-                  <InstagramIcon />
-                </IconButton>
+                  <Box
+                    component="img"
+                    src="/bbb.svg"
+                    alt="BBB Profile"
+                    sx={{
+                      height: 100,
+                      width: "auto",
+                      borderRadius: "var(--radius-sm)",
+                    }}
+                  />
+                </Link>
               </Box>
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={4} md={4}>
-            <Box sx={{ ml: { md: 5 } }}>
-              <Typography
-                variant="overline"
-                sx={{
-                  color: "var(--color-text-on-dark-prominent)",
-                  display: "block",
-                  mb: 2, 
-                  letterSpacing: "0.1em",
-                }}
-              >
-                Trust
-              </Typography>
-              <Link
-                href="https://www.bbb.org/us/mi/grand-rapids/profile/artificial-intelligence/senna-automation-0372-90070205"
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{
-                  display: "inline-flex",
-                  opacity: 0.8,
-                  transition:
-                    "opacity var(--dur-base) ease, transform var(--dur-base) ease",
-                  marginLeft: "-42px", // Align with the heading above
-                  "&:hover": {
-                    opacity: 1,
-                    transform: "translateY(-2px)",
-                  },
-                }}
-              >
-                <Box
-                  component="img"
-                  src="/bbb.svg"
-                  alt="BBB Profile"
-                  sx={{
-                    height: 100,
-                    width: "auto",
-                    borderRadius: "var(--radius-sm)",
-                  }}
-                />
-              </Link>
-            </Box>
-          </Grid>
+            </Grid>
           </Grid>
 
           <Box
