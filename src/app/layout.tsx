@@ -11,6 +11,7 @@ import "./globals.css";
 const SITE_URL = "https://www.senna-automation.com";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Senna Automation | AI Workflow Automation & Custom Software Development Grand Rapids, MI",
     template: "%s | Senna Automation"
@@ -59,27 +60,18 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  openGraph: {
+    openGraph: {
     type: "website",
     locale: "en_US",
     url: SITE_URL,
     title: "Senna Automation | AI Workflow Automation & Custom Software Development",
     description: "Transform your business with AI workflow automation, custom software development, and modern web solutions. Expert AI automation consulting serving Grand Rapids, Michigan.",
     siteName: "Senna Automation",
-    images: [
-      {
-        url: `${SITE_URL}/senna-automation-new.png`,
-        width: 1200,
-        height: 630,
-        alt: "Senna Automation - AI Workflow Automation & Custom Software Development",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Senna Automation | AI Workflow Automation & Custom Software Development",
     description: "Transform your business with AI workflow automation, custom software development, and modern web solutions. Expert AI automation consulting serving Grand Rapids, Michigan.",
-    images: [`${SITE_URL}/senna-automation-new.png`],
   },
   alternates: {
     canonical: SITE_URL,
