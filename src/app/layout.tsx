@@ -186,12 +186,14 @@ export default function RootLayout({
           }}
         />
         {/* Analytics and Tracking Scripts */}
-        <Script
-          src="https://grenadierly-unrescissory-hae.ngrok-free.dev/umami/script.js"
-          data-website-id="7f9f7986-0963-49f6-b357-35a5ccabe2f1"
-          defer
-          strategy="afterInteractive"
-        />
+        {process.env.NODE_ENV === "production" && (
+          <Script
+            src="https://grenadierly-unrescissory-hae.ngrok-free.dev/umami/script.js"
+            data-website-id="7f9f7986-0963-49f6-b357-35a5ccabe2f1"
+            defer
+            strategy="afterInteractive"
+          />
+        )}
         <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=AW-16832579878"
