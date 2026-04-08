@@ -137,6 +137,9 @@ export default function ContactForm() {
                 onSubmit={handleSubmit}
                 sx={{
                   width: "100%",
+                  "& .MuiInputLabel-root.MuiInputLabel-shrink": {
+                    backgroundColor: "var(--color-text-highlight) !important",
+                  },
                 }}
               >
                 <TextField

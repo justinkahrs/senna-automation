@@ -545,6 +545,11 @@ export function getThemeTokens(): ThemeOptions {
               fontFamily: SANS,
               fontSize: "0.9375rem",
               letterSpacing: "-0.008em",
+              "&.MuiInputLabel-shrink": {
+                backgroundColor: BG_PAPER,
+                padding: "0 4px",
+                marginLeft: "-4px",
+              },
             },
           },
         },
