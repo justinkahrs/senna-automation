@@ -470,6 +470,7 @@ export default function PricingPage() {
         maxWidth={false}
         sx={{
           mt: { xs: 12, md: 24 },
+          mb: { xs: 12, md: 24 },
           position: "relative",
           zIndex: 1,
           width: "100%",
@@ -517,16 +518,14 @@ export default function PricingPage() {
           <Grid item xs={12} md={5} sx={{ position: "relative", display: "flex" }}>
             <Box
               sx={{
-                position: { xs: "relative", md: "absolute" },
-                top: { md: 0 },
-                bottom: { md: 0 },
-                left: 0,
+                position: "relative",
                 width: {
                   xs: "100%",
                   md: "calc(100% + 32px)",
                   lg: "calc(100% + 48px)",
                 },
                 display: "flex",
+                flex: 1,
               }}
             >
               <Box sx={{ bgcolor: 'secondary.main', p: { xs: 4, md: 6 }, borderRadius: 0, color: 'background.paper', position: 'relative', overflow: 'hidden', height: "100%", flex: 1 }}>

@@ -15,8 +15,8 @@ import ScheduleCallButton from "@/components/ScheduleCallButton";
 import { usePathname } from "next/navigation";
 
 interface FinalCTAProps {
-  title?: string;
-  subtitle?: string;
+  title?: React.ReactNode;
+  subtitle?: React.ReactNode;
   buttonText?: string;
   sx?: SxProps<Theme>;
   containerMaxWidth?: "xs" | "sm" | "md" | "lg" | "xl";

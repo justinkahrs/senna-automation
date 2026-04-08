@@ -11,6 +11,8 @@ import {
   Typography,
   Container,
   Grid,
+  Card,
+  CardContent,
 } from "@mui/material";
 import { validateContact } from "@/utils/validation";
 import SuccessMessage from "@/components/SuccessMessage";
@@ -62,8 +64,8 @@ export default function ContactForm() {
   return (
     <Box
       sx={{
-        bgcolor: "background.default",
-        color: "text.primary",
+        bgcolor: "var(--color-text-highlight)",
+        color: "var(--color-text-primary)",
         minHeight: "100vh",
         display: "flex",
         justifyContent: "flex-start",
@@ -98,7 +100,7 @@ export default function ContactForm() {
               </Typography>
               <Typography
                 variant="subtitle1"
-                color="text.secondary"
+                color="text.primary"
                 sx={{
                   mb: 3,
                   maxWidth: 560,
@@ -108,20 +110,23 @@ export default function ContactForm() {
                 No prep needed. We&apos;ll walk through your current process and
                 find where automation can help.
               </Typography>
-              <Typography
-                variant="body1"
-                color="text.secondary"
-                sx={{ textAlign: { xs: "center", md: "left" } }}
-              >
-                Prefer to talk directly? Call{" "}
-                <a
-                  href="tel:+16162873360"
-                  style={{ color: "inherit", textDecoration: "underline" }}
+                <Typography
+                  variant="body1"
+                  color="text.primary"
+                  sx={{
+                    textAlign: { xs: "center", md: "left" },
+                    "& a:hover": { color: "var(--color-accent)" },
+                  }}
                 >
-                  (616) 287-3360
-                </a>
-                .
-              </Typography>
+                  Prefer to talk directly? Call{" "}
+                  <a
+                    href="tel:+16162873360"
+                    style={{ color: "inherit", textDecoration: "underline" }}
+                  >
+                    (616) 287-3360
+                  </a>
+                  .
+                </Typography>
             </Box>
           </Grid>
 
@@ -144,6 +149,27 @@ export default function ContactForm() {
                   onChange={(e) => setName(e.target.value)}
                   margin="normal"
                   aria-label="Enter your full name"
+                  sx={{
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-accent) !important",
+                    },
+                    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-accent) !important",
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-text-primary)",
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "var(--color-text-primary)",
+                      transition: "color 0.2s ease",
+                    },
+                    "&:hover .MuiInputLabel-root": {
+                      color: "var(--color-accent)",
+                    },
+                    "& .MuiInputLabel-root.Mui-focused": {
+                      color: "var(--color-accent)",
+                    },
+                  }}
                 />
                 <TextField
                   fullWidth
@@ -154,6 +180,27 @@ export default function ContactForm() {
                   onChange={(e) => setCompany(e.target.value)}
                   margin="normal"
                   aria-label="Enter your company name"
+                  sx={{
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-accent) !important",
+                    },
+                    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-accent) !important",
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-text-primary)",
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "var(--color-text-primary)",
+                      transition: "color 0.2s ease",
+                    },
+                    "&:hover .MuiInputLabel-root": {
+                      color: "var(--color-accent)",
+                    },
+                    "& .MuiInputLabel-root.Mui-focused": {
+                      color: "var(--color-accent)",
+                    },
+                  }}
                 />
                 <TextField
                   fullWidth
@@ -167,6 +214,27 @@ export default function ContactForm() {
                   aria-label="Describe how we can help your business"
                   multiline
                   rows={3}
+                  sx={{
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-accent) !important",
+                    },
+                    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-accent) !important",
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-text-primary)",
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "var(--color-text-primary)",
+                      transition: "color 0.2s ease",
+                    },
+                    "&:hover .MuiInputLabel-root": {
+                      color: "var(--color-accent)",
+                    },
+                    "& .MuiInputLabel-root.Mui-focused": {
+                      color: "var(--color-accent)",
+                    },
+                  }}
                 />
                 <Typography
                   variant="body2"
@@ -180,6 +248,30 @@ export default function ContactForm() {
                   aria-label="Select your preferred contact method"
                   value={contactMethod}
                   onChange={(e) => setContactMethod(e.target.value)}
+                  sx={{
+                    "& .MuiFormControlLabel-root": {
+                      color: "var(--color-text-primary)",
+                      "& .MuiTypography-root": {
+                        color: "var(--color-text-primary)",
+                        transition: "color 0.2s ease",
+                      },
+                      "&:hover": {
+                        "& .MuiRadio-root": {
+                          color: "var(--color-accent)",
+                        },
+                        "& .MuiTypography-root": {
+                          color: "var(--color-accent)",
+                        },
+                      },
+                    },
+                    "& .MuiRadio-root": {
+                      color: "var(--color-text-primary)",
+                      transition: "color 0.2s ease",
+                      "&.Mui-checked": {
+                        color: "var(--color-accent)",
+                      },
+                    },
+                  }}
                 >
                   <FormControlLabel
                     value="email"
@@ -226,13 +318,44 @@ export default function ContactForm() {
                         : "Please enter a valid phone number (e.g., (616) 555-1234)"
                       : ""
                   }
+                  sx={{
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-accent) !important",
+                    },
+                    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-accent) !important",
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-text-primary)",
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "var(--color-text-primary)",
+                      transition: "color 0.2s ease",
+                    },
+                    "&:hover .MuiInputLabel-root": {
+                      color: "var(--color-accent)",
+                    },
+                    "& .MuiInputLabel-root.Mui-focused": {
+                      color: "var(--color-accent)",
+                    },
+                  }}
                 />
                 <Button
                   variant="contained"
                   type="submit"
                   size="large"
                   fullWidth
-                  sx={{ mt: 2, py: 1.5, fontSize: "1.1rem" }}
+                  sx={{
+                    mt: 2,
+                    py: 1.5,
+                    fontSize: "1.1rem",
+                    bgcolor: "var(--color-text-primary)",
+                    color: "background.paper",
+                    "&:hover": {
+                      bgcolor: "var(--color-text-primary)",
+                      filter: "brightness(1.05)",
+                    },
+                  }}
                   disabled={!isValidContact}
                   aria-label="Submit your contact request"
                 >
@@ -240,56 +363,71 @@ export default function ContactForm() {
                 </Button>
               </Box>
 
-              <Box
+              <Card
                 sx={{
                   mt: 4,
-                  p: 3,
                   width: "100%",
-                  borderRadius: 3,
+                  display: "flex",
+                  flexDirection: "column",
+                  bgcolor: "background.default",
+                  backgroundImage: "none",
+                  boxShadow: "none",
                   border: "1px solid",
-                  borderColor: "divider",
+                  borderColor: "var(--color-border-neutral-light)",
+                  borderRadius: { xs: 0, md: 1.5 },
                   textAlign: "center",
-                  bgcolor: "background.paper",
+                  "&:hover": {
+                    transform: "none",
+                    boxShadow: "none",
+                    borderColor: "var(--color-border-neutral-light)",
+                  },
                 }}
               >
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{ mb: 1.5 }}
-                >
-                  Prefer to just talk? Skip the form.
-                </Typography>
-                <ScheduleCallButton
-                  text="Schedule a Free 30-Min Call"
-                  size="medium"
-                  showIcon={false}
-                />
-                <Box
+                <CardContent
                   sx={{
-                    mt: 1.5,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 0.5,
-                    color: "text.secondary",
+                    p: { xs: 4, md: 5.5 },
+                    "&:last-child": { pb: { xs: 4, md: 5.5 } },
                   }}
                 >
-                  <Typography variant="caption" sx={{ color: "inherit" }}>
-                    via
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mb: 2 }}
+                  >
+                    Prefer to just talk? Skip the form.
                   </Typography>
-                  <Box
-                    component="img"
-                    src="/Calendly.svg"
-                    alt="Calendly"
-                    sx={{
-                      height: "0.95rem",
-                      width: "auto",
-                      opacity: 0.8,
-                      mt: "2px",
-                    }}
+                  <ScheduleCallButton
+                    text="Schedule a Free 30-Min Call"
+                    size="medium"
+                    showIcon={false}
                   />
-                </Box>
-              </Box>
+                  <Box
+                    sx={{
+                      mt: 2,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 0.5,
+                      color: "text.secondary",
+                    }}
+                  >
+                    <Typography variant="caption" sx={{ color: "inherit" }}>
+                      via
+                    </Typography>
+                    <Box
+                      component="img"
+                      src="/Calendly.svg"
+                      alt="Calendly"
+                      sx={{
+                        height: "0.95rem",
+                        width: "auto",
+                        opacity: 0.8,
+                        mt: "2px",
+                      }}
+                    />
+                  </Box>
+                </CardContent>
+              </Card>
             </Box>
           </Grid>
         </Grid>
