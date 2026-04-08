@@ -75,7 +75,7 @@ export function Footer() {
                 "&::before": {
                   content: '""',
                   position: "absolute",
-                  top: { xs: "-25rem", md: "-40rem" },
+                  top: { xs: "-45rem", sm: "-50rem", md: "-40rem" },
                   left: "50%",
                   bottom: 0,
                   width: "100vw",
@@ -90,7 +90,7 @@ export function Footer() {
                 "&::after": {
                   content: '""',
                   position: "absolute",
-                  top: { xs: "-25rem", md: "-40rem" },
+                  top: { xs: "-45rem", sm: "-50rem", md: "-40rem" },
                   left: "50%",
                   bottom: 0,
                   width: "100vw",
