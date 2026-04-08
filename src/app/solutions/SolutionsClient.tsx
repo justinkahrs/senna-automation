@@ -19,12 +19,28 @@ interface Solution {
   outcomes: string[];
   category?: string;
   video?: string;
+  mobileImage?: string;
   latestPost?: Omit<BlogPost, "content"> | null;
 }
 
 interface SolutionsClientProps {
   solutions: Solution[];
 }
+
+const homeEyebrowSx = {
+  display: "inline-flex",
+  alignItems: "center",
+  width: "fit-content",
+  px: 1.75,
+  py: 0.5,
+  border: "1px solid",
+  borderColor: "var(--color-border-medium)",
+  borderRadius: "var(--radius-pill)",
+  bgcolor:
+    "color-mix(in srgb, var(--color-accent-cyan), transparent 84%)",
+  color: "var(--color-text-secondary)",
+  letterSpacing: "0.12em",
+};
 
 const faqs = [
   {
@@ -315,34 +331,60 @@ const SolutionCard = ({
             }}
           >
             {item.video ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                style={{
-                  width: "90%",
-                  height: "90%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  src={item.video}
-                  style={{
-                    maxWidth: "100%",
-                    maxHeight: "100%",
-                    width: "auto",
-                    height: "auto",
-                    objectFit: "contain",
-                    display: "block",
+              <>
+                {item.mobileImage && (
+                  <Box
+                    component={motion.img}
+                    initial={{ opacity: 0, scale: 1.02 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    src={item.mobileImage}
+                    alt={item.title}
+                    sx={{
+                      display: { xs: "block", md: "none" },
+                      width: "100%",
+                      maxWidth: "100%",
+                      height: "auto",
+                      objectFit: "contain",
+                      px: 3,
+                      py: 3,
+                      boxSizing: "border-box",
+                    }}
+                  />
+                )}
+                <Box
+                  component={motion.div}
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  sx={{
+                    display: {
+                      xs: item.mobileImage ? "none" : "flex",
+                      md: "flex",
+                    },
+                    width: "90%",
+                    height: "90%",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
-                />
-              </motion.div>
+                >
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    src={item.video}
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      width: "auto",
+                      height: "auto",
+                      objectFit: "contain",
+                      display: "block",
+                    }}
+                  />
+                </Box>
+              </>
             ) : (
               <>
                 <motion.p
@@ -394,7 +436,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
         sx={{
           bgcolor: "secondary.main",
           color: "background.paper",
-          pt: { xs: 12, md: 20 },
+          pt: { xs: 16, md: 28 },
           pb: { xs: 10, md: 16 },
           position: "relative",
           overflow: "hidden",
@@ -419,6 +461,12 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
           sx={{ position: "relative", zIndex: 1, textAlign: "center" }}
         >
           <Box sx={{ maxWidth: "900px", mx: "auto" }}>
+            <Typography
+              variant="overline"
+              sx={{ ...homeEyebrowSx, mb: 2, mx: "auto" }}
+            >
+              Solutions
+            </Typography>
             <Typography
               component="h1"
               variant="h1"
@@ -449,7 +497,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
         </Container>
       </Box>
 
-      <Box sx={{ py: { xs: 6, md: 8 }, bgcolor: "background.paper" }}>
+      <Box sx={{ py: { xs: 10, md: 16 }, bgcolor: "background.paper" }}>
         <Container maxWidth="md" sx={{ textAlign: "left" }}>
           <Typography
             variant="h4"

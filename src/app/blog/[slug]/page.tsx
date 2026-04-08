@@ -361,7 +361,7 @@ export default async function BlogPostPage({
                       fontSize: "1.25rem",
                       lineHeight: 1.6,
                       fontStyle: "italic",
-                      borderLeft: "2px solid",
+                      borderLeft: "8px solid",
                       borderColor: "primary.main",
                       pl: 3,
                     }}

@@ -76,15 +76,16 @@ export default function ContactForm() {
         maxWidth="lg"
         sx={{
           pt: { xs: 12, md: 20 },
-          pb: { xs: 6, md: 10 },
+          pb: { xs: 10, md: 16 },
         }}
       >
-        <Grid container spacing={{ xs: 6, md: 8 }} alignItems="start">
+        <Grid container spacing={{ xs: 6, md: 10 }} alignItems="start">
           <Grid item xs={12} md={5}>
             <Box
               sx={{
                 maxWidth: 520,
                 pt: { md: 6 },
+                pr: { md: 4, lg: 6 },
                 position: { md: "sticky" },
                 top: { md: 120 },
               }}
@@ -94,9 +95,43 @@ export default function ContactForm() {
                 component="h1"
                 gutterBottom
                 color="text.primary"
-                sx={{ textAlign: { xs: "center", md: "left" } }}
+                sx={{
+                  fontFamily:
+                    '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif',
+                  textAlign: { xs: "center", md: "left" },
+                  textTransform: "uppercase",
+                  fontSize: "clamp(3.75rem, 9vw, 7rem)",
+                  lineHeight: 0.96,
+                  letterSpacing: "-0.04em",
+                }}
               >
-                Get Your Free Automation Audit
+                <Box
+                  component="span"
+                  sx={{ display: "block", fontSize: "0.9em", fontWeight: 700 }}
+                >
+                  You&apos;ve got questions.
+                </Box>
+                <Box
+                  component="span"
+                  sx={{
+                    display: "block",
+                    mt: 1,
+                    textTransform: "none",
+                    fontFamily: '"posh", sans-serif',
+                    fontWeight: 900,
+                    fontStyle: "italic",
+                    fontSize: { xs: "1.06em", sm: "1.12em", md: "1.16em" },
+                    lineHeight: 0.88,
+                    color: "var(--ds-space-indigo, #181925)",
+                    textShadow: {
+                      xs: "3px 3px 0 var(--ds-magenta-light, #991778)",
+                      sm: "4px 4px 0 var(--ds-magenta-light, #991778)",
+                      md: "6px 6px 0 var(--ds-magenta-light, #991778)",
+                    },
+                  }}
+                >
+                  Good.
+                </Box>
               </Typography>
               <Typography
                 variant="subtitle1"
@@ -131,9 +166,17 @@ export default function ContactForm() {
           </Grid>
 
           <Grid item xs={12} md={7}>
-            <Box sx={{ width: "100%", maxWidth: 640, ml: { md: "auto" } }}>
+            <Box
+              sx={{
+                width: "100%",
+                maxWidth: 640,
+                ml: { md: "auto" },
+                pl: { md: 3, lg: 5 },
+              }}
+            >
               <Box
                 component="form"
+                id="contact-form"
                 onSubmit={handleSubmit}
                 sx={{
                   width: "100%",
@@ -153,6 +196,9 @@ export default function ContactForm() {
                   margin="normal"
                   aria-label="Enter your full name"
                   sx={{
+                    "& .MuiOutlinedInput-root": {
+                      bgcolor: "var(--color-bg-paper)",
+                    },
                     "&:hover .MuiOutlinedInput-notchedOutline": {
                       borderColor: "var(--color-accent) !important",
                     },
@@ -184,6 +230,9 @@ export default function ContactForm() {
                   margin="normal"
                   aria-label="Enter your company name"
                   sx={{
+                    "& .MuiOutlinedInput-root": {
+                      bgcolor: "var(--color-bg-paper)",
+                    },
                     "&:hover .MuiOutlinedInput-notchedOutline": {
                       borderColor: "var(--color-accent) !important",
                     },
@@ -218,6 +267,9 @@ export default function ContactForm() {
                   multiline
                   rows={3}
                   sx={{
+                    "& .MuiOutlinedInput-root": {
+                      bgcolor: "var(--color-bg-paper)",
+                    },
                     "&:hover .MuiOutlinedInput-notchedOutline": {
                       borderColor: "var(--color-accent) !important",
                     },
@@ -322,6 +374,9 @@ export default function ContactForm() {
                       : ""
                   }
                   sx={{
+                    "& .MuiOutlinedInput-root": {
+                      bgcolor: "var(--color-bg-paper)",
+                    },
                     "&:hover .MuiOutlinedInput-notchedOutline": {
                       borderColor: "var(--color-accent) !important",
                     },
@@ -393,7 +448,7 @@ export default function ContactForm() {
                   }}
                 >
                   <Typography
-                    variant="body2"
+                    variant="body1"
                     color="text.secondary"
                     sx={{ mb: 2 }}
                   >

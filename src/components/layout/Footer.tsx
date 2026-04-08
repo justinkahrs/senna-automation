@@ -314,7 +314,7 @@ export function Footer() {
             sx={{
               mt: 10,
               pt: 4,
-              borderTop: "1px solid var(--color-text-muted)",
+              borderTop: "8px solid var(--color-text-muted)",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
