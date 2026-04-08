@@ -99,8 +99,17 @@ export function AppBar() {
           right: 0,
         }}
       >
-        <Toolbar sx={{ width: "100%", minHeight: "112px !important" }}>
-          <Stack direction="row" spacing={5} sx={{ flex: 1, justifyContent: "flex-start", alignItems: "center" }}>
+        <Toolbar
+          sx={{
+            width: "100%",
+            maxWidth: 1440,
+            mx: "auto",
+            px: { xs: 2, md: 4 },
+            minHeight: "112px !important",
+            py: 3.5,
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <Link href="/" passHref style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
               <Logo
                 logoFontColor={usesDarkHeroHeader ? "var(--color-bg-subtle)" : undefined}
@@ -108,7 +117,7 @@ export function AppBar() {
                 sx={{ height: 80, cursor: "pointer" }}
               />
             </Link>
-          </Stack>
+          </Box>
         </Toolbar>
       </MUIAppBar>
     );
