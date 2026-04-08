@@ -76,11 +76,20 @@ export async function generateMetadata({
       title: post.title,
       description: post.excerpt,
       publishedTime: post.date ? new Date(post.date).toISOString() : undefined,
+      images: [
+        {
+          url: `/blog/${slug}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
+      images: [`/blog/${slug}/opengraph-image`],
     },
   };
 }

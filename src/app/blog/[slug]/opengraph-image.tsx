@@ -1,30 +1,31 @@
-import fs from 'fs';
-import path from 'path';
 import { ImageResponse } from 'next/og';
-import { getBlogPostBySlug } from '@/utils/blog';
+import { blogPostsMetadata } from '@/utils/blog-data';
 
-export const runtime = 'nodejs';
+// Use edge runtime for better performance and to avoid Webpack chunking errors in Node.js runtime
+export const runtime = 'edge';
 
 export const alt = 'Senna Automation Blog';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
-  // Await params for Next.js 15 compatibility
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  
+  // Use the static manifest to avoid fs access in edge runtime
+  const post = blogPostsMetadata[slug] || {
+    title: "Senna Automation Insights",
+    category: "Automation",
+    excerpt: "Transforming business through intelligent AI workflow automation."
+  };
 
-  if (!post) {
-    return new Response('Not Found', { status: 404 });
-  }
+  // Fetch fonts via HTTP (supported in edge)
+  const interSemiBold = await fetch(
+    new URL('https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf')
+  ).then((res) => res.arrayBuffer());
 
-  const interSemiBold = fs.readFileSync(
-    path.join(process.cwd(), 'src/app/fonts/Inter-SemiBold.ttf')
-  );
-
-  const interBold = fs.readFileSync(
-    path.join(process.cwd(), 'src/app/fonts/Inter-Bold.ttf')
-  );
+  const interBold = await fetch(
+    new URL('https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuDyYMZg.ttf')
+  ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(
     (
@@ -38,6 +39,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           justifyContent: 'center',
           backgroundColor: '#181925', // Space Indigo
           padding: '80px',
+          position: 'relative',
         }}
       >
         {/* Background Accent Gradient Overlay */}
@@ -58,6 +60,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             display: 'flex',
             flexDirection: 'column',
             width: '100%',
+            position: 'relative',
           }}
         >
           {/* Category Tag */}
