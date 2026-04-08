@@ -273,7 +273,9 @@ export default async function BlogPostPage({
           overflow: "hidden",
           minHeight: { md: "600px" },
           display: "flex",
-          alignItems: "center",
+          flexDirection: "column", // Changed from default row to better handle stacking with padding
+          justifyContent: "center",
+          pt: { xs: 12, md: 16 }, // Accounts for 112px AppBar
         }}
       >
         {/* Subtle texture overlay */}
@@ -296,10 +298,10 @@ export default async function BlogPostPage({
         <Box
           sx={{
             position: { xs: "relative", md: "absolute" },
-            top: 0,
+            top: { md: 128 }, // Matches md: 16 (16 * 8 = 128)
             right: 0,
             width: { xs: "100%", md: "50%" },
-            height: { xs: "300px", md: "100%" },
+            height: { xs: "300px", md: "calc(100% - 128px)" },
             zIndex: 0,
           }}
         >
