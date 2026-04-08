@@ -287,28 +287,83 @@ export default function Home() {
           mb: { xs: -44, md: -68 },
         }}
       >
-        <Container
-          maxWidth={false}
+        <Box
           component="section"
           sx={{
             maxWidth: { xs: "100%", md: 1240 },
             mx: "auto",
             bgcolor: "background.paper",
             borderRadius: { xs: 0, md: 1.5 },
-            px: { xs: 3, sm: 5, md: 8, lg: 10 },
-            py: { xs: 8, md: 10 },
+            px: 0,
+            py: 0,
+            overflow: "hidden",
+            position: "relative",
           }}
         >
           <Grid
             container
-            spacing={{ xs: 8, md: 10, lg: 12 }}
-            alignItems="center"
+            spacing={0}
+            alignItems="stretch"
           >
             {/* Visual Element (5 Columns) */}
-            <Grid item xs={12} md={5}></Grid>
+            <Grid
+              item
+              xs={12}
+              md={5}
+              sx={{ p: 0, bgcolor: "var(--color-text-primary)" }}
+            >
+              <Box
+                sx={{
+                  position: "relative",
+                  width: "100%",
+                  height: "100%",
+                  minHeight: { xs: 360, md: "100%" },
+                  bgcolor: "var(--color-text-primary)",
+                  borderTopLeftRadius: { xs: 0, md: "12px" }, // Matching 1.5 * 8
+                  borderBottomLeftRadius: { xs: 0, md: "12px" },
+                  overflow: "hidden",
+                }}
+              >
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                >
+                  <source src="/visualContent.mp4" type="video/mp4" />
+                </video>
+
+                <Box
+                  sx={{
+                    position: "absolute",
+                    inset: 0,
+                    background:
+                      "linear-gradient(to bottom right, rgba(0,0,0,0.1) 0%, transparent 50%)",
+                    pointerEvents: "none",
+                  }}
+                />
+              </Box>
+            </Grid>
             {/* Text Content (7 Columns) */}
-            <Grid item xs={12} md={7}>
-              <Box sx={{ maxWidth: 640, ml: { md: "auto" } }}>
+            <Grid
+              item
+              xs={12}
+              md={7}
+              sx={{
+                py: { xs: 10, md: 14, lg: 16 },
+                px: { xs: 4, sm: 8, md: 10, lg: 12 },
+                display: "flex",
+                alignItems: "center",
+                justifyContent: { md: "flex-start", lg: "center" },
+              }}
+            >
+              <Box sx={{ maxWidth: 640, width: "100%" }}>
                 <Typography
                   variant="overline"
                   sx={{ ...homeEyebrowSx, mb: 2 }}
@@ -375,7 +430,7 @@ export default function Home() {
               </Box>
             </Grid>
           </Grid>
-        </Container>
+        </Box>
       </Box>
 
       {latestPost && (
