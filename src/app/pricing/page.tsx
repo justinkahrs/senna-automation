@@ -594,7 +594,6 @@ export default function PricingPage() {
           </Grid>
         </Grid>
       </Container>
-
       <FinalCTA 
         title="Ready to Get Your Automation Plan?"
         subtitle="Schedule a brief strategy call to walk through your current process. No pressure, just actionable insights on where automation can help you most."

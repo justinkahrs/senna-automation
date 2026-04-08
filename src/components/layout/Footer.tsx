@@ -36,7 +36,7 @@ const footerLinkGroups = [
 export function Footer() {
   const pathname = usePathname();
   const usesYellowFooterBleed = ["/", "/about", "/contact"].includes(pathname);
-  const usesExtendedCtaBackdrop = ["/blog", "/pricing", "/services", "/solutions"].includes(pathname);
+  const usesExtendedCtaBackdrop = ["/blog", "/pricing", "/services", "/solutions"].some(p => pathname.startsWith(p));
 
   return (
     <Box

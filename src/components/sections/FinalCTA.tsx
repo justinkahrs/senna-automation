@@ -48,7 +48,7 @@ export default function FinalCTA({
   transparentBackground,
 }: FinalCTAProps) {
   const pathname = usePathname();
-  const isExtended = ["/blog", "/pricing", "/services", "/solutions"].includes(pathname);
+  const isExtended = ["/blog", "/pricing", "/services", "/solutions"].some(p => pathname.startsWith(p));
   const isTransparent = transparentBackground || isExtended;
 
   return (
