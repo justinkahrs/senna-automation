@@ -11,6 +11,12 @@ declare global {
   }
 }
 
+const IS_DEV =
+  process.env.NODE_ENV === "development" ||
+  (typeof window !== "undefined" &&
+    (window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1"));
+
 // ─── UTM ────────────────────────────────────────────────────────
 
 const UTM_STORAGE_KEY = "utm_data";
@@ -57,6 +63,7 @@ function parseUtmFromUrl(): UtmData | null {
  * Call this once on page load (e.g. inside a client-side provider).
  */
 export function captureUtmParams(): void {
+  if (IS_DEV) return;
   const fresh = parseUtmFromUrl();
   if (!fresh) return; // keep whatever is already stored
 
@@ -107,6 +114,7 @@ export function trackEvent(
   name: string,
   data?: Record<string, unknown>,
 ): void {
+  if (IS_DEV) return;
   if (typeof window === "undefined" || !window.umami) return;
 
   const utm = getStoredUtm();
