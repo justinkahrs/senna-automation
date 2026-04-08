@@ -33,6 +33,7 @@ import Link from "next/link";
 import { getAllBlogPosts } from "@/utils/blog";
 import { Button } from "@mui/material";
 import OrganicHighlight from "@/components/OrganicHighlight";
+import FinalCTA from "@/components/sections/FinalCTA";
 
 const faqs: Array<{ question: string; answer: ReactNode }> = [
   {
@@ -887,85 +888,51 @@ export default function Home() {
           </CascadingStagger>
         </Container>
       </Box>
-      <Box
-        component="section"
+      <FinalCTA
+        title="Ready to see how this works for your business?"
+        subtitle="Thirty minutes, no prep, no commitment."
+        buttonText="Schedule a Free Assessment"
+        showContactLink={false}
+        showTexture={false}
+        containerMaxWidth="md"
         sx={{
           bgcolor: "var(--color-text-highlight)",
           color: "text.primary",
           py: 12,
+          background: "none",
+          animation: "none",
         }}
-      >
-        <Container maxWidth="md">
-          <Box sx={{ textAlign: "center" }}>
-            <Typography
-              variant="h2"
-              component="h2"
-              sx={{
-                mb: 2,
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                px: 3,
-                py: 1.75,
-                fontFamily:
-                  '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif',
-                color: "var(--color-text-primary)",
-              }}
-            >
-              Ready to see how this works for your business?
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              sx={{
-                mb: 3,
-                maxWidth: 620,
-                mx: "auto",
-                color: "var(--ds-space-indigo, #181925)",
-              }}
-            >
-              Thirty minutes, no prep, no commitment.
-            </Typography>
-            <Stack spacing={1.5} alignItems="center">
-              <ScheduleCallButton
-                text="Schedule a Free Assessment"
-                size="large"
-                sx={{
-                  bgcolor: "secondary.main",
-                  color: "background.paper",
-                  "&:hover": {
-                    bgcolor: "secondary.main",
-                    filter: "brightness(1.05)",
-                  },
-                }}
-                showIcon={false}
-              />
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 0.5,
-                  color: "text.secondary",
-                }}
-              >
-                <Typography variant="caption" sx={{ color: "inherit" }}>
-                  via
-                </Typography>
-                <Box
-                  component="img"
-                  src="/Calendly.svg"
-                  alt="Calendly"
-                  sx={{
-                    height: "0.95rem",
-                    width: "auto",
-                    opacity: 0.9,
-                    mt: "3px",
-                  }}
-                />
-              </Box>
-            </Stack>
-          </Box>
-        </Container>
-      </Box>
+        titleSx={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          px: 3,
+          py: 1.75,
+          fontFamily:
+            '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif',
+          color: "var(--color-text-primary)",
+        }}
+        subtitleSx={{
+          maxWidth: 620,
+          mx: "auto",
+          color: "var(--ds-space-indigo, #181925)",
+        }}
+        buttonSx={{
+          bgcolor: "secondary.main",
+          color: "background.paper",
+          "&:hover": {
+            bgcolor: "secondary.main",
+            filter: "brightness(1.05)",
+          },
+        }}
+        calendlyLogoSx={{
+          filter: "none",
+        }}
+        viaSx={{
+          color: "text.secondary",
+        }}
+        stackSpacing={1.5}
+      />
     </>
   );
 }

@@ -42,7 +42,7 @@ export default function BlogPage() {
   return (
     <Box
       sx={{
-        bgcolor: "background.default",
+        bgcolor: "transparent",
         pb: 0,
       }}
     >

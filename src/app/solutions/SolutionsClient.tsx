@@ -385,7 +385,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
   return (
     <Box
       sx={{
-        bgcolor: "background.default",
+        bgcolor: "transparent",
         minHeight: "100vh",
         pb: 0,
       }}

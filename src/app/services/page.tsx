@@ -105,7 +105,7 @@ const steps = [
 
 export default function ServicesPage() {
   return (
-    <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
+    <Box sx={{ bgcolor: "transparent", minHeight: "100vh" }}>
       {/* ── Hero ─────────────────────────────────────────── */}
       <Box
         component="section"

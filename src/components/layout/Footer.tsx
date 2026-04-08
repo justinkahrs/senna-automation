@@ -47,7 +47,7 @@ export function Footer() {
         px: 0,
         mt: { xs: 0, md: -6 },
         position: "relative",
-        zIndex: 2,
+        zIndex: usesExtendedCtaBackdrop ? 1 : 20,
         ...(usesYellowFooterBleed
           ? {
               backgroundColor: "var(--color-text-highlight)",
@@ -69,7 +69,7 @@ export function Footer() {
                 "&::before": {
                   content: '""',
                   position: "absolute",
-                  top: { xs: "-4rem", md: "-6rem" },
+                  top: { xs: "-25rem", md: "-40rem" },
                   left: "50%",
                   bottom: 0,
                   width: "100vw",
@@ -79,12 +79,12 @@ export function Footer() {
                   backgroundSize: "400% 400%",
                   animation: "footerGradientBG 15s ease infinite",
                   pointerEvents: "none",
-                  zIndex: 0,
+                  zIndex: -1,
                 },
                 "&::after": {
                   content: '""',
                   position: "absolute",
-                  top: { xs: "-4rem", md: "-6rem" },
+                  top: { xs: "-25rem", md: "-40rem" },
                   left: "50%",
                   bottom: 0,
                   width: "100vw",
@@ -93,7 +93,7 @@ export function Footer() {
                   backgroundImage:
                     'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
                   pointerEvents: "none",
-                  zIndex: 0,
+                  zIndex: -1,
                 },
               }
           : {

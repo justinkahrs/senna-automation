@@ -227,6 +227,8 @@ export default function RootLayout({
                 minHeight: "100vh",
                 display: "flex",
                 flexDirection: "column",
+                position: "relative",
+                zIndex: 10,
               }}
             >
               {children}

@@ -53,7 +53,7 @@ export default function PricingPage() {
   return (
     <Box
       sx={{
-        bgcolor: "background.default",
+        bgcolor: "transparent",
         pt: { xs: 8, md: 12 },
         pb: 0,
       }}
