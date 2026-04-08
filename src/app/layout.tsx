@@ -83,6 +83,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: SITE_URL,
   },
+  icons: {
+    icon: "/favicon32px.svg",
+  },
 };
 
 // JSON-LD Structured Data for Organization
@@ -163,6 +166,7 @@ export default function RootLayout({
   return (
     <html lang="en-US">
       <head>
+        <link rel="stylesheet" href="https://use.typekit.net/alo5gqx.css" />
         {/* JSON-LD Structured Data */}
         <Script
           id="organization-structured-data"
@@ -223,6 +227,8 @@ export default function RootLayout({
                 minHeight: "100vh",
                 display: "flex",
                 flexDirection: "column",
+                position: "relative",
+                zIndex: 10,
               }}
             >
               {children}

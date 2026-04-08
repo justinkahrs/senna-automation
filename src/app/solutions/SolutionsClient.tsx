@@ -7,11 +7,10 @@ import CascadingStagger from "@/components/animations/CascadingStagger";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ScheduleCallButton from "@/components/ScheduleCallButton";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { BlogPost } from "@/utils/blog";
-import { WARM_BLACK } from "@/components/theme/colors";
-import OrganicHighlight from "@/components/OrganicHighlight";
+// import { WARM_BLACK } from "@/components/theme/colors";
+import FinalCTA from "@/components/sections/FinalCTA";
 
 interface Solution {
   title: string;
@@ -368,7 +367,7 @@ const SolutionCard = ({
                     right: 0,
                     bottom: 0,
                     opacity: 0.04,
-                    background: `radial-gradient(circle at 2px 2px, ${WARM_BLACK} 1px, transparent 0)`,
+                    background: `radial-gradient(circle at 2px 2px, var(--color-text-on-dark) 1px, transparent 0)`,
                     backgroundSize: "32px 32px",
                   }}
                 />
@@ -383,7 +382,13 @@ const SolutionCard = ({
 
 export default function SolutionsClient({ solutions }: SolutionsClientProps) {
   return (
-    <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
+    <Box
+      sx={{
+        bgcolor: "transparent",
+        minHeight: "100vh",
+        pb: 0,
+      }}
+    >
       <Box
         component="section"
         sx={{
@@ -452,9 +457,9 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
             color="text.primary"
             sx={{ maxWidth: 720, lineHeight: 1.35 }}
           >
-            <OrganicHighlight>
+            <Box component="span" sx={{ color: "var(--color-text-accent)" }}>
               Most bottlenecks look more familiar than you think.
-            </OrganicHighlight>{" "}
+            </Box>{" "}
             Too much admin work, inconsistent follow-up, messy handoffs, and not
             enough visibility.
           </Typography>
@@ -560,101 +565,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
         </Container>
       </Box>
 
-      <Box
-        sx={{
-          bgcolor: "secondary.main",
-          color: "background.paper",
-          py: { xs: 8, md: 12 },
-          textAlign: "center",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        {/* Texture overlay */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            opacity: 0.03,
-            backgroundImage:
-              'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
-            pointerEvents: "none",
-          }}
-        />
-        <Container maxWidth="sm" sx={{ position: "relative", zIndex: 1 }}>
-          <Typography variant="h2" sx={{ mb: 2, color: "inherit" }}>
-            See what you can automate
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            sx={{
-              color: "var(--color-text-on-dark)",
-              mb: 4,
-            }}
-          >
-            Start with a quick 30-minute conversation about where time is being
-            lost and what feels most repetitive. We will identify practical
-            opportunities and map out the best place to start.
-          </Typography>
-          <Stack spacing={2} alignItems="center">
-            <ScheduleCallButton
-              text="Book a Demo"
-              size="large"
-              inverse
-              sx={{ px: 6 }}
-              showIcon={false}
-            />
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 0.5,
-                color: "var(--color-text-on-dark-secondary)",
-              }}
-            >
-              <Typography variant="caption" sx={{ color: "inherit" }}>
-                via
-              </Typography>
-              <Box
-                component="img"
-                src="/Calendly.svg"
-                alt="Calendly"
-                sx={{
-                  height: "0.95rem",
-                  width: "auto",
-                  opacity: 0.9,
-                  filter: "brightness(0) invert(1)",
-                  mt: "3px",
-                }}
-              />
-            </Box>
-            <Typography
-              variant="caption"
-              sx={{ color: "var(--color-text-on-dark-muted)" }}
-            >
-              Prefer a form?{" "}
-              <Button
-                component={Link}
-                href="/contact"
-                variant="text"
-                size="small"
-                sx={{
-                  color: "var(--color-text-on-dark-subtle)",
-                  p: 0,
-                  minWidth: 0,
-                  textDecoration: "underline",
-                  fontSize: "inherit",
-                }}
-              >
-                Contact us
-              </Button>
-            </Typography>
-          </Stack>
-        </Container>
-      </Box>
+      <FinalCTA subtitle="Start with a quick 30-minute conversation about where time is being lost and what feels most repetitive. We will identify practical opportunities and map out the best place to start." />
     </Box>
   );
 }

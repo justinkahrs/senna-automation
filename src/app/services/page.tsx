@@ -17,7 +17,7 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { NumberedSteps } from "@/components/blog/NumberedSteps";
-import OrganicHighlight from "@/components/OrganicHighlight";
+import FinalCTA from "@/components/sections/FinalCTA";
 
 export const metadata: Metadata = {
   title: "AI Workflow Automation Services — Business Process Automation | Senna Automation",
@@ -104,7 +104,7 @@ const steps = [
 
 export default function ServicesPage() {
   return (
-    <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
+    <Box sx={{ bgcolor: "transparent", minHeight: "100vh" }}>
       {/* ── Hero ─────────────────────────────────────────── */}
       <Box
         component="section"
@@ -137,7 +137,7 @@ export default function ServicesPage() {
               variant="h1"
               sx={{ mb: 2, color: "inherit" }}
             >
-              Let the Routine Work Run in the Background
+              Let the routine work run in the background
             </Typography>
             <Typography
               variant="subtitle1"
@@ -176,10 +176,10 @@ export default function ServicesPage() {
                 sx={{ lineHeight: 1.35 }}
               >
                 You&apos;re not lacking capability.{" "}
-                <OrganicHighlight>
+                <Box component="span" sx={{ color: "var(--color-text-accent)" }}>
                   You&apos;re carrying the overhead of keeping everything in
                   sync.
-                </OrganicHighlight>
+                </Box>
               </Typography>
               <Typography
                 variant="h4"
@@ -318,87 +318,7 @@ export default function ServicesPage() {
       </Box>
 
       {/* ── Final CTA ─────────────────────────────────────── */}
-      <Box
-        sx={{
-          bgcolor: "secondary.main",
-          color: "background.paper",
-          py: { xs: 8, md: 12 },
-          textAlign: "center",
-          position: 'relative',
-          overflow: 'hidden'
-        }}
-      >
-        {/* Texture overlay */}
-        <Box 
-          sx={{ 
-            position: 'absolute', 
-            top: 0, 
-            left: 0, 
-            right: 0, 
-            bottom: 0, 
-            opacity: 0.03,
-            backgroundImage: 'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
-            pointerEvents: 'none'
-          }} 
-        />
-        <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1 }}>
-          <Typography variant="h2" sx={{ mb: 2, color: "inherit" }}>
-            See what you can automate
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            sx={{ color: "rgba(255,255,255,0.7)", mb: 4 }}
-          >
-            We start with a free 30-min call to walk through your workflows. No
-            commitment — just a clear picture of where you can save time.
-          </Typography>
-          <Stack spacing={2} alignItems="center">
-            <ScheduleCallButton
-              text="Book a Demo"
-              size="large"
-              inverse
-              sx={{ px: 6 }}
-              showIcon={false}
-            />
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 0.5,
-                color: "var(--color-text-on-dark-secondary)",
-              }}
-            >
-              <Typography variant="caption" sx={{ color: "inherit" }}>
-                via
-              </Typography>
-              <Box
-                component="img"
-                src="/Calendly.svg"
-                alt="Calendly"
-                sx={{
-                  height: "0.95rem",
-                  width: "auto",
-                  opacity: 0.9,
-                  filter: "brightness(0) invert(1)",
-                  mt: "3px",
-                }}
-              />
-            </Box>
-            <Typography variant="caption" sx={{ color: "var(--color-text-on-dark-muted)" }}>
-              Prefer a form?{" "}
-              <Button
-                component={Link}
-                href="/contact"
-                variant="text"
-                size="small"
-                sx={{ color: "var(--color-text-on-dark-subtle)", p: 0, minWidth: 0, textDecoration: "underline", fontSize: "inherit" }}
-              >
-                Contact us
-              </Button>
-            </Typography>
-          </Stack>
-        </Container>
-      </Box>
+      <FinalCTA />
     </Box>
   );
 }

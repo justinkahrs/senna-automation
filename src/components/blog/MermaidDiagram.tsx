@@ -5,6 +5,7 @@ import { Box, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import type { SxProps, Theme } from "@mui/material/styles";
 import { BG_BASE, WARM_BLACK, BORDER_MED, ACCENT, BG_PAPER, BG_SUBTLE } from "@/components/theme/colors";
+import { Logo } from "@/components/layout/Logo";
 
 declare global {
   interface Window {
@@ -51,7 +52,8 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
             lineColor: ACCENT,
             secondaryColor: BG_PAPER,
             tertiaryColor: BG_SUBTLE,
-            fontFamily: "Inter, sans-serif",
+            fontFamily:
+              '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif',
             fontSize: "16px",
           },
           flowchart: {
@@ -96,7 +98,7 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
           px: 3,
           py: 2.5,
           borderRadius: 3,
-          bgcolor: "rgba(45,107,94,0.06)",
+          bgcolor: "rgba(143,0,107,0.06)",
           ...sx,
         }}
       >
@@ -116,7 +118,7 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
         pt: { xs: 3, md: 5 },
         pb: { xs: 7, md: 5 },
         borderRadius: 3,
-        bgcolor: "rgba(45,107,94,0.04)",
+        bgcolor: "rgba(143,0,107,0.04)",
         border: "1px solid",
         borderColor: "divider",
         overflow: "hidden",
@@ -132,8 +134,9 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
           maxWidth: "100%",
         },
         "& svg .nodeLabel, & svg .edgeLabel": {
-          fontFamily: "Inter, sans-serif !important",
-          color: "#1C1917 !important",
+          fontFamily:
+            '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif !important',
+          color: "#181925 !important",
         },
         "& svg .nodeLabel p, & svg .edgeLabel p": {
           margin: "0 !important",
@@ -167,10 +170,7 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
         }}
         dangerouslySetInnerHTML={svg ? { __html: svg } : undefined}
       />
-      <Box
-        component="img"
-        src="/senna.svg"
-        alt="Senna Automation watermark"
+      <Logo
         sx={{
           position: "absolute",
           right: { xs: 16, md: 20 },

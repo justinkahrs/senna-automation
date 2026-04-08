@@ -4,8 +4,9 @@ export default function Terms() {
   return (
     <Box
       sx={{
-        py: { xs: 8, md: 12 },
-        minHeight: { xs: "calc(100vh - 64px)", md: "calc(100vh - 64px)" },
+        pt: { xs: 16, md: 28 },
+        pb: { xs: 8, md: 12 },
+        minHeight: "calc(100vh - 64px)",
         display: "flex",
         alignItems: "center",
       }}

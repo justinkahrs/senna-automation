@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import ScheduleCallButton from "@/components/ScheduleCallButton";
 
 export const metadata: Metadata = {
   title: "About Senna Automation — AI & Workflow Automation Consulting | Grand Rapids, MI",
@@ -23,6 +21,7 @@ import {
   Divider,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import FinalCTA from "@/components/sections/FinalCTA";
 
 export default function About() {
   return (
@@ -209,96 +208,60 @@ export default function About() {
               </Box>
             </Grid>
           </Grid>
-
-          <Box
-            sx={{
-              mt: { xs: 12, md: 20 },
-              py: 12,
-              px: { xs: 4, md: 8 },
-              bgcolor: "secondary.main",
-              borderRadius: 6,
-              boxShadow: "var(--shadow-2xl)",
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <Box
-              sx={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                opacity: 0.03,
-                backgroundImage:
-                  'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
-                pointerEvents: "none",
-              }}
-            />
-
-            <Stack
-              spacing={6}
-              alignItems="center"
-              sx={{ position: "relative", zIndex: 1 }}
-            >
-              <Typography
-                variant="h2"
-                sx={{
-                  color: "background.paper",
-                  textAlign: "center",
-                  maxWidth: "840px",
-                }}
-              >
-                If you’ve ever thought,{" "}
-                <Box
-                  component="span"
-                  sx={{ fontStyle: "italic", color: "primary.light" }}
-                >
-                  “there has to be a better way to do this,”
-                </Box>{" "}
-                there probably is. It just hasn’t been set up yet.
-              </Typography>
-
-              <Stack spacing={1.5} alignItems="center">
-                <ScheduleCallButton
-                  text="Let's fix that"
-                  size="large"
-                  inverse
-                  sx={{ px: 6 }}
-                  showIcon={false}
-                />
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 0.5,
-                    color: "var(--color-text-on-dark-secondary)",
-                  }}
-                >
-                  <Typography variant="caption" sx={{ color: "inherit" }}>
-                    via
-                  </Typography>
-                  <Box
-                    component="img"
-                    src="/Calendly.svg"
-                    alt="Calendly"
-                    sx={{
-                      height: "0.95rem",
-                      width: "auto",
-                      opacity: 0.9,
-                      filter: "brightness(0) invert(1)",
-                      mt: "3px",
-                    }}
-                  />
-                </Box>
-                <Typography variant="caption" sx={{ color: "var(--color-text-on-dark-muted)" }}>
-                  Free call. No commitment.
-                </Typography>
-              </Stack>
-            </Stack>
-          </Box>
         </Container>
       </Box>
+
+      <FinalCTA
+        title={
+          <>
+            If you’ve ever thought,{" "}
+            <Box
+              component="span"
+              sx={{ fontStyle: "italic", color: "var(--color-text-primary)" }}
+            >
+              “there has to be a better way to do this,”
+            </Box>{" "}
+            there probably is.
+          </>
+        }
+        subtitle="It just hasn’t been set up yet."
+        buttonText="Let's fix that"
+        showContactLink={false}
+        showTexture={false}
+        containerMaxWidth="md"
+        sx={{
+          bgcolor: "var(--color-text-highlight)",
+          color: "text.primary",
+          py: 12,
+          background: "none",
+          animation: "none",
+        }}
+        titleSx={{
+          fontFamily:
+            '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif',
+          color: "var(--color-text-primary)",
+        }}
+        subtitleSx={{
+          maxWidth: 620,
+          mx: "auto",
+          color: "var(--ds-space-indigo, #181925)",
+        }}
+        buttonSx={{
+          bgcolor: "secondary.main",
+          color: "background.paper",
+          "&:hover": {
+            bgcolor: "secondary.main",
+            filter: "brightness(1.05)",
+          },
+        }}
+        calendlyLogoSx={{
+          filter: "none",
+        }}
+        viaSx={{
+          color: "text.secondary",
+        }}
+        stackSpacing={1.5}
+      />
     </>
   );
 }

@@ -76,7 +76,7 @@ function StepDescription({ description }: { description: string }) {
     <Box
       sx={{
         color: "text.secondary",
-        fontFamily: "Inter, sans-serif",
+        fontFamily: "var(--font-sans)",
         "& p": { mb: 2, lineHeight: 1.8 },
         "& p:last-of-type": { mb: 0 },
         "& ul": {

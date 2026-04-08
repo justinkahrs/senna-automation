@@ -1,5 +1,4 @@
 "use client";
-import { Cormorant_Garamond, Inter } from "next/font/google";
 import { blink } from "./animations";
 
 import type { Theme, ThemeOptions } from "@mui/material/styles";
@@ -13,32 +12,14 @@ declare module "@mui/material/styles" {
 }
 
 /* ================================================================
-   FONTS
-   ================================================================ */
-
-const inter = Inter({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const cormorant = Cormorant_Garamond({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-  style: ["normal", "italic"],
-});
-
-/* ================================================================
    DESIGN TOKENS
    ================================================================ */
 
 // ── Palette ──────────────────────────────────────────────────────
 import {
-  WARM_BLACK,
-  WARM_DARK,
-  STONE_600,
-  STONE_400,
+  SPACE_INDIGO,
+  SHADOW_GREY,
+  AIRFORCE_BLUE,
   ACCENT,
   ACCENT_LIGHT,
   ACCENT_DARK,
@@ -47,13 +28,20 @@ import {
   BG_SUBTLE,
   BORDER_SOFT,
   BORDER_MED,
+  BANANA_CREAM,
+  LIGHT_CYAN,
+  FROSTED_BLUE,
+  // Legacy aliases
+  WARM_BLACK,
+  WARM_DARK,
+  STONE_600,
+  STONE_400,
 } from "./colors";
 
 export {
-  WARM_BLACK,
-  WARM_DARK,
-  STONE_600,
-  STONE_400,
+  SPACE_INDIGO,
+  SHADOW_GREY,
+  AIRFORCE_BLUE,
   ACCENT,
   ACCENT_LIGHT,
   ACCENT_DARK,
@@ -62,11 +50,22 @@ export {
   BG_SUBTLE,
   BORDER_SOFT,
   BORDER_MED,
+  BANANA_CREAM,
+  LIGHT_CYAN,
+  FROSTED_BLUE,
+  WARM_BLACK,
+  WARM_DARK,
+  STONE_600,
+  STONE_400,
 };
 
 // ── Type families ─────────────────────────────────────────────────
-const SERIF = cormorant.style.fontFamily; // display heads
-const SANS = inter.style.fontFamily; // body, UI, labels
+const HEADING =
+  '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif';
+const SANS = '"muli", system-ui, -apple-system, sans-serif'; // body, UI, labels
+const ACCENT_FONT = '"posh", sans-serif';
+
+export { ACCENT_FONT };
 
 /* ================================================================
    TYPE SCALE — Senna Automation Design System
@@ -75,12 +74,12 @@ const SANS = inter.style.fontFamily; // body, UI, labels
    Base: 16px
 
    Variant     Family  Desktop   Mobile   Wt   LH    LS
-   h1          Serif   4.209rem  2.75rem  600  1.10  -0.030em
-   h2          Serif   3.157rem  2.25rem  600  1.13  -0.025em
-   h3          Serif   2.369rem  1.875rem 500  1.18  -0.020em
-   h4          Serif   1.777rem  1.5rem   500  1.25  -0.015em
-   h5          Sans    1.125rem  1.0rem   600  1.35  -0.015em
-   h6          Sans    0.9375rem 0.875rem 600  1.40  -0.010em
+   h1          Heading 4.209rem  2.75rem  700  1.10  -0.030em
+   h2          Heading 3.157rem  2.25rem  600  1.13  -0.025em
+   h3          Heading 2.369rem  1.875rem 600  1.18  -0.020em
+   h4          Heading 1.777rem  1.5rem   600  1.25  -0.015em
+   h5          Heading 1.125rem  1.0rem   600  1.35  -0.015em
+   h6          Heading 0.9375rem 0.875rem 600  1.40  -0.010em
    subtitle1   Sans    1.125rem  1.0625rem 500 1.60  -0.010em  (body large)
    subtitle2   Sans    0.9375rem 0.875rem 500  1.55  -0.008em  (body medium)
    body1       Sans    1.0rem    1.0rem   400  1.65  -0.008em  (body)
@@ -114,7 +113,7 @@ export function getThemeTokens(): ThemeOptions {
         contrastText: "#FFFFFF",
       },
       secondary: {
-        main: WARM_BLACK,
+        main: SPACE_INDIGO,
         contrastText: "#FFFFFF",
       },
       background: {
@@ -122,15 +121,15 @@ export function getThemeTokens(): ThemeOptions {
         paper: BG_PAPER,
       },
       text: {
-        primary: WARM_BLACK,
-        secondary: STONE_600,
-        disabled: STONE_400,
+        primary: SPACE_INDIGO,
+        secondary: AIRFORCE_BLUE,
+        disabled: AIRFORCE_BLUE,
       },
       divider: BORDER_SOFT,
       action: {
-        hover: "rgba(45, 107, 94, 0.06)",
-        selected: "rgba(45, 107, 94, 0.10)",
-        focus: "rgba(45, 107, 94, 0.12)",
+        hover: "rgba(143, 0, 107, 0.06)",
+        selected: "rgba(143, 0, 107, 0.10)",
+        focus: "rgba(143, 0, 107, 0.12)",
       },
     },
 
@@ -140,62 +139,62 @@ export function getThemeTokens(): ThemeOptions {
       // base is 16px (browser default)
       htmlFontSize: 16,
 
-      /* ─── Display & section headings (Cormorant Garamond) ─── */
+      /* ─── Display & section headings (ITC Avant Garde Gothic Pro) ─── */
 
       h1: {
-        fontFamily: SERIF,
-        fontWeight: 600,
+        fontFamily: HEADING,
+        fontWeight: 700,
         // Desktop: 67.34px | Mobile: 44px
         fontSize: "clamp(2.75rem, 5.5vw, 4.209rem)",
         lineHeight: 1.1,
         letterSpacing: "-0.030em",
-        color: WARM_BLACK,
+        color: SPACE_INDIGO,
       },
       h2: {
-        fontFamily: SERIF,
+        fontFamily: HEADING,
         fontWeight: 600,
         // Desktop: 50.5px | Mobile: 36px
         fontSize: "clamp(2.25rem, 4.5vw, 3.157rem)",
         lineHeight: 1.13,
         letterSpacing: "-0.025em",
-        color: WARM_BLACK,
+        color: SPACE_INDIGO,
       },
       h3: {
-        fontFamily: SERIF,
-        fontWeight: 500,
+        fontFamily: HEADING,
+        fontWeight: 600,
         // Desktop: 37.9px | Mobile: 30px
         fontSize: "clamp(1.875rem, 3.5vw, 2.369rem)",
         lineHeight: 1.18,
         letterSpacing: "-0.020em",
-        color: WARM_BLACK,
+        color: SPACE_INDIGO,
       },
       h4: {
-        fontFamily: SERIF,
-        fontWeight: 500,
+        fontFamily: HEADING,
+        fontWeight: 600,
         // Desktop: 28.4px | Mobile: 24px
         fontSize: "clamp(1.5rem, 2.5vw, 1.777rem)",
         lineHeight: 1.25,
         letterSpacing: "-0.015em",
-        color: WARM_BLACK,
+        color: SPACE_INDIGO,
       },
 
-      /* ─── UI headings (Inter sans) ─── */
+      /* ─── Smaller headings ─── */
 
       h5: {
-        fontFamily: SANS,
+        fontFamily: HEADING,
         fontWeight: 600,
         fontSize: "1.125rem", // 18px — same as body-lg, but bolder
         lineHeight: 1.35,
         letterSpacing: "-0.015em",
-        color: WARM_BLACK,
+        color: SPACE_INDIGO,
       },
       h6: {
-        fontFamily: SANS,
+        fontFamily: HEADING,
         fontWeight: 600,
         fontSize: "0.9375rem", // 15px — same as button, headed feel
         lineHeight: 1.4,
         letterSpacing: "-0.010em",
-        color: WARM_BLACK,
+        color: SPACE_INDIGO,
       },
 
       /* ─── Body large / callout text ─── */
@@ -205,7 +204,7 @@ export function getThemeTokens(): ThemeOptions {
         fontSize: "1.125rem", // 18px
         lineHeight: 1.6,
         letterSpacing: "-0.010em",
-        color: STONE_600,
+        color: AIRFORCE_BLUE,
       },
 
       /* ─── Body medium (cards, list items, secondary context) ─── */
@@ -215,7 +214,7 @@ export function getThemeTokens(): ThemeOptions {
         fontSize: "0.9375rem", // 15px
         lineHeight: 1.55,
         letterSpacing: "-0.008em",
-        color: STONE_600,
+        color: AIRFORCE_BLUE,
       },
 
       /* ─── Body (standard paragraphs) ─── */
@@ -225,7 +224,7 @@ export function getThemeTokens(): ThemeOptions {
         fontSize: "1.0rem", // 16px
         lineHeight: 1.65,
         letterSpacing: "-0.008em",
-        color: STONE_600,
+        color: AIRFORCE_BLUE,
       },
 
       /* ─── Small body (secondary descriptions, list items) ─── */
@@ -235,7 +234,7 @@ export function getThemeTokens(): ThemeOptions {
         fontSize: "0.875rem", // 14px
         lineHeight: 1.6,
         letterSpacing: "0.000em",
-        color: STONE_600,
+        color: AIRFORCE_BLUE,
       },
 
       /* ─── Button text ─── */
@@ -255,7 +254,7 @@ export function getThemeTokens(): ThemeOptions {
         fontSize: "0.75rem", // 12px
         lineHeight: 1.5,
         letterSpacing: "0.010em",
-        color: STONE_400,
+        color: AIRFORCE_BLUE,
       },
 
       /* ─── Eyebrow / label ─── */
@@ -266,7 +265,7 @@ export function getThemeTokens(): ThemeOptions {
         lineHeight: 1.5,
         letterSpacing: "0.080em",
         textTransform: "uppercase",
-        color: STONE_400,
+        color: AIRFORCE_BLUE,
       },
     },
 
@@ -276,30 +275,30 @@ export function getThemeTokens(): ThemeOptions {
     /* ── Shadows (warm, not cold) ── */
     shadows: [
       "none",
-      "0 1px 3px rgba(28,25,23,0.06), 0 1px 2px rgba(28,25,23,0.04)",
-      "0 4px 16px rgba(28,25,23,0.08), 0 2px 6px rgba(28,25,23,0.05)",
-      "0 8px 32px rgba(28,25,23,0.10), 0 3px 10px rgba(28,25,23,0.06)",
-      "0 1px 0px rgba(28,25,23,0.06)",
-      "0 4px 24px rgba(28,25,23,0.12)",
-      "0 6px 28px rgba(28,25,23,0.13)",
-      "0 8px 32px rgba(28,25,23,0.14)",
-      "0 10px 36px rgba(28,25,23,0.15)",
-      "0 12px 40px rgba(28,25,23,0.16)",
-      "0 14px 44px rgba(28,25,23,0.17)",
-      "0 16px 48px rgba(28,25,23,0.18)",
-      "0 18px 52px rgba(28,25,23,0.19)",
-      "0 20px 56px rgba(28,25,23,0.20)",
-      "0 22px 60px rgba(28,25,23,0.21)",
-      "0 24px 64px rgba(28,25,23,0.22)",
-      "0 26px 68px rgba(28,25,23,0.23)",
-      "0 28px 72px rgba(28,25,23,0.24)",
-      "0 30px 76px rgba(28,25,23,0.25)",
-      "0 32px 80px rgba(28,25,23,0.26)",
-      "0 34px 84px rgba(28,25,23,0.27)",
-      "0 36px 88px rgba(28,25,23,0.28)",
-      "0 38px 92px rgba(28,25,23,0.29)",
-      "0 40px 96px rgba(28,25,23,0.30)",
-      "0 42px 100px rgba(28,25,23,0.31)",
+      "0 1px 3px rgba(24,25,37,0.06), 0 1px 2px rgba(24,25,37,0.04)",
+      "0 4px 16px rgba(24,25,37,0.08), 0 2px 6px rgba(24,25,37,0.05)",
+      "0 8px 32px rgba(24,25,37,0.10), 0 3px 10px rgba(24,25,37,0.06)",
+      "0 1px 0px rgba(24,25,37,0.06)",
+      "0 4px 24px rgba(24,25,37,0.12)",
+      "0 6px 28px rgba(24,25,37,0.13)",
+      "0 8px 32px rgba(24,25,37,0.14)",
+      "0 10px 36px rgba(24,25,37,0.15)",
+      "0 12px 40px rgba(24,25,37,0.16)",
+      "0 14px 44px rgba(24,25,37,0.17)",
+      "0 16px 48px rgba(24,25,37,0.18)",
+      "0 18px 52px rgba(24,25,37,0.19)",
+      "0 20px 56px rgba(24,25,37,0.20)",
+      "0 22px 60px rgba(24,25,37,0.21)",
+      "0 24px 64px rgba(24,25,37,0.22)",
+      "0 26px 68px rgba(24,25,37,0.23)",
+      "0 28px 72px rgba(24,25,37,0.24)",
+      "0 30px 76px rgba(24,25,37,0.25)",
+      "0 32px 80px rgba(24,25,37,0.26)",
+      "0 34px 84px rgba(24,25,37,0.27)",
+      "0 36px 88px rgba(24,25,37,0.28)",
+      "0 38px 92px rgba(24,25,37,0.29)",
+      "0 40px 96px rgba(24,25,37,0.30)",
+      "0 42px 100px rgba(24,25,37,0.31)",
     ],
 
     /* ── Component overrides ── */
@@ -337,7 +336,7 @@ export function getThemeTokens(): ThemeOptions {
             letterSpacing: "-0.010em",
             lineHeight: 1.0,
             borderRadius: "9999px",
-            padding: "10px 28px",
+            padding: "10px 18px",
             textTransform: "none",
             transition: [
               "background-color 180ms cubic-bezier(0.25,0.46,0.45,0.94)",
@@ -350,18 +349,18 @@ export function getThemeTokens(): ThemeOptions {
           },
           contained: {
             boxShadow: "none",
-            "&:hover": { boxShadow: "0 4px 14px rgba(45,107,94,0.22)" },
+            "&:hover": { boxShadow: "0 4px 14px rgba(143,0,107,0.22)" },
           },
           outlined: {
             borderWidth: "1.5px",
             "&:hover": { borderWidth: "1.5px" },
           },
           sizeSmall: {
-            padding: "6px 18px",
+            padding: "6px 12px",
             fontSize: "0.8125rem",
           },
           sizeLarge: {
-            padding: "13px 36px",
+            padding: "13px 22px",
             fontSize: "1.0625rem",
           },
         },
@@ -375,14 +374,14 @@ export function getThemeTokens(): ThemeOptions {
             overflow: "hidden",
             position: "relative",
             boxShadow:
-              "0 1px 3px rgba(28,25,23,0.06), 0 1px 2px rgba(28,25,23,0.04)",
+              "0 1px 3px rgba(24,25,37,0.06), 0 1px 2px rgba(24,25,37,0.04)",
             border: `1px solid ${BORDER_SOFT}`,
             transition:
               "transform 280ms cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 280ms cubic-bezier(0.25,0.46,0.45,0.94), border-color 280ms cubic-bezier(0.25,0.46,0.45,0.94)",
             "&:hover": {
               transform: "translateY(-3px)",
               boxShadow:
-                "0 8px 28px rgba(28,25,23,0.10), 0 3px 8px rgba(28,25,23,0.06)",
+                "0 8px 28px rgba(24,25,37,0.10), 0 3px 8px rgba(24,25,37,0.06)",
               borderColor: BORDER_MED,
             },
           },
@@ -406,7 +405,7 @@ export function getThemeTokens(): ThemeOptions {
             "& .MuiCardHeader-subheader": {
               fontFamily: SANS,
               fontSize: "0.875rem",
-              color: STONE_600,
+              color: AIRFORCE_BLUE,
               marginTop: 2,
             },
           },
@@ -467,7 +466,7 @@ export function getThemeTokens(): ThemeOptions {
             minHeight: 58,
             "&.Mui-expanded": { minHeight: 58 },
             "& .MuiAccordionSummary-expandIconWrapper": {
-              color: STONE_400,
+              color: AIRFORCE_BLUE,
               transition:
                 "transform 140ms cubic-bezier(0.25,0.46,0.45,0.94), color 140ms ease",
             },
@@ -494,7 +493,7 @@ export function getThemeTokens(): ThemeOptions {
             borderRadius: 16,
             overflow: "hidden",
             boxShadow:
-              "0 20px 64px rgba(28,25,23,0.14), 0 6px 16px rgba(28,25,23,0.08)",
+              "0 20px 64px rgba(24,25,37,0.14), 0 6px 16px rgba(24,25,37,0.08)",
           },
         },
       },
@@ -536,7 +535,7 @@ export function getThemeTokens(): ThemeOptions {
                 borderColor: ACCENT,
                 borderWidth: "1.5px",
               },
-              "&.Mui-focused": { boxShadow: "0 0 0 3px rgba(45,107,94,0.12)" },
+              "&.Mui-focused": { boxShadow: "0 0 0 3px rgba(143,0,107,0.12)" },
             },
             "& .MuiOutlinedInput-notchedOutline": {
               borderColor: BORDER_SOFT,
@@ -546,6 +545,11 @@ export function getThemeTokens(): ThemeOptions {
               fontFamily: SANS,
               fontSize: "0.9375rem",
               letterSpacing: "-0.008em",
+              "&.MuiInputLabel-shrink": {
+                backgroundColor: BG_PAPER,
+                padding: "0 4px",
+                marginLeft: "-4px",
+              },
             },
           },
         },
@@ -580,13 +584,13 @@ export function getThemeTokens(): ThemeOptions {
             fontWeight: 400,
             lineHeight: 1.55,
             letterSpacing: "-0.008em",
-            color: STONE_600,
+            color: AIRFORCE_BLUE,
           },
           secondary: {
             fontFamily: SANS,
             fontSize: "0.875rem",
             lineHeight: 1.55,
-            color: STONE_400,
+            color: AIRFORCE_BLUE,
           },
         },
       },
@@ -595,9 +599,9 @@ export function getThemeTokens(): ThemeOptions {
       MuiMenu: {
         styleOverrides: {
           paper: {
-            backgroundColor: WARM_DARK,
+            backgroundColor: SHADOW_GREY,
             borderRadius: 12,
-            boxShadow: "0 8px 32px rgba(28,25,23,0.16)",
+            boxShadow: "0 8px 32px rgba(24,25,37,0.16)",
             border: "1px solid rgba(255,255,255,0.06)",
             width: "200px",
           },
@@ -606,7 +610,7 @@ export function getThemeTokens(): ThemeOptions {
       MuiMenuItem: {
         styleOverrides: {
           root: {
-            backgroundColor: WARM_DARK,
+            backgroundColor: SHADOW_GREY,
             color: "#FFFFFF",
             fontFamily: SANS,
             fontSize: "0.9375rem",
@@ -625,7 +629,7 @@ export function getThemeTokens(): ThemeOptions {
       MuiSwitch: {
         styleOverrides: {
           switchBase: {
-            color: STONE_400,
+            color: AIRFORCE_BLUE,
             "&.Mui-checked": { color: ACCENT },
           },
           track: {
@@ -652,7 +656,7 @@ export function getThemeTokens(): ThemeOptions {
       MuiTooltip: {
         styleOverrides: {
           tooltip: {
-            backgroundColor: WARM_DARK,
+            backgroundColor: SHADOW_GREY,
             fontFamily: SANS,
             fontSize: "0.8125rem",
             letterSpacing: "-0.008em",
@@ -668,7 +672,7 @@ export function getThemeTokens(): ThemeOptions {
           root: {
             transition:
               "background-color 180ms ease, color 180ms ease, transform 120ms ease",
-            "&:hover": { backgroundColor: "rgba(28,25,23,0.05)" },
+            "&:hover": { backgroundColor: "rgba(24,25,37,0.05)" },
             "&:active": { transform: "scale(0.92)" },
           },
         },

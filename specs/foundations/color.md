@@ -1,41 +1,48 @@
 # Color
 
 ## Overview
-Senna Automation uses a warm, natural color palette inspired by stone and forest
-tones. The palette conveys trust, calm professionalism, and premium quality.
+Senna Automation uses a confident, modern color palette built around magenta and
+cyan accents, offset by cool indigo darks and soft off-white backgrounds. The
+palette conveys energy, trust, and premium quality.
 
 ## Palette
 
 ### Core neutrals
 | Swatch | Token | Hex | Usage |
 |--------|-------|-----|-------|
-| ■ | `--ds-warm-black` | `#1C1917` | Primary text, dark surfaces |
-| ■ | `--ds-warm-dark` | `#292524` | Secondary dark surfaces, menus, tooltips |
-| ■ | `--ds-stone-600` | `#57534E` | Secondary/body text |
-| ■ | `--ds-stone-400` | `#A8A29E` | Muted/caption text, placeholders |
+| ■ | `--ds-space-indigo` | `#181925` | Primary text, dark surfaces, headlines |
+| ■ | `--ds-shadow-grey` | `#2b2d42` | Secondary dark surfaces, menus, tooltips, nav links |
+| ■ | `--ds-airforce-blue` | `#5f8594` | Body/secondary/muted text, descriptions |
 
 ### Backgrounds
 | Swatch | Token | Hex | Usage |
 |--------|-------|-----|-------|
-| □ | `--ds-bg-base` | `#F7F6F4` | Page background |
+| □ | `--ds-bg-base` | `#f8f7f9` | Page background (Bright Snow) |
 | □ | `--ds-bg-paper` | `#FFFFFF` | Cards, paper surfaces |
-| □ | `--ds-bg-subtle` | `#F0EFEC` | Subtle distinction (expanded accordion, alternate rows) |
+| □ | `--ds-bg-subtle` | `#f8f7f9` | Subtle distinction (alternate sections) |
 
-### Accent (brand green)
+### Accent (brand magenta)
 | Swatch | Token | Hex | Usage |
 |--------|-------|-----|-------|
-| ■ | `--ds-accent` | `#2D6B5E` | Primary buttons, links, active states |
-| ■ | `--ds-accent-light` | `#3D8B78` | Hover states, switch tracks |
-| ■ | `--ds-accent-dark` | `#1E5244` | Active/pressed states |
+| ■ | `--ds-magenta` | `#8f006b` | Primary CTAs, links, active states |
+| ■ | `--ds-magenta-light` | `#991778` | Hover states, button hover |
+| ■ | `--ds-magenta-dark` | `#8f006b` | Active/pressed states |
+
+### Highlight & Energy
+| Swatch | Token | Hex | Usage |
+|--------|-------|-----|-------|
+| ■ | `--ds-banana` | `#f7ec59` | Badges, highlight underlines, floating accents |
+| ■ | `--ds-light-cyan` | `#92dce5` | Bright accent, footer links, hover borders |
+| ■ | `--ds-frosted-blue` | `#c5eaef` | Subtle borders (30% opacity), card backgrounds |
 
 ### Borders
 | Token | Hex | Usage |
 |-------|-----|-------|
-| `--ds-border-soft` | `#E7E5E4` | Default card/input borders |
-| `--ds-border-med` | `#D6D3D1` | Hover borders, scrollbar thumb |
+| `--ds-border-soft` | `#c5eaef` | Default card/input borders (Frosted Blue) |
+| `--ds-border-med` | `#92dce5` | Hover borders, scrollbar thumb (Light Cyan) |
 
 ### On-dark surface text
-White at calibrated opacities for use on `--ds-warm-black` or `--ds-warm-dark` backgrounds:
+White at calibrated opacities for use on `--ds-space-indigo` or `--ds-shadow-grey` backgrounds:
 
 | Token | Opacity | Usage |
 |-------|---------|-------|
@@ -51,10 +58,18 @@ White at calibrated opacities for use on `--ds-warm-black` or `--ds-warm-dark` b
 ### Interactive state colors
 | Token | Value | Usage |
 |-------|-------|-------|
-| `--color-bg-hover` | `rgba(45,107,94,0.06)` | Accent-tinted hover |
-| `--color-bg-selected` | `rgba(45,107,94,0.10)` | Accent-tinted selected |
-| `--color-bg-focus` | `rgba(45,107,94,0.12)` | Focus ring fill |
-| `--color-bg-neutral-hover` | `rgba(28,25,23,0.04)` | Neutral hover |
+| `--color-bg-hover` | `rgba(143,0,107,0.06)` | Accent-tinted hover |
+| `--color-bg-selected` | `rgba(143,0,107,0.10)` | Accent-tinted selected |
+| `--color-bg-focus` | `rgba(143,0,107,0.12)` | Focus ring fill |
+| `--color-bg-neutral-hover` | `rgba(24,25,37,0.04)` | Neutral hover |
+
+## Usage Patterns
+- **Primary Actions**: Dark Magenta `#8f006b` → strong CTAs
+- **Text Hierarchy**: Space Indigo (headlines) → Shadow Grey (subheads) → Air Force Blue (body)
+- **Backgrounds**: Bright Snow `#f8f7f9` ↔ White (alternating sections)
+- **Accents/Energy**: Banana Cream `#f7ec59` for highlights and badges
+- **Calm/Trust**: Light Cyan `#92dce5` & Frosted Blue `#c5eaef` for soft touches
+- **Dark Sections**: Space Indigo `#181925` with Light Cyan text
 
 ## Rules
 1. **Never use raw hex or rgba values** in component code.

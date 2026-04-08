@@ -16,13 +16,17 @@ export const ColorModeContext = createContext<ColorModeContextProps>({
   toggleColorMode: () => {},
 });
 
+import { ModalProvider } from "@/context/ModalContext";
+
 export function ClientProviders({ children }: { children: React.ReactNode }) {
   const theme = useMemo(() => createTheme(getThemeTokens()), []);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {children}
+      <ModalProvider>
+        {children}
+      </ModalProvider>
     </ThemeProvider>
   );
 }

@@ -11,46 +11,82 @@ export default function AnimatedHeroTitle() {
       style={{
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
         width: "100%",
-        marginBottom: "1rem",
+        overflow: "visible",
       }}
     >
-      {/* H1 — uses theme h1: Cormorant, clamp(2.75rem,5.5vw,4.209rem), w600, lh1.10 */}
       <Typography
         variant="h1"
-        align="center"
+        component="h1"
+        id="hero-heading"
+        align="left"
         color="text.primary"
-        sx={{ mb: 3 }}
-      >
-        You&apos;ve got a lot going on.
-      </Typography>
-
-      {/* H3 used as tagline — Cormorant, lighter weight, readable scale */}
-      <Typography
-        variant="h3"
-        component="div"
-        align="center"
-        color="text.secondary"
         sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: { xs: 0.5, sm: 1 },
-          fontWeight: 400,
+          fontFamily:
+            '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif',
+          textAlign: { xs: "center", md: "left" },
+          fontSize: "clamp(3.75rem, 9vw, 7rem)",
+          lineHeight: 0.96,
+          letterSpacing: "-0.04em",
+          overflow: "visible",
+          position: "relative",
         }}
       >
-        <span>Let&apos;s take</span>
         <Box
           component="span"
           sx={{
-            color: "primary.main",
-            fontWeight: 600,
+            display: "block",
+            fontSize: "0.9em",
+            fontWeight: 700,
+            textTransform: "uppercase",
           }}
         >
-          the busywork
+          Let the
         </Box>
-        <span>off your plate.</span>
+        <Box
+          component="span"
+          sx={{
+            display: "block",
+            position: "relative",
+            zIndex: 2,
+            left: { xs: "-0.22em", md: "-0.34em" },
+            fontFamily: '"posh", sans-serif',
+            fontWeight: 900,
+            fontStyle: "italic",
+            fontSize: { xs: "1.02em", sm: "1.1em", md: "1.18em" },
+            lineHeight: 0.9,
+            color: "var(--ds-space-indigo, #181925)",
+            overflow: "visible",
+            textShadow: {
+              xs: "3px 3px 0 var(--ds-banana, #f7ec59)",
+              sm: "4px 4px 0 var(--ds-banana, #f7ec59)",
+              md: "6px 6px 0 var(--ds-banana, #f7ec59)",
+            },
+          }}
+        >
+          <Box
+            component="span"
+            sx={{
+              fontFeatureSettings: '"ss01" 1, "salt" 1',
+            }}
+          >
+            B
+          </Box>
+          usywork
+        </Box>
+        <Box
+          component="span"
+          sx={{
+            display: "block",
+            position: "relative",
+            zIndex: 1,
+            fontSize: "0.9em",
+            fontWeight: 700,
+            textTransform: "uppercase",
+          }}
+        >
+          handle itself.
+        </Box>
       </Typography>
     </motion.div>
   );

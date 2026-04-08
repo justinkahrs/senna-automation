@@ -14,7 +14,7 @@ import {
 import { alpha } from "@mui/material/styles";
 import { ACCENT } from "@/components/theme/colors";
 import { getBlogPostBySlug, getAllBlogPosts } from "@/utils/blog";
-import { ConsultationCTA } from "@/components/blog/ConsultationCTA";
+import FinalCTA from "@/components/sections/FinalCTA";
 import {
   NumberedSteps,
   parseNumberedSteps,
@@ -161,7 +161,7 @@ const markdownComponents = {
         },
         "& > .MuiTypography-body1:first-of-type": {
           mb: 3,
-          fontFamily: "Inter, sans-serif",
+          fontFamily: "var(--font-sans)",
           fontSize: "clamp(1.875rem, 3.5vw, 2.369rem)",
           lineHeight: 1.18,
           letterSpacing: "-0.02em",
@@ -241,7 +241,7 @@ export default async function BlogPostPage({
   const hasMermaidDiagram = post.content.includes("```mermaid");
 
   return (
-    <Box sx={{ bgcolor: "background.default", minHeight: "100vh", pb: 12 }}>
+    <Box sx={{ bgcolor: "transparent", minHeight: "100vh", pb: 0 }}>
       {hasMermaidDiagram && (
         <Script
           src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
@@ -273,7 +273,9 @@ export default async function BlogPostPage({
           overflow: "hidden",
           minHeight: { md: "600px" },
           display: "flex",
-          alignItems: "center",
+          flexDirection: "column", // Changed from default row to better handle stacking with padding
+          justifyContent: "center",
+          pt: { xs: 12, md: 16 }, // Accounts for 112px AppBar
         }}
       >
         {/* Subtle texture overlay */}
@@ -296,10 +298,10 @@ export default async function BlogPostPage({
         <Box
           sx={{
             position: { xs: "relative", md: "absolute" },
-            top: 0,
+            top: { md: 128 }, // Matches md: 16 (16 * 8 = 128)
             right: 0,
             width: { xs: "100%", md: "50%" },
-            height: { xs: "300px", md: "100%" },
+            height: { xs: "300px", md: "calc(100% - 128px)" },
             zIndex: 0,
           }}
         >
@@ -329,7 +331,7 @@ export default async function BlogPostPage({
               right: 0,
               bottom: 0,
               background: {
-                xs: "linear-gradient(to bottom, rgba(28,25,23,0.8), transparent)",
+                xs: "linear-gradient(to bottom, rgba(24,25,37,0.8), transparent)",
                 md: "none",
               },
             }}
@@ -373,199 +375,205 @@ export default async function BlogPostPage({
         </Container>
       </Box>
 
-      <Container maxWidth="lg" sx={{ pt: { xs: 8, md: 12 } }}>
-        <Grid container spacing={8}>
-          <Grid item xs={12} md={8}>
-            <Stack spacing={4}>
-              <Box sx={{ "& p": { mb: 4, lineHeight: 1.8 } }}>
-                {contentParts ? (
-                  <>
-                    <ReactMarkdown
-                      remarkPlugins={[remarkGfm]}
-                      components={markdownComponents}
-                    >
-                      {contentParts[0]}
-                    </ReactMarkdown>
-                    <NumberedSteps
-                      steps={quoteAutomationErpSteps}
-                      layout="stack"
-                      sx={{ my: 8 }}
-                    />
-                    <ReactMarkdown
-                      remarkPlugins={[remarkGfm]}
-                      components={markdownComponents}
-                    >
-                      {contentParts[1]}
-                    </ReactMarkdown>
-                  </>
-                ) : (
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    components={markdownComponents}
-                  >
-                    {post.content}
-                  </ReactMarkdown>
-                )}
-              </Box>
-            </Stack>
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <Box sx={{ position: { md: "sticky" }, top: 120 }}>
+      <Box sx={{ bgcolor: "background.default" }}>
+        <Container maxWidth="lg" sx={{ pt: { xs: 8, md: 12 } }}>
+          <Grid container spacing={8}>
+            <Grid item xs={12} md={8}>
               <Stack spacing={4}>
-                {post.metadata.client && (
-                  <Box>
-                    <Typography
-                      variant="h5"
-                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                <Box sx={{ "& p": { mb: 4, lineHeight: 1.8 } }}>
+                  {contentParts ? (
+                    <>
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={markdownComponents}
+                      >
+                        {contentParts[0]}
+                      </ReactMarkdown>
+                      <NumberedSteps
+                        steps={quoteAutomationErpSteps}
+                        layout="stack"
+                        sx={{ my: 8 }}
+                      />
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={markdownComponents}
+                      >
+                        {contentParts[1]}
+                      </ReactMarkdown>
+                    </>
+                  ) : (
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={markdownComponents}
                     >
-                      Client
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      color="text.primary"
-                      sx={{ whiteSpace: "pre-line" }}
-                    >
-                      {post.metadata.client}
-                    </Typography>
-                  </Box>
-                )}
-                {post.metadata.company && (
-                  <Box>
-                    <Typography
-                      variant="h5"
-                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
-                    >
-                      Company
-                    </Typography>
-                    <Typography variant="body1" color="text.primary">
-                      {post.metadata.companyUrl &&
-                      post.metadata.companyUrl !== "#" ? (
-                        <Link
-                          href={post.metadata.companyUrl}
-                          style={{
-                            color: "inherit",
-                            textDecoration: "underline",
-                          }}
-                        >
-                          {post.metadata.company}
-                        </Link>
-                      ) : (
-                        post.metadata.company
-                      )}
-                    </Typography>
-                  </Box>
-                )}
-                {post.metadata.year && (
-                  <Box>
-                    <Typography
-                      variant="h5"
-                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
-                    >
-                      Year
-                    </Typography>
-                    <Typography variant="body1" color="text.primary">
-                      {post.metadata.year}
-                    </Typography>
-                  </Box>
-                )}
-                {post.metadata.role && (
-                  <Box>
-                    <Typography
-                      variant="h5"
-                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
-                    >
-                      Role
-                    </Typography>
-                    <Typography variant="body1" color="text.primary">
-                      {post.metadata.role}
-                    </Typography>
-                  </Box>
-                )}
-                {post.metadata.tools && (
-                  <Box>
-                    <Typography
-                      variant="h5"
-                      sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
-                    >
-                      Tools
-                    </Typography>
-                    <Typography variant="body1" color="text.primary">
-                      {post.metadata.tools}
-                    </Typography>
-                  </Box>
-                )}
-                {relatedPost && (
-                  <Box
-                    component={Link}
-                    href={`/blog/${relatedPost.slug}`}
-                    sx={{
-                      display: "block",
-                      textDecoration: "none",
-                      color: "inherit",
-                      mt: 1,
-                      px: 3,
-                      py: 3.5,
-                      borderRadius: 3,
-                      bgcolor: alpha(ACCENT, 0.06),
-                      border: "1px solid",
-                      borderColor: alpha(ACCENT, 0.14),
-                      boxShadow: "var(--shadow-blog-card)",
-                      transition: "transform 180ms ease, box-shadow 180ms ease",
-                      "&:hover": {
-                        transform: "translateY(-2px)",
-                        boxShadow: "var(--shadow-blog-card-hover)",
-                      },
-                    }}
-                  >
-                    <Typography
-                      variant="overline"
-                      sx={{ color: "primary.main", letterSpacing: "0.14em" }}
-                    >
-                      Related Read
-                    </Typography>
-                    <Typography variant="h5" sx={{ mt: 1.25, mb: 1.25 }}>
-                      See the other side of this workflow.
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: "text.secondary", lineHeight: 1.75, mb: 2 }}
-                    >
-                      {relatedPost.excerpt}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ fontWeight: 700, color: "text.primary" }}
-                    >
-                      {relatedPost.title}
-                    </Typography>
-                  </Box>
-                )}
+                      {post.content}
+                    </ReactMarkdown>
+                  )}
+                </Box>
               </Stack>
-            </Box>
+            </Grid>
+  
+            <Grid item xs={12} md={4}>
+              <Box sx={{ position: { md: "sticky" }, top: 120 }}>
+                <Stack spacing={4}>
+                  {post.metadata.client && (
+                    <Box>
+                      <Typography
+                        variant="h5"
+                        sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                      >
+                        Client
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        color="text.primary"
+                        sx={{ whiteSpace: "pre-line" }}
+                      >
+                        {post.metadata.client}
+                      </Typography>
+                    </Box>
+                  )}
+                  {post.metadata.company && (
+                    <Box>
+                      <Typography
+                        variant="h5"
+                        sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                      >
+                        Company
+                      </Typography>
+                      <Typography variant="body1" color="text.primary">
+                        {post.metadata.companyUrl &&
+                        post.metadata.companyUrl !== "#" ? (
+                          <Link
+                            href={post.metadata.companyUrl}
+                            style={{
+                              color: "inherit",
+                              textDecoration: "underline",
+                            }}
+                          >
+                            {post.metadata.company}
+                          </Link>
+                        ) : (
+                          post.metadata.company
+                        )}
+                      </Typography>
+                    </Box>
+                  )}
+                  {post.metadata.year && (
+                    <Box>
+                      <Typography
+                        variant="h5"
+                        sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                      >
+                        Year
+                      </Typography>
+                      <Typography variant="body1" color="text.primary">
+                        {post.metadata.year}
+                      </Typography>
+                    </Box>
+                  )}
+                  {post.metadata.role && (
+                    <Box>
+                      <Typography
+                        variant="h5"
+                        sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                      >
+                        Role
+                      </Typography>
+                      <Typography variant="body1" color="text.primary">
+                        {post.metadata.role}
+                      </Typography>
+                    </Box>
+                  )}
+                  {post.metadata.tools && (
+                    <Box>
+                      <Typography
+                        variant="h5"
+                        sx={{ fontWeight: 700, mb: 0.5, color: "text.primary" }}
+                      >
+                        Tools
+                      </Typography>
+                      <Typography variant="body1" color="text.primary">
+                        {post.metadata.tools}
+                      </Typography>
+                    </Box>
+                  )}
+                  {relatedPost && (
+                    <Box
+                      component={Link}
+                      href={`/blog/${relatedPost.slug}`}
+                      sx={{
+                        display: "block",
+                        textDecoration: "none",
+                        color: "inherit",
+                        mt: 1,
+                        px: 3,
+                        py: 3.5,
+                        borderRadius: 3,
+                        bgcolor: alpha(ACCENT, 0.06),
+                        border: "1px solid",
+                        borderColor: alpha(ACCENT, 0.14),
+                        boxShadow: "var(--shadow-blog-card)",
+                        transition: "transform 180ms ease, box-shadow 180ms ease",
+                        "&:hover": {
+                          transform: "translateY(-2px)",
+                          boxShadow: "var(--shadow-blog-card-hover)",
+                        },
+                      }}
+                    >
+                      <Typography
+                        variant="overline"
+                        sx={{ color: "primary.main", letterSpacing: "0.14em" }}
+                      >
+                        Related Read
+                      </Typography>
+                      <Typography variant="h5" sx={{ mt: 1.25, mb: 1.25 }}>
+                        See the other side of this workflow.
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary", lineHeight: 1.75, mb: 2 }}
+                      >
+                        {relatedPost.excerpt}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ fontWeight: 700, color: "text.primary" }}
+                      >
+                        {relatedPost.title}
+                      </Typography>
+                    </Box>
+                  )}
+                </Stack>
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
-
-        <ConsultationCTA />
-
-        <Box sx={{ pt: 10, textAlign: "left" }}>
-          <Link
-            href="/blog"
-            style={{ color: "inherit", textDecoration: "none" }}
-          >
-            <Typography
-              variant="body2"
-              sx={{
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: 0.5,
-              }}
+  
+          <Box sx={{ py: 10, textAlign: "left" }}>
+            <Link
+              href="/blog"
+              style={{ color: "inherit", textDecoration: "none" }}
             >
-              ← Back to Blog
-            </Typography>
-          </Link>
-        </Box>
-      </Container>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: 0.5,
+                }}
+              >
+                ← Back to Blog
+              </Typography>
+            </Link>
+          </Box>
+        </Container>
+      </Box>
+
+      <FinalCTA 
+        title="Want to see this in your business?"
+        subtitle="Book a free 30-minute call. We'll walk through your workflows and identify exactly where automation can save you time."
+        buttonText="Schedule a Call"
+      />
     </Box>
   );
 }

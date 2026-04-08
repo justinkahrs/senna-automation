@@ -19,6 +19,7 @@ import {
   STONE_600,
   WARM_BLACK,
 } from "@/components/theme/colors";
+import { useModal } from "@/context/ModalContext";
 
 interface ScheduleCallButtonProps {
   text?: string;
@@ -39,6 +40,7 @@ export default function ScheduleCallButton({
   showIcon = true,
   inverse = false,
 }: ScheduleCallButtonProps) {
+  const { setIsCalendlyOpen } = useModal();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const theme = useTheme();
@@ -50,10 +52,12 @@ export default function ScheduleCallButton({
 
   const handleOpen = () => {
     setOpen(true);
+    setIsCalendlyOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setIsCalendlyOpen(false);
     // Redirect to confirmation after closing
   };
 
@@ -67,22 +71,23 @@ export default function ScheduleCallButton({
         sx={{
           borderRadius: "var(--radius-pill)",
           fontWeight: "bold",
-          px: 3,
+          px: 2,
           transition:
             "background-color var(--dur-base) ease, color var(--dur-base) ease, border-color var(--dur-base) ease, box-shadow var(--dur-base) ease",
           ...(variant === "contained" && {
-            backgroundColor: inverse ? "#FFFFFF" : WARM_BLACK,
+            backgroundColor: inverse ? "#FFFFFF" : ACCENT,
             color: inverse ? WARM_BLACK : "#FFFFFF",
             border: inverse
               ? `1px solid ${alpha(ACCENT, 0.18)}`
               : "1px solid transparent",
             boxShadow: inverse ? "none" : undefined,
             "&:hover": {
-              backgroundColor: inverse ? alpha("#FFFFFF", 0.94) : WARM_BLACK,
+              backgroundColor: inverse ? alpha("#FFFFFF", 0.94) : ACCENT,
               color: inverse ? ACCENT : "#FFFFFF",
               borderColor: inverse ? alpha(ACCENT, 0.36) : "transparent",
+              filter: inverse ? "none" : "brightness(0.92)",
               boxShadow: inverse
-                ? "0 10px 28px rgba(28,25,23,0.16)"
+                ? "0 10px 28px rgba(24,25,37,0.16)"
                 : "none",
             },
           }),
@@ -116,7 +121,7 @@ export default function ScheduleCallButton({
           backdrop: {
             sx: {
               background:
-                "linear-gradient(180deg, rgba(28,25,23,0.68) 0%, rgba(28,25,23,0.78) 100%)",
+                "linear-gradient(180deg, rgba(24,25,37,0.68) 0%, rgba(24,25,37,0.78) 100%)",
               backdropFilter: "blur(8px)",
             },
           },
@@ -149,16 +154,17 @@ export default function ScheduleCallButton({
               pb: { xs: 2, md: 2.25 },
               borderBottom: `1px solid ${alpha(ACCENT, 0.12)}`,
               background:
-                "linear-gradient(180deg, rgba(45,107,94,0.06) 0%, rgba(45,107,94,0.02) 100%)",
+                "linear-gradient(180deg, rgba(143,0,107,0.06) 0%, rgba(143,0,107,0.02) 100%)",
             }}
           >
             <Stack direction="row" spacing={2} alignItems="flex-start">
               <Box sx={{ flex: 1, minWidth: 0 }}>
                 <Typography
                   sx={{
-                    fontFamily: '"Cormorant Garamond", serif',
+                    fontFamily: "var(--font-sans)",
                     color: WARM_BLACK,
                     fontSize: { xs: "1.65rem", md: "1.95rem" },
+                    fontWeight: 700,
                     lineHeight: 1,
                     letterSpacing: "-0.02em",
                     mb: 0.5,

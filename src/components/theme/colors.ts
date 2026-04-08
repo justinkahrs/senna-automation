@@ -1,12 +1,21 @@
-export const WARM_BLACK = "#1C1917";
-export const WARM_DARK = "#292524";
-export const STONE_600 = "#57534E";
-export const STONE_400 = "#A8A29E";
-export const ACCENT = "#2D6B5E";
-export const ACCENT_LIGHT = "#3D8B78";
-export const ACCENT_DARK = "#1E5244";
-export const BG_BASE = "#F7F6F4";
+// ── New Palette (Magenta / Cyan / Indigo) ──────────────────────────
+export const SPACE_INDIGO = "#181925";
+export const SHADOW_GREY = "#2b2d42";
+export const AIRFORCE_BLUE = "#5f8594";
+export const ACCENT = "#8f006b";
+export const ACCENT_LIGHT = "#991778";
+export const ACCENT_DARK = "#8f006b";
+export const BG_BASE = "#f8f7f9";
 export const BG_PAPER = "#FFFFFF";
-export const BG_SUBTLE = "#F0EFEC";
-export const BORDER_SOFT = "#E7E5E4";
-export const BORDER_MED = "#D6D3D1";
+export const BG_SUBTLE = "#f8f7f9";
+export const BORDER_SOFT = "#c5eaef";
+export const BORDER_MED = "#92dce5";
+export const BANANA_CREAM = "#f7ec59";
+export const LIGHT_CYAN = "#92dce5";
+export const FROSTED_BLUE = "#c5eaef";
+
+// ── Legacy aliases (backward-compat) ───────────────────────────────
+export const WARM_BLACK = SPACE_INDIGO;
+export const WARM_DARK = SHADOW_GREY;
+export const STONE_600 = AIRFORCE_BLUE;
+export const STONE_400 = AIRFORCE_BLUE;
