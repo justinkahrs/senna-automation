@@ -9,11 +9,10 @@ export const alt = 'Senna Automation Blog';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export default async function Image({ params }: { params: { slug: string } }) {
-  // Await params for Next.js 15 compatibility if needed, 
-  // though opengraph-image usually takes sync params.
-  // In our case, getBlogPostBySlug is sync in utils/blog.ts.
-  const post = getBlogPostBySlug(params.slug);
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+  // Await params for Next.js 15 compatibility
+  const { slug } = await params;
+  const post = getBlogPostBySlug(slug);
 
   if (!post) {
     return new Response('Not Found', { status: 404 });
