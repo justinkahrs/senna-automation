@@ -29,6 +29,7 @@ export default function AnimatedHeroTitle() {
           lineHeight: 0.96,
           letterSpacing: "-0.04em",
           overflow: "visible",
+          position: "relative",
         }}
       >
         <Box
@@ -47,6 +48,7 @@ export default function AnimatedHeroTitle() {
           sx={{
             display: "block",
             position: "relative",
+            zIndex: 2,
             left: { xs: "-0.22em", md: "-0.34em" },
             fontFamily: '"posh", sans-serif',
             fontWeight: 900,
@@ -76,6 +78,8 @@ export default function AnimatedHeroTitle() {
           component="span"
           sx={{
             display: "block",
+            position: "relative",
+            zIndex: 1,
             fontSize: "0.9em",
             fontWeight: 700,
             textTransform: "uppercase",

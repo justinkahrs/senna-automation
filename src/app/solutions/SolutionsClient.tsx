@@ -10,7 +10,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { BlogPost } from "@/utils/blog";
 // import { WARM_BLACK } from "@/components/theme/colors";
-import OrganicHighlight from "@/components/OrganicHighlight";
 import FinalCTA from "@/components/sections/FinalCTA";
 
 interface Solution {
@@ -458,9 +457,9 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
             color="text.primary"
             sx={{ maxWidth: 720, lineHeight: 1.35 }}
           >
-            <OrganicHighlight>
+            <Box component="span" sx={{ color: "var(--color-text-accent)" }}>
               Most bottlenecks look more familiar than you think.
-            </OrganicHighlight>{" "}
+            </Box>{" "}
             Too much admin work, inconsistent follow-up, messy handoffs, and not
             enough visibility.
           </Typography>

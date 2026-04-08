@@ -17,7 +17,6 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { NumberedSteps } from "@/components/blog/NumberedSteps";
-import OrganicHighlight from "@/components/OrganicHighlight";
 import FinalCTA from "@/components/sections/FinalCTA";
 
 export const metadata: Metadata = {
@@ -177,10 +176,10 @@ export default function ServicesPage() {
                 sx={{ lineHeight: 1.35 }}
               >
                 You&apos;re not lacking capability.{" "}
-                <OrganicHighlight>
+                <Box component="span" sx={{ color: "var(--color-text-accent)" }}>
                   You&apos;re carrying the overhead of keeping everything in
                   sync.
-                </OrganicHighlight>
+                </Box>
               </Typography>
               <Typography
                 variant="h4"
