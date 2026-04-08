@@ -473,7 +473,6 @@ export default function Home() {
                     </Stack>
                   </Box>
                 </Grid>
-
                 <Grid
                   item
                   md={5}
@@ -510,7 +509,6 @@ export default function Home() {
                     />
                   </Box>
                 </Grid>
-
                 <Grid
                   item
                   xs={12}
@@ -548,7 +546,6 @@ export default function Home() {
           </Box>
         </Box>
       )}
-
       <Box
         component="section"
         sx={{
@@ -568,7 +565,6 @@ export default function Home() {
             Building integrations across your core systems
           </Typography>
         </Container>
-
         <Box
           sx={{
             position: "relative",
@@ -645,7 +641,6 @@ export default function Home() {
             ))}
           </Box>
         </Box>
-
         <Container maxWidth="lg">
           <Typography
             variant="subtitle1"
@@ -675,7 +670,6 @@ export default function Home() {
           </Typography>
         </Container>
       </Box>
-
       {/* ── Social Proof ─────────────────────────────── */}
       <Box
         component="section"
@@ -808,7 +802,6 @@ export default function Home() {
           </Grid>
         </Container>
       </Box>
-
       {/* ── FAQ Section ──────────────────────────────── */}
       <Box
         component="section"
@@ -894,7 +887,6 @@ export default function Home() {
           </CascadingStagger>
         </Container>
       </Box>
-
       <Box
         component="section"
         sx={{

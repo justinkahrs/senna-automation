@@ -21,6 +21,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { BG_BASE, WARM_BLACK } from "@/components/theme/colors";
 import { Logo } from "@/components/layout/Logo";
+import { useModal } from "@/context/ModalContext";
 
 const POLL_INTERVAL = 3000;
 const STORAGE_KEY_SESSION = "tg_widget_session_id";
@@ -36,6 +37,7 @@ type Message = {
 
 export default function ChatWidget() {
   const theme = useTheme();
+  const { isCalendlyOpen } = useModal();
   const [isOpen, setIsOpen] = useState(false);
   const [session, setSession] = useState<string | null>(null);
   const [hasConsent, setHasConsent] = useState(false);
@@ -232,7 +234,7 @@ export default function ChatWidget() {
 
   const toggleOpen = () => setIsOpen(!isOpen);
 
-  if (initializing) return null;
+  if (initializing || isCalendlyOpen) return null;
 
   return (
     <Box
