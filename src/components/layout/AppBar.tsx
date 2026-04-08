@@ -20,6 +20,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { usePathname } from "next/navigation";
 import { ACCENT } from "../theme/theme";
+import { trackNavLink, trackContactLink } from "@/utils/analytics";
 
 const NAV_LINKS = [
   { label: "Services", href: "/services" },
@@ -199,6 +200,7 @@ export function AppBar() {
                     },
                     transition: "color var(--dur-base) ease, background-color var(--dur-base) ease",
                   }}
+                  onClick={() => trackNavLink(href, label)}
                 >
                   {label}
                 </Button>
@@ -229,6 +231,7 @@ export function AppBar() {
                   color: utilityTextColor,
                 },
               }}
+              onClick={() => trackContactLink("Contact Sales")}
             >
               Contact Sales
             </Button>
@@ -303,7 +306,10 @@ export function AppBar() {
                     key={href}
                     component={Link}
                     href={href}
-                    onClick={handleMobileMenuClose}
+                    onClick={() => {
+                      handleMobileMenuClose();
+                      trackNavLink(href, label);
+                    }}
                     selected={isActive}
                     sx={{
                       backgroundColor: "transparent",
@@ -338,7 +344,10 @@ export function AppBar() {
               <MenuItem
                 component={Link}
                 href="/contact"
-                onClick={handleMobileMenuClose}
+                onClick={() => {
+                  handleMobileMenuClose();
+                  trackContactLink("Contact Sales");
+                }}
                 sx={{
                   backgroundColor: "transparent",
                   color: "var(--ds-space-indigo)",

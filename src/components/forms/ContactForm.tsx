@@ -17,6 +17,7 @@ import {
 import { validateContact } from "@/utils/validation";
 import SuccessMessage from "@/components/SuccessMessage";
 import SubmittingOverlay from "@/components/SubmittingOverlay";
+import { trackFormSubmission } from "@/utils/analytics";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
@@ -49,6 +50,7 @@ export default function ContactForm() {
       });
       if (res.ok) {
         setSubmitted(true);
+        trackFormSubmission("contact", { contact_method: contactMethod });
       } else {
         setSubmitting(false);
       }

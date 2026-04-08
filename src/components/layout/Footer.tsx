@@ -11,6 +11,7 @@ import {
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { usePathname } from "next/navigation";
+import { trackExternalLink } from "@/utils/analytics";
 
 const footerLinkGroups = [
   {
@@ -242,6 +243,7 @@ export function Footer() {
                     href="https://linkedin.com/company/senna-automation"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackExternalLink("https://linkedin.com/company/senna-automation", "LinkedIn")}
                     sx={{
                       color: "var(--color-text-on-dark-body)",
                       p: 0,
@@ -255,6 +257,7 @@ export function Footer() {
                     href="https://instagram.com/sennaautomation"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackExternalLink("https://instagram.com/sennaautomation", "Instagram")}
                     sx={{
                       color: "var(--color-text-on-dark-body)",
                       p: 0,
@@ -283,6 +286,7 @@ export function Footer() {
                   href="https://www.bbb.org/us/mi/grand-rapids/profile/artificial-intelligence/senna-automation-0372-90070205"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackExternalLink("https://www.bbb.org/us/mi/grand-rapids/profile/artificial-intelligence/senna-automation-0372-90070205", "BBB")}
                   sx={{
                     display: "inline-flex",
                     opacity: 0.8,
