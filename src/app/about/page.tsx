@@ -89,9 +89,15 @@ export default function About() {
           </Typography>
 
           <Typography
-            variant="subtitle1"
+            variant="body1"
             color="inherit"
-            sx={{ mt: 2, maxWidth: 800, mx: "auto", opacity: 0.7 }}
+            sx={{
+              mt: 2,
+              maxWidth: 800,
+              mx: "auto",
+              opacity: 0.7,
+              fontSize: "1rem",
+            }}
           >
             Based in Grand Rapids, MI, helping businesses eliminate repetitive
             work with 15+ years of hands-on software experience.
