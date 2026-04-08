@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
 import RequestFormButton from "@/components/RequestFormButton";
+import SennaAdvantageVideo from "@/components/home/SennaAdvantageVideo";
 
 export const metadata: Metadata = {
   title:
@@ -312,44 +313,7 @@ export default function Home() {
               md={5}
               sx={{ p: 0, bgcolor: "var(--color-text-primary)" }}
             >
-              <Box
-                sx={{
-                  position: "relative",
-                  width: "100%",
-                  height: "100%",
-                  minHeight: { xs: 280, sm: 340, md: "100%" },
-                  bgcolor: "var(--color-text-primary)",
-                  borderTopLeftRadius: { xs: 0, md: "12px" }, // Matching 1.5 * 8
-                  borderBottomLeftRadius: { xs: 0, md: "12px" },
-                  overflow: "hidden",
-                }}
-              >
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center 8%",
-                    display: "block",
-                  }}
-                >
-                  <source src="/home-work.mp4" type="video/mp4" />
-                </video>
-
-                <Box
-                  sx={{
-                    position: "absolute",
-                    inset: 0,
-                    background:
-                      "linear-gradient(to bottom right, rgba(0,0,0,0.1) 0%, transparent 50%)",
-                    pointerEvents: "none",
-                  }}
-                />
-              </Box>
+              <SennaAdvantageVideo />
             </Grid>
             {/* Text Content (7 Columns) */}
             <Grid
@@ -411,7 +375,7 @@ export default function Home() {
                   </Typography>
 
                   <Typography
-                    variant="body2"
+                    variant="body1"
                     color="text.secondary"
                     sx={{
                       fontStyle: "italic",
