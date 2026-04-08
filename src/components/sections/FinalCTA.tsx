@@ -18,6 +18,7 @@ interface FinalCTAProps {
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
   buttonText?: string;
+  buttonHref?: string;
   sx?: SxProps<Theme>;
   containerMaxWidth?: "xs" | "sm" | "md" | "lg" | "xl";
   titleSx?: SxProps<Theme>;
@@ -26,6 +27,7 @@ interface FinalCTAProps {
   calendlyLogoSx?: SxProps<Theme>;
   viaSx?: SxProps<Theme>;
   showContactLink?: boolean;
+  showCalendlyMeta?: boolean;
   showTexture?: boolean;
   stackSpacing?: number | string;
   transparentBackground?: boolean;
@@ -35,6 +37,7 @@ export default function FinalCTA({
   title = "See what you can automate",
   subtitle = "We start with a free 30-min call to walk through your workflows. No commitment — just a clear picture of where you can save time.",
   buttonText = "Book a Demo",
+  buttonHref,
   sx,
   containerMaxWidth = "sm",
   titleSx,
@@ -43,6 +46,7 @@ export default function FinalCTA({
   calendlyLogoSx,
   viaSx,
   showContactLink = true,
+  showCalendlyMeta = true,
   showTexture = true,
   stackSpacing = 2,
   transparentBackground,
@@ -116,64 +120,85 @@ export default function FinalCTA({
           {subtitle}
         </Typography>
         <Stack spacing={stackSpacing} alignItems="center">
-          <ScheduleCallButton
-            text={buttonText}
-            size="large"
-            sx={{
-              bgcolor: "var(--color-highlight)",
-              color: "var(--color-text-primary)",
-              "&:hover": {
-                bgcolor: "var(--color-highlight)",
-                opacity: 0.9,
-                boxShadow: "var(--shadow-lg)",
-              },
-              ...buttonSx,
-            }}
-            showIcon={false}
-          />
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 0.5,
-              color: "var(--color-text-on-dark-secondary)",
-              ...viaSx,
-            }}
-          >
-            <Typography variant="caption" sx={{ color: "inherit" }}>
-              via
-            </Typography>
-            <Box
-              component="img"
-              src="/Calendly.svg"
-              alt="Calendly"
+          {buttonHref ? (
+            <Button
+              component={Link}
+              href={buttonHref}
+              variant="contained"
+              size="large"
               sx={{
-                height: "0.95rem",
-                width: "auto",
-                opacity: 0.9,
-                filter: "brightness(0) invert(1)",
-                mt: "3px",
-                ...calendlyLogoSx,
+                bgcolor: "var(--color-highlight)",
+                color: "var(--color-text-primary)",
+                "&:hover": {
+                  bgcolor: "var(--color-highlight)",
+                  opacity: 0.9,
+                  boxShadow: "var(--shadow-lg)",
+                },
+                ...buttonSx,
               }}
+            >
+              {buttonText}
+            </Button>
+          ) : (
+            <ScheduleCallButton
+              text={buttonText}
+              size="large"
+              sx={{
+                bgcolor: "var(--color-highlight)",
+                color: "var(--color-text-primary)",
+                "&:hover": {
+                  bgcolor: "var(--color-highlight)",
+                  opacity: 0.9,
+                  boxShadow: "var(--shadow-lg)",
+                },
+                ...buttonSx,
+              }}
+              showIcon={false}
             />
-          </Box>
+          )}
+          {showCalendlyMeta && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                color: "var(--color-text-on-dark-secondary)",
+                ...viaSx,
+              }}
+            >
+              <Typography variant="caption" sx={{ color: "inherit" }}>
+                via
+              </Typography>
+              <Box
+                component="img"
+                src="/Calendly.svg"
+                alt="Calendly"
+                sx={{
+                  height: "0.95rem",
+                  width: "auto",
+                  opacity: 0.9,
+                  filter: "brightness(0) invert(1)",
+                  mt: "3px",
+                  ...calendlyLogoSx,
+                }}
+              />
+            </Box>
+          )}
           {showContactLink && (
             <Typography
-              variant="caption"
+              variant="body1"
               sx={{ color: "var(--color-text-on-dark-muted)" }}
             >
               Prefer a form?{" "}
-              <Button
+              <Box
                 component={Link}
                 href="/contact"
-                variant="text"
-                size="small"
                 sx={{
+                  display: "inline",
                   color: "var(--color-text-on-dark-subtle)",
-                  p: 0,
-                  minWidth: 0,
                   textDecoration: "underline",
                   fontSize: "inherit",
+                  fontWeight: "inherit",
                   "&:hover": {
                     color: "var(--color-accent-cyan)",
                     textDecoration: "underline",
@@ -181,7 +206,7 @@ export default function FinalCTA({
                 }}
               >
                 Contact us
-              </Button>
+              </Box>
             </Typography>
           )}
         </Stack>

@@ -174,13 +174,13 @@ export default function Home() {
         aria-labelledby="hero-heading"
         sx={{
           bgcolor: "background.default",
-          minHeight: { xs: "100svh", md: "min(100svh, 920px)" },
-          pt: { xs: "64px", md: "112px" },
+          minHeight: { xs: "100svh", md: "min(100svh, 1280px)" },
+          pt: { xs: 24, md: 32 },
           display: "flex",
           alignItems: "center",
           position: "relative",
           overflow: "hidden",
-          pb: { xs: 16, md: 20 },
+          pb: { xs: 24, md: 32 },
         }}
       >
         <Container maxWidth="lg">
@@ -317,7 +317,7 @@ export default function Home() {
                   position: "relative",
                   width: "100%",
                   height: "100%",
-                  minHeight: { xs: 360, md: "100%" },
+                  minHeight: { xs: 280, sm: 340, md: "100%" },
                   bgcolor: "var(--color-text-primary)",
                   borderTopLeftRadius: { xs: 0, md: "12px" }, // Matching 1.5 * 8
                   borderBottomLeftRadius: { xs: 0, md: "12px" },
@@ -333,10 +333,11 @@ export default function Home() {
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
+                    objectPosition: "center 8%",
                     display: "block",
                   }}
                 >
-                  <source src="/visualContent.mp4" type="video/mp4" />
+                  <source src="/home-work.mp4" type="video/mp4" />
                 </video>
 
                 <Box
@@ -505,7 +506,7 @@ export default function Home() {
                       </Box>
 
                       <Stack spacing={3}>
-                        <Typography variant="h2" color="inherit">
+                        <Typography variant="h3" component="h3" color="inherit">
                           {latestPost.title}
                         </Typography>
                         <Typography
@@ -606,8 +607,7 @@ export default function Home() {
         component="section"
         sx={{
           bgcolor: "background.paper",
-          pt: { xs: 8, md: 10 },
-          pb: { xs: 10, md: 16 },
+          py: { xs: 8, md: 10 },
           overflow: "hidden",
         }}
       >
@@ -697,34 +697,56 @@ export default function Home() {
             ))}
           </Box>
         </Box>
-        <Container maxWidth="lg">
-          <Typography
-            variant="subtitle1"
-            align="center"
-            color="text.secondary"
-            sx={{
-              mt: { xs: 4, md: 5 },
-              maxWidth: 760,
-              mx: "auto",
-              lineHeight: 1.8,
-              fontWeight: 500,
-            }}
-          >
-            Using homegrown tools or internal systems? We build automation
-            directly into those as well.{" "}
-            <Box
-              component={Link}
-              href="/services"
-              sx={{
-                color: "primary.main",
-                textDecoration: "none",
-                fontWeight: 600,
-              }}
+        <Box
+          sx={{
+            mt: { xs: 5, md: 6 },
+            position: "relative",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "100vw",
+            bgcolor: "var(--color-text-link-hover)",
+            py: { xs: 8, md: 10 },
+          }}
+        >
+          <Container maxWidth="lg">
+            <Stack
+              spacing={3}
+              alignItems="center"
+              justifyContent="center"
+              sx={{ textAlign: "center" }}
             >
-              See how
-            </Box>
-          </Typography>
-        </Container>
+              <Typography
+                variant="h2"
+                component="h2"
+                sx={{
+                  maxWidth: 960,
+                  lineHeight: 1.2,
+                  color: "var(--color-text-inverse)",
+                }}
+              >
+                Using homegrown tools or internal systems? We build automation
+                directly into those as well.
+              </Typography>
+              <Button
+                component={Link}
+                href="/services"
+                variant="contained"
+                size="large"
+                sx={{
+                  bgcolor: "var(--color-highlight)",
+                  color: "var(--color-text-primary)",
+                  "&:hover": {
+                    bgcolor: "var(--color-highlight)",
+                    opacity: 0.9,
+                    boxShadow: "var(--shadow-lg)",
+                  },
+                }}
+              >
+                See How
+              </Button>
+            </Stack>
+          </Container>
+        </Box>
       </Box>
       {/* ── Social Proof ─────────────────────────────── */}
       <Box
@@ -752,11 +774,12 @@ export default function Home() {
           }}
         >
           <Typography
-            variant="overline"
+            variant="h2"
+            component="h2"
             align="center"
-            sx={{ ...homeEyebrowSx, mb: 6, mx: "auto" }}
+            sx={{ mb: 6 }}
           >
-            What clients say
+            Don&apos;t take our word for it...
           </Typography>
           <Grid container spacing={{ xs: 3, md: 4 }}>
             {[

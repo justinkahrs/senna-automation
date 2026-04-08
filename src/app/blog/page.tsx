@@ -28,16 +28,30 @@ import { alpha } from "@mui/material/styles";
 import { ACCENT, LIGHT_CYAN } from "@/components/theme/colors";
 import { getAllBlogPosts } from "@/utils/blog";
 
+const homeEyebrowSx = {
+  display: "inline-flex",
+  alignItems: "center",
+  width: "fit-content",
+  px: 1.75,
+  py: 0.5,
+  border: "1px solid",
+  borderColor: "var(--color-border-medium)",
+  borderRadius: "var(--radius-pill)",
+  bgcolor:
+    "color-mix(in srgb, var(--color-accent-cyan), transparent 84%)",
+  color: "var(--color-text-secondary)",
+  letterSpacing: "0.12em",
+};
+
 const blogPosts = getAllBlogPosts();
 
 export default function BlogPage() {
-  const featuredCategory = blogPosts[0]?.category || "Featured";
-  const [categoryLeadWord = "Featured", ...categoryTailWords] =
-    featuredCategory.split(" ");
-  const categoryLead =
-    categoryLeadWord.charAt(0).toUpperCase() +
-    categoryLeadWord.slice(1).toLowerCase();
-  const categoryTail = categoryTailWords.join(" ").toUpperCase();
+  const featuredHeroTitle =
+    blogPosts[0]?.heroTitle || "The systems we build define how we scale.";
+  const hasEndToEndLead = featuredHeroTitle.startsWith("End-to-End ");
+  const featuredHeroTail = hasEndToEndLead
+    ? featuredHeroTitle.replace(/^End-to-End\s+/, "")
+    : featuredHeroTitle;
 
   return (
     <Box
@@ -52,7 +66,7 @@ export default function BlogPage() {
         sx={{
           bgcolor: "secondary.main", // SPACE_INDIGO (#181925)
           color: "background.paper",
-          pt: { xs: 12, md: 20 },
+          pt: { xs: 16, md: 28 },
           pb: { xs: 10, md: 16 },
           position: "relative",
           overflow: "hidden",
@@ -77,21 +91,82 @@ export default function BlogPage() {
           <Grid container spacing={8} alignItems="center">
             <Grid item xs={12} md={7}>
               <Stack spacing={3}>
-                <Typography variant="overline" sx={{ color: "primary.light" }}>
-                  Featured Thinking
+                <Typography variant="overline" sx={{ ...homeEyebrowSx }}>
+                  Featured
                 </Typography>
                 <Typography
                   variant="h1"
                   color="inherit"
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      blogPosts[0]?.heroTitle ||
-                      "The systems we build <br /> define how we scale.",
+                  sx={{
+                    fontSize: "clamp(3.75rem, 9vw, 7rem)",
+                    lineHeight: 0.96,
+                    letterSpacing: "-0.03em",
                   }}
-                />
+                >
+                  {hasEndToEndLead ? (
+                    <>
+                      <Box
+                        component="span"
+                        sx={{
+                          display: "block",
+                          fontFamily:
+                            '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif',
+                          fontSize: "0.9em",
+                          fontWeight: 700,
+                          textTransform: "uppercase",
+                          letterSpacing: "-0.04em",
+                          color: "var(--color-text-inverse)",
+                          mb: 1.25,
+                        }}
+                      >
+                        End-to-End
+                      </Box>
+                      <Box
+                        component="span"
+                        sx={{
+                          display: "block",
+                          fontFamily: '"posh", sans-serif',
+                          fontWeight: 900,
+                          fontStyle: "italic",
+                          color: "var(--color-text-inverse)",
+                          textShadow: {
+                            xs: "3px 3px 0 var(--ds-airforce-blue)",
+                            sm: "4px 4px 0 var(--ds-airforce-blue)",
+                            md: "6px 6px 0 var(--ds-airforce-blue)",
+                          },
+                        }}
+                      >
+                        {featuredHeroTail}
+                      </Box>
+                    </>
+                  ) : (
+                    <Box
+                      component="span"
+                      sx={{
+                        display: "block",
+                        fontFamily: '"posh", sans-serif',
+                        fontWeight: 900,
+                        fontStyle: "italic",
+                        color: "var(--color-text-inverse)",
+                        textShadow: {
+                          xs: "3px 3px 0 var(--ds-airforce-blue)",
+                          sm: "4px 4px 0 var(--ds-airforce-blue)",
+                          md: "6px 6px 0 var(--ds-airforce-blue)",
+                        },
+                      }}
+                    >
+                      {featuredHeroTitle}
+                    </Box>
+                  )}
+                </Typography>
                 <Typography
-                  variant="subtitle1"
-                  sx={{ color: "var(--color-text-on-dark)", maxWidth: 600 }}
+                  variant="body1"
+                  sx={{
+                    color: "var(--color-text-on-dark)",
+                    maxWidth: 600,
+                    fontSize: "1.125rem",
+                    lineHeight: 1.75,
+                  }}
                 >
                   {blogPosts[0]?.heroSubtitle ||
                     "Automation is more than just script execution. It's the digital craftsmanship behind a calm, high-performing business."}
@@ -119,6 +194,7 @@ export default function BlogPage() {
                     position: "relative",
                     aspectRatio: "4 / 5",
                     overflow: "hidden",
+                    borderRadius: { xs: 1.5, md: 1.5 },
                     boxShadow: "var(--shadow-blog-hero)",
                   }}
                 >
@@ -131,51 +207,6 @@ export default function BlogPage() {
                     sizes="(max-width: 900px) 100vw, 460px"
                   />
                   <Box sx={{ position: "absolute", inset: 0, bgcolor: alpha(LIGHT_CYAN, 0.4), pointerEvents: "none" }} />
-                </Box>
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: 0,
-                    right: 0,
-                    bgcolor: "background.paper",
-                    color: "primary.main",
-                    px: { xs: 3, md: 3.5 },
-                    py: { xs: 2.25, md: 2.5 },
-                    width: "fit-content",
-                    maxWidth: "100%",
-                    boxShadow: "var(--shadow-blog-card)",
-                    zIndex: 2,
-                  }}
-                >
-                  <Box sx={{ color: "inherit" }}>
-                    <Typography
-                      sx={{
-                        color: "inherit",
-                        fontFamily: "var(--font-sans)",
-                        fontSize: { xs: "1.35rem", md: "1.55rem" },
-                        fontWeight: 700,
-                        lineHeight: 1,
-                      }}
-                    >
-                      {categoryLead}
-                    </Typography>
-                    {categoryTail && (
-                        <Typography
-                          sx={{
-                            color: "inherit",
-                            fontFamily: "var(--font-sans)",
-                            fontSize: { xs: "0.8rem", md: "0.9rem" },
-                            fontWeight: 800,
-                            lineHeight: 1.1,
-                          letterSpacing: "0.12em",
-                          textTransform: "uppercase",
-                          mt: 0.5,
-                        }}
-                      >
-                        {categoryTail}
-                      </Typography>
-                    )}
-                  </Box>
                 </Box>
               </Box>
             </Grid>

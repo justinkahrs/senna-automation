@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,17 +12,40 @@ export const metadata: Metadata = {
 
 import {
   Box,
-  Button,
   Container,
   Stack,
   Typography,
   Grid,
-  Card,
-  CardContent,
-  Divider,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FinalCTA from "@/components/sections/FinalCTA";
+
+const homeEyebrowSx = {
+  display: "inline-flex",
+  alignItems: "center",
+  width: "fit-content",
+  px: 1.75,
+  py: 0.5,
+  border: "1px solid",
+  borderColor: "var(--color-border-medium)",
+  borderRadius: "var(--radius-pill)",
+  bgcolor:
+    "color-mix(in srgb, var(--color-accent-cyan), transparent 84%)",
+  color: "var(--color-text-secondary)",
+  letterSpacing: "0.12em",
+};
+
+const visuallyHiddenSx = {
+  position: "absolute",
+  width: "1px",
+  height: "1px",
+  p: 0,
+  m: "-1px",
+  overflow: "hidden",
+  clip: "rect(0, 0, 0, 0)",
+  whiteSpace: "nowrap",
+  border: 0,
+};
 
 export default function About() {
   return (
@@ -31,7 +55,7 @@ export default function About() {
         sx={{
           bgcolor: "secondary.main",
           color: "background.paper",
-          pt: { xs: 12, md: 20 },
+          pt: { xs: 16, md: 28 },
           pb: { xs: 10, md: 16 },
           position: "relative",
           overflow: "hidden",
@@ -54,6 +78,12 @@ export default function About() {
           maxWidth="lg"
           sx={{ position: "relative", zIndex: 1, textAlign: "center" }}
         >
+          <Typography
+            variant="overline"
+            sx={{ ...homeEyebrowSx, mb: 2, mx: "auto" }}
+          >
+            About Us
+          </Typography>
           <Typography component="h1" variant="h1" color="inherit" gutterBottom>
             AI &amp; Workflow Automation Consulting
           </Typography>
@@ -81,13 +111,6 @@ export default function About() {
             <Grid item xs={12} md={7}>
               <Stack spacing={4}>
                 <Box>
-                  <Typography
-                    variant="overline"
-                    color="primary.main"
-                    sx={{ mb: 2, display: "block" }}
-                  >
-                    Our Core Focus
-                  </Typography>
                   <Typography
                     variant="h2"
                     component="h2"
@@ -158,53 +181,116 @@ export default function About() {
 
             <Grid item xs={12} md={5}>
               <Box sx={{ position: { md: "sticky" }, top: 120 }}>
-                <Card
+                <Box
+                  component="figure"
                   sx={{
-                    bgcolor: "background.paper",
-                    border: "1px solid",
-                    borderColor: "divider",
-                    borderRadius: 4,
+                    borderRadius: { xs: 0, md: 1.5 },
                     boxShadow: "var(--shadow-hero)",
                     overflow: "hidden",
+                    position: "relative",
+                    minHeight: { xs: 420, md: 720 },
+                    m: 0,
                   }}
                 >
-                  <CardContent sx={{ p: { xs: 4, md: 6 } }}>
-                    <Stack spacing={4} alignItems="center">
-                      <LocationOnIcon
-                        sx={{ fontSize: 48, color: "primary.main" }}
+                  <Image
+                    src="/about-grand-rapids.jpg"
+                    alt="Grand Rapids skyline and blue bridge over the river"
+                    fill
+                    sizes="(max-width: 900px) 100vw, 40vw"
+                    style={{ objectFit: "cover" }}
+                  />
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      inset: 0,
+                      background:
+                        "linear-gradient(180deg, color-mix(in srgb, var(--ds-airforce-blue) 60%, transparent) 0%, color-mix(in srgb, var(--ds-airforce-blue) 60%, transparent) 100%)",
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      inset: 0,
+                      display: "flex",
+                      alignItems: "flex-start",
+                      justifyContent: "center",
+                      pt: { xs: 8, md: 12 },
+                      px: 4,
+                      pb: 4,
+                    }}
+                  >
+                    <Stack spacing={2.5} alignItems="center">
+                      <Box
+                        component="img"
+                        src="/master-logo.svg"
+                        alt="Senna Automation"
+                        sx={{
+                          width: { xs: "170%", sm: "160%", md: "170%" },
+                          maxWidth: 1120,
+                          height: "auto",
+                          display: "block",
+                          filter:
+                            "brightness(0) invert(1) drop-shadow(0 12px 30px rgba(24,25,37,0.28))",
+                        }}
                       />
-                      <Box sx={{ textAlign: "center" }}>
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        alignItems="center"
+                        sx={{
+                          px: 2,
+                          py: 1,
+                          borderRadius: "var(--radius-pill)",
+                          bgcolor: "rgba(255,255,255,0.16)",
+                          backdropFilter: "blur(6px)",
+                          color: "var(--color-text-inverse)",
+                        }}
+                      >
+                        <LocationOnIcon sx={{ fontSize: 18, color: "inherit" }} />
                         <Typography
-                          variant="h4"
-                          component="h2"
-                          gutterBottom
-                          sx={{ color: "text.primary" }}
+                          variant="body1"
+                          sx={{ color: "var(--color-text-inverse)", fontWeight: 600 }}
                         >
-                          Senna Automation
-                        </Typography>
-                        <Stack spacing={0.5}>
-                          <Typography variant="body1" color="text.secondary">
-                            AI Automation & Custom Software Development
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            Serving Grand Rapids, MI & Nationwide
-                          </Typography>
-                        </Stack>
-                      </Box>
-
-                      <Divider sx={{ width: "100%", opacity: 0.5 }} />
-
-                      <Stack spacing={2} alignItems="center">
-                        <Typography variant="h5" color="text.primary">
-                          (616) 287-3360
-                        </Typography>
-                        <Typography variant="overline" color="text.secondary">
-                          Est. 2024
+                          Grand Rapids, MI
                         </Typography>
                       </Stack>
+                      <Box
+                        sx={{
+                          width: { xs: 120, md: 156 },
+                          height: "8px",
+                          bgcolor: "var(--color-accent-cyan)",
+                          boxShadow: "0 0 18px rgba(146,220,229,0.25)",
+                        }}
+                      />
+                      <Typography
+                        variant="overline"
+                        sx={{
+                          fontSize: "1rem",
+                          color: "var(--color-text-inverse)",
+                          opacity: 0.92,
+                        }}
+                      >
+                        Est. 2024
+                      </Typography>
                     </Stack>
-                  </CardContent>
-                </Card>
+                  </Box>
+                  <Box component="figcaption" sx={visuallyHiddenSx}>
+                    Photo by{" "}
+                    <Box
+                      component="a"
+                      href="https://unsplash.com/@karishea?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+                    >
+                      Kari Shea
+                    </Box>{" "}
+                    on{" "}
+                    <Box
+                      component="a"
+                      href="https://unsplash.com/photos/blue-bridge-over-river-near-city-buildings-during-daytime-koxByITzIUg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+                    >
+                      Unsplash
+                    </Box>
+                  </Box>
+                </Box>
               </Box>
             </Grid>
           </Grid>
@@ -219,14 +305,16 @@ export default function About() {
               component="span"
               sx={{ fontStyle: "italic", color: "var(--color-text-primary)" }}
             >
-              “there has to be a better way to do this,”
+              there has to be a better way to do this,
             </Box>{" "}
             there probably is.
           </>
         }
         subtitle="It just hasn’t been set up yet."
         buttonText="Let's fix that"
+        buttonHref="/contact#contact-form"
         showContactLink={false}
+        showCalendlyMeta={false}
         showTexture={false}
         containerMaxWidth="md"
         sx={{

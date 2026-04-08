@@ -28,6 +28,21 @@ export const metadata: Metadata = {
   },
 };
 
+const homeEyebrowSx = {
+  display: "inline-flex",
+  alignItems: "center",
+  width: "fit-content",
+  px: 1.75,
+  py: 0.5,
+  border: "1px solid",
+  borderColor: "var(--color-border-medium)",
+  borderRadius: "var(--radius-pill)",
+  bgcolor:
+    "color-mix(in srgb, var(--color-accent-cyan), transparent 84%)",
+  color: "var(--color-text-secondary)",
+  letterSpacing: "0.12em",
+};
+
 const services = [
   {
     icon: AutoFixHighIcon,
@@ -111,7 +126,7 @@ export default function ServicesPage() {
         sx={{
           bgcolor: "secondary.main",
           color: "background.paper",
-          pt: { xs: 12, md: 20 },
+          pt: { xs: 16, md: 28 },
           pb: { xs: 10, md: 16 },
           position: "relative",
           overflow: "hidden",
@@ -132,6 +147,12 @@ export default function ServicesPage() {
         />
         <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1, textAlign: "center" }}>
           <Box sx={{ maxWidth: "900px", mx: "auto" }}>
+            <Typography
+              variant="overline"
+              sx={{ ...homeEyebrowSx, mb: 2, mx: "auto" }}
+            >
+              Services
+            </Typography>
             <Typography
               component="h1"
               variant="h1"
@@ -160,7 +181,7 @@ export default function ServicesPage() {
       </Box>
 
       {/* ── Intro ─────────────────────────────────────────── */}
-      <Box sx={{ py: { xs: 6, md: 8 }, bgcolor: "background.paper" }}>
+      <Box sx={{ py: { xs: 10, md: 16 }, bgcolor: "background.paper" }}>
         <Container maxWidth="lg">
           <Stack spacing={5}>
             <Box
