@@ -1,21 +1,21 @@
-import fs from 'fs';
-import path from 'path';
 import { ImageResponse } from 'next/og';
 
-export const runtime = 'nodejs';
+// Use edge runtime for consistency and performance
+export const runtime = 'edge';
 
 export const alt = 'Senna Automation | AI Workflow Automation & Custom Software Development';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
-  const interSemiBold = fs.readFileSync(
-    path.join(process.cwd(), 'src/app/fonts/Inter-SemiBold.ttf')
-  );
+  // Fetch fonts via HTTP (supported in edge)
+  const interSemiBold = await fetch(
+    new URL('https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf')
+  ).then((res) => res.arrayBuffer());
 
-  const interBold = fs.readFileSync(
-    path.join(process.cwd(), 'src/app/fonts/Inter-Bold.ttf')
-  );
+  const interBold = await fetch(
+    new URL('https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuDyYMZg.ttf')
+  ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(
     (
