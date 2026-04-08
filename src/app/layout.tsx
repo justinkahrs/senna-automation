@@ -186,16 +186,8 @@ export default function RootLayout({
         />
         {/* Analytics and Tracking Scripts */}
         <Script
-          id="vtag-ai-js"
-          src="https://r2.leadsy.ai/tag.js"
-          async
-          data-pid="5eWHMMjnfGOlrKfh"
-          data-version="062024"
-          strategy="afterInteractive"
-        />
-        <Script
-          src="https://cdn.usefathom.com/script.js"
-          data-site="ZENVGNJZ"
+          src="https://grenadierly-unrescissory-hae.ngrok-free.dev/umami/script.js"
+          data-website-id="7f9f7986-0963-49f6-b357-35a5ccabe2f1"
           defer
           strategy="afterInteractive"
         />
