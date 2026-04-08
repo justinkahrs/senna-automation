@@ -18,11 +18,11 @@ export default async function Image({ params }: { params: { slug: string } }) {
   }
 
   const interSemiBold = await fetch(
-    new URL('../../../fonts/Inter-SemiBold.ttf', import.meta.url)
+    new URL('../../fonts/Inter-SemiBold.ttf', import.meta.url)
   ).then((res) => res.arrayBuffer());
 
   const interBold = await fetch(
-    new URL('../../../fonts/Inter-Bold.ttf', import.meta.url)
+    new URL('../../fonts/Inter-Bold.ttf', import.meta.url)
   ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(
