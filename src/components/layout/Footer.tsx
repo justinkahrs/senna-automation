@@ -45,7 +45,7 @@ export function Footer() {
         pt: 0,
         pb: 0,
         px: 0,
-        mt: { xs: "auto", md: -6 },
+        mt: { xs: 0, md: -6 },
         position: "relative",
         zIndex: 2,
         ...(usesYellowFooterBleed
@@ -55,6 +55,46 @@ export function Footer() {
           : usesExtendedCtaBackdrop
             ? {
                 backgroundColor: "transparent",
+                "@keyframes footerGradientBG": {
+                  "0%": {
+                    backgroundPosition: "0% 50%",
+                  },
+                  "50%": {
+                    backgroundPosition: "100% 50%",
+                  },
+                  "100%": {
+                    backgroundPosition: "0% 50%",
+                  },
+                },
+                "&::before": {
+                  content: '""',
+                  position: "absolute",
+                  top: { xs: "-4rem", md: "-6rem" },
+                  left: "50%",
+                  bottom: 0,
+                  width: "100vw",
+                  transform: "translateX(-50%)",
+                  background:
+                    "linear-gradient(-45deg, var(--color-accent), var(--ds-shadow-grey), var(--color-accent))",
+                  backgroundSize: "400% 400%",
+                  animation: "footerGradientBG 15s ease infinite",
+                  pointerEvents: "none",
+                  zIndex: 0,
+                },
+                "&::after": {
+                  content: '""',
+                  position: "absolute",
+                  top: { xs: "-4rem", md: "-6rem" },
+                  left: "50%",
+                  bottom: 0,
+                  width: "100vw",
+                  transform: "translateX(-50%)",
+                  opacity: 0.03,
+                  backgroundImage:
+                    'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
+                  pointerEvents: "none",
+                  zIndex: 0,
+                },
               }
           : {
               background:
@@ -78,6 +118,7 @@ export function Footer() {
       <Box
         sx={{
           position: "relative",
+          zIndex: 1,
           maxWidth: { xs: "100%", md: 1240 },
           mx: "auto",
           bgcolor: "var(--ds-space-indigo)",

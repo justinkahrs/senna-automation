@@ -198,9 +198,9 @@ export default function Home() {
                 component="hr"
                 sx={{
                   my: 4,
-                  width: { xs: "min(220px, 60vw)", md: 260 },
+                  width: { xs: "min(160px, 44vw)", md: 180 },
                   border: 0,
-                  borderTop: "2px solid var(--color-accent-cyan)",
+                  borderTop: "8px solid var(--color-accent-cyan)",
                   alignSelf: { xs: "center", md: "flex-start" },
                 }}
               />
@@ -322,7 +322,10 @@ export default function Home() {
                   sx={{ mb: 4 }}
                 >
                   Systems that handle the work, so you can{" "}
-                  <OrganicHighlight>handle the business</OrganicHighlight>.
+                  <Box component="span" sx={{ color: "primary.main" }}>
+                    handle the business
+                  </Box>
+                  .
                 </Typography>
 
                 <Stack spacing={3}>
@@ -355,7 +358,7 @@ export default function Home() {
                     color="text.secondary"
                     sx={{
                       fontStyle: "italic",
-                      borderLeft: "2px solid",
+                      borderLeft: "8px solid",
                       borderColor: "primary.light",
                       pl: 3,
                       py: 1,

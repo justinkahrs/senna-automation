@@ -19,7 +19,7 @@ import { Logo } from "./Logo";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { usePathname } from "next/navigation";
-import { ACCENT, STONE_400 } from "../theme/theme";
+import { ACCENT } from "../theme/theme";
 
 const NAV_LINKS = [
   { label: "Services", href: "/services" },
@@ -27,6 +27,13 @@ const NAV_LINKS = [
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
 ];
+
+const hasDarkHeroHeader = (pathname: string) =>
+  pathname === "/about" ||
+  pathname === "/blog" ||
+  pathname.startsWith("/blog/") ||
+  pathname === "/services" ||
+  pathname === "/solutions";
 
 export function AppBar() {
   const theme = useTheme();
@@ -39,6 +46,27 @@ export function AppBar() {
     useState<null | HTMLElement>(null);
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const usesDarkHeroHeader = hasDarkHeroHeader(pathname);
+  const isDarkHeader = usesDarkHeroHeader && !scrolled;
+  const navTextColor = isDarkHeader
+    ? "var(--color-bg-subtle)"
+    : "text.secondary";
+  const navHoverBg = isDarkHeader
+    ? "rgba(255, 255, 255, 0.08)"
+    : "var(--color-bg-neutral-hover)";
+  const navHoverColor = isDarkHeader
+    ? "var(--color-bg-subtle)"
+    : "text.primary";
+  const activeNavBg = isDarkHeader
+    ? "rgba(255, 255, 255, 0.12)"
+    : "var(--color-bg-accent-hover)";
+  const activeNavColor = isDarkHeader
+    ? "var(--color-bg-subtle)"
+    : "text.primary";
+  const utilityTextColor = isDarkHeader
+    ? "var(--color-text-on-dark-prominent)"
+    : "var(--ds-space-indigo)";
+  const logoColor = isDarkHeader ? "var(--color-bg-subtle)" : undefined;
 
   useEffect(() => {
     setMounted(true);
@@ -75,6 +103,8 @@ export function AppBar() {
           <Stack direction="row" spacing={5} sx={{ flex: 1, justifyContent: "flex-start", alignItems: "center" }}>
             <Link href="/" passHref style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
               <Logo
+                logoFontColor={usesDarkHeroHeader ? "var(--color-bg-subtle)" : undefined}
+                logoIconColor={usesDarkHeroHeader ? "var(--color-bg-subtle)" : undefined}
                 sx={{ height: 80, cursor: "pointer" }}
               />
             </Link>
@@ -116,7 +146,8 @@ export function AppBar() {
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Link href="/" passHref style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
             <Logo
-              // logoFontColor={"#BADA55"}
+              logoFontColor={logoColor}
+              logoIconColor={logoColor}
               sx={{
                 height: scrolled ? 56 : 80,
                 cursor: "pointer",
@@ -143,7 +174,7 @@ export function AppBar() {
                   href={href}
                   disableRipple
                   sx={{
-                    color: isActive ? "primary.main" : "text.secondary",
+                    color: isActive ? activeNavColor : navTextColor,
                     fontWeight: isActive ? 600 : 500,
                     fontSize: "var(--type-button)",
                     letterSpacing: "-0.01em",
@@ -151,13 +182,11 @@ export function AppBar() {
                     py: 0.75,
                     borderRadius: 2,
                     minWidth: 0,
-                    backgroundColor: isActive
-                      ? "var(--color-bg-accent-hover)"
-                      : "transparent",
+                    backgroundColor: isActive ? activeNavBg : "transparent",
                     position: "relative",
                     "&:hover": {
-                      backgroundColor: "var(--color-bg-neutral-hover)",
-                      color: "text.primary",
+                      backgroundColor: navHoverBg,
+                      color: navHoverColor,
                     },
                     transition: "color var(--dur-base) ease, background-color var(--dur-base) ease",
                   }}
@@ -180,15 +209,15 @@ export function AppBar() {
               href="/contact"
               variant="text"
               sx={{
-                color: "var(--ds-space-indigo)",
+                color: utilityTextColor,
                 borderRadius: "var(--radius-pill)",
                 px: 2.5,
                 py: 0.875,
                 fontSize: "var(--type-button)",
                 fontWeight: "var(--weight-semibold)",
                 "&:hover": {
-                  backgroundColor: "var(--color-bg-neutral-hover)",
-                  color: "var(--ds-space-indigo)",
+                  backgroundColor: navHoverBg,
+                  color: utilityTextColor,
                 },
               }}
             >
@@ -223,10 +252,13 @@ export function AppBar() {
               aria-label={isOpen ? "Close menu" : "Open menu"}
               onClick={isOpen ? handleMobileMenuClose : handleMobileMenuOpen}
               sx={{
-                color: "text.primary",
+                color: isDarkHeader ? "var(--color-bg-subtle)" : "text.primary",
                 width: 40,
                 height: 40,
                 borderRadius: 2,
+                "&:hover": {
+                  backgroundColor: navHoverBg,
+                },
                 transition: "background-color var(--dur-base) ease",
               }}
             >
@@ -266,7 +298,7 @@ export function AppBar() {
                     selected={isActive}
                     sx={{
                       backgroundColor: "transparent",
-                      color: isActive ? "primary.main" : "text.primary",
+                      color: isActive ? "text.primary" : "text.primary",
                       fontWeight: isActive ? 600 : 400,
                       fontSize: "var(--type-button)",
                       py: 1.25,
@@ -280,6 +312,7 @@ export function AppBar() {
                       },
                       "&.Mui-selected": {
                         backgroundColor: "var(--color-bg-accent-hover)",
+                        color: "text.primary",
                       },
                     }}
                   >

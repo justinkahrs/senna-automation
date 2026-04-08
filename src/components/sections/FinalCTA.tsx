@@ -26,12 +26,14 @@ export default function FinalCTA({
       component="section"
       id="final-cta"
       sx={{
+        background:
+          "linear-gradient(-45deg, var(--color-accent), var(--ds-shadow-grey), var(--color-accent))",
+        backgroundSize: "400% 400%",
         color: "var(--color-text-inverse)",
         py: { xs: 8, md: 12 },
         textAlign: "center",
         position: "relative",
-        overflow: "visible",
-        isolation: "isolate",
+        overflow: "hidden",
         "@keyframes gradientBG": {
           "0%": {
             backgroundPosition: "0% 50%",
@@ -43,37 +45,19 @@ export default function FinalCTA({
             backgroundPosition: "0% 50%",
           },
         },
-        "&::before": {
-          content: '""',
+        animation: "gradientBG 15s ease infinite",
+      }}
+    >
+      <Box
+        sx={{
           position: "absolute",
-          top: 0,
-          left: "50%",
-          width: "100vw",
-          height: { xs: "calc(100% + 80rem)", md: "calc(100% + 48rem)" },
-          transform: "translateX(-50%)",
-          background:
-            "linear-gradient(-45deg, var(--color-accent), var(--ds-shadow-grey), var(--color-accent))",
-          backgroundSize: "400% 400%",
-          animation: "gradientBG 15s ease infinite",
-          pointerEvents: "none",
-          zIndex: 0,
-        },
-        "&::after": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: "50%",
-          width: "100vw",
-          height: { xs: "calc(100% + 80rem)", md: "calc(100% + 48rem)" },
-          transform: "translateX(-50%)",
+          inset: 0,
           opacity: 0.03,
           backgroundImage:
             'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
           pointerEvents: "none",
-          zIndex: 0,
-        },
-      }}
-    >
+        }}
+      />
       <Container maxWidth="sm" sx={{ position: "relative", zIndex: 1 }}>
         <Typography 
           variant="h2" 
