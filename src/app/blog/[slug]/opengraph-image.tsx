@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { getBlogPostBySlug } from '@/utils/blog';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export const alt = 'Senna Automation Blog';
 export const size = { width: 1200, height: 630 };

@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export const alt = 'Senna Automation | AI Workflow Automation & Custom Software Development';
 export const size = { width: 1200, height: 630 };
