@@ -5,6 +5,7 @@ import { Box, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import type { SxProps, Theme } from "@mui/material/styles";
 import { BG_BASE, WARM_BLACK, BORDER_MED, ACCENT, BG_PAPER, BG_SUBTLE } from "@/components/theme/colors";
+import { Logo } from "@/components/layout/Logo";
 
 declare global {
   interface Window {
@@ -169,10 +170,7 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
         }}
         dangerouslySetInnerHTML={svg ? { __html: svg } : undefined}
       />
-      <Box
-        component="img"
-        src="/senna.svg"
-        alt="Senna Automation watermark"
+      <Logo
         sx={{
           position: "absolute",
           right: { xs: 16, md: 20 },
