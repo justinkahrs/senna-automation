@@ -5,6 +5,7 @@ import { ClientProviders } from "./ClientProviders";
 import { AppBar } from "@/components/layout/AppBar";
 import { Footer } from "@/components/layout/Footer";
 import ChatWidget from "@/components/ChatWidget";
+import AnalyticsProvider from "@/components/AnalyticsProvider";
 import "./globals.css";
 
 const SITE_URL = "https://www.senna-automation.com";
@@ -227,6 +228,7 @@ export default function RootLayout({
             </main>
             <Footer />
             <ChatWidget />
+            <AnalyticsProvider />
           </ClientProviders>
         </AppRouterCacheProvider>
       </body>

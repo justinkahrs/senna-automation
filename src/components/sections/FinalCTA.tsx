@@ -13,6 +13,7 @@ import {
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 
 import { usePathname } from "next/navigation";
+import { trackContactLink, trackCta } from "@/utils/analytics";
 
 interface FinalCTAProps {
   title?: React.ReactNode;
@@ -126,6 +127,7 @@ export default function FinalCTA({
               href={buttonHref}
               variant="contained"
               size="large"
+              onClick={() => trackCta(buttonText)}
               sx={{
                 bgcolor: "var(--color-highlight)",
                 color: "var(--color-text-primary)",
@@ -193,6 +195,7 @@ export default function FinalCTA({
               <Box
                 component={Link}
                 href="/contact"
+                onClick={() => trackContactLink("FinalCTA Contact Link")}
                 sx={{
                   display: "inline",
                   color: "var(--color-text-on-dark-subtle)",

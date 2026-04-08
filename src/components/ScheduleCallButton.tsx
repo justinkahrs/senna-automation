@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { trackCta } from "@/utils/analytics";
 import {
   Button,
   Modal,
@@ -53,6 +54,7 @@ export default function ScheduleCallButton({
   const handleOpen = () => {
     setOpen(true);
     setIsCalendlyOpen(true);
+    trackCta(text);
   };
 
   const handleClose = () => {

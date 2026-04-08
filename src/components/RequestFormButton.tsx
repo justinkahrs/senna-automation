@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@mui/material";
 import { WARM_BLACK } from "@/components/theme/colors";
+import { trackCta } from "@/utils/analytics";
 
 interface RequestFormButtonProps {
   text?: string;
@@ -26,6 +29,7 @@ export default function RequestFormButton({
       variant={variant} 
       size={size} 
       fullWidth={fullWidth}
+      onClick={() => trackCta(text)}
       sx={{
         borderRadius: "var(--radius-pill)",
         fontWeight: "bold",
