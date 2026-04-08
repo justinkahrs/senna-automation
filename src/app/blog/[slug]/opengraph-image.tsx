@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { ImageResponse } from 'next/og';
 import { getBlogPostBySlug } from '@/utils/blog';
 
@@ -17,13 +19,13 @@ export default async function Image({ params }: { params: { slug: string } }) {
     return new Response('Not Found', { status: 404 });
   }
 
-  const interSemiBold = await fetch(
-    new URL('../../fonts/Inter-SemiBold.ttf', import.meta.url)
-  ).then((res) => res.arrayBuffer());
+  const interSemiBold = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/fonts/Inter-SemiBold.ttf')
+  );
 
-  const interBold = await fetch(
-    new URL('../../fonts/Inter-Bold.ttf', import.meta.url)
-  ).then((res) => res.arrayBuffer());
+  const interBold = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/fonts/Inter-Bold.ttf')
+  );
 
   return new ImageResponse(
     (

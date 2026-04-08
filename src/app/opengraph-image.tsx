@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'nodejs';
@@ -7,13 +9,13 @@ export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
-  const interSemiBold = await fetch(
-    new URL('./fonts/Inter-SemiBold.ttf', import.meta.url)
-  ).then((res) => res.arrayBuffer());
+  const interSemiBold = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/fonts/Inter-SemiBold.ttf')
+  );
 
-  const interBold = await fetch(
-    new URL('./fonts/Inter-Bold.ttf', import.meta.url)
-  ).then((res) => res.arrayBuffer());
+  const interBold = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/fonts/Inter-Bold.ttf')
+  );
 
   return new ImageResponse(
     (
