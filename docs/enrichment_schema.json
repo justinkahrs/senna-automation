@@ -1,0 +1,76 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "business_model_guess": {
+      "type": "string",
+      "enum": [
+        "cnc_machine_shop",
+        "precision_manufacturer",
+        "fabrication_shop",
+        "industrial_repair_service",
+        "machine_dealer_or_reseller",
+        "contract_manufacturer",
+        "supplier_distributor",
+        "directory_or_aggregator",
+        "unrelated",
+        "unknown"
+      ]
+    },
+    "is_icp_fit": {
+      "type": "string",
+      "enum": ["yes", "maybe", "no"]
+    },
+    "fit_score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "priority_score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "fit_reason": {
+      "type": "string"
+    },
+    "disqualify_reason": {
+      "type": "string"
+    },
+    "observations": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 5,
+      "items": {
+        "type": "string"
+      }
+    },
+    "assumed_pain_points": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 5,
+      "items": {
+        "type": "string"
+      }
+    },
+    "message_angle": {
+      "type": "string"
+    },
+    "suggested_next_action": {
+      "type": "string",
+      "enum": ["generate_message", "review", "skip"]
+    }
+  },
+  "required": [
+    "business_model_guess",
+    "is_icp_fit",
+    "fit_score",
+    "priority_score",
+    "fit_reason",
+    "disqualify_reason",
+    "observations",
+    "assumed_pain_points",
+    "message_angle",
+    "suggested_next_action"
+  ]
+}
