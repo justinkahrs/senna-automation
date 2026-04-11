@@ -89,24 +89,11 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               color: '#FFFFFF',
               lineHeight: 1.1,
               fontFamily: 'Inter',
-              marginBottom: '24px',
-              maxWidth: '900px',
+              marginBottom: '0px',
+              maxWidth: '960px',
             }}
           >
             {post.title}
-          </div>
-
-          <div
-            style={{
-              fontSize: 28,
-              fontWeight: 400,
-              color: 'rgba(255, 255, 255, 0.6)',
-              fontFamily: 'Inter',
-              lineHeight: 1.4,
-              maxWidth: '800px',
-            }}
-          >
-            {post.excerpt}
           </div>
         </div>
 

@@ -1,0 +1,76 @@
+{
+  "contract_version": "1.0",
+  "workspace": "senna",
+  "record_type": "outbound_prospect",
+
+  "prospect": {
+    "company_name": "",
+    "website": "",
+    "industry": "",
+    "location": "",
+    "employee_range": "",
+    "notes": ""
+  },
+
+  "contact": {
+    "full_name": "",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "title": ""
+  },
+
+  "research": {
+    "source": "google_maps",
+    "discovery_query": "",
+    "observations": [],
+    "assumed_pain_points": [],
+    "confidence_score": 0
+  },
+
+  "targeting": {
+    "icp": "cnc_machine_shop",
+    "fit_score": 0,
+    "priority_score": 0,
+    "status": "new"
+  },
+
+  "message": {
+    "angle": "",
+    "personalization": "",
+    "body": "",
+    "subject": "",
+    "version": "v1"
+  },
+
+  "campaign": {
+    "campaign_name": "",
+    "sequence_step": 1,
+    "variant": "A"
+  },
+
+  "delivery": {
+    "channel": "email",
+    "from_account": "",
+    "sent_at": "",
+    "status": "draft"
+  },
+
+  "response": {
+    "status": "none",
+    "last_reply_at": "",
+    "intent": "",
+    "summary": ""
+  },
+
+  "automation": {
+    "next_action": "generate_message",
+    "next_action_at": "",
+    "follow_up_count": 0,
+    "max_follow_ups": 3,
+    "active": true
+  },
+
+  "tags": [],
+  "raw": {}
+}
