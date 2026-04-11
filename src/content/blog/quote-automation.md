@@ -6,7 +6,7 @@ subtitle: "How we turned manual quote drafting from unstructured emails into a f
 heroTitle: "End-to-End Quote Automation"
 heroSubtitle: "Transforming messy inbox requests into polished PDF quotes instantly."
 excerpt: "Discover how we used n8n and Azure OpenAI to automatically read customer emails, extract structured product data (even from PDFs!), query internal databases, and generate final quote PDFs without human intervention."
-image: "/paperwork.jpg"
+image: "/blog/quote-automation/hero.jpg"
 metadata:
   client: "B2B Equipment Manufacturer\n50–200 employees"
   company: ""

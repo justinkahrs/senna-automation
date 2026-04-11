@@ -166,7 +166,7 @@ export function Footer() {
             <Grid item xs={12} md={2}>
               <Box
                 component="img"
-                src="/master-logo.svg"
+                src="/images/master-logo.svg"
                 alt="Senna Automation"
                 sx={{
                   display: "block",
@@ -301,7 +301,7 @@ export function Footer() {
                 >
                   <Box
                     component="img"
-                    src="/bbb.svg"
+                    src="/images/bbb.svg"
                     alt="BBB Profile"
                     sx={{
                       height: 100,

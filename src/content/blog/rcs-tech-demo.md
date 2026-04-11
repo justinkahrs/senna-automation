@@ -6,7 +6,7 @@ subtitle: "How we built a simulated RCS-style experience to guide users through 
 heroTitle: "Messaging-First Product Experience"
 heroSubtitle: "Replacing traditional apps with guided, interactive conversations."
 excerpt: "Explore how a browser-based messaging experience can simulate a full guest journey using rich UI, payments, and automation without requiring a native app."
-image: "/rcs-demo.png"
+image: "/blog/rcs-tech-demo/hero.png"
 metadata:
   client: "AI Startup"
   company: ""

@@ -112,37 +112,62 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
   },
 ];
 
+import hubspot from "@/assets/home/integrations/hubspot.png";
+import quickbooks from "@/assets/home/integrations/quickbooks.png";
+import openai from "@/assets/home/integrations/openai.png";
+import azure from "@/assets/home/integrations/azure.png";
+import slack from "@/assets/home/integrations/slack.png";
+import asana from "@/assets/home/integrations/asana.png";
+import shopify from "@/assets/home/integrations/shopify.png";
+import stripe from "@/assets/home/integrations/stripe.png";
+import paypal from "@/assets/home/integrations/paypal.png";
+import n8n from "@/assets/home/integrations/n8n.png";
+import airtable from "@/assets/home/integrations/airtable.png";
+import notion from "@/assets/home/integrations/notion.png";
+import clickup from "@/assets/home/integrations/clickup.png";
+import dropbox from "@/assets/home/integrations/dropbox.png";
+import frontapp from "@/assets/home/integrations/frontapp.png";
+import typeform from "@/assets/home/integrations/typeform.png";
+import monday from "@/assets/home/integrations/monday.png";
+import pipedrive from "@/assets/home/integrations/pipedrive.png";
+import servicenow from "@/assets/home/integrations/servicenow.png";
+import zendesk from "@/assets/home/integrations/zendesk.png";
+import teams from "@/assets/home/integrations/teams.png";
+import outlook from "@/assets/home/integrations/outlook.png";
+import excel from "@/assets/home/integrations/excel.png";
+import onedrive from "@/assets/home/integrations/onedrive.png";
+
 const integrationLogos = [
-  { src: "/hubspot.png", alt: "HubSpot", width: { xs: 118, md: 152 } },
-  { src: "/quickbooks.png", alt: "QuickBooks", width: { xs: 126, md: 164 } },
-  { src: "/openai.png", alt: "OpenAI", width: { xs: 104, md: 132 } },
-  { src: "/azure.png", alt: "Azure", width: { xs: 104, md: 132 } },
-  { src: "/slack.png", alt: "Slack", width: { xs: 92, md: 120 } },
-  { src: "/asana.png", alt: "Asana", width: { xs: 98, md: 126 } },
-  { src: "/shopify.png", alt: "Shopify", width: { xs: 112, md: 144 } },
-  { src: "/stripe.png", alt: "Stripe", width: { xs: 96, md: 124 } },
-  { src: "/paypal.png", alt: "PayPal", width: { xs: 100, md: 128 } },
-  { src: "/n8n.png", alt: "n8n", width: { xs: 54, md: 70 } },
-  { src: "/airtable.png", alt: "Airtable", width: { xs: 108, md: 138 } },
-  { src: "/notion.png", alt: "Notion", width: { xs: 96, md: 122 } },
-  { src: "/clickup.png", alt: "ClickUp", width: { xs: 104, md: 136 } },
-  { src: "/dropbox.png", alt: "Dropbox", width: { xs: 112, md: 144 } },
-  { src: "/frontapp.png", alt: "Front", width: { xs: 74, md: 96 } },
-  { src: "/typeform.png", alt: "Typeform", width: { xs: 104, md: 134 } },
-  { src: "/monday.png", alt: "Monday.com", width: { xs: 126, md: 164 } },
-  { src: "/pipedrive.png", alt: "Pipedrive", width: { xs: 118, md: 152 } },
-  { src: "/servicenow.png", alt: "ServiceNow", width: { xs: 128, md: 166 } },
-  { src: "/zendesk.png", alt: "Zendesk", width: { xs: 112, md: 144 } },
+  { src: hubspot, alt: "HubSpot", width: { xs: 118, md: 152 } },
+  { src: quickbooks, alt: "QuickBooks", width: { xs: 126, md: 164 } },
+  { src: openai, alt: "OpenAI", width: { xs: 104, md: 132 } },
+  { src: azure, alt: "Azure", width: { xs: 104, md: 132 } },
+  { src: slack, alt: "Slack", width: { xs: 92, md: 120 } },
+  { src: asana, alt: "Asana", width: { xs: 98, md: 126 } },
+  { src: shopify, alt: "Shopify", width: { xs: 112, md: 144 } },
+  { src: stripe, alt: "Stripe", width: { xs: 96, md: 124 } },
+  { src: paypal, alt: "PayPal", width: { xs: 100, md: 128 } },
+  { src: n8n, alt: "n8n", width: { xs: 54, md: 70 } },
+  { src: airtable, alt: "Airtable", width: { xs: 108, md: 138 } },
+  { src: notion, alt: "Notion", width: { xs: 96, md: 122 } },
+  { src: clickup, alt: "ClickUp", width: { xs: 104, md: 136 } },
+  { src: dropbox, alt: "Dropbox", width: { xs: 112, md: 144 } },
+  { src: frontapp, alt: "Front", width: { xs: 74, md: 96 } },
+  { src: typeform, alt: "Typeform", width: { xs: 104, md: 134 } },
+  { src: monday, alt: "Monday.com", width: { xs: 126, md: 164 } },
+  { src: pipedrive, alt: "Pipedrive", width: { xs: 118, md: 152 } },
+  { src: servicenow, alt: "ServiceNow", width: { xs: 128, md: 166 } },
+  { src: zendesk, alt: "Zendesk", width: { xs: 112, md: 144 } },
   {
     group: [
       {
-        src: "/teams.png",
+        src: teams,
         alt: "Microsoft Teams",
         width: { xs: 122, md: 156 },
       },
-      { src: "/outlook.png", alt: "Outlook", width: { xs: 114, md: 146 } },
-      { src: "/excel.png", alt: "Excel", width: { xs: 88, md: 116 } },
-      { src: "/onedrive.png", alt: "OneDrive", width: { xs: 124, md: 160 } },
+      { src: outlook, alt: "Outlook", width: { xs: 114, md: 146 } },
+      { src: excel, alt: "Excel", width: { xs: 88, md: 116 } },
+      { src: onedrive, alt: "OneDrive", width: { xs: 124, md: 160 } },
     ],
     alt: "Microsoft tools",
   },
@@ -632,30 +657,38 @@ export default function Home() {
                     {logo.group.map((groupLogo) => (
                       <Box
                         key={groupLogo.alt}
-                        component="img"
-                        src={groupLogo.src}
-                        alt={groupLogo.alt}
                         sx={{
                           width: groupLogo.width,
                           height: { xs: 22, md: 30 },
-                          objectFit: "contain",
+                          position: "relative",
                           display: "block",
                         }}
-                      />
+                      >
+                        <Image
+                          src={groupLogo.src}
+                          alt={groupLogo.alt}
+                          fill
+                          style={{ objectFit: "contain" }}
+                        />
+                      </Box>
                     ))}
                   </Box>
                 ) : (
                   <Box
-                    component="img"
-                    src={logo.src}
-                    alt={logo.alt}
                     sx={{
                       width: logo.width,
                       height: { xs: 22, md: 30 },
-                      objectFit: "contain",
+                      position: "relative",
                       display: "block",
                     }}
-                  />
+                  >
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      fill
+                      style={{ objectFit: "contain" }}
+                    />
+                  </Box>
                 )}
               </Box>
             ))}

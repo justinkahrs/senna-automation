@@ -476,7 +476,7 @@ export default function ContactForm() {
                     </Typography>
                     <Box
                       component="img"
-                      src="/Calendly.svg"
+                      src="/images/calendly.svg"
                       alt="Calendly"
                       sx={{
                         height: "0.95rem",

@@ -6,7 +6,7 @@ subtitle: "How we turned fragmented district research into an AI-powered lead in
 heroTitle: "End-to-End Lead Intelligence"
 heroSubtitle: "Transforming messy public data into prioritized, sales-ready opportunities automatically."
 excerpt: "See how we built an AI system that researches school districts, scores purchasing signals, and surfaces the best opportunities automatically so sales teams can spend less time digging and more time closing."
-image: "/school.jpg"
+image: "/blog/lead-qualification/hero.jpg"
 metadata:
   client: "B2B Education Supplier\n50–200 employees"
   company: ""
