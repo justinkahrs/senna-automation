@@ -173,7 +173,7 @@ export default function FinalCTA({
               </Typography>
               <Box
                 component="img"
-                src="/Calendly.svg"
+                src="/images/calendly.svg"
                 alt="Calendly"
                 sx={{
                   height: "0.95rem",

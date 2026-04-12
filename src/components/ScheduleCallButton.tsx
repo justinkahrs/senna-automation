@@ -98,7 +98,7 @@ export default function ScheduleCallButton({
         endIcon={showIcon ? (
           <Box
             component="img"
-            src="/Calendly.svg"
+            src="/images/calendly.svg"
             alt="Calendly"
             sx={{
               height: "1.2rem",

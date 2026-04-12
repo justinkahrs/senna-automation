@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
   icons: {
-    icon: "/favicon32px.svg",
+    icon: "/images/favicon.svg",
   },
 };
 
@@ -88,7 +88,7 @@ const organizationJsonLd = {
   name: "Senna Automation",
   description: "AI workflow automation and custom software development company serving Grand Rapids, Michigan and businesses worldwide. Specializing in business AI integration, chatbot development, process automation consulting, and enterprise AI solutions.",
   url: SITE_URL,
-  logo: `${SITE_URL}/senna-automation-new.png`,
+  logo: `${SITE_URL}/images/senna-automation-new.png`,
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+1-616-287-3360",

@@ -112,17 +112,22 @@ const markdownComponents = {
     </Typography>
   ),
   img: ({ src, alt }: any) => (
-    <Box sx={{ position: "relative", my: 6 }}>
-      <Box
-        component="img"
+    <Box
+      sx={{
+        position: "relative",
+        my: 6,
+        width: "100%",
+        aspectRatio: "16 / 9",
+        borderRadius: 4,
+        overflow: "hidden",
+        boxShadow: "var(--shadow-blog-header)",
+      }}
+    >
+      <Image
         src={src}
         alt={alt}
-        sx={{
-          width: "100%",
-          borderRadius: 4,
-          display: "block",
-          boxShadow: "var(--shadow-blog-header)",
-        }}
+        fill
+        style={{ objectFit: "cover" }}
       />
     </Box>
   ),

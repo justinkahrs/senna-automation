@@ -3,6 +3,19 @@
 import Link from "next/link";
 import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import adminWork from "@/assets/solutions/admin-work.png";
+import qualifiedLeads from "@/assets/solutions/qualified-leads.png";
+import structuredData from "@/assets/solutions/structured-data.png";
+import customAlgorithm from "@/assets/solutions/custom-algorithm.png";
+
+const mobileImages: Record<string, any> = {
+  "/admin-work.png": adminWork,
+  "/qualified-leads.png": qualifiedLeads,
+  "/structured-data.png": structuredData,
+  "/custom-algorithm.png": customAlgorithm,
+};
+
 import CascadingStagger from "@/components/animations/CascadingStagger";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -334,23 +347,28 @@ const SolutionCard = ({
               <>
                 {item.mobileImage && (
                   <Box
-                    component={motion.img}
+                    component={motion.div}
                     initial={{ opacity: 0, scale: 1.02 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    src={item.mobileImage}
-                    alt={item.title}
                     sx={{
                       display: { xs: "block", md: "none" },
+                      position: "relative",
                       width: "100%",
-                      maxWidth: "100%",
-                      height: "auto",
-                      objectFit: "contain",
+                      aspectRatio: "16 / 9",
                       px: 3,
                       py: 3,
                       boxSizing: "border-box",
                     }}
-                  />
+                  >
+                    <Image
+                      src={mobileImages[item.mobileImage] || item.mobileImage}
+                      alt={item.title}
+                      fill
+                      style={{ objectFit: "contain" }}
+                    />
+                  </Box>
                 )}
                 <Box
                   component={motion.div}
