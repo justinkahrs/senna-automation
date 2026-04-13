@@ -2,7 +2,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Senna Automation — AI & Workflow Automation Consulting | Grand Rapids, MI",
+  title:
+    "About Senna Automation — AI & Workflow Automation Consulting | Grand Rapids, MI",
   description:
     "Learn about Senna Automation: a Grand Rapids, MI-based AI workflow automation consultancy with 15+ years of software expertise. We help businesses eliminate repetitive work and move faster.",
   alternates: {
@@ -10,15 +11,10 @@ export const metadata: Metadata = {
   },
 };
 
-import {
-  Box,
-  Container,
-  Stack,
-  Typography,
-  Grid,
-} from "@mui/material";
+import { Box, Container, Stack, Typography, Grid } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FinalCTA from "@/components/sections/FinalCTA";
+import aboutGrandRapids from "@/assets/about/about-grand-rapids.jpg";
 
 const homeEyebrowSx = {
   display: "inline-flex",
@@ -29,8 +25,7 @@ const homeEyebrowSx = {
   border: "1px solid",
   borderColor: "var(--color-border-medium)",
   borderRadius: "var(--radius-pill)",
-  bgcolor:
-    "color-mix(in srgb, var(--color-accent-cyan), transparent 84%)",
+  bgcolor: "color-mix(in srgb, var(--color-accent-cyan), transparent 84%)",
   color: "var(--color-text-secondary)",
   letterSpacing: "0.12em",
 };
@@ -199,7 +194,7 @@ export default function About() {
                   }}
                 >
                   <Image
-                    src="/about-grand-rapids.jpg"
+                    src={aboutGrandRapids}
                     alt="Grand Rapids skyline and blue bridge over the river"
                     fill
                     sizes="(max-width: 900px) 100vw, 40vw"
@@ -228,7 +223,7 @@ export default function About() {
                     <Stack spacing={2.5} alignItems="center">
                       <Box
                         component="img"
-                        src="/master-logo.svg"
+                        src="/images/master-logo.svg"
                         alt="Senna Automation"
                         sx={{
                           width: { xs: "170%", sm: "160%", md: "170%" },
@@ -252,10 +247,15 @@ export default function About() {
                           color: "var(--color-text-inverse)",
                         }}
                       >
-                        <LocationOnIcon sx={{ fontSize: 18, color: "inherit" }} />
+                        <LocationOnIcon
+                          sx={{ fontSize: 18, color: "inherit" }}
+                        />
                         <Typography
                           variant="body1"
-                          sx={{ color: "var(--color-text-inverse)", fontWeight: 600 }}
+                          sx={{
+                            color: "var(--color-text-inverse)",
+                            fontWeight: 600,
+                          }}
                         >
                           Grand Rapids, MI
                         </Typography>
