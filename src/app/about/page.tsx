@@ -226,7 +226,7 @@ export default function About() {
                         src="/images/master-logo.svg"
                         alt="Senna Automation"
                         sx={{
-                          width: { xs: "170%", sm: "160%", md: "170%" },
+                          width: "100%",
                           maxWidth: 1120,
                           height: "auto",
                           display: "block",
