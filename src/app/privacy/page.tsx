@@ -248,13 +248,9 @@ export default function Privacy() {
           <Typography variant="body1" paragraph>
             Senna Automation LLC
             <br />
-            456 Industry Way
+            Email: contact@senna-automation.com
             <br />
-            Detroit, MI 48201
-            <br />
-            Email: privacy@senna-automation.com
-            <br />
-            Phone: (123) 456-7890
+            Phone: (616) 287-3360
           </Typography>
         </Paper>
       </Container>

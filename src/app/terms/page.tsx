@@ -156,7 +156,7 @@ export default function Terms() {
             These Terms are governed by the laws of the State of Michigan,
             without regard to conflict-of-law principles. Any dispute arising
             under these Terms shall be subject to the exclusive jurisdiction of
-            the courts located in Detroit, Michigan.
+            the courts located in Grand Rapids, Michigan.
           </Typography>
 
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
@@ -174,15 +174,9 @@ export default function Terms() {
           <Typography paragraph>
             Senna Automation LLC
             <br />
-            336 W. First Street
-            <br />
-            Suite 113
-            <br />
-            Flint, MI 48502
-            <br />
             Email:{" "}
-            <a href="mailto:legal@senna-automation.com">
-              legal@senna-automation.com
+            <a href="mailto:contact@senna-automation.com">
+              contact@senna-automation.com
             </a>
             <br />
             Phone: (616) 287-3360
