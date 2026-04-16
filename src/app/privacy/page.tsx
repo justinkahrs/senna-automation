@@ -28,7 +28,7 @@ export default function Privacy() {
             >
               https://www.senna-automation.com
             </a>{" "}
-            (the “Site”) and the o11n application (the “App”). This Privacy
+            (the “Site”). This Privacy
             Policy explains what information we collect, how we use it, and your
             rights.
           </Typography>
