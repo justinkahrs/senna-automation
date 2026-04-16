@@ -310,6 +310,34 @@ export function Footer() {
                     }}
                   />
                 </Link>
+                <Link
+                  href="https://web.grandrapids.org/AI-(Artificial-Intelligence)/Senna-Automation-11264"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackExternalLink("https://web.grandrapids.org/AI-(Artificial-Intelligence)/Senna-Automation-11264", "GR Chamber")}
+                  sx={{
+                    display: "inline-flex",
+                    opacity: 0.8,
+                    transition:
+                      "opacity var(--dur-base) ease, transform var(--dur-base) ease",
+                    mt: 2,
+                    "&:hover": {
+                      opacity: 1,
+                      transform: "translateY(-2px)",
+                    },
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src="/grchamber.png"
+                    alt="Grand Rapids Chamber of Commerce"
+                    sx={{
+                      display: "block",
+                      height: 150,
+                      width: "auto",
+                    }}
+                  />
+                </Link>
               </Box>
             </Grid>
           </Grid>
