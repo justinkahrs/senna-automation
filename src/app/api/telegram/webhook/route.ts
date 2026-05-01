@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createAdminClient } from "@/utils/supabase/server";
+import { query } from "@/utils/db";
 
 export async function POST(request: Request) {
   try {
@@ -41,45 +41,38 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true }); // Ignore general messages
     }
 
-    const supabase = createAdminClient();
+    // 2. Find session mapped to this thread using Postgres
+    const sessionRes = await query(
+      "SELECT session_id FROM sessions WHERE topic_thread_id = $1",
+      [threadId]
+    );
+    const session = sessionRes.rows[0];
 
-    // 2. Find session mapped to this thread
-    const { data: session, error: sessionError } = await supabase
-      .from("sessions")
-      .select("session_id")
-      .eq("topic_thread_id", threadId)
-      .single();
-
-    if (sessionError || !session) {
-      console.warn(`[Webhook] No session found for thread ${threadId}. Error:`, sessionError);
+    if (!session) {
+      console.warn(`[Webhook] No session found for thread ${threadId}.`);
       return NextResponse.json({ ok: true }); // No session to route to
     }
     
     console.log(`[Webhook] Found session: ${session.session_id}`);
 
     // 3. Store the message
-    // We can filter out messages from the bot itself if needed, but
-    // usually we assume messages appearing here that aren't the ones we just sent
-    // are replies. However, the bot sending a message via API *might* trigger a webhook event
-    // if the bot is an admin.
-    // Check if message is from the bot.
     if (message.from?.is_bot) {
         console.log("[Webhook] Message is from bot. Ignoring.");
         return NextResponse.json({ ok: true });
     }
 
-    const { error: insertError } = await supabase.from("messages").insert({
-      session_id: session.session_id,
-      direction: "from_telegram",
-      text: message.text,
-      telegram_message_id: message.message_id,
-    });
+    const insertQuery = `
+      INSERT INTO messages (session_id, direction, text, telegram_message_id)
+      VALUES ($1, $2, $3, $4)
+    `;
+    await query(insertQuery, [
+      session.session_id,
+      "from_telegram",
+      message.text,
+      message.message_id,
+    ]);
 
-    if (insertError) {
-      console.error("[Webhook] Insert error:", insertError);
-    } else {
-      console.log("[Webhook] Successfully stored message from Telegram.");
-    }
+    console.log("[Webhook] Successfully stored message from Telegram.");
 
     return NextResponse.json({ ok: true });
   } catch (error: any) {

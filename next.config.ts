@@ -1,5 +1,6 @@
 const nextConfig = {
   reactStrictMode: true,
+  transpilePackages: ["framer-motion"],
   images: {
     remotePatterns: [
       {

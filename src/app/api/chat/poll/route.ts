@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createAdminClient } from "@/utils/supabase/server";
+import { query } from "@/utils/db";
 
 export async function GET(request: Request) {
   try {
@@ -15,25 +15,21 @@ export async function GET(request: Request) {
       );
     }
 
-    const supabase = createAdminClient();
-
-    let query = supabase
-      .from("messages")
-      .select("*")
-      .eq("session_id", session_id)
-      .order("created_at", { ascending: true })
-      .limit(Math.min(limit, 200));
+    let sql = `
+      SELECT * FROM messages 
+      WHERE session_id = $1 
+    `;
+    const params: any[] = [session_id];
 
     if (cursor) {
-      query = query.gt("created_at", cursor);
+      sql += " AND created_at > $2 ";
+      params.push(cursor);
     }
 
-    const { data: messages, error } = await query;
+    sql += ` ORDER BY created_at ASC LIMIT $${params.length + 1} `;
+    params.push(Math.min(limit, 200));
 
-    if (error) {
-      console.error("Poll error:", error);
-      return NextResponse.json({ error: "Db error" }, { status: 500 });
-    }
+    const { rows: messages } = await query(sql, params);
 
     const nextCursor =
       messages && messages.length > 0
