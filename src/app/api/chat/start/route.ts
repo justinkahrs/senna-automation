@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createAdminClient } from "@/utils/supabase/server";
+import { query } from "@/utils/db";
 import { createTelegramTopic } from "@/utils/telegram";
 
 export async function POST(request: Request) {
@@ -14,24 +14,29 @@ export async function POST(request: Request) {
       );
     }
 
-    const supabase = createAdminClient();
+    // Upsert session using Postgres
+    // We use ON CONFLICT (session_id) to match the upsert behavior
+    const upsertQuery = `
+      INSERT INTO sessions (session_id, display_name, consented_at)
+      VALUES ($1, $2, $3)
+      ON CONFLICT (session_id) 
+      DO UPDATE SET 
+        display_name = EXCLUDED.display_name,
+        consented_at = EXCLUDED.consented_at,
+        updated_at = NOW()
+      RETURNING *;
+    `;
+    
+    const { rows } = await query(upsertQuery, [
+      session_id,
+      display_name,
+      new Date().toISOString(),
+    ]);
+    
+    const session = rows[0];
 
-    // Upsert session
-    const { data: session, error: sessionError } = await supabase
-      .from("sessions")
-      .upsert(
-        {
-          session_id,
-          display_name,
-          consented_at: new Date().toISOString(),
-        },
-        { onConflict: "session_id" }
-      )
-      .select()
-      .single();
-
-    if (sessionError) {
-      console.error("Session upsert error:", sessionError);
+    if (!session) {
+      console.error("Session upsert failed: No rows returned");
       return NextResponse.json(
         { error: "Failed to create session" },
         { status: 500 }
@@ -52,18 +57,10 @@ export async function POST(request: Request) {
         createdNewTopic = true;
 
         // Update session with topic info
-        const { error: updateError } = await supabase
-          .from("sessions")
-          .update({
-            topic_thread_id: topicThreadId,
-            topic_title: topicTitle,
-          })
-          .eq("session_id", session_id);
-
-        if (updateError) {
-          console.error("Failed to update session with topic:", updateError);
-          // Don't fail the request, just log it. The topic exists now.
-        }
+        await query(
+          "UPDATE sessions SET topic_thread_id = $1, topic_title = $2, updated_at = NOW() WHERE session_id = $3",
+          [topicThreadId, topicTitle, session_id]
+        );
       } catch (err: any) {
         console.error("Telegram topic creation failed:", err);
         return NextResponse.json(

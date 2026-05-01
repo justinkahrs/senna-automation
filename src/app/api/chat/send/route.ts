@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createAdminClient } from "@/utils/supabase/server";
+import { query } from "@/utils/db";
 import { sendTelegramMessage } from "@/utils/telegram";
 
 export async function POST(request: Request) {
@@ -14,16 +14,14 @@ export async function POST(request: Request) {
       );
     }
 
-    const supabase = createAdminClient();
+    // 1. Get session to find the topic ID using Postgres
+    const sessionRes = await query(
+      "SELECT topic_thread_id, display_name FROM sessions WHERE session_id = $1",
+      [session_id]
+    );
+    const session = sessionRes.rows[0];
 
-    // 1. Get session to find the topic ID
-    const { data: session, error: sessionError } = await supabase
-      .from("sessions")
-      .select("topic_thread_id, display_name")
-      .eq("session_id", session_id)
-      .single();
-
-    if (sessionError || !session || !session.topic_thread_id) {
+    if (!session || !session.topic_thread_id) {
       return NextResponse.json(
         { error: "Session invalid or missing topic" },
         { status: 404 }
@@ -33,14 +31,9 @@ export async function POST(request: Request) {
     // 2. Send to Telegram
     let telegramMsg;
     try {
-        // Optionally prefix with display name, but requirements say keep minimal.
-        // We'll just send the text.
       telegramMsg = await sendTelegramMessage(session.topic_thread_id, text);
     } catch (err: any) {
       console.error("Failed to send to Telegram:", err);
-      // Telegram API error for missing thread usually contains "thread not found" or similar
-      // The utils/telegram throws Error with description.
-      // Typical error: "Bad Request: message thread not found"
       const errorMessage = err.message || "";
       if (errorMessage.toLowerCase().includes("thread not found") || errorMessage.toLowerCase().includes("topic not found")) {
           return NextResponse.json(
@@ -55,20 +48,22 @@ export async function POST(request: Request) {
       );
     }
 
-    // 3. Store in DB
-    const { data: storedMessage, error: insertError } = await supabase
-      .from("messages")
-      .insert({
-        session_id,
-        direction: "to_telegram",
-        text,
-        telegram_message_id: telegramMsg.message_id,
-      })
-      .select()
-      .single();
+    // 3. Store in DB using Postgres
+    const insertQuery = `
+      INSERT INTO messages (session_id, direction, text, telegram_message_id)
+      VALUES ($1, $2, $3, $4)
+      RETURNING *;
+    `;
+    const { rows } = await query(insertQuery, [
+      session_id,
+      "to_telegram",
+      text,
+      telegramMsg.message_id,
+    ]);
+    const storedMessage = rows[0];
 
-    if (insertError) {
-      console.error("Failed to save message to DB:", insertError);
+    if (!storedMessage) {
+      console.error("Failed to save message to DB: No rows returned");
       return NextResponse.json(
         { error: "Message sent but failed to save history" },
         { status: 500 }
