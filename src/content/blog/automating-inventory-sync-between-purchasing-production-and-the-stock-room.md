@@ -1,5 +1,5 @@
 ---
-title: "Automating Inventory Sync Between Purchasing, Production, and the Stock Room"
+title: "Real-Time Inventory Sync Across Teams"
 date: "2026-05-23"
 category: "Automation Systems"
 subtitle: "A practical pattern for small manufacturers that need fewer stock surprises without replacing every system at once."
