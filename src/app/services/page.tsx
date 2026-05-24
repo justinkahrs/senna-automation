@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import ScheduleCallButton from "@/components/ScheduleCallButton";
+import Script from "next/script";
 import {
   Box,
   Button,
@@ -18,6 +18,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { NumberedSteps } from "@/components/blog/NumberedSteps";
 import FinalCTA from "@/components/sections/FinalCTA";
+import { SITE_NAME, SITE_URL } from "@/utils/site";
 
 export const metadata: Metadata = {
   title: "AI Workflow Automation Services — Business Process Automation | Senna Automation",
@@ -117,9 +118,68 @@ const steps = [
   },
 ];
 
+const servicesJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: services.map((service, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Service",
+      name: service.title,
+      description: service.description,
+      provider: {
+        "@type": "Organization",
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+      areaServed: {
+        "@type": "Country",
+        name: "United States",
+      },
+      serviceType: service.title,
+    },
+  })),
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: SITE_URL,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Services",
+      item: `${SITE_URL}/services`,
+    },
+  ],
+};
+
 export default function ServicesPage() {
   return (
     <Box sx={{ bgcolor: "transparent", minHeight: "100vh" }}>
+      <Script
+        id="services-structured-data"
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for JSON-LD structured data
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(servicesJsonLd),
+        }}
+      />
+      <Script
+        id="services-breadcrumb-structured-data"
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for JSON-LD structured data
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
+        }}
+      />
       {/* ── Hero ─────────────────────────────────────────── */}
       <Box
         component="section"

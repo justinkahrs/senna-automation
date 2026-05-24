@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "indexnow:submit": "node scripts/indexnow-submit.js",
+    "websub:publish": "node scripts/websub-publish.js",
     "token-audit": "node scripts/token-audit.js",
     "prepare": "husky install"
   },

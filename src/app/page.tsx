@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import RequestFormButton from "@/components/RequestFormButton";
 import SennaAdvantageVideo from "@/components/home/SennaAdvantageVideo";
 
@@ -33,7 +33,6 @@ import CascadingStagger from "@/components/animations/CascadingStagger";
 import Link from "next/link";
 import { getAllBlogPosts } from "@/utils/blog";
 import { Button } from "@mui/material";
-import OrganicHighlight from "@/components/OrganicHighlight";
 import FinalCTA from "@/components/sections/FinalCTA";
 
 const faqs: Array<{ question: string; answer: ReactNode }> = [
@@ -137,7 +136,18 @@ import outlook from "@/assets/home/integrations/outlook.png";
 import excel from "@/assets/home/integrations/excel.png";
 import onedrive from "@/assets/home/integrations/onedrive.png";
 
-const integrationLogos = [
+type IntegrationLogo = {
+  src: StaticImageData;
+  alt: string;
+  width: { xs: number; md: number };
+};
+
+type IntegrationLogoGroup = {
+  group: IntegrationLogo[];
+  alt: string;
+};
+
+const integrationLogos: Array<IntegrationLogo | IntegrationLogoGroup> = [
   { src: hubspot, alt: "HubSpot", width: { xs: 118, md: 152 } },
   { src: quickbooks, alt: "QuickBooks", width: { xs: 126, md: 164 } },
   { src: openai, alt: "OpenAI", width: { xs: 104, md: 132 } },
@@ -646,7 +656,7 @@ export default function Home() {
                 }}
                 aria-label={logo.alt}
               >
-                {Array.isArray(logo.group) ? (
+                {"group" in logo ? (
                   <Box
                     sx={{
                       display: "flex",

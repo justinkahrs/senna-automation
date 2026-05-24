@@ -147,7 +147,7 @@ export default function About() {
                     color="text.secondary"
                     sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
                   >
-                    We're a full-stack automation and workflow consulting agency
+                    We&apos;re a full-stack automation and workflow consulting agency
                     based in Grand Rapids, Michigan. Our approach comes from
                     over 15 years of software development and working with
                     automation long before it was something everyone had an

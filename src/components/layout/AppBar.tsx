@@ -10,7 +10,6 @@ import {
   Menu,
   MenuItem,
   Typography,
-  Stack,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -19,7 +18,6 @@ import { Logo } from "./Logo";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { usePathname } from "next/navigation";
-import { ACCENT } from "../theme/theme";
 import { trackNavLink, trackContactLink } from "@/utils/analytics";
 
 const NAV_LINKS = [

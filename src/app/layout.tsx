@@ -6,9 +6,19 @@ import { AppBar } from "@/components/layout/AppBar";
 import { Footer } from "@/components/layout/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import AnalyticsProvider from "@/components/AnalyticsProvider";
+import {
+  ATOM_FEED_URL,
+  BING_SITE_VERIFICATION,
+  FAVICON_URL,
+  GOOGLE_SITE_VERIFICATION,
+  JSON_FEED_URL,
+  LOGO_URL,
+  RSS_FEED_URL,
+  SITE_NAME,
+  SITE_URL,
+  WEBSUB_HUB_URL,
+} from "@/utils/site";
 import "./globals.css";
-
-const SITE_URL = "https://www.senna-automation.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -49,8 +59,19 @@ export const metadata: Metadata = {
     "Michigan AI solutions",
   ],
   authors: [{ name: "Senna Automation", url: SITE_URL }],
-  creator: "Senna Automation",
-  publisher: "Senna Automation",
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  verification:
+    GOOGLE_SITE_VERIFICATION || BING_SITE_VERIFICATION
+      ? {
+          google: GOOGLE_SITE_VERIFICATION,
+          other: BING_SITE_VERIFICATION
+            ? {
+                "msvalidate.01": BING_SITE_VERIFICATION,
+              }
+            : undefined,
+        }
+      : undefined,
   robots: {
     index: true,
     follow: true,
@@ -91,11 +112,12 @@ export const metadata: Metadata = {
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Senna Automation",
+  "@id": `${SITE_URL}/#organization`,
+  name: SITE_NAME,
   description:
     "AI workflow automation and custom software development company serving Grand Rapids, Michigan and businesses worldwide. Specializing in business AI integration, chatbot development, process automation consulting, and enterprise AI solutions.",
   url: SITE_URL,
-  logo: `${SITE_URL}/images/senna-automation-new.png`,
+  logo: LOGO_URL,
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+1-616-287-3360",
@@ -109,7 +131,10 @@ const organizationJsonLd = {
     addressRegion: "MI",
     addressCountry: "US",
   },
-  sameAs: [],
+  sameAs: [
+    "https://linkedin.com/company/senna-automation",
+    "https://instagram.com/sennaautomation",
+  ],
   founder: {
     "@type": "Person",
     name: "Justin Kahrs",
@@ -131,7 +156,8 @@ const organizationJsonLd = {
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  name: "Senna Automation",
+  "@id": `${SITE_URL}/#localbusiness`,
+  name: SITE_NAME,
   description:
     "AI workflow automation and custom software development company in Grand Rapids, Michigan. We help businesses automate workflows, integrate AI solutions, and build custom applications.",
   url: SITE_URL,
@@ -159,6 +185,19 @@ const localBusinessJsonLd = {
   priceRange: "$$",
   openingHours: "Mo-Fr 09:00-17:00",
 };
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  name: SITE_NAME,
+  url: SITE_URL,
+  inLanguage: "en-US",
+  publisher: {
+    "@id": `${SITE_URL}/#organization`,
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -168,6 +207,26 @@ export default function RootLayout({
     <html lang="en-US">
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/alo5gqx.css" />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${SITE_NAME} Blog RSS`}
+          href={RSS_FEED_URL}
+        />
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          title={`${SITE_NAME} Blog Atom`}
+          href={ATOM_FEED_URL}
+        />
+        <link
+          rel="alternate"
+          type="application/feed+json"
+          title={`${SITE_NAME} Blog JSON Feed`}
+          href={JSON_FEED_URL}
+        />
+        <link rel="hub" href={WEBSUB_HUB_URL} />
+        <link rel="icon" href={FAVICON_URL} />
         {/* JSON-LD Structured Data */}
         <Script
           id="organization-structured-data"
@@ -183,6 +242,14 @@ export default function RootLayout({
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for JSON-LD structured data
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(localBusinessJsonLd),
+          }}
+        />
+        <Script
+          id="website-structured-data"
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for JSON-LD structured data
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
           }}
         />
         {/* Analytics and Tracking Scripts */}

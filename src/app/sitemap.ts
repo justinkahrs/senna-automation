@@ -1,51 +1,52 @@
 import type { MetadataRoute } from "next";
 import { getAllBlogPosts } from "@/utils/blog";
-
-const SITE_URL = "https://www.senna-automation.com";
+import { SITE_URL } from "@/utils/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const blogPosts = getAllBlogPosts();
+  const latestPostLastModified = blogPosts[0]?.date
+    ? new Date(blogPosts[0].date)
+    : undefined;
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: SITE_URL,
-      lastModified: new Date(),
+      ...(latestPostLastModified
+        ? { lastModified: latestPostLastModified }
+        : {}),
       changeFrequency: "weekly",
       priority: 1.0,
     },
     {
       url: `${SITE_URL}/about`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/services`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${SITE_URL}/solutions`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${SITE_URL}/pricing`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${SITE_URL}/contact`,
-      lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/blog`,
-      lastModified: new Date(),
+      ...(latestPostLastModified
+        ? { lastModified: latestPostLastModified }
+        : {}),
       changeFrequency: "weekly",
       priority: 0.8,
     },
