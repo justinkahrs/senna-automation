@@ -1,122 +1,233 @@
-import { ImageResponse } from 'next/og';
-import { blogPostsMetadata } from '@/utils/blog-data';
+import fs from "fs/promises";
+import path from "path";
+import { ImageResponse } from "next/og";
+import { getBlogPostBySlug } from "@/utils/blog";
 
-// Use edge runtime for better performance and to avoid Webpack chunking errors in Node.js runtime
-export const runtime = 'edge';
+export const runtime = "nodejs";
 
-export const alt = 'Senna Automation Blog';
+export const alt = "Senna Automation Blog Post";
 export const size = { width: 1200, height: 630 };
-export const contentType = 'image/png';
+export const contentType = "image/png";
+
+async function getPublicImageDataUrl(imagePath?: string) {
+  if (!imagePath) return "";
+  if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+    return imagePath;
+  }
+
+  const cleanPath = imagePath.replace(/^\/+/, "");
+  const filePath = path.join(process.cwd(), "public", cleanPath);
+  const extension = path.extname(filePath).toLowerCase();
+  const mimeType =
+    extension === ".png"
+      ? "image/png"
+      : extension === ".webp"
+        ? "image/webp"
+        : "image/jpeg";
+
+  try {
+    const buffer = await fs.readFile(filePath);
+    return `data:${mimeType};base64,${buffer.toString("base64")}`;
+  } catch {
+    return "";
+  }
+}
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  
-  // Use the static manifest to avoid fs access in edge runtime
-  const post = blogPostsMetadata[slug] || {
-    title: "Senna Automation Insights",
-    category: "Automation",
-    excerpt: "Transforming business through intelligent AI workflow automation."
-  };
+  const post = getBlogPostBySlug(slug);
+  const title = post?.title || "Senna Automation Blog";
+  const category = post?.category || "Automation";
+  const subtitle =
+    post?.heroSubtitle ||
+    post?.subtitle ||
+    post?.excerpt ||
+    "Practical automation patterns for operational businesses.";
+  const imageSrc = await getPublicImageDataUrl(post?.image);
 
-  // Fetch fonts via HTTP (supported in edge)
   const interSemiBold = await fetch(
-    new URL('https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf')
+    new URL(
+      "https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf",
+    ),
   ).then((res) => res.arrayBuffer());
 
   const interBold = await fetch(
-    new URL('https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuDyYMZg.ttf')
+    new URL(
+      "https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuDyYMZg.ttf",
+    ),
   ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(
     (
       <div
         style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-          backgroundColor: '#181925', // Space Indigo
-          padding: '80px',
-          position: 'relative',
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          backgroundColor: "#181925",
+          color: "#ffffff",
+          fontFamily: "Inter",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        {/* Background Accent Gradient Overlay */}
         <div
           style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'radial-gradient(circle at 100% 0%, rgba(143, 0, 107, 0.15) 0%, transparent 50%), radial-gradient(circle at 0% 100%, rgba(143, 0, 107, 0.1) 0%, transparent 50%)',
-            display: 'flex',
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            background:
+              "radial-gradient(circle at 92% 24%, rgba(143, 0, 107, 0.26) 0%, transparent 34%), radial-gradient(circle at 22% 92%, rgba(146, 220, 229, 0.12) 0%, transparent 38%)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            background:
+              "linear-gradient(112deg, rgba(24, 25, 37, 0.96) 0%, rgba(24, 25, 37, 0.9) 46%, rgba(24, 25, 37, 0.72) 100%)",
           }}
         />
 
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            position: 'relative',
+            position: "relative",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            padding: "72px 78px",
+            gap: "58px",
+            alignItems: "center",
           }}
         >
-          {/* Category Tag */}
           <div
             style={{
-              display: 'flex',
-              padding: '8px 16px',
-              backgroundColor: 'rgba(146, 220, 229, 0.15)', // Light Cyan tinted
-              borderRadius: '8px',
-              color: '#92dce5', // Light Cyan
-              fontSize: 20,
-              fontWeight: 700,
-              fontFamily: 'Inter',
-              marginBottom: '24px',
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
+              width: "56%",
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            {post.category}
+            <div
+              style={{
+                display: "flex",
+                color: "#92dce5",
+                fontSize: 22,
+                fontWeight: 800,
+                letterSpacing: 2,
+                textTransform: "uppercase",
+                marginBottom: 30,
+              }}
+            >
+              {category}
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                color: "#ffffff",
+                fontSize: title.length > 52 ? 54 : 60,
+                fontWeight: 800,
+                lineHeight: 1.05,
+                letterSpacing: "-0.01em",
+                marginBottom: 28,
+              }}
+            >
+              {title}
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                width: 78,
+                height: 8,
+                backgroundColor: "#8f006b",
+                marginBottom: 26,
+              }}
+            />
+
+            <div
+              style={{
+                display: "flex",
+                color: "rgba(255, 255, 255, 0.78)",
+                fontSize: 24,
+                fontWeight: 600,
+                lineHeight: 1.36,
+                maxWidth: 560,
+              }}
+            >
+              {subtitle}
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginTop: 42,
+                fontSize: 25,
+                fontWeight: 800,
+              }}
+            >
+              <span style={{ color: "#ffffff" }}>SENNA</span>
+              <span style={{ color: "#92dce5", marginLeft: 10 }}>AUTOMATION</span>
+            </div>
           </div>
 
           <div
             style={{
-              fontSize: 72,
-              fontWeight: 800,
-              color: '#FFFFFF',
-              lineHeight: 1.1,
-              fontFamily: 'Inter',
-              marginBottom: '0px',
-              maxWidth: '960px',
+              width: "38%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "stretch",
             }}
           >
-            {post.title}
-          </div>
-        </div>
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                height: 404,
+                borderRadius: 18,
+                overflow: "hidden",
+                border: "1px solid rgba(146, 220, 229, 0.24)",
+                backgroundColor: "rgba(146, 220, 229, 0.12)",
+                boxShadow: "0 30px 70px rgba(0, 0, 0, 0.34)",
+              }}
+            >
+              {imageSrc ? (
+                <img
+                  src={imageSrc}
+                  alt={title}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              ) : (
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    background:
+                      "linear-gradient(135deg, rgba(146, 220, 229, 0.22), rgba(143, 0, 107, 0.3))",
+                  }}
+                />
+              )}
+            </div>
 
-        {/* Footer Brand Area */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '80px',
-            left: '80px',
-            right: '80px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-            paddingTop: '32px',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span style={{ fontSize: 32, fontWeight: 800, color: '#FFFFFF', fontFamily: 'Inter' }}>SENNA</span>
-            <span style={{ fontSize: 32, fontWeight: 400, color: '#92dce5', marginLeft: '10px', fontFamily: 'Inter' }}>AUTOMATION</span>
-          </div>
-          <div style={{ fontSize: 24, fontWeight: 600, color: '#8f006b', fontFamily: 'Inter' }}>
-            read more →
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                color: "#8f006b",
+                fontSize: 24,
+                fontWeight: 800,
+                marginTop: 28,
+              }}
+            >
+              read more →
+            </div>
           </div>
         </div>
       </div>
@@ -125,18 +236,18 @@ export default async function Image({ params }: { params: Promise<{ slug: string
       ...size,
       fonts: [
         {
-          name: 'Inter',
+          name: "Inter",
           data: interSemiBold,
-          style: 'normal',
+          style: "normal",
           weight: 600,
         },
         {
-          name: 'Inter',
+          name: "Inter",
           data: interBold,
-          style: 'normal',
+          style: "normal",
           weight: 800,
         },
       ],
-    }
+    },
   );
 }
