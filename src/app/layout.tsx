@@ -5,6 +5,7 @@ import { ClientProviders } from "./ClientProviders";
 import { AppBar } from "@/components/layout/AppBar";
 import { Footer } from "@/components/layout/Footer";
 import ChatWidget from "@/components/ChatWidget";
+import PrivacyNoticeBanner from "@/components/PrivacyNoticeBanner";
 import AnalyticsProvider from "@/components/AnalyticsProvider";
 import {
   ATOM_FEED_URL,
@@ -261,24 +262,6 @@ export default function RootLayout({
             strategy="afterInteractive"
           />
         )}
-        <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=AW-16832579878"
-          async
-        />
-        <Script
-          id="google-tag-manager"
-          strategy="afterInteractive"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for Google Analytics
-          dangerouslySetInnerHTML={{
-            __html: `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XWW3M708ZP');
-    `,
-          }}
-        />
       </head>
       <body suppressHydrationWarning>
         <AppRouterCacheProvider options={{ key: "mui" }}>
@@ -296,6 +279,7 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+            <PrivacyNoticeBanner />
             <ChatWidget />
             <AnalyticsProvider />
           </ClientProviders>
