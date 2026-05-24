@@ -64,21 +64,25 @@ export async function generateMetadata({
     return { title: "Post Not Found | Senna Automation" };
   }
 
+  const canonicalUrl = `${SITE_URL}/blog/${slug}`;
+  const ogImageUrl = `${canonicalUrl}/opengraph-image`;
+
   return {
-    title: `${post.title} | Senna Automation`,
+    title: post.title,
     description: post.excerpt,
     alternates: {
-      canonical: `${SITE_URL}/blog/${slug}`,
+      canonical: canonicalUrl,
     },
     openGraph: {
       type: "article",
-      url: `${SITE_URL}/blog/${slug}`,
+      url: canonicalUrl,
       title: post.title,
       description: post.excerpt,
       publishedTime: post.date ? new Date(post.date).toISOString() : undefined,
+      siteName: "Senna Automation",
       images: [
         {
-          url: `/blog/${slug}/opengraph-image`,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -89,7 +93,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-      images: [`/blog/${slug}/opengraph-image`],
+      images: [ogImageUrl],
     },
   };
 }
