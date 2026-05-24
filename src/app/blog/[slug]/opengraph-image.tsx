@@ -1,41 +1,26 @@
-import fs from "fs/promises";
-import path from "path";
 import { ImageResponse } from "next/og";
-import { getBlogPostBySlug } from "@/utils/blog";
+import { blogPostsMetadata } from "@/utils/blog-data";
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 export const alt = "Senna Automation Blog Post";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-async function getPublicImageDataUrl(imagePath?: string) {
+const SITE_URL = "https://www.senna-automation.com";
+
+function getPublicImageSrc(imagePath?: string) {
   if (!imagePath) return "";
   if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
     return imagePath;
   }
 
-  const cleanPath = imagePath.replace(/^\/+/, "");
-  const filePath = path.join(process.cwd(), "public", cleanPath);
-  const extension = path.extname(filePath).toLowerCase();
-  const mimeType =
-    extension === ".png"
-      ? "image/png"
-      : extension === ".webp"
-        ? "image/webp"
-        : "image/jpeg";
-
-  try {
-    const buffer = await fs.readFile(filePath);
-    return `data:${mimeType};base64,${buffer.toString("base64")}`;
-  } catch {
-    return "";
-  }
+  return `${SITE_URL}${imagePath.startsWith("/") ? imagePath : `/${imagePath}`}`;
 }
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = blogPostsMetadata[slug];
   const title = post?.title || "Senna Automation Blog";
   const category = post?.category || "Automation";
   const subtitle =
@@ -43,7 +28,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     post?.subtitle ||
     post?.excerpt ||
     "Practical automation patterns for operational businesses.";
-  const imageSrc = await getPublicImageDataUrl(post?.image);
+  const imageSrc = getPublicImageSrc(post?.image);
 
   const interSemiBold = await fetch(
     new URL(
