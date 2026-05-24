@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import FinalCTA from "@/components/sections/FinalCTA";
+import { SITE_NAME, SITE_URL } from "@/utils/site";
 
 export const metadata: Metadata = {
   title: "AI Automation Insights & Case Studies | Senna Automation Blog",
@@ -25,7 +27,7 @@ import {
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 
-import { ACCENT, LIGHT_CYAN } from "@/components/theme/colors";
+import { LIGHT_CYAN } from "@/components/theme/colors";
 import { getAllBlogPosts } from "@/utils/blog";
 
 const homeEyebrowSx = {
@@ -45,6 +47,37 @@ const homeEyebrowSx = {
 
 const blogPosts = getAllBlogPosts();
 
+const blogItemListJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `${SITE_NAME} Blog`,
+  itemListElement: blogPosts.map((post, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    url: `${SITE_URL}/blog/${post.slug}`,
+    name: post.title,
+  })),
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: SITE_URL,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Blog",
+      item: `${SITE_URL}/blog`,
+    },
+  ],
+};
+
 export default function BlogPage() {
   const featuredHeroTitle =
     blogPosts[0]?.heroTitle || "The systems we build define how we scale.";
@@ -60,6 +93,22 @@ export default function BlogPage() {
         pb: 0,
       }}
     >
+      <Script
+        id="blog-list-structured-data"
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for JSON-LD structured data
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(blogItemListJsonLd),
+        }}
+      />
+      <Script
+        id="blog-breadcrumb-structured-data"
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for JSON-LD structured data
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
+        }}
+      />
       {/* ── Bolder, Darker Hero Section ───────────────────────── */}
       <Box
         component="section"

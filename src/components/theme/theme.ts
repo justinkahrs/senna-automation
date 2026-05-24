@@ -1,7 +1,7 @@
 "use client";
 import { blink } from "./animations";
 
-import type { Theme, ThemeOptions } from "@mui/material/styles";
+import type { ThemeOptions } from "@mui/material/styles";
 declare module "@mui/material/styles" {
   interface Theme {
     keyframes: { blink: object };

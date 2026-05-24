@@ -20,11 +20,9 @@ import {
   Chip,
 } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import { growthTier, starterTier } from "@/components/pricing/tierData";
-import { WARM_BLACK } from "@/components/theme/colors";
 
 const homeEyebrowSx = {
   display: "inline-flex",
@@ -567,7 +565,7 @@ export default function PricingPage() {
             color="text.secondary"
             sx={{ maxWidth: "700px", mx: "auto", mb: 6, fontSize: "1.1rem" }}
           >
-            Automation isn't "set it and forget it." We provide continuous
+            Automation isn&apos;t &quot;set it and forget it.&quot; We provide continuous
             monitoring, updates, and optimization to ensure your systems grow as
             your business evolves.
           </Typography>

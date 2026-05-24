@@ -1,8 +1,7 @@
-// @ts-nocheck
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, type MotionProps } from "framer-motion";
 import styles from "./PortfolioCard.module.css";
 
 interface PortfolioCardProps {
@@ -14,6 +13,18 @@ interface PortfolioCardProps {
   duration?: number;
   className?: string;
 }
+
+const MotionAnchor = motion.a as React.ForwardRefExoticComponent<
+  React.AnchorHTMLAttributes<HTMLAnchorElement> &
+    MotionProps &
+    React.RefAttributes<HTMLAnchorElement>
+>;
+
+const MotionImage = motion.img as React.ForwardRefExoticComponent<
+  React.ImgHTMLAttributes<HTMLImageElement> &
+    MotionProps &
+    React.RefAttributes<HTMLImageElement>
+>;
 
 const PortfolioCard: React.FC<PortfolioCardProps> = ({
   title,
@@ -60,14 +71,18 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
   }, [measure, imageSrc]); // Re-run if src changes
 
   return (
-    <motion.a
+    <MotionAnchor
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       className={`${styles.cardWrapper} ${className}`}
-      onHoverStart={() => !shouldReduceMotion && setIsHovered(true)}
+      onHoverStart={() => {
+        if (!shouldReduceMotion) setIsHovered(true);
+      }}
       onHoverEnd={() => setIsHovered(false)}
-      onFocus={() => !shouldReduceMotion && setIsHovered(true)}
+      onFocus={() => {
+        if (!shouldReduceMotion) setIsHovered(true);
+      }}
       onBlur={() => setIsHovered(false)}
       whileHover={{ y: -5 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -77,7 +92,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
         style={{ height: previewHeight }}
         ref={containerRef}
       >
-        <motion.img
+        <MotionImage
           ref={imageRef}
           src={imageSrc}
           alt={`${title} Screenshot`}
@@ -99,7 +114,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.description}>{description}</p>
       </div>
-    </motion.a>
+    </MotionAnchor>
   );
 };
 

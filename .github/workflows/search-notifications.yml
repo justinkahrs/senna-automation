@@ -1,0 +1,35 @@
+name: Search notifications
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: search-notifications-main
+  cancel-in-progress: true
+
+jobs:
+  notify:
+    name: Notify search services
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Wait for production deploy
+        if: github.event_name == 'push'
+        run: sleep 180
+
+      - name: Submit URLs to IndexNow
+        run: npm run indexnow:submit -- --all
+
+      - name: Publish WebSub feed updates
+        run: npm run websub:publish

@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.senna-automation.com/sitemap.xml
+Sitemap: https://www.senna-automation.com/rss.xml
+Sitemap: https://www.senna-automation.com/atom.xml

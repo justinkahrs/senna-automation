@@ -7,8 +7,6 @@ import {
   Container,
   Typography,
   Stack,
-  Button,
-  Divider,
   Grid,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
@@ -23,8 +21,8 @@ import { MermaidDiagram } from "@/components/blog/MermaidDiagram";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { notFound } from "next/navigation";
+import { LOGO_URL, SITE_NAME, SITE_URL } from "@/utils/site";
 
-const SITE_URL = "https://www.senna-automation.com";
 const QUOTE_AUTOMATION_ERP_STEPS_MARKER = "[[QUOTE_AUTOMATION_ERP_STEPS]]";
 const quoteAutomationErpSteps = [
   {
@@ -46,6 +44,15 @@ const quoteAutomationErpSteps = [
       "Finally, the system packages the verified items, customer ID, and metadata into a final payload, generating a fully fleshed out Quote PDF file on the fly.",
   },
 ];
+
+function toAbsoluteUrl(url?: string) {
+  if (!url) return undefined;
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+
+  return `${SITE_URL}${url.startsWith("/") ? url : `/${url}`}`;
+}
 
 export async function generateStaticParams() {
   const posts = getAllBlogPosts();
@@ -253,9 +260,79 @@ export default async function BlogPostPage({
       ? post.content.split(QUOTE_AUTOMATION_ERP_STEPS_MARKER)
       : null;
   const hasMermaidDiagram = post.content.includes("```mermaid");
+  const canonicalUrl = `${SITE_URL}/blog/${slug}`;
+  const imageUrl = toAbsoluteUrl(post.image);
+  const publishedDate = post.date ? new Date(post.date).toISOString() : undefined;
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    image: imageUrl ? [imageUrl] : undefined,
+    datePublished: publishedDate,
+    dateModified: publishedDate,
+    articleSection: post.category,
+    author: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      logo: {
+        "@type": "ImageObject",
+        url: LOGO_URL,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+    },
+  };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: `${SITE_URL}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: canonicalUrl,
+      },
+    ],
+  };
 
   return (
     <Box sx={{ bgcolor: "transparent", minHeight: "100vh", pb: 0 }}>
+      <Script
+        id="article-structured-data"
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for JSON-LD structured data
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleJsonLd),
+        }}
+      />
+      <Script
+        id="blog-breadcrumb-structured-data"
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for JSON-LD structured data
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
+        }}
+      />
       {hasMermaidDiagram && (
         <Script
           src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
