@@ -27,7 +27,12 @@ export interface BlogPost {
   content: string;
 }
 
-export function getAllBlogPosts(): Omit<BlogPost, "content">[] {
+export type BlogPostPreview = Omit<BlogPost, "content">;
+
+const DEFAULT_RECENT_BLOG_WINDOW_DAYS = 90;
+const DEFAULT_RECENT_BLOG_LIMIT = 12;
+
+export function getAllBlogPosts(): BlogPostPreview[] {
   if (!fs.existsSync(contentDirectory)) return [];
   const filenames = fs.readdirSync(contentDirectory);
 
@@ -77,7 +82,30 @@ export function getBlogPostBySlug(slug: string): BlogPost | null {
   } as BlogPost;
 }
 
-export function getLatestPostByCategory(category: string): Omit<BlogPost, "content"> | null {
+export function getRecentBlogPosts(
+  windowDays = DEFAULT_RECENT_BLOG_WINDOW_DAYS,
+  limit = DEFAULT_RECENT_BLOG_LIMIT,
+): BlogPostPreview[] {
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - windowDays);
+
+  return getAllBlogPosts()
+    .filter((post) => {
+      const postDate = new Date(post.date);
+      return !Number.isNaN(postDate.getTime()) && postDate >= cutoff;
+    })
+    .slice(0, limit);
+}
+
+export function formatRecentBlogPostsForPrompt(posts: BlogPostPreview[]): string {
+  if (!posts.length) {
+    return "[]";
+  }
+
+  return JSON.stringify(posts, null, 2);
+}
+
+export function getLatestPostByCategory(category: string): BlogPostPreview | null {
   const allPosts = getAllBlogPosts();
-  return allPosts.find(post => post.category === category) || null;
+  return allPosts.find((post) => post.category === category) || null;
 }

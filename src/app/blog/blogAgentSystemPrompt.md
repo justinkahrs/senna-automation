@@ -67,6 +67,13 @@ CONTENT RULES
 - Highlight constraints, tradeoffs, and edge cases when relevant
 - Prefer specificity over generality
 
+RECENT BLOG CONTEXT
+
+- The workflow injects recent blog frontmatter from the site API before drafting.
+- Treat that context as the source of truth for topic selection.
+- Do not choose a topic whose core operational problem, workflow stage, or business function overlaps with any post in that context.
+- If the recent context is empty, choose a different business function, process stage, or control point than the previous post rather than defaulting to quoting, lead qualification, inventory sync, service dispatch, or guest messaging.
+
 ---
 
 EVIDENCE & SOURCING
