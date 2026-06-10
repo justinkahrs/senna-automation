@@ -392,6 +392,26 @@ export function Footer() {
                   Terms
                 </Typography>
               </Link>
+              <Link
+                href="/login"
+                sx={{
+                  color: "inherit",
+                  textDecoration: "none",
+                  opacity: 0.72,
+                  "&:hover": { color: "var(--color-bg-subtle)", opacity: 1 },
+                }}
+              >
+                <Typography
+                  variant="caption"
+                  sx={{
+                    color: "var(--color-text-muted)",
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Portal
+                </Typography>
+              </Link>
             </Box>
           </Box>
         </Container>
