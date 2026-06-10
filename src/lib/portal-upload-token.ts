@@ -5,6 +5,8 @@ type PortalUploadMode = "draft_improve";
 type PortalUploadPurpose = "rfp-upload";
 type PortalAccessLookupMode = "lookup";
 type PortalAccessLookupPurpose = "portal-access-check";
+type PortalJobLookupMode = "status" | "download";
+type PortalJobLookupPurpose = "portal-rfp-job";
 
 export interface PortalUploadTokenPayload {
   sub: string;
@@ -25,9 +27,20 @@ export interface PortalAccessLookupTokenPayload {
   exp: number;
 }
 
+export interface PortalJobLookupTokenPayload {
+  sub: string;
+  email: string;
+  jobId: string;
+  purpose: PortalJobLookupPurpose;
+  mode: PortalJobLookupMode;
+  iat: number;
+  exp: number;
+}
+
 type PortalSignedTokenPayload =
   | PortalUploadTokenPayload
-  | PortalAccessLookupTokenPayload;
+  | PortalAccessLookupTokenPayload
+  | PortalJobLookupTokenPayload;
 
 const TOKEN_HEADER = {
   alg: "HS256",
@@ -92,6 +105,21 @@ export function getPortalPreviewPdfWebhookEndpoint() {
   return derivedEndpoint.toString();
 }
 
+export function getPortalJobWebhookEndpoint() {
+  const explicitEndpoint = process.env.N8N_RFP_PORTAL_JOB_WEBHOOK_URL?.trim();
+
+  if (explicitEndpoint) {
+    return new URL(explicitEndpoint).toString();
+  }
+
+  const derivedEndpoint = new URL(getPortalWebhookEndpoint());
+  derivedEndpoint.pathname = "/webhook/portal-rfp-job";
+  derivedEndpoint.search = "";
+  derivedEndpoint.hash = "";
+
+  return derivedEndpoint.toString();
+}
+
 function sign(unsignedToken: string, secret: string) {
   return createHmac("sha256", secret)
     .update(unsignedToken)
@@ -146,6 +174,28 @@ export function createPortalAccessLookupToken(input: {
     email: input.email,
     purpose: "portal-access-check",
     mode: "lookup",
+    iat: issuedAt,
+    exp: issuedAt + expiresInSeconds,
+  };
+
+  return createSignedToken(payload);
+}
+
+export function createPortalJobLookupToken(input: {
+  sub: string;
+  email: string;
+  jobId: string;
+  mode: PortalJobLookupMode;
+  expiresInSeconds?: number;
+}) {
+  const issuedAt = Math.floor(Date.now() / 1000);
+  const expiresInSeconds = input.expiresInSeconds ?? 5 * 60;
+  const payload: PortalJobLookupTokenPayload = {
+    sub: input.sub,
+    email: input.email,
+    jobId: input.jobId,
+    purpose: "portal-rfp-job",
+    mode: input.mode,
     iat: issuedAt,
     exp: issuedAt + expiresInSeconds,
   };

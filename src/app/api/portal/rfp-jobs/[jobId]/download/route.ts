@@ -3,7 +3,10 @@ import {
   getPortalAccessByEmail,
   hasActivePortalAccess,
 } from "@/lib/portal-access";
-import { getPortalRfpJobResultForEmail } from "@/lib/portal-rfp-jobs";
+import {
+  createPortalJobLookupToken,
+  getPortalJobWebhookEndpoint,
+} from "@/lib/portal-upload-token";
 import { getPortalSession } from "@/lib/portal-session";
 
 export const runtime = "nodejs";
@@ -50,25 +53,66 @@ export async function GET(request: Request, context: JobDownloadRouteContext) {
     }
 
     const { jobId } = await context.params;
-    const job = await getPortalRfpJobResultForEmail(jobId, session.user.email);
+    const lookup = createPortalJobLookupToken({
+      sub: session.user.id,
+      email: session.user.email,
+      jobId,
+      mode: "download",
+    });
+    const response = await fetch(getPortalJobWebhookEndpoint(), {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "X-Senna-Portal-Service-Token": lookup.token,
+      },
+      body: JSON.stringify({
+        action: "download",
+        email: session.user.email,
+        jobId,
+      }),
+      cache: "no-store",
+    });
 
-    if (!job) {
-      return NextResponse.json({ error: "Job not found." }, { status: 404 });
-    }
+    const payload = (await response.json().catch(() => null)) as
+      | {
+          error?: string;
+          resultFileName?: string;
+          opportunityTitle?: string | null;
+          resultPdfBase64?: string | null;
+        }
+      | null;
 
-    if (!job.resultPdf) {
+    if (!response.ok) {
       return NextResponse.json(
-        { error: "The final PDF is not ready yet." },
-        { status: job.status === "failed" ? 409 : 425 },
+        {
+          error:
+            payload?.error || "Unable to download the final PDF right now.",
+        },
+        { status: response.status },
       );
     }
 
+    const resultPdfBase64 =
+      typeof payload?.resultPdfBase64 === "string" ? payload.resultPdfBase64 : "";
+
+    if (!resultPdfBase64) {
+      return NextResponse.json(
+        { error: "The final PDF is not ready yet." },
+        { status: 425 },
+      );
+    }
+
+    const resultPdf = Buffer.from(resultPdfBase64, "base64");
+
     const fileName = normalizeFileName(
-      job.resultFileName,
-      job.opportunityTitle || "senna-rfp-response",
+      typeof payload?.resultFileName === "string" ? payload.resultFileName : null,
+      typeof payload?.opportunityTitle === "string"
+        ? payload.opportunityTitle
+        : "senna-rfp-response",
     );
 
-    return new NextResponse(job.resultPdf, {
+    return new NextResponse(resultPdf, {
       status: 200,
       headers: {
         "Cache-Control": "no-store",

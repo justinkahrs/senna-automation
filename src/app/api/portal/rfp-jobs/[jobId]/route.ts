@@ -3,7 +3,10 @@ import {
   getPortalAccessByEmail,
   hasActivePortalAccess,
 } from "@/lib/portal-access";
-import { getPortalRfpJobForEmail } from "@/lib/portal-rfp-jobs";
+import {
+  createPortalJobLookupToken,
+  getPortalJobWebhookEndpoint,
+} from "@/lib/portal-upload-token";
 import { getPortalSession } from "@/lib/portal-session";
 
 export const runtime = "nodejs";
@@ -35,7 +38,45 @@ export async function GET(request: Request, context: JobRouteContext) {
     }
 
     const { jobId } = await context.params;
-    const job = await getPortalRfpJobForEmail(jobId, session.user.email);
+    const lookup = createPortalJobLookupToken({
+      sub: session.user.id,
+      email: session.user.email,
+      jobId,
+      mode: "status",
+    });
+    const response = await fetch(getPortalJobWebhookEndpoint(), {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "X-Senna-Portal-Service-Token": lookup.token,
+      },
+      body: JSON.stringify({
+        action: "status",
+        email: session.user.email,
+        jobId,
+      }),
+      cache: "no-store",
+    });
+
+    const payload = (await response.json().catch(() => null)) as
+      | {
+          error?: string;
+          job?: Record<string, unknown>;
+        }
+      | null;
+
+    if (!response.ok) {
+      return NextResponse.json(
+        { error: payload?.error || "Unable to load the portal RFP job." },
+        { status: response.status },
+      );
+    }
+
+    const job =
+      payload?.job && typeof payload.job === "object" && !Array.isArray(payload.job)
+        ? payload.job
+        : null;
 
     if (!job) {
       return NextResponse.json({ error: "Job not found." }, { status: 404 });
@@ -44,20 +85,36 @@ export async function GET(request: Request, context: JobRouteContext) {
     return NextResponse.json(
       {
         job: {
-          id: job.id,
-          status: job.status,
-          statusMessage: job.statusMessage,
-          errorMessage: job.errorMessage,
-          opportunityTitle: job.opportunityTitle,
-          issuerName: job.issuerName,
-          resultFileName: job.resultFileName,
-          hasResultPdf: job.hasResultPdf,
-          metadata: job.metadata,
-          createdAt: job.createdAt,
-          updatedAt: job.updatedAt,
-          startedAt: job.startedAt,
-          completedAt: job.completedAt,
-          failedAt: job.failedAt,
+          id: String(job.id || jobId),
+          status:
+            job.status === "queued" ||
+            job.status === "processing" ||
+            job.status === "completed" ||
+            job.status === "failed"
+              ? job.status
+              : "queued",
+          statusMessage:
+            typeof job.statusMessage === "string" ? job.statusMessage : null,
+          errorMessage:
+            typeof job.errorMessage === "string" ? job.errorMessage : null,
+          opportunityTitle:
+            typeof job.opportunityTitle === "string"
+              ? job.opportunityTitle
+              : null,
+          issuerName: typeof job.issuerName === "string" ? job.issuerName : null,
+          resultFileName:
+            typeof job.resultFileName === "string" ? job.resultFileName : null,
+          hasResultPdf: Boolean(job.hasResultPdf),
+          metadata:
+            job.metadata && typeof job.metadata === "object" && !Array.isArray(job.metadata)
+              ? job.metadata
+              : {},
+          createdAt: typeof job.createdAt === "string" ? job.createdAt : null,
+          updatedAt: typeof job.updatedAt === "string" ? job.updatedAt : null,
+          startedAt: typeof job.startedAt === "string" ? job.startedAt : null,
+          completedAt:
+            typeof job.completedAt === "string" ? job.completedAt : null,
+          failedAt: typeof job.failedAt === "string" ? job.failedAt : null,
         },
       },
       {
