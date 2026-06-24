@@ -18,7 +18,7 @@ const mobileImages: Record<string, any> = {
 
 import CascadingStagger from "@/components/animations/CascadingStagger";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { BlogPost } from "@/utils/blog";
@@ -138,15 +138,12 @@ const SolutionCard = ({
       <Grid container spacing={0} sx={{ flexGrow: 1 }}>
         {/* Content Side */}
         <Grid
-          item
-          xs={12}
-          md={5}
-          order={{ xs: 2, md: layoutIndex % 2 === 0 ? 1 : 2 }}
+          size={{ xs: 12, md: 5 }}
           sx={{
+            order: { xs: 2, md: layoutIndex % 2 === 0 ? 1 : 2 },
             display: "flex",
-            flexDirection: "column",
-          }}
-        >
+            flexDirection: "column"
+          }}>
           <Box
             sx={{
               p: { xs: 4, md: 6, lg: 8 },
@@ -195,9 +192,11 @@ const SolutionCard = ({
                   </Typography>
                   <Typography
                     variant="body1"
-                    color="text.secondary"
-                    sx={{ fontSize: "1.1rem", lineHeight: 1.7 }}
-                  >
+                    sx={{
+                      color: "text.secondary",
+                      fontSize: "1.1rem",
+                      lineHeight: 1.7
+                    }}>
                     {item.problem}
                   </Typography>
                 </Box>
@@ -221,7 +220,9 @@ const SolutionCard = ({
                   >
                     The Solution
                   </Typography>
-                  <Typography variant="subtitle1" color="text.secondary">
+                  <Typography variant="subtitle1" sx={{
+                    color: "text.secondary"
+                  }}>
                     {item.solution}
                   </Typography>
                 </Box>
@@ -313,22 +314,20 @@ const SolutionCard = ({
 
         {/* Visualization Side */}
         <Grid
-          item
-          xs={12}
-          md={7}
-          order={{ xs: 1, md: layoutIndex % 2 === 0 ? 2 : 1 }}
+          size={{ xs: 12, md: 7 }}
           sx={{
+            order: { xs: 1, md: layoutIndex % 2 === 0 ? 2 : 1 },
             display: "flex",
             flexDirection: "column",
+
             // borderLeft: {
             //   md: layoutIndex % 2 === 0 ? "1px solid" : "none",
             // },
             // borderRight: {
             //   md: layoutIndex % 2 !== 0 ? "1px solid" : "none",
             // },
-            borderColor: "divider",
-          }}
-        >
+            borderColor: "divider"
+          }}>
           <Box
             sx={{
               flexGrow: 1,
@@ -514,15 +513,16 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
           </Box>
         </Container>
       </Box>
-
       <Box sx={{ py: { xs: 10, md: 16 }, bgcolor: "background.paper" }}>
         <Container maxWidth="md" sx={{ textAlign: "left" }}>
           <Typography
             variant="h4"
             component="h2"
-            color="text.primary"
-            sx={{ maxWidth: 720, lineHeight: 1.35 }}
-          >
+            sx={{
+              color: "text.primary",
+              maxWidth: 720,
+              lineHeight: 1.35
+            }}>
             <Box component="span" sx={{ color: "var(--color-text-accent)" }}>
               Most bottlenecks look more familiar than you think.
             </Box>{" "}
@@ -531,7 +531,6 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
           </Typography>
         </Container>
       </Box>
-
       {/* Linear Stack for All screen sizes */}
       <Box
         sx={{
@@ -563,7 +562,6 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
           </Stack>
         </Container>
       </Box>
-
       <Box
         sx={{
           py: { xs: 8, md: 12 },
@@ -574,7 +572,7 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
       >
         <Container maxWidth="lg">
           <Grid container spacing={8}>
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Typography
                 variant="h3"
                 component="h2"
@@ -589,14 +587,16 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
               </Typography>
               <Typography
                 variant="body1"
-                color="text.secondary"
-                sx={{ fontSize: "1.1rem", maxWidth: 320 }}
-              >
+                sx={{
+                  color: "text.secondary",
+                  fontSize: "1.1rem",
+                  maxWidth: 320
+                }}>
                 A few common questions teams ask before they start automating
                 their workflows.
               </Typography>
             </Grid>
-            <Grid item xs={12} md={8}>
+            <Grid size={{ xs: 12, md: 8 }}>
               <CascadingStagger spacing={2}>
                 {faqs.map((faq) => (
                   <Accordion
@@ -614,12 +614,16 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
                     }}
                   >
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      <Typography variant="h5" color="text.primary">
+                      <Typography variant="h5" sx={{
+                        color: "text.primary"
+                      }}>
                         {faq.question}
                       </Typography>
                     </AccordionSummary>
                     <AccordionDetails sx={{ pt: 0 }}>
-                      <Typography variant="body1" color="text.secondary">
+                      <Typography variant="body1" sx={{
+                        color: "text.secondary"
+                      }}>
                         {faq.answer}
                       </Typography>
                     </AccordionDetails>
@@ -630,7 +634,6 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
           </Grid>
         </Container>
       </Box>
-
       <FinalCTA subtitle="Start with a quick 30-minute conversation about where time is being lost and what feels most repetitive. We will identify practical opportunities and map out the best place to start." />
     </Box>
   );

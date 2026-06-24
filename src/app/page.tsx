@@ -223,13 +223,12 @@ export default function Home() {
           <Box sx={{ display: "flex", justifyContent: { md: "flex-start" } }}>
             <Stack
               spacing={0}
-              alignItems={{ xs: "center", md: "flex-start" }}
               sx={{
+                alignItems: { xs: "center", md: "flex-start" },
                 width: "100%",
                 maxWidth: { xs: "100%", md: 760 },
-                textAlign: { xs: "center", md: "left" },
-              }}
-            >
+                textAlign: { xs: "center", md: "left" }
+              }}>
               <AnimatedHeroTitle />
               <Box
                 component="hr"
@@ -247,14 +246,13 @@ export default function Home() {
                 id="hero-description"
                 variant="subtitle1"
                 component="h2"
-                color="text.secondary"
                 sx={{
+                  color: "text.secondary",
                   mt: 0,
                   mb: 4,
                   maxWidth: 720,
-                  textAlign: { xs: "center", md: "left" },
-                }}
-              >
+                  textAlign: { xs: "center", md: "left" }
+                }}>
                 Support your team with systems that handle the repetitive work.
                 So they can focus on the work that moves things forward.
               </Typography>
@@ -271,13 +269,12 @@ export default function Home() {
               >
                 <Stack
                   spacing={1.25}
-                  alignItems={{ xs: "center", sm: "flex-start" }}
                   sx={{
+                    alignItems: { xs: "center", sm: "flex-start" },
                     textAlign: { xs: "center", md: "left" },
                     width: { xs: "100%", sm: 300 },
-                    maxWidth: 300,
-                  }}
-                >
+                    maxWidth: 300
+                  }}>
                   <ScheduleCallButton
                     fullWidth
                     size="large"
@@ -313,7 +310,6 @@ export default function Home() {
           </Box>
         </Container>
       </Box>
-
       {/* ── Why Choose Section (Floating Card) ──────── */}
       <Box
         sx={{
@@ -339,30 +335,30 @@ export default function Home() {
           <Grid
             container
             spacing={0}
-            alignItems="stretch"
+            sx={{
+              alignItems: "stretch"
+            }}
           >
             {/* Visual Element (5 Columns) */}
             <Grid
-              item
-              xs={12}
-              md={5}
-              sx={{ p: 0, bgcolor: "var(--color-text-primary)" }}
-            >
+              size={{ xs: 12, md: 5 }}
+              sx={{
+                p: 0,
+                bgcolor: "var(--color-text-primary)",
+                display: "flex",
+              }}>
               <SennaAdvantageVideo />
             </Grid>
             {/* Text Content (7 Columns) */}
             <Grid
-              item
-              xs={12}
-              md={7}
+              size={{ xs: 12, md: 7 }}
               sx={{
-                py: { xs: 10, md: 14, lg: 16 },
+                py: { xs: 6, md: 8, lg: 10 },
                 px: { xs: 4, sm: 8, md: 10, lg: 12 },
                 display: "flex",
                 alignItems: "center",
                 justifyContent: { md: "flex-start", lg: "center" },
-              }}
-            >
+              }}>
               <Box sx={{ maxWidth: 640, width: "100%" }}>
                 <Typography
                   variant="overline"
@@ -373,10 +369,11 @@ export default function Home() {
                 <Typography
                   variant="h2"
                   component="h2"
-                  color="text.primary"
                   gutterBottom
-                  sx={{ mb: 4 }}
-                >
+                  sx={{
+                    color: "text.primary",
+                    mb: 4
+                  }}>
                   Systems that handle the work, so you can{" "}
                   <Box component="span" sx={{ color: "primary.main" }}>
                     handle the business
@@ -387,9 +384,11 @@ export default function Home() {
                 <Stack spacing={3}>
                   <Typography
                     variant="body1"
-                    color="text.secondary"
-                    sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
-                  >
+                    sx={{
+                      color: "text.secondary",
+                      fontSize: "1.125rem",
+                      lineHeight: 1.8
+                    }}>
                     Senna Automation builds systems that take work off your
                     plate and keep your business moving. Instead of juggling
                     emails, follow-ups, and repetitive tasks, your workflows run
@@ -399,9 +398,11 @@ export default function Home() {
 
                   <Typography
                     variant="body1"
-                    color="text.secondary"
-                    sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
-                  >
+                    sx={{
+                      color: "text.secondary",
+                      fontSize: "1.125rem",
+                      lineHeight: 1.8
+                    }}>
                     We design and build custom automation systems for small and
                     mid-sized businesses, combining modern AI with software that
                     fits the tools you already use. The result is less manual
@@ -411,16 +412,15 @@ export default function Home() {
 
                   <Typography
                     variant="body1"
-                    color="text.secondary"
                     sx={{
+                      color: "text.secondary",
                       fontStyle: "italic",
                       borderLeft: "8px solid",
                       borderColor: "primary.light",
                       pl: 3,
                       py: 1,
-                      mt: 2,
-                    }}
-                  >
+                      mt: 2
+                    }}>
                     Based in Grand Rapids, Michigan, Senna Automation helps
                     businesses <strong>simplify operations</strong>,{" "}
                     <strong>reduce back-and-forth</strong>, and create systems
@@ -432,7 +432,6 @@ export default function Home() {
           </Grid>
         </Box>
       </Box>
-
       {latestPost && (
         <Box
           component="section"
@@ -484,9 +483,11 @@ export default function Home() {
               <Grid
                 container
                 spacing={{ xs: 8, md: 6, lg: 8 }}
-                alignItems="stretch"
+                sx={{
+                  alignItems: "stretch"
+                }}
               >
-                <Grid item xs={12} md={7}>
+                <Grid size={{ xs: 12, md: 7 }}>
                   <Box
                     sx={{
                       py: { xs: 8, md: 16 },
@@ -505,7 +506,9 @@ export default function Home() {
                       </Box>
 
                       <Stack spacing={3}>
-                        <Typography variant="h3" component="h3" color="inherit">
+                        <Typography variant="h3" component="h3" sx={{
+                          color: "inherit"
+                        }}>
                           {latestPost.title}
                         </Typography>
                         <Typography
@@ -530,13 +533,11 @@ export default function Home() {
                   </Box>
                 </Grid>
                 <Grid
-                  item
-                  md={5}
+                  size={{ md: 5 }}
                   sx={{
                     display: { xs: "none", md: "flex" },
                     alignItems: "center",
-                  }}
-                >
+                  }}>
                   <Box
                     sx={{
                       position: "relative",
@@ -565,11 +566,7 @@ export default function Home() {
                     />
                   </Box>
                 </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  sx={{ display: { xs: "block", md: "none" }, pb: 8 }}
-                >
+                <Grid size={12} sx={{ display: { xs: "block", md: "none" }, pb: 8 }}>
                   <Box
                     sx={{
                       position: "relative",
@@ -718,10 +715,11 @@ export default function Home() {
           <Container maxWidth="lg">
             <Stack
               spacing={3}
-              alignItems="center"
-              justifyContent="center"
-              sx={{ textAlign: "center" }}
-            >
+              sx={{
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center"
+              }}>
               <Typography
                 variant="h2"
                 component="h2"
@@ -735,7 +733,6 @@ export default function Home() {
                 directly into those as well.
               </Typography>
               <Button
-                component={Link}
                 href="/services"
                 variant="contained"
                 size="large"
@@ -809,7 +806,9 @@ export default function Home() {
                 company: "Regional Agency",
               },
             ].map((t) => (
-              <Grid item xs={12} md={4} key={t.name}>
+              <Grid
+                key={t.name}
+                size={{ xs: 12, md: 4 }}>
                 <Card
                   sx={{
                     height: "100%",
@@ -855,13 +854,12 @@ export default function Home() {
                       </Typography>
                       <Typography
                         variant="h4"
-                        color="text.primary"
                         sx={{
+                          color: "text.primary",
                           fontWeight: 400,
                           fontStyle: "italic",
-                          lineHeight: 1.4,
-                        }}
-                      >
+                          lineHeight: 1.4
+                        }}>
                         {t.quote}
                       </Typography>
                     </Box>
@@ -877,7 +875,9 @@ export default function Home() {
                       >
                         {t.name}
                       </Typography>
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography variant="caption" sx={{
+                        color: "text.secondary"
+                      }}>
                         {t.company}
                       </Typography>
                     </Box>
@@ -919,18 +919,23 @@ export default function Home() {
             variant="h2"
             component="h2"
             align="center"
-            color="inherit"
-            sx={{ mb: 2 }}
-          >
+            sx={{
+              color: "inherit",
+              mb: 2
+            }}>
             Frequently asked questions
           </Typography>
 
           <Typography
             variant="subtitle1"
             align="center"
-            color="inherit"
-            sx={{ maxWidth: 600, mx: "auto", mb: 8, opacity: 0.7 }}
-          >
+            sx={{
+              color: "inherit",
+              maxWidth: 600,
+              mx: "auto",
+              mb: 8,
+              opacity: 0.7
+            }}>
             A few common questions about how automation works and where to
             start.
           </Typography>
@@ -955,7 +960,9 @@ export default function Home() {
                     <ExpandMoreIcon sx={{ color: "primary.light" }} />
                   }
                 >
-                  <Typography variant="h5" color="inherit">
+                  <Typography variant="h5" sx={{
+                    color: "inherit"
+                  }}>
                     {faq.question}
                   </Typography>
                 </AccordionSummary>

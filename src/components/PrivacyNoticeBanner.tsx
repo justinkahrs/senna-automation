@@ -51,23 +51,25 @@ export default function PrivacyNoticeBanner() {
         <Stack
           direction={{ xs: "column", sm: "row" }}
           spacing={{ xs: 2, sm: 3 }}
-          alignItems={{ xs: "stretch", sm: "center" }}
           sx={{
+            alignItems: { xs: "stretch", sm: "center" },
             p: { xs: 2, sm: 2.25 },
             border: "1px solid var(--color-border-soft)",
             borderRadius: "var(--radius-2xl)",
+
             backgroundColor:
               "color-mix(in srgb, var(--color-bg-paper) 94%, transparent)",
+
             backdropFilter: "blur(14px)",
-            boxShadow: "var(--shadow-dialog)",
-          }}
-        >
+            boxShadow: "var(--shadow-dialog)"
+          }}>
           <Stack
             direction="row"
             spacing={1.5}
-            alignItems="flex-start"
-            sx={{ flex: 1 }}
-          >
+            sx={{
+              alignItems: "flex-start",
+              flex: 1
+            }}>
             <Box
               aria-hidden="true"
               sx={{

@@ -102,7 +102,9 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
           ...sx,
         }}
       >
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{
+          color: "text.secondary"
+        }}>
           Diagram unavailable.
         </Typography>
       </Box>

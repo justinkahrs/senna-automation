@@ -148,7 +148,9 @@ export function NumberedSteps({
     <Box sx={sx}>
       <Grid container spacing={3}>
         {steps.map((step, index) => (
-          <Grid item xs={12} sm={6} md={3} key={`${formatStepNumber(step, index)}-${step.title}`}>
+          <Grid
+            key={`${formatStepNumber(step, index)}-${step.title}`}
+            size={{ xs: 12, sm: 6, md: 3 }}>
             <Box sx={{ textAlign: "center", px: 1 }}>
               <Typography
                 variant="h2"

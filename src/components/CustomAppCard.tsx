@@ -78,7 +78,12 @@ export default function CustomAppCard({ app, index }: CustomAppCardProps) {
               {app.title}
             </Typography>
           </Box>
-          <Typography variant="subtitle1" color="text.secondary" paragraph>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              color: "text.secondary",
+              marginBottom: "16px"
+            }}>
             {app.description}
           </Typography>
           <List>

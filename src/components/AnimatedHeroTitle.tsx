@@ -20,18 +20,19 @@ export default function AnimatedHeroTitle() {
         component="h1"
         id="hero-heading"
         align="left"
-        color="text.primary"
         sx={{
+          color: "text.primary",
+
           fontFamily:
             '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif',
+
           textAlign: { xs: "center", md: "left" },
           fontSize: "clamp(3.75rem, 9vw, 7rem)",
           lineHeight: 0.96,
           letterSpacing: "-0.04em",
           overflow: "visible",
-          position: "relative",
-        }}
-      >
+          position: "relative"
+        }}>
         <Box
           component="span"
           sx={{

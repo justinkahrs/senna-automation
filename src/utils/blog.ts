@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
+import { load } from "js-yaml";
 
 const contentDirectory = path.join(process.cwd(), "src/content/blog");
 
@@ -29,8 +29,33 @@ export interface BlogPost {
 
 export type BlogPostPreview = Omit<BlogPost, "content">;
 
+type BlogFrontMatter = Partial<Omit<BlogPost, "slug" | "content">>;
+
 const DEFAULT_RECENT_BLOG_WINDOW_DAYS = 90;
 const DEFAULT_RECENT_BLOG_LIMIT = 12;
+const FRONT_MATTER_PATTERN = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/;
+
+function parseBlogMarkdown(fileContents: string): {
+  data: BlogFrontMatter;
+  content: string;
+} {
+  const match = fileContents.match(FRONT_MATTER_PATTERN);
+
+  if (!match) {
+    return { data: {}, content: fileContents };
+  }
+
+  const parsed = load(match[1]) as unknown;
+  const data =
+    parsed && typeof parsed === "object" && !Array.isArray(parsed)
+      ? (parsed as BlogFrontMatter)
+      : {};
+
+  return {
+    data,
+    content: fileContents.slice(match[0].length),
+  };
+}
 
 export function getAllBlogPosts(): BlogPostPreview[] {
   if (!fs.existsSync(contentDirectory)) return [];
@@ -42,7 +67,7 @@ export function getAllBlogPosts(): BlogPostPreview[] {
       const slug = filename.replace(/\.md$/, "");
       const fullPath = path.join(contentDirectory, filename);
       const fileContents = fs.readFileSync(fullPath, "utf8");
-      const { data } = matter(fileContents);
+      const { data } = parseBlogMarkdown(fileContents);
 
       return {
         slug,
@@ -65,7 +90,7 @@ export function getBlogPostBySlug(slug: string): BlogPost | null {
   if (!fs.existsSync(fullPath)) return null;
 
   const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
+  const { data, content } = parseBlogMarkdown(fileContents);
 
   return {
     slug,

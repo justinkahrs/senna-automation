@@ -1,4 +1,4 @@
-import { keyframes } from "@mui/material/styles";
+import { keyframes } from "@emotion/react";
 
 export const blink = keyframes({
   "0%": { opacity: 1 },

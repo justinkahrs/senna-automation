@@ -10,12 +10,18 @@ const siteHost = new URL(siteUrl).host;
 const indexNowKey = siteConfig.indexNowKey;
 const keyLocation = `${siteUrl}/${indexNowKey}.txt`;
 const endpoint = "https://api.indexnow.org/indexnow";
+const localSeoPaths = [
+  "/ai-consulting-grand-rapids",
+  "/ai-automation-grand-rapids",
+  "/workflow-automation-consultant-grand-rapids",
+];
 
 function getAllSiteUrls() {
   const urls = [
     siteUrl,
     `${siteUrl}/about`,
     `${siteUrl}/services`,
+    ...localSeoPaths.map((pathPart) => `${siteUrl}${pathPart}`),
     `${siteUrl}/solutions`,
     `${siteUrl}/pricing`,
     `${siteUrl}/contact`,

@@ -79,27 +79,27 @@ export default function About() {
           >
             About Us
           </Typography>
-          <Typography component="h1" variant="h1" color="inherit" gutterBottom>
+          <Typography component="h1" variant="h1" gutterBottom sx={{
+            color: "inherit"
+          }}>
             AI &amp; Workflow Automation Consulting
           </Typography>
 
           <Typography
             variant="body1"
-            color="inherit"
             sx={{
+              color: "inherit",
               mt: 2,
               maxWidth: 800,
               mx: "auto",
               opacity: 0.7,
-              fontSize: "1rem",
-            }}
-          >
+              fontSize: "1rem"
+            }}>
             Based in Grand Rapids, MI, helping businesses eliminate repetitive
             work with 15+ years of hands-on software experience.
           </Typography>
         </Container>
       </Box>
-
       <Box
         component="section"
         sx={{
@@ -109,14 +109,16 @@ export default function About() {
       >
         <Container maxWidth="lg">
           <Grid container spacing={{ xs: 6, md: 10, lg: 12 }}>
-            <Grid item xs={12} md={7}>
+            <Grid size={{ xs: 12, md: 7 }}>
               <Stack spacing={4}>
                 <Box>
                   <Typography
                     variant="h2"
                     component="h2"
-                    color="text.primary"
                     gutterBottom
+                    sx={{
+                      color: "text.primary"
+                    }}
                   >
                     Systems built for people, not just for machines.
                   </Typography>
@@ -124,9 +126,10 @@ export default function About() {
 
                 <Typography
                   variant="subtitle1"
-                  color="text.secondary"
-                  sx={{ maxWidth: "640px" }}
-                >
+                  sx={{
+                    color: "text.secondary",
+                    maxWidth: "640px"
+                  }}>
                   Most businesses aren’t short on tools, they’re short on time.
                   Between follow-ups, data entry, handoffs, and everything else
                   that piles up, a lot of the day ends up being spent just
@@ -135,18 +138,21 @@ export default function About() {
 
                 <Typography
                   variant="h5"
-                  color="text.primary"
-                  sx={{ fontWeight: 600 }}
-                >
+                  sx={{
+                    color: "text.primary",
+                    fontWeight: 600
+                  }}>
                   Senna Automation helps take that off your plate.
                 </Typography>
 
                 <Stack spacing={3} sx={{ mt: 2 }}>
                   <Typography
                     variant="body1"
-                    color="text.secondary"
-                    sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
-                  >
+                    sx={{
+                      color: "text.secondary",
+                      fontSize: "1.125rem",
+                      lineHeight: 1.8
+                    }}>
                     We&apos;re a full-stack automation and workflow consulting agency
                     based in Grand Rapids, Michigan. Our approach comes from
                     over 15 years of software development and working with
@@ -156,9 +162,11 @@ export default function About() {
 
                   <Typography
                     variant="body1"
-                    color="text.secondary"
-                    sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
-                  >
+                    sx={{
+                      color: "text.secondary",
+                      fontSize: "1.125rem",
+                      lineHeight: 1.8
+                    }}>
                     We focus on making the repetitive parts of your business run
                     on their own. Not a big overhaul. Not a complicated rebuild.
                     Just smarter systems that fit into how you already work.
@@ -168,9 +176,11 @@ export default function About() {
 
                   <Typography
                     variant="body1"
-                    color="text.secondary"
-                    sx={{ fontSize: "1.125rem", lineHeight: 1.8 }}
-                  >
+                    sx={{
+                      color: "text.secondary",
+                      fontSize: "1.125rem",
+                      lineHeight: 1.8
+                    }}>
                     At the end of the day, this is about making work feel
                     lighter. Fewer things slipping through the cracks, less time
                     spent on routine tasks, and more time for the work that
@@ -180,7 +190,7 @@ export default function About() {
               </Stack>
             </Grid>
 
-            <Grid item xs={12} md={5}>
+            <Grid size={{ xs: 12, md: 5 }}>
               <Box sx={{ position: { md: "sticky" }, top: 120 }}>
                 <Box
                   component="figure"
@@ -220,7 +230,9 @@ export default function About() {
                       pb: 4,
                     }}
                   >
-                    <Stack spacing={2.5} alignItems="center">
+                    <Stack spacing={2.5} sx={{
+                      alignItems: "center"
+                    }}>
                       <Box
                         component="img"
                         src="/images/master-logo.svg"
@@ -237,16 +249,15 @@ export default function About() {
                       <Stack
                         direction="row"
                         spacing={1}
-                        alignItems="center"
                         sx={{
+                          alignItems: "center",
                           px: 2,
                           py: 1,
                           borderRadius: "var(--radius-pill)",
                           bgcolor: "rgba(255,255,255,0.16)",
                           backdropFilter: "blur(6px)",
-                          color: "var(--color-text-inverse)",
-                        }}
-                      >
+                          color: "var(--color-text-inverse)"
+                        }}>
                         <LocationOnIcon
                           sx={{ fontSize: 18, color: "inherit" }}
                         />
@@ -302,7 +313,6 @@ export default function About() {
           </Grid>
         </Container>
       </Box>
-
       <FinalCTA
         title={
           <>

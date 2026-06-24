@@ -13,15 +13,18 @@ export default function Confirmation() {
       }}
     >
       <Container maxWidth="sm">
-        <Typography variant="h3" align="center" color="text.primary" gutterBottom>
+        <Typography variant="h3" align="center" gutterBottom sx={{
+          color: "text.primary"
+        }}>
           Appointment Confirmed!
         </Typography>
         <Typography
           variant="h6"
           align="center"
-          color="text.secondary"
-          paragraph
-        >
+          sx={{
+            color: "text.secondary",
+            marginBottom: "16px"
+          }}>
           Thank you for scheduling your appointment. We look forward to serving
           you.
         </Typography>

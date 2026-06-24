@@ -25,6 +25,7 @@ AGENTS.md
 # misc
 .DS_Store
 *.pem
+client_secret*.json
 .vscode/
 
 # debug

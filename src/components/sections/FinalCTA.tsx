@@ -120,7 +120,9 @@ export default function FinalCTA({
         >
           {subtitle}
         </Typography>
-        <Stack spacing={stackSpacing} alignItems="center">
+        <Stack spacing={stackSpacing} sx={{
+          alignItems: "center"
+        }}>
           {buttonHref ? (
             <Button
               component={Link}

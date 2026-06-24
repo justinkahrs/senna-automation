@@ -19,7 +19,7 @@ import {
   useTheme,
   Chip,
 } from "@mui/material";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import { growthTier, starterTier } from "@/components/pricing/tierData";
@@ -83,9 +83,11 @@ export default function PricingPage() {
             </Typography>
             <Typography
               variant="subtitle1"
-              color="text.secondary"
-              sx={{ maxWidth: "700px", mx: "auto" }}
-            >
+              sx={{
+                color: "text.secondary",
+                maxWidth: "700px",
+                mx: "auto"
+              }}>
               Every business has unique workflows. Our pricing reflects the
               complexity and scale of the systems we build. We provide clear,
               fixed-price quotes tailored to your specific needs after a free
@@ -119,10 +121,11 @@ export default function PricingPage() {
             <Grid
               container
               spacing={4}
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Grid item xs={12} sm={6}>
+              sx={{
+                alignItems: "center",
+                justifyContent: "center"
+              }}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Typography
                   variant="h3"
                   sx={{ fontWeight: 800, mb: 1, textAlign: { sm: "right" } }}
@@ -131,20 +134,19 @@ export default function PricingPage() {
                 </Typography>
                 <Typography
                   variant="body1"
-                  color="text.secondary"
-                  sx={{ textAlign: { sm: "right" } }}
-                >
+                  sx={{
+                    color: "text.secondary",
+                    textAlign: { sm: "right" }
+                  }}>
                   Professional automation for any budget
                 </Typography>
               </Grid>
               <Grid
-                item
                 sx={{
                   display: { xs: "none", sm: "flex" },
                   alignItems: "center",
                   justifyContent: "center",
-                }}
-              >
+                }}>
                 <Divider
                   orientation="vertical"
                   flexItem
@@ -153,7 +155,7 @@ export default function PricingPage() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12} sm={4}>
+              <Grid size={{ xs: 12, sm: 4 }}>
                 <Typography
                   variant="h4"
                   sx={{
@@ -167,9 +169,10 @@ export default function PricingPage() {
                 </Typography>
                 <Typography
                   variant="body1"
-                  color="text.secondary"
-                  sx={{ textAlign: { sm: "left" } }}
-                >
+                  sx={{
+                    color: "text.secondary",
+                    textAlign: { sm: "left" }
+                  }}>
                   Typical implementation timeline
                 </Typography>
               </Grid>
@@ -178,15 +181,14 @@ export default function PricingPage() {
         </Box>
 
         {/* Pricing Tiers */}
-        <Grid container spacing={4} alignItems="stretch">
+        <Grid container spacing={4} sx={{
+          alignItems: "stretch"
+        }}>
           {/* Starter */}
           <Grid
-            item
-            xs={12}
-            md={4}
             id={starterTier.anchorId}
-            sx={{ scrollMarginTop: { xs: 96, md: 128 } }}
-          >
+            size={{ xs: 12, md: 4 }}
+            sx={{ scrollMarginTop: { xs: 96, md: 128 } }}>
             <Card
               sx={{
                 height: "100%",
@@ -212,9 +214,10 @@ export default function PricingPage() {
                 </Typography>
                 <Typography
                   variant="body2"
-                  color="text.secondary"
-                  sx={{ mb: 3 }}
-                >
+                  sx={{
+                    color: "text.secondary",
+                    mb: 3
+                  }}>
                   {starterTier.description}
                 </Typography>
                 <Divider
@@ -222,9 +225,11 @@ export default function PricingPage() {
                 />
                 <Typography
                   variant="overline"
-                  color="primary.main"
-                  sx={{ mb: 2, display: "block" }}
-                >
+                  sx={{
+                    color: "primary.main",
+                    mb: 2,
+                    display: "block"
+                  }}>
                   Includes:
                 </Typography>
                 <List dense disablePadding>
@@ -242,9 +247,12 @@ export default function PricingPage() {
                 </List>
                 <Typography
                   variant="overline"
-                  color="primary.main"
-                  sx={{ mt: 3, mb: 2, display: "block" }}
-                >
+                  sx={{
+                    color: "primary.main",
+                    mt: 3,
+                    mb: 2,
+                    display: "block"
+                  }}>
                   Outcomes:
                 </Typography>
                 <List dense disablePadding>
@@ -280,12 +288,9 @@ export default function PricingPage() {
 
           {/* Growth - Most Popular */}
           <Grid
-            item
-            xs={12}
-            md={4}
             id={growthTier.anchorId}
-            sx={{ scrollMarginTop: { xs: 96, md: 128 } }}
-          >
+            size={{ xs: 12, md: 4 }}
+            sx={{ scrollMarginTop: { xs: 96, md: 128 } }}>
             <Card
               sx={{
                 height: "100%",
@@ -312,15 +317,17 @@ export default function PricingPage() {
               <CardContent sx={{ p: 4, flexGrow: 1 }}>
                 <Stack
                   direction="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  sx={{ mb: 1 }}
-                >
+                  sx={{
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    mb: 1
+                  }}>
                   <Typography
                     variant="overline"
-                    color="primary.main"
-                    sx={{ fontWeight: 700 }}
-                  >
+                    sx={{
+                      color: "primary.main",
+                      fontWeight: 700
+                    }}>
                     Most Popular
                   </Typography>
                   <Chip
@@ -340,9 +347,10 @@ export default function PricingPage() {
                 </Typography>
                 <Typography
                   variant="body2"
-                  color="text.secondary"
-                  sx={{ mb: 3 }}
-                >
+                  sx={{
+                    color: "text.secondary",
+                    mb: 3
+                  }}>
                   {growthTier.description}
                 </Typography>
                 <Divider
@@ -350,9 +358,11 @@ export default function PricingPage() {
                 />
                 <Typography
                   variant="overline"
-                  color="primary.main"
-                  sx={{ mb: 2, display: "block" }}
-                >
+                  sx={{
+                    color: "primary.main",
+                    mb: 2,
+                    display: "block"
+                  }}>
                   Includes:
                 </Typography>
                 <List dense disablePadding>
@@ -370,9 +380,12 @@ export default function PricingPage() {
                 </List>
                 <Typography
                   variant="overline"
-                  color="primary.main"
-                  sx={{ mt: 3, mb: 2, display: "block" }}
-                >
+                  sx={{
+                    color: "primary.main",
+                    mt: 3,
+                    mb: 2,
+                    display: "block"
+                  }}>
                   Outcomes:
                 </Typography>
                 <List dense disablePadding>
@@ -402,7 +415,7 @@ export default function PricingPage() {
           </Grid>
 
           {/* Custom */}
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Card
               sx={{
                 height: "100%",
@@ -428,9 +441,10 @@ export default function PricingPage() {
                 </Typography>
                 <Typography
                   variant="body2"
-                  color="text.secondary"
-                  sx={{ mb: 3 }}
-                >
+                  sx={{
+                    color: "text.secondary",
+                    mb: 3
+                  }}>
                   End-to-end automation and custom AI tools for complex,
                   high-volume operations.
                 </Typography>
@@ -439,9 +453,11 @@ export default function PricingPage() {
                 />
                 <Typography
                   variant="overline"
-                  color="primary.main"
-                  sx={{ mb: 2, display: "block" }}
-                >
+                  sx={{
+                    color: "primary.main",
+                    mb: 2,
+                    display: "block"
+                  }}>
                   Includes:
                 </Typography>
                 <List dense disablePadding>
@@ -475,9 +491,12 @@ export default function PricingPage() {
                 </List>
                 <Typography
                   variant="overline"
-                  color="primary.main"
-                  sx={{ mt: 3, mb: 2, display: "block" }}
-                >
+                  sx={{
+                    color: "primary.main",
+                    mt: 3,
+                    mb: 2,
+                    display: "block"
+                  }}>
                   Outcomes:
                 </Typography>
                 <List dense disablePadding>
@@ -496,7 +515,9 @@ export default function PricingPage() {
                 </List>
               </CardContent>
               <Box sx={{ p: 4, pt: 0 }}>
-                <Stack spacing={1.5} alignItems="center">
+                <Stack spacing={1.5} sx={{
+                  alignItems: "center"
+                }}>
                   <ScheduleCallButton
                     text="Book a Demo"
                     fullWidth
@@ -551,10 +572,12 @@ export default function PricingPage() {
         >
           <Typography
             variant="overline"
-            color="primary.main"
             gutterBottom
-            sx={{ display: "block", mb: 2 }}
-          >
+            sx={{
+              color: "primary.main",
+              display: "block",
+              mb: 2
+            }}>
             Long-term Value
           </Typography>
           <Typography variant="h2" gutterBottom>
@@ -562,22 +585,30 @@ export default function PricingPage() {
           </Typography>
           <Typography
             variant="body1"
-            color="text.secondary"
-            sx={{ maxWidth: "700px", mx: "auto", mb: 6, fontSize: "1.1rem" }}
-          >
+            sx={{
+              color: "text.secondary",
+              maxWidth: "700px",
+              mx: "auto",
+              mb: 6,
+              fontSize: "1.1rem"
+            }}>
             Automation isn&apos;t &quot;set it and forget it.&quot; We provide continuous
             monitoring, updates, and optimization to ensure your systems grow as
             your business evolves.
           </Typography>
-          <Grid container spacing={4} justifyContent="center">
+          <Grid container spacing={4} sx={{
+            justifyContent: "center"
+          }}>
             {[
               "24/7 Monitoring",
               "Monthly System Updates",
               "Performance Optimization",
               "Workflow Scaling",
             ].map((item) => (
-              <Grid item key={item}>
-                <Stack direction="row" spacing={1.5} alignItems="center">
+              <Grid key={item}>
+                <Stack direction="row" spacing={1.5} sx={{
+                  alignItems: "center"
+                }}>
                   <CheckCircleOutlineIcon color="primary" fontSize="small" />
                   <Typography variant="body1" sx={{ fontWeight: 600 }}>
                     {item}

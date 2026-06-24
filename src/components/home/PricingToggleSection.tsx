@@ -87,9 +87,10 @@ export default function PricingToggleSection() {
                     <Stack
                       direction="column"
                       spacing={4}
-                      alignItems="flex-start"
-                      sx={{ mt: "auto" }}
-                    >
+                      sx={{
+                        alignItems: "flex-start",
+                        mt: "auto"
+                      }}>
                       <Typography
                         variant="body1"
                         sx={{
