@@ -236,8 +236,10 @@ export function RfpPreviewStudio({ initialInput }: RfpPreviewStudioProps) {
         <Stack spacing={2.5}>
           <Stack
             direction={{ xs: "column", md: "row" }}
-            justifyContent="space-between"
             spacing={2}
+            sx={{
+              justifyContent: "space-between"
+            }}
           >
             <Box>
               <Stack direction="row" spacing={1} sx={{ mb: 1.5 }}>
@@ -280,7 +282,9 @@ export function RfpPreviewStudio({ initialInput }: RfpPreviewStudioProps) {
             </Button>
           </Stack>
 
-          <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+          <Stack direction="row" spacing={1} useFlexGap sx={{
+            flexWrap: "wrap"
+          }}>
             {variants.map((variant) => (
               <Button
                 key={variant.id}
@@ -299,11 +303,12 @@ export function RfpPreviewStudio({ initialInput }: RfpPreviewStudioProps) {
           </Typography>
         </Stack>
       </Paper>
-
       <Stack
         direction={{ xs: "column", xl: "row" }}
         spacing={2.5}
-        alignItems="stretch"
+        sx={{
+          alignItems: "stretch"
+        }}
       >
         <Paper
           elevation={0}
@@ -320,8 +325,10 @@ export function RfpPreviewStudio({ initialInput }: RfpPreviewStudioProps) {
           <Stack spacing={2}>
             <Stack
               direction={{ xs: "column", sm: "row" }}
-              justifyContent="space-between"
               spacing={1}
+              sx={{
+                justifyContent: "space-between"
+              }}
             >
               <Box>
                 <Typography variant="h6" sx={{ mb: 0.5 }}>
@@ -369,7 +376,9 @@ export function RfpPreviewStudio({ initialInput }: RfpPreviewStudioProps) {
             {pdfMessage ? <Alert severity="success">{pdfMessage}</Alert> : null}
             {pdfError ? <Alert severity="error">{pdfError}</Alert> : null}
 
-            <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+            <Stack direction="row" spacing={1} useFlexGap sx={{
+              flexWrap: "wrap"
+            }}>
               <Button
                 variant="outlined"
                 startIcon={<RefreshIcon />}
@@ -445,8 +454,10 @@ export function RfpPreviewStudio({ initialInput }: RfpPreviewStudioProps) {
           <Stack spacing={1.5}>
             <Stack
               direction={{ xs: "column", md: "row" }}
-              justifyContent="space-between"
               spacing={1}
+              sx={{
+                justifyContent: "space-between"
+              }}
             >
               <Box>
                 <Typography variant="h6" sx={{ mb: 0.5 }}>
@@ -500,7 +511,6 @@ export function RfpPreviewStudio({ initialInput }: RfpPreviewStudioProps) {
           </Stack>
         </Paper>
       </Stack>
-
       <Paper
         elevation={0}
         sx={{
@@ -513,8 +523,10 @@ export function RfpPreviewStudio({ initialInput }: RfpPreviewStudioProps) {
         <Stack spacing={2.5}>
           <Stack
             direction={{ xs: "column", md: "row" }}
-            justifyContent="space-between"
             spacing={1.5}
+            sx={{
+              justifyContent: "space-between"
+            }}
           >
             <Box>
               <Typography variant="h6" sx={{ mb: 0.5 }}>
@@ -544,7 +556,9 @@ export function RfpPreviewStudio({ initialInput }: RfpPreviewStudioProps) {
             </Button>
           </Stack>
 
-          <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+          <Stack direction="row" spacing={1} useFlexGap sx={{
+            flexWrap: "wrap"
+          }}>
             {promptStages.map((stage) => (
               <Button
                 key={stage.id}
@@ -580,7 +594,6 @@ export function RfpPreviewStudio({ initialInput }: RfpPreviewStudioProps) {
                   multiline
                   minRows={3}
                   fullWidth
-                  InputProps={{ readOnly: true }}
                   sx={{
                     "& .MuiInputBase-input": {
                       fontFamily:
@@ -588,6 +601,9 @@ export function RfpPreviewStudio({ initialInput }: RfpPreviewStudioProps) {
                       fontSize: 12.5,
                       lineHeight: 1.55,
                     },
+                  }}
+                  slotProps={{
+                    input: { readOnly: true }
                   }}
                 />
               ) : null}
@@ -602,7 +618,6 @@ export function RfpPreviewStudio({ initialInput }: RfpPreviewStudioProps) {
                 multiline
                 minRows={activePromptStage.id === "proposal" ? 18 : 12}
                 fullWidth
-                InputProps={{ readOnly: true }}
                 sx={{
                   "& .MuiInputBase-input": {
                     fontFamily:
@@ -610,6 +625,9 @@ export function RfpPreviewStudio({ initialInput }: RfpPreviewStudioProps) {
                     fontSize: 12.5,
                     lineHeight: 1.55,
                   },
+                }}
+                slotProps={{
+                  input: { readOnly: true }
                 }}
               />
             </Stack>

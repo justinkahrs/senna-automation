@@ -97,6 +97,7 @@ function runV2FixtureAssertions() {
   assert.equal(rendered.readiness.readyForFinal, true);
   assertNoBannedLanguage(rendered.proposalText);
   assert.ok(rendered.proposalHtml.includes("Compliance Matrix"));
+  assert.equal(rendered.proposalHtml.includes(".grid-2{"), false);
   assert.ok(rendered.normalized.complianceItems.length > 0);
   assert.equal(
     rendered.normalized.complianceItems.length,
@@ -104,6 +105,7 @@ function runV2FixtureAssertions() {
   );
   assert.ok(rendered.normalized.pricingLineItems.length > 0);
   assert.ok(rendered.normalized.supportTiers.length > 0);
+  assert.ok(rendered.normalized.supportTiers.length <= 3);
   assert.ok(rendered.normalized.hourlySupport);
   assert.ok(
     rendered.normalized.pricingLineItems.every((item) =>

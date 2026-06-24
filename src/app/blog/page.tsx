@@ -137,21 +137,22 @@ export default function BlogPage() {
         />
 
         <Container maxWidth="lg">
-          <Grid container spacing={8} alignItems="center">
-            <Grid item xs={12} md={7}>
+          <Grid container spacing={8} sx={{
+            alignItems: "center"
+          }}>
+            <Grid size={{ xs: 12, md: 7 }}>
               <Stack spacing={3}>
                 <Typography variant="overline" sx={{ ...homeEyebrowSx }}>
                   Featured
                 </Typography>
                 <Typography
                   variant="h1"
-                  color="inherit"
                   sx={{
+                    color: "inherit",
                     fontSize: "clamp(3.75rem, 9vw, 7rem)",
                     lineHeight: 0.96,
-                    letterSpacing: "-0.03em",
-                  }}
-                >
+                    letterSpacing: "-0.03em"
+                  }}>
                   {hasEndToEndLead ? (
                     <>
                       <Box
@@ -229,7 +230,7 @@ export default function BlogPage() {
                 </Box>
               </Stack>
             </Grid>
-            <Grid item xs={12} md={5}>
+            <Grid size={{ xs: 12, md: 5 }}>
               <Box
                 sx={{
                   position: "relative",
@@ -262,7 +263,6 @@ export default function BlogPage() {
           </Grid>
         </Container>
       </Box>
-
       {/* ── Blog Feed ─────────────────────────────────────────── */}
       <Box sx={{ py: { xs: 10, md: 16 } }}>
         <Container maxWidth="lg">
@@ -281,9 +281,11 @@ export default function BlogPage() {
 
           <Grid container spacing={4}>
             {blogPosts.map((post) => (
-              <Grid item xs={12} md={4} key={post.slug}>
+              <Grid
+                key={post.slug}
+                size={{ xs: 12, md: 4 }}>
                 <Card
-                  component={Link}
+                  component="a"
                   href={`/blog/${post.slug}`}
                   sx={{
                     height: "100%",
@@ -310,11 +312,14 @@ export default function BlogPage() {
                   <CardContent sx={{ flexGrow: 1, p: 4 }}>
                     <Stack
                       direction="row"
-                      justifyContent="space-between"
-                      alignItems="center"
-                      sx={{ mb: 2 }}
-                    >
-                      <Typography variant="overline" color="primary.main">
+                      sx={{
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        mb: 2
+                      }}>
+                      <Typography variant="overline" sx={{
+                        color: "primary.main"
+                      }}>
                         {post.category}
                       </Typography>
                       <Typography variant="caption">{post.date}</Typography>
@@ -329,9 +334,10 @@ export default function BlogPage() {
                     </Typography>
                     <Typography
                       variant="body1"
-                      color="text.secondary"
-                      sx={{ mb: 4 }}
-                    >
+                      sx={{
+                        color: "text.secondary",
+                        mb: 4
+                      }}>
                       {post.excerpt}
                     </Typography>
                     <Box sx={{ mt: "auto" }}>
@@ -367,7 +373,6 @@ export default function BlogPage() {
           </Grid>
         </Container>
       </Box>
-
       {/* ── Final CTA ─────────────────────────────────── */}
       <FinalCTA 
         title="Want to automate something in your business?"

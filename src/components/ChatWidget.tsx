@@ -279,9 +279,11 @@ export default function ChatWidget() {
             <Box sx={{ minWidth: 0, width: "100%" }}>
               <Typography
                 variant="subtitle1"
-                fontWeight="bold"
-                sx={{ color: BG_BASE, textAlign: "left" }}
-              >
+                sx={{
+                  fontWeight: "bold",
+                  color: BG_BASE,
+                  textAlign: "left"
+                }}>
                 Senna Assistant
               </Typography>
               <Box
@@ -330,7 +332,12 @@ export default function ChatWidget() {
             }}
           >
             {!hasConsent ? (
-              <Stack spacing={3} justifyContent="center" height="100%">
+              <Stack
+                spacing={3}
+                sx={{
+                  justifyContent: "center",
+                  height: "100%"
+                }}>
                 <Typography variant="body1" align="center">
                   To start a chat, please introduce yourself.
                 </Typography>
@@ -346,7 +353,9 @@ export default function ChatWidget() {
                     variant="body2"
                     color="error"
                     gutterBottom
-                    fontWeight="bold"
+                    sx={{
+                      fontWeight: "bold"
+                    }}
                   >
                     Disclaimer:
                   </Typography>
@@ -371,14 +380,15 @@ export default function ChatWidget() {
               </Stack>
             ) : (
               // Chat View
-              <Stack spacing={2} sx={{ flexGrow: 1 }}>
+              (<Stack spacing={2} sx={{ flexGrow: 1 }}>
                 {messages.length === 0 && (
                   <Typography
                     variant="caption"
                     align="center"
-                    color="text.secondary"
-                    sx={{ mt: 2 }}
-                  >
+                    sx={{
+                      color: "text.secondary",
+                      mt: 2
+                    }}>
                     Start the conversation below...
                   </Typography>
                 )}
@@ -397,14 +407,16 @@ export default function ChatWidget() {
                         boxShadow: 1,
                       }}
                     >
-                      <Typography variant="body2" color="inherit">
+                      <Typography variant="body2" sx={{
+                        color: "inherit"
+                      }}>
                         {msg.text}
                       </Typography>
                     </Box>
                   );
                 })}
                 <div ref={messagesEndRef} />
-              </Stack>
+              </Stack>)
             )}
           </Box>
 
@@ -462,7 +474,6 @@ export default function ChatWidget() {
           )}
         </Paper>
       </Fade>
-
       <Fab
         variant="extended"
         aria-label="chat"

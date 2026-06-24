@@ -27,7 +27,14 @@ const NAV_LINKS = [
   { label: "Blog", href: "/blog" },
 ];
 
+const localSeoDarkHeroPaths = new Set([
+  "/ai-consulting-grand-rapids",
+  "/ai-automation-grand-rapids",
+  "/workflow-automation-consultant-grand-rapids",
+]);
+
 const hasDarkHeroHeader = (pathname: string) =>
+  localSeoDarkHeroPaths.has(pathname) ||
   pathname === "/about" ||
   pathname === "/blog" ||
   pathname.startsWith("/blog/") ||
@@ -283,15 +290,17 @@ export function AppBar() {
               anchorEl={mobileMenuAnchorEl}
               open={isOpen}
               onClose={handleMobileMenuClose}
-              PaperProps={{
-                sx: {
-                  backgroundColor: "background.paper",
-                  border: "1px solid",
-                  borderColor: "divider",
-                  boxShadow: "var(--shadow-md)",
-                  borderRadius: 3,
-                  mt: 1,
-                  minWidth: 220,
+              slotProps={{
+                paper: {
+                  sx: {
+                    backgroundColor: "background.paper",
+                    border: "1px solid",
+                    borderColor: "divider",
+                    boxShadow: "var(--shadow-md)",
+                    borderRadius: 3,
+                    mt: 1,
+                    minWidth: 220,
+                  },
                 },
               }}
               transformOrigin={{ horizontal: "right", vertical: "top" }}

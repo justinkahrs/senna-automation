@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
 import { usePathname } from "next/navigation";
 import { trackExternalLink } from "@/utils/analytics";
 
@@ -24,6 +25,20 @@ const footerLinkGroups = [
       { label: "Blog", href: "/blog" },
     ],
   },
+];
+
+const localFooterLinks = [
+  {
+    heading: "Local",
+    links: [
+      { label: "AI Consulting", href: "/ai-consulting-grand-rapids" },
+      { label: "AI Automation", href: "/ai-automation-grand-rapids" },
+      {
+        label: "Workflow Consultant",
+        href: "/workflow-automation-consultant-grand-rapids",
+      },
+    ],
+  },
   {
     heading: "Explore",
     links: [
@@ -34,7 +49,7 @@ const footerLinkGroups = [
   },
 ];
 
-export function Footer() {
+export function Footer({ currentYear }: { currentYear: number }) {
   const pathname = usePathname();
   const usesYellowFooterBleed = ["/", "/about", "/contact"].includes(pathname);
   const usesExtendedCtaBackdrop = [
@@ -163,7 +178,7 @@ export function Footer() {
           }}
         >
           <Grid container spacing={8}>
-            <Grid item xs={12} md={2}>
+            <Grid size={{ xs: 12, md: 2 }}>
               <Box
                 component="img"
                 src="/images/master-logo.svg"
@@ -190,7 +205,9 @@ export function Footer() {
               </Typography>
             </Grid>
             {footerLinkGroups.map((group) => (
-              <Grid item xs={12} sm={4} md={2} key={group.heading}>
+              <Grid
+                key={group.heading}
+                size={{ xs: 12, sm: 4, md: 2 }}>
                 <Box sx={{ ml: { md: 5 } }}>
                   <Typography
                     variant="overline"
@@ -216,7 +233,9 @@ export function Footer() {
                           "&:hover": { color: "var(--color-bg-subtle)" },
                         }}
                       >
-                        <Typography variant="body2" color="inherit">
+                        <Typography variant="body2" sx={{
+                          color: "inherit"
+                        }}>
                           {link.label}
                         </Typography>
                       </Link>
@@ -225,7 +244,45 @@ export function Footer() {
                 </Box>
               </Grid>
             ))}
-            <Grid item xs={12} sm={4} md={2}>
+            <Grid size={{ xs: 12, sm: 4, md: 2 }}>
+              <Box sx={{ ml: { md: 5 }, display: "flex", flexDirection: "column", gap: 4 }}>
+                {localFooterLinks.map((group) => (
+                  <Box key={group.heading}>
+                    <Typography
+                      variant="overline"
+                      sx={{
+                        color: "var(--color-text-on-dark-prominent)",
+                        display: "block",
+                        mb: 3,
+                      }}
+                    >
+                      {group.heading}
+                    </Typography>
+                    <Box
+                      sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}
+                    >
+                      {group.links.map((link) => (
+                        <Link
+                          key={link.label}
+                          href={link.href}
+                          sx={{
+                            color: "var(--color-accent-cyan)",
+                            textDecoration: "none",
+                            transition: "color var(--dur-base) ease",
+                            "&:hover": { color: "var(--color-bg-subtle)" },
+                          }}
+                        >
+                          <Typography variant="body2" sx={{ color: "inherit" }}>
+                            {link.label}
+                          </Typography>
+                        </Link>
+                      ))}
+                    </Box>
+                  </Box>
+                ))}
+              </Box>
+            </Grid>
+            <Grid size={{ xs: 12, sm: 4, md: 2 }}>
               <Box sx={{ ml: { md: 5 } }}>
                 <Typography
                   variant="overline"
@@ -266,10 +323,24 @@ export function Footer() {
                   >
                     <InstagramIcon />
                   </IconButton>
+                  <IconButton
+                    component="a"
+                    href="https://www.facebook.com/senna.automation"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackExternalLink("https://www.facebook.com/senna.automation", "Facebook")}
+                    sx={{
+                      color: "var(--color-text-on-dark-body)",
+                      p: 0,
+                      "&:hover": { color: "var(--color-accent-cyan)" },
+                    }}
+                  >
+                    <FacebookIcon />
+                  </IconButton>
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={4} md={4}>
+            <Grid size={{ xs: 12, sm: 4, md: 4 }}>
               <Box sx={{ ml: { md: 5 } }}>
                 <Typography
                   variant="overline"
@@ -359,7 +430,7 @@ export function Footer() {
               variant="body2"
               sx={{ color: "var(--color-text-muted)" }}
             >
-              © {new Date().getFullYear()} Senna Automation LLC.
+              © {currentYear} Senna Automation LLC.
             </Typography>
             <Box sx={{ display: "flex", gap: 3 }}>
               <Link

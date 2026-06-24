@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import Script from "next/script";
 import {
@@ -14,7 +13,7 @@ import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { NumberedSteps } from "@/components/blog/NumberedSteps";
 import FinalCTA from "@/components/sections/FinalCTA";
@@ -228,7 +227,6 @@ export default function ServicesPage() {
               on growing revenue.
             </Typography>
             <Button
-              component={Link}
               href="/contact"
               variant="contained"
               size="large"
@@ -239,7 +237,6 @@ export default function ServicesPage() {
           </Box>
         </Container>
       </Box>
-
       {/* ── Intro ─────────────────────────────────────────── */}
       <Box sx={{ py: { xs: 10, md: 16 }, bgcolor: "background.paper" }}>
         <Container maxWidth="lg">
@@ -265,12 +262,11 @@ export default function ServicesPage() {
               <Typography
                 variant="h4"
                 component="h3"
-                color="text.primary"
                 sx={{
+                  color: "text.primary",
                   mt: 3,
-                  lineHeight: 1.35,
-                }}
-              >
+                  lineHeight: 1.35
+                }}>
                 We remove that overhead so things stay in motion without you
                 thinking about it.
               </Typography>
@@ -278,9 +274,7 @@ export default function ServicesPage() {
           </Stack>
         </Container>
       </Box>
-
       <Divider />
-
       {/* ── Core Services ─────────────────────────────────── */}
       <Box sx={{ py: { xs: 6, md: 10 } }}>
         <Container maxWidth="lg">
@@ -296,7 +290,9 @@ export default function ServicesPage() {
 
           <Grid container spacing={5}>
             {services.map((service) => (
-              <Grid item xs={12} md={6} key={service.title}>
+              <Grid
+                key={service.title}
+                size={{ xs: 12, md: 6 }}>
                 <Box
                   sx={{
                     bgcolor: "background.paper",
@@ -329,9 +325,11 @@ export default function ServicesPage() {
 
                   <Typography
                     variant="body1"
-                    color="text.secondary"
-                    sx={{ mb: 3, lineHeight: 1.8 }}
-                  >
+                    sx={{
+                      color: "text.secondary",
+                      mb: 3,
+                      lineHeight: 1.8
+                    }}>
                     {service.description}
                   </Typography>
 
@@ -348,9 +346,10 @@ export default function ServicesPage() {
                         key={ex}
                         component="li"
                         variant="body2"
-                        color="text.secondary"
-                        sx={{ mb: 0.5 }}
-                      >
+                        sx={{
+                          color: "text.secondary",
+                          mb: 0.5
+                        }}>
                         {ex}
                       </Typography>
                     ))}
@@ -387,7 +386,6 @@ export default function ServicesPage() {
           </Grid>
         </Container>
       </Box>
-
       {/* ── How It Works ──────────────────────────────────── */}
       <Box sx={{ bgcolor: "background.paper", py: { xs: 6, md: 10 } }}>
         <Container maxWidth="lg">
@@ -397,7 +395,6 @@ export default function ServicesPage() {
           <NumberedSteps steps={steps} />
         </Container>
       </Box>
-
       {/* ── Final CTA ─────────────────────────────────────── */}
       <FinalCTA />
     </Box>

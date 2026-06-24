@@ -26,7 +26,9 @@ export const CustomRequest = () => {
           <Typography variant="h4" component="h2" gutterBottom>
             Custom Request
           </Typography>
-          <Typography variant="subtitle1" color="text.secondary">
+          <Typography variant="subtitle1" sx={{
+            color: "text.secondary"
+          }}>
             Can&apos;t find the template you need? Request a custom solution
             tailored to your business.
           </Typography>

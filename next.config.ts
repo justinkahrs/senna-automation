@@ -1,5 +1,22 @@
-const nextConfig = {
+import type { NextConfig } from "next";
+import { networkInterfaces } from "node:os";
+
+const allowedDevOrigins = Array.from(
+  new Set([
+    "localhost",
+    "127.0.0.1",
+    ...Object.values(networkInterfaces())
+      .flat()
+      .filter((address): address is NonNullable<typeof address> =>
+        Boolean(address && address.family === "IPv4" && !address.internal),
+      )
+      .map((address) => address.address),
+  ]),
+);
+
+const nextConfig: NextConfig = {
   reactStrictMode: true,
+  allowedDevOrigins,
   transpilePackages: ["framer-motion"],
   images: {
     remotePatterns: [
@@ -16,11 +33,6 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
   async headers() {
     const staticAssetCache = [
       {
@@ -30,15 +42,6 @@ const nextConfig = {
     ];
 
     return [
-      {
-        source: "/_next/static/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
       {
         source: "/images/:path*",
         headers: staticAssetCache,

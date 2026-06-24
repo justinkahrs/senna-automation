@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import { ClientProviders } from "./ClientProviders";
 import { AppBar } from "@/components/layout/AppBar";
 import { Footer } from "@/components/layout/Footer";
@@ -135,6 +135,8 @@ const organizationJsonLd = {
   sameAs: [
     "https://linkedin.com/company/senna-automation",
     "https://instagram.com/sennaautomation",
+    "https://www.bbb.org/us/mi/grand-rapids/profile/artificial-intelligence/senna-automation-0372-90070205",
+    "https://web.grandrapids.org/AI-(Artificial-Intelligence)/Senna-Automation-11264",
   ],
   founder: {
     "@type": "Person",
@@ -143,11 +145,20 @@ const organizationJsonLd = {
   },
   knowsAbout: [
     "AI workflow automation",
+    "AI consulting",
+    "AI automation",
     "business automation consulting",
+    "workflow automation consulting",
+    "business process automation",
     "custom software development",
+    "custom AI solutions",
     "web development",
     "chatbot development",
+    "lead follow-up automation",
+    "document processing automation",
+    "internal AI assistants",
     "process automation",
+    "West Michigan business automation",
     "digital transformation",
     "enterprise AI solutions",
   ],
@@ -185,6 +196,12 @@ const localBusinessJsonLd = {
   },
   priceRange: "$$",
   openingHours: "Mo-Fr 09:00-17:00",
+  sameAs: [
+    "https://linkedin.com/company/senna-automation",
+    "https://instagram.com/sennaautomation",
+    "https://www.bbb.org/us/mi/grand-rapids/profile/artificial-intelligence/senna-automation-0372-90070205",
+    "https://web.grandrapids.org/AI-(Artificial-Intelligence)/Senna-Automation-11264",
+  ],
 };
 
 const websiteJsonLd = {
@@ -229,7 +246,7 @@ export default function RootLayout({
         <link rel="hub" href={WEBSUB_HUB_URL} />
         <link rel="icon" href={FAVICON_URL} />
         {/* JSON-LD Structured Data */}
-        <Script
+        <script
           id="organization-structured-data"
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for JSON-LD structured data
@@ -237,7 +254,7 @@ export default function RootLayout({
             __html: JSON.stringify(organizationJsonLd),
           }}
         />
-        <Script
+        <script
           id="local-business-structured-data"
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for JSON-LD structured data
@@ -245,7 +262,7 @@ export default function RootLayout({
             __html: JSON.stringify(localBusinessJsonLd),
           }}
         />
-        <Script
+        <script
           id="website-structured-data"
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for JSON-LD structured data
@@ -278,7 +295,7 @@ export default function RootLayout({
             >
               {children}
             </main>
-            <Footer />
+            <Footer currentYear={new Date().getFullYear()} />
             <PrivacyNoticeBanner />
             <ChatWidget />
             <AnalyticsProvider />

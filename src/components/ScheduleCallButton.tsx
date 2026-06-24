@@ -45,7 +45,10 @@ export default function ScheduleCallButton({
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"), {
+    noSsr: true,
+    defaultMatches: false,
+  });
 
   useEffect(() => {
     setMounted(true);
@@ -159,7 +162,9 @@ export default function ScheduleCallButton({
                 "linear-gradient(180deg, rgba(143,0,107,0.06) 0%, rgba(143,0,107,0.02) 100%)",
             }}
           >
-            <Stack direction="row" spacing={2} alignItems="flex-start">
+            <Stack direction="row" spacing={2} sx={{
+              alignItems: "flex-start"
+            }}>
               <Box sx={{ flex: 1, minWidth: 0 }}>
                 <Typography
                   sx={{

@@ -571,10 +571,11 @@ export function PortalUploadForm({
       <Stack spacing={3.5} component="form" onSubmit={handleSubmit}>
         <Stack
           direction={{ xs: "column", md: "row" }}
-          justifyContent="space-between"
-          alignItems={{ xs: "flex-start", md: "center" }}
           spacing={2}
-        >
+          sx={{
+            justifyContent: "space-between",
+            alignItems: { xs: "flex-start", md: "center" }
+          }}>
           <Box>
             <Stack direction="row" spacing={1} sx={{ mb: 1.5 }}>
               <Chip
@@ -646,7 +647,9 @@ export function PortalUploadForm({
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={1.5}
-            alignItems={{ xs: "stretch", sm: "center" }}
+            sx={{
+              alignItems: { xs: "stretch", sm: "center" }
+            }}
           >
             <Button
               component="label"
@@ -662,7 +665,9 @@ export function PortalUploadForm({
                 onChange={handleFileChange}
               />
             </Button>
-            <Stack direction="row" spacing={1} alignItems="center">
+            <Stack direction="row" spacing={1} sx={{
+              alignItems: "center"
+            }}>
               <ArticleIcon sx={{ color: "var(--color-accent)" }} />
               <Typography variant="body2" sx={{ color: "var(--color-text-secondary)" }}>
                 {file ? file.name : "No file selected"}
@@ -836,9 +841,10 @@ export function PortalUploadForm({
         <Stack
           direction={{ xs: "column", sm: "row" }}
           spacing={1.5}
-          justifyContent="space-between"
-          alignItems={{ xs: "stretch", sm: "center" }}
-        >
+          sx={{
+            justifyContent: "space-between",
+            alignItems: { xs: "stretch", sm: "center" }
+          }}>
           <Typography
             variant="body2"
             sx={{ color: "var(--color-text-muted)", maxWidth: 540 }}

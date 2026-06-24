@@ -339,7 +339,6 @@ export default async function BlogPostPage({
           strategy="afterInteractive"
         />
       )}
-
       {/* ── Progress Bar Placeholder ── */}
       <Box
         sx={{
@@ -354,7 +353,6 @@ export default async function BlogPostPage({
           display: "none",
         }}
       />
-
       <Box
         component="section"
         sx={{
@@ -431,16 +429,17 @@ export default async function BlogPostPage({
 
         <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
           <Grid container>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Stack spacing={4} sx={{ py: { xs: 8, md: 16 }, pr: { md: 8 } }}>
                 <Typography variant="overline" sx={{ color: "primary.light" }}>
                   {post.category} • {post.date}
                 </Typography>
                 <Typography
                   variant="h1"
-                  color="inherit"
-                  sx={{ fontSize: { xs: "2.5rem", md: "4rem" } }}
-                >
+                  sx={{
+                    color: "inherit",
+                    fontSize: { xs: "2.5rem", md: "4rem" }
+                  }}>
                   {post.title}
                 </Typography>
                 {post.subtitle && (
@@ -465,11 +464,10 @@ export default async function BlogPostPage({
           </Grid>
         </Container>
       </Box>
-
       <Box sx={{ bgcolor: "background.default" }}>
         <Container maxWidth="lg" sx={{ pt: { xs: 8, md: 12 } }}>
           <Grid container spacing={8}>
-            <Grid item xs={12} md={8}>
+            <Grid size={{ xs: 12, md: 8 }}>
               <Stack spacing={4}>
                 <Box sx={{ "& p": { mb: 4, lineHeight: 1.8 } }}>
                   {contentParts ? (
@@ -504,7 +502,7 @@ export default async function BlogPostPage({
               </Stack>
             </Grid>
   
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Box sx={{ position: { md: "sticky" }, top: 120 }}>
                 <Stack spacing={4}>
                   {post.metadata.client && (
@@ -517,9 +515,10 @@ export default async function BlogPostPage({
                       </Typography>
                       <Typography
                         variant="body1"
-                        color="text.primary"
-                        sx={{ whiteSpace: "pre-line" }}
-                      >
+                        sx={{
+                          color: "text.primary",
+                          whiteSpace: "pre-line"
+                        }}>
                         {post.metadata.client}
                       </Typography>
                     </Box>
@@ -532,7 +531,9 @@ export default async function BlogPostPage({
                       >
                         Company
                       </Typography>
-                      <Typography variant="body1" color="text.primary">
+                      <Typography variant="body1" sx={{
+                        color: "text.primary"
+                      }}>
                         {post.metadata.companyUrl &&
                         post.metadata.companyUrl !== "#" ? (
                           <Link
@@ -558,7 +559,9 @@ export default async function BlogPostPage({
                       >
                         Year
                       </Typography>
-                      <Typography variant="body1" color="text.primary">
+                      <Typography variant="body1" sx={{
+                        color: "text.primary"
+                      }}>
                         {post.metadata.year}
                       </Typography>
                     </Box>
@@ -571,7 +574,9 @@ export default async function BlogPostPage({
                       >
                         Role
                       </Typography>
-                      <Typography variant="body1" color="text.primary">
+                      <Typography variant="body1" sx={{
+                        color: "text.primary"
+                      }}>
                         {post.metadata.role}
                       </Typography>
                     </Box>
@@ -584,14 +589,16 @@ export default async function BlogPostPage({
                       >
                         Tools
                       </Typography>
-                      <Typography variant="body1" color="text.primary">
+                      <Typography variant="body1" sx={{
+                        color: "text.primary"
+                      }}>
                         {post.metadata.tools}
                       </Typography>
                     </Box>
                   )}
                   {relatedPost && (
                     <Box
-                      component={Link}
+                      component="a"
                       href={`/blog/${relatedPost.slug}`}
                       sx={{
                         display: "block",
@@ -659,7 +666,6 @@ export default async function BlogPostPage({
           </Box>
         </Container>
       </Box>
-
       <FinalCTA 
         title="Want to see this in your business?"
         subtitle="Book a free 30-minute call. We'll walk through your workflows and identify exactly where automation can save you time."

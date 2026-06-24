@@ -5,6 +5,7 @@ import { createContext, useMemo } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { getThemeTokens } from "@/components/theme/theme";
+import { ModalProvider } from "@/context/ModalContext";
 
 interface ColorModeContextProps {
   mode: "light" | "dark";
@@ -15,8 +16,6 @@ export const ColorModeContext = createContext<ColorModeContextProps>({
   mode: "light",
   toggleColorMode: () => {},
 });
-
-import { ModalProvider } from "@/context/ModalContext";
 
 export function ClientProviders({ children }: { children: React.ReactNode }) {
   const theme = useMemo(() => createTheme(getThemeTokens()), []);

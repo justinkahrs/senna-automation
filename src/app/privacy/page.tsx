@@ -16,10 +16,17 @@ export default function Privacy() {
           <Typography variant="h2" gutterBottom>
             Privacy Policy
           </Typography>
-          <Typography variant="subtitle1" color="text.secondary" paragraph>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              color: "text.secondary",
+              marginBottom: "16px"
+            }}>
             Last updated: May 8, 2025
           </Typography>
-          <Typography variant="body1" paragraph>
+          <Typography variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             Senna Automation LLC (“we,” “us,” or “our”) operates{" "}
             <a
               href="https://www.senna-automation.com"
@@ -40,7 +47,9 @@ export default function Privacy() {
           <Typography variant="subtitle1" gutterBottom>
             1.1 Information You Provide Directly
           </Typography>
-          <Typography component="ul" variant="body1" paragraph>
+          <Typography component="ul" variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             <li>
               <strong>Account &amp; Purchases:</strong> Name, email address,
               billing address, payment information (processed by Stripe or
@@ -56,7 +65,9 @@ export default function Privacy() {
           <Typography variant="subtitle1" gutterBottom>
             1.2 Automatically Collected Information
           </Typography>
-          <Typography component="ul" variant="body1" paragraph>
+          <Typography component="ul" variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             <li>
               <strong>Usage Data:</strong> App telemetry (e.g. feature usage,
               errors, crashes) and Site analytics (page views, referral URLs,
@@ -73,7 +84,9 @@ export default function Privacy() {
           <Typography variant="subtitle1" gutterBottom>
             1.3 Third-Party Sources
           </Typography>
-          <Typography component="ul" variant="body1" paragraph>
+          <Typography component="ul" variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             <li>
               <strong>Payment Processors:</strong> We receive confirmation of
               successful payments and limited transaction details from
@@ -91,7 +104,9 @@ export default function Privacy() {
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
             2. How We Use Your Information
           </Typography>
-          <Typography component="ul" variant="body1" paragraph>
+          <Typography component="ul" variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             <li>
               <strong>Provide &amp; Improve Services:</strong> Deliver,
               maintain, and enhance the App and Site, fix bugs, and roll out new
@@ -122,7 +137,9 @@ export default function Privacy() {
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
             3. How We Share Your Information
           </Typography>
-          <Typography component="ul" variant="body1" paragraph>
+          <Typography component="ul" variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             <li>
               <strong>Service Providers:</strong> Vendors who perform services
               on our behalf (e.g. payment processors, hosting, analytics, email
@@ -142,7 +159,9 @@ export default function Privacy() {
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
             4. Cookies &amp; Tracking Technologies
           </Typography>
-          <Typography component="ul" variant="body1" paragraph>
+          <Typography component="ul" variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             <li>
               <strong>Essential Cookies:</strong> Required for site
               functionality (e.g. login sessions, shopping cart).
@@ -156,7 +175,9 @@ export default function Privacy() {
               you opt in, for tailored offers and retargeting.
             </li>
           </Typography>
-          <Typography variant="body2" paragraph>
+          <Typography variant="body2" sx={{
+            marginBottom: "16px"
+          }}>
             You can manage or disable cookies via your browser settings or
             through our cookie banner on first visit.
           </Typography>
@@ -165,7 +186,9 @@ export default function Privacy() {
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
             5. Your Choices &amp; Rights
           </Typography>
-          <Typography component="ul" variant="body1" paragraph>
+          <Typography component="ul" variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             <li>
               <strong>Access &amp; Correction:</strong> Request a copy of or
               correction to your personal data.
@@ -184,7 +207,9 @@ export default function Privacy() {
               settings).
             </li>
           </Typography>
-          <Typography variant="body2" paragraph>
+          <Typography variant="body2" sx={{
+            marginBottom: "16px"
+          }}>
             To exercise these rights, contact us at
             privacy@senna-automation.com.
           </Typography>
@@ -193,7 +218,9 @@ export default function Privacy() {
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
             6. Data Security
           </Typography>
-          <Typography variant="body1" paragraph>
+          <Typography variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             We implement industry-standard technical and organizational measures
             to protect your data, including encryption in transit (HTTPS) and at
             rest, regular security audits, and limited access controls. However,
@@ -205,7 +232,9 @@ export default function Privacy() {
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
             7. Data Retention
           </Typography>
-          <Typography variant="body1" paragraph>
+          <Typography variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             We retain your personal data for as long as needed to fulfill the
             purposes outlined in Section 2, or as required by law (e.g. tax
             records). After that, we delete or anonymize the data.
@@ -215,7 +244,9 @@ export default function Privacy() {
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
             8. International Transfers
           </Typography>
-          <Typography variant="body1" paragraph>
+          <Typography variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             Senna Automation LLC is based in the U.S. If you’re located outside
             the U.S., please note that your data may be transferred to and
             processed on servers in the U.S., under U.S. privacy laws.
@@ -225,7 +256,9 @@ export default function Privacy() {
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
             9. Children’s Privacy
           </Typography>
-          <Typography variant="body1" paragraph>
+          <Typography variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             Our Site and App are not intended for children under 16. We do not
             knowingly collect personal data from anyone under 16. If you believe
             we have, please contact us and we will delete that information.
@@ -235,7 +268,9 @@ export default function Privacy() {
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
             10. Changes to This Policy
           </Typography>
-          <Typography variant="body1" paragraph>
+          <Typography variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             We may update this Privacy Policy at any time. The “Last updated”
             date will change accordingly. Your continued use of the Site or App
             after revisions constitutes acceptance of the updated policy.
@@ -245,7 +280,9 @@ export default function Privacy() {
           <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
             11. Contact Us
           </Typography>
-          <Typography variant="body1" paragraph>
+          <Typography variant="body1" sx={{
+            marginBottom: "16px"
+          }}>
             Senna Automation LLC
             <br />
             Email: contact@senna-automation.com

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllBlogPosts } from "@/utils/blog";
+import { localSeoRoutes } from "@/components/localSeo/localSeoPages";
 import { SITE_URL } from "@/utils/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -27,6 +28,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    ...localSeoRoutes.map((route) => ({
+      url: route.url,
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
+    })),
     {
       url: `${SITE_URL}/solutions`,
       changeFrequency: "monthly",

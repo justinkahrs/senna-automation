@@ -81,8 +81,10 @@ export default function ContactForm() {
           pb: { xs: 10, md: 16 },
         }}
       >
-        <Grid container spacing={{ xs: 6, md: 10 }} alignItems="start">
-          <Grid item xs={12} md={5}>
+        <Grid container spacing={{ xs: 6, md: 10 }} sx={{
+          alignItems: "start"
+        }}>
+          <Grid size={{ xs: 12, md: 5 }}>
             <Box
               sx={{
                 maxWidth: 520,
@@ -96,17 +98,18 @@ export default function ContactForm() {
                 variant="h1"
                 component="h1"
                 gutterBottom
-                color="text.primary"
                 sx={{
+                  color: "text.primary",
+
                   fontFamily:
                     '"itc-avant-garde-gothic-pro", system-ui, -apple-system, sans-serif',
+
                   textAlign: { xs: "center", md: "left" },
                   textTransform: "uppercase",
                   fontSize: "clamp(3.75rem, 9vw, 7rem)",
                   lineHeight: 0.96,
-                  letterSpacing: "-0.04em",
-                }}
-              >
+                  letterSpacing: "-0.04em"
+                }}>
                 <Box
                   component="span"
                   sx={{ display: "block", fontSize: "0.9em", fontWeight: 700 }}
@@ -137,24 +140,22 @@ export default function ContactForm() {
               </Typography>
               <Typography
                 variant="subtitle1"
-                color="text.primary"
                 sx={{
+                  color: "text.primary",
                   mb: 3,
                   maxWidth: 560,
-                  textAlign: { xs: "center", md: "left" },
-                }}
-              >
+                  textAlign: { xs: "center", md: "left" }
+                }}>
                 No prep needed. We&apos;ll walk through your current process and
                 find where automation can help.
               </Typography>
                 <Typography
                   variant="body1"
-                  color="text.primary"
                   sx={{
+                    color: "text.primary",
                     textAlign: { xs: "center", md: "left" },
-                    "& a:hover": { color: "var(--color-accent)" },
-                  }}
-                >
+                    "& a:hover": { color: "var(--color-accent)" }
+                  }}>
                   Prefer to talk directly? Call{" "}
                   <a
                     href="tel:+16162873360"
@@ -167,7 +168,7 @@ export default function ContactForm() {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={7}>
+          <Grid size={{ xs: 12, md: 7 }}>
             <Box
               sx={{
                 width: "100%",
@@ -295,9 +296,11 @@ export default function ContactForm() {
                 />
                 <Typography
                   variant="body2"
-                  color="text.primary"
-                  sx={{ mt: 2, mb: 1 }}
-                >
+                  sx={{
+                    color: "text.primary",
+                    mt: 2,
+                    mb: 1
+                  }}>
                   Preferred Contact Method *
                 </Typography>
                 <RadioGroup
@@ -451,9 +454,10 @@ export default function ContactForm() {
                 >
                   <Typography
                     variant="body1"
-                    color="text.secondary"
-                    sx={{ mb: 2 }}
-                  >
+                    sx={{
+                      color: "text.secondary",
+                      mb: 2
+                    }}>
                     Prefer to just talk? Skip the form.
                   </Typography>
                   <ScheduleCallButton

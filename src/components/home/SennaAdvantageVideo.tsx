@@ -41,8 +41,9 @@ export default function SennaAdvantageVideo() {
       sx={{
         position: "relative",
         width: "100%",
-        height: "100%",
-        minHeight: { xs: 280, sm: 340, md: "100%" },
+        height: { md: "100%" },
+        aspectRatio: { xs: "4 / 3", md: "auto" },
+        minHeight: { xs: 280, sm: 320, md: 560 },
         bgcolor: "var(--color-text-primary)",
         borderTopLeftRadius: { xs: 0, md: "12px" },
         borderBottomLeftRadius: { xs: 0, md: "12px" },
@@ -57,6 +58,8 @@ export default function SennaAdvantageVideo() {
         loop
         playsInline
         sx={{
+          position: "absolute",
+          inset: 0,
           width: "100%",
           height: "100%",
           objectFit: "cover",

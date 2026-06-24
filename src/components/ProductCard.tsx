@@ -47,7 +47,10 @@ export default function ProductCard({
     offset: ["0.8 1.5", "1 1"],
   });
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"), {
+    noSsr: true,
+    defaultMatches: false,
+  });
   const offset = isMobile ? 25 : 0;
   const initialX = direction === "right" ? offset : -offset;
   const x = useTransform(scrollYProgress, [0, 1], [initialX, 0]);
@@ -89,7 +92,12 @@ export default function ProductCard({
               {product.title}
             </Typography>
           </Box>
-          <Typography variant="subtitle1" color="text.secondary" paragraph>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              color: "text.secondary",
+              marginBottom: "16px"
+            }}>
             {product.description}
           </Typography>
           <List>

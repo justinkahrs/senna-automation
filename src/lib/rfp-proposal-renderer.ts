@@ -522,7 +522,6 @@ const css = [
   ".section-title{font-size:24px;line-height:1.04;letter-spacing:-0.03em;margin-bottom:0.12in;}",
   ".section-intro{font-size:14px;color:var(--muted);margin-bottom:0.14in;line-height:1.38;}",
   ".body-copy p{font-size:12.8px;margin-bottom:0.09in;}",
-  ".grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.14in;align-items:start;}",
   ".grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.12in;align-items:start;}",
   ".stack{display:flex;flex-direction:column;gap:0.12in;}",
   ".card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:0.14in 0.16in;break-inside:avoid;page-break-inside:avoid;}",
@@ -603,6 +602,15 @@ const uniqueStrings = (value: unknown) => {
 };
 
 const limited = <T>(items: T[], max: number) => items.slice(0, Math.max(0, max));
+
+const chunkItems = <T>(items: T[], size: number) => {
+  if (!items.length || size <= 0) return [];
+  const chunks: T[][] = [];
+  for (let index = 0; index < items.length; index += size) {
+    chunks.push(items.slice(index, index + size));
+  }
+  return chunks;
+};
 
 const esc = (value: unknown) =>
   String(value ?? "")
@@ -846,7 +854,7 @@ function normalizePricingLineItems(value: unknown) {
 
 function normalizeSupportTiers(value: unknown) {
   const records = Array.isArray(value) ? value : [];
-  return records
+  const tiers = records
     .map((entry) => {
       if (!isObject(entry)) return null;
       return {
@@ -866,6 +874,8 @@ function normalizeSupportTiers(value: unknown) {
         availability: string;
       } => Boolean(entry?.name && entry.value),
     );
+
+  return limited(tiers, 3);
 }
 
 function normalizeHourlySupport(value: unknown) {
@@ -1081,26 +1091,20 @@ function inferTechnologyRequested(
   brief: RfpBrief,
   requestedItems: Array<{ requirement: string }>,
 ) {
-  return (
-    normalizeStringList(brief.technologyItemsRequested).length > 0 ||
-    requestedItems.some((item) =>
-      /technology|technologies|platform|platforms|architecture/i.test(
-        item.requirement,
-      ),
-    )
-  );
+  return (normalizeStringList(brief.technologyItemsRequested).length > 0 || requestedItems.some((item) =>
+    /technology|technologies|platform|platforms|architecture/i.test(
+      item.requirement,
+    ),
+  ));
 }
 
 function inferTeamRequested(
   brief: RfpBrief,
   requestedItems: Array<{ requirement: string }>,
 ) {
-  return (
-    normalizeStringList(brief.teamRequirements).length > 0 ||
-    requestedItems.some((item) =>
-      /team|staffing|roles|experience/i.test(item.requirement),
-    )
-  );
+  return (normalizeStringList(brief.teamRequirements).length > 0 || requestedItems.some((item) =>
+    /team|staffing|roles|experience/i.test(item.requirement),
+  ));
 }
 
 function getSectionForRequirement(requirement: string) {
@@ -1442,7 +1446,7 @@ function normalizeV1ScopePhases(
             ? {
                 name,
                 objective,
-                deliverables: [],
+                deliverables: [] as string[],
                 timing: `Phase ${index + 1}`,
               }
             : null;
@@ -1479,7 +1483,7 @@ export function normalizeRfpProposalInput(
 ): RfpProposalNormalized {
   const schemaVersion =
     input.schemaVersion === "rfp-proposal-v2" ? "rfp-proposal-v2" : "rfp-proposal-v1";
-  const renderMode = input.renderMode === "final" ? "final" : "preview";
+  const renderMode: RfpRenderMode = input.renderMode === "final" ? "final" : "preview";
   const proposal = input.proposal || {};
   const brief = input.rfpBrief || {};
   const buyerTerminology = normalizeStringList(brief.buyerTerminology);
@@ -1572,7 +1576,7 @@ export function normalizeRfpProposalInput(
   const teamRequested = inferTeamRequested(brief, requestedResponseItems);
   const complianceHints = normalizeComplianceHints(proposal.complianceItems);
 
-  const baseNormalized = {
+  const baseNormalized: Omit<RfpProposalNormalized, "previewWarnings" | "readiness"> = {
     schemaVersion: "rfp-proposal-v2" as const,
     renderMode,
     issuerName,
@@ -1744,7 +1748,7 @@ function renderTechnologyTable(items: Array<Required<RfpTechnologyLayer>>) {
 }
 
 function renderScopePhaseCards(items: RfpProposalNormalized["scopePhases"]) {
-  return `<div class="grid-2">${items
+  return `<div class="stack">${items
     .map(
       (phase) =>
         `<div class="soft-card phase-card"><div class="phase-meta">${esc(phase.timing)}</div><h4>${esc(phase.name)}</h4><p>${esc(phase.objective)}</p>${bulletList(phase.deliverables)}</div>`,
@@ -1809,6 +1813,11 @@ function buildProposalHtml(normalized: RfpProposalNormalized) {
   );
 
   const pages: string[] = [];
+  let pageNumber = 2;
+  const pushPage = (label: string, bodyHtml: string) => {
+    pages.push(buildPage(pageNumber, label, bodyHtml, normalized.footerLine));
+    pageNumber += 1;
+  };
 
   const coverPage = joinHtml([
     '<section class="page cover">',
@@ -1832,102 +1841,157 @@ function buildProposalHtml(normalized: RfpProposalNormalized) {
     "</section>",
   ]);
 
-  pages.push(
-    buildPage(
-      2,
-      "Executive Summary",
-      joinHtml([
-        '<div class="body-copy">',
-        '<h2 class="section-title">Executive Summary</h2>',
-        paragraphBlock(normalized.executiveSummary),
-        "</div>",
-        `<div class="note-band" style="margin-top:0.14in;"><strong>Objective:</strong> ${esc(normalized.scopeSummary)}</div>`,
-      ]),
-      normalized.footerLine,
-    ),
+  pushPage(
+    "Executive Summary",
+    joinHtml([
+      '<div class="body-copy">',
+      '<h2 class="section-title">Executive Summary</h2>',
+      paragraphBlock(normalized.executiveSummary),
+      "</div>",
+      `<div class="note-band" style="margin-top:0.14in;"><strong>Objective:</strong> ${esc(normalized.scopeSummary)}</div>`,
+    ]),
   );
 
-  pages.push(
-    buildPage(
-      3,
-      "Compliance Matrix and Understanding of Need",
+  const complianceChunks = chunkItems(normalized.complianceItems, 10);
+  for (const [index, items] of complianceChunks.entries()) {
+    pushPage(
+      "Compliance Matrix",
       joinHtml([
-        '<div class="grid-2">',
-        `<div class="stack"><h2 class="section-title">Compliance Matrix</h2><p class="section-intro">This page maps the buyer’s requested response items to the sections that address them.</p>${renderComplianceTable(normalized.complianceItems)}</div>`,
-        `<div class="stack"><h2 class="section-title">Priority Workflow Areas</h2><p class="section-intro">These are the highest-value areas to validate and improve first.</p>${renderPriorityCards(normalized.understandingPriorities)}</div>`,
-        "</div>",
+        `<h2 class="section-title">${esc(index === 0 ? "Compliance Matrix" : "Compliance Matrix Continued")}</h2>`,
+        index === 0
+          ? '<p class="section-intro">This page maps the buyer’s requested response items to the sections that address them.</p>'
+          : '<p class="section-intro">Additional requested response items continue here in the same buyer-provided order.</p>',
+        renderComplianceTable(items),
       ]),
-      normalized.footerLine,
-    ),
+    );
+  }
+
+  pushPage(
+    "Priority Workflow Areas",
+    joinHtml([
+      '<h2 class="section-title">Priority Workflow Areas</h2>',
+      '<p class="section-intro">These are the highest-value areas to validate and improve first.</p>',
+      renderPriorityCards(normalized.understandingPriorities),
+    ]),
   );
 
-  pages.push(
-    buildPage(
-      4,
-      "Company Overview, Relevant Experience, and Team Roles",
-      joinHtml([
-        '<div class="grid-2">',
-        `<div class="stack"><div class="body-copy"><h2 class="section-title">Company Overview</h2>${paragraphBlock(normalized.companyOverview)}</div>${renderExperienceCards(normalized.relevantExperienceExamples)}</div>`,
-        `<div class="stack"><div class="body-copy"><h2 class="section-title">Project Team and Roles</h2><p class="section-intro">The default staffing model is senior-led and role-based. It does not imply a larger named team than exists.</p></div>${renderTeamTable(normalized.teamRoles)}</div>`,
-        "</div>",
-      ]),
-      normalized.footerLine,
-    ),
+  const experienceChunks = chunkItems(normalized.relevantExperienceExamples, 3);
+  pushPage(
+    "Company Overview and Relevant Experience",
+    joinHtml([
+      `<div class="body-copy"><h2 class="section-title">Company Overview</h2>${paragraphBlock(normalized.companyOverview)}</div>`,
+      '<div style="height:0.18in;"></div>',
+      '<h2 class="section-title">Relevant Experience</h2>',
+      '<p class="section-intro">Examples are anonymized when named references are not appropriate for the response.</p>',
+      renderExperienceCards(experienceChunks[0] || normalized.relevantExperienceExamples),
+    ]),
   );
 
-  pages.push(
-    buildPage(
-      5,
+  for (const items of experienceChunks.slice(1)) {
+    pushPage(
+      "Relevant Experience",
+      joinHtml([
+        '<h2 class="section-title">Relevant Experience</h2>',
+        '<p class="section-intro">Additional experience examples continue here.</p>',
+        renderExperienceCards(items),
+      ]),
+    );
+  }
+
+  pushPage(
+    "Project Team and Roles",
+    joinHtml([
+      '<div class="body-copy"><h2 class="section-title">Project Team and Roles</h2><p class="section-intro">The default staffing model is senior-led and role-based. It does not imply a larger named team than exists.</p></div>',
+      renderTeamTable(normalized.teamRoles),
+    ]),
+  );
+
+  const technologyChunks = chunkItems(normalized.technologyLayers, 6);
+  for (const [index, items] of technologyChunks.entries()) {
+    pushPage(
       "Proposed Approach and Technology Architecture",
       joinHtml([
-        `<h2 class="section-title">Proposed Approach</h2>`,
-        `<p class="section-intro">${esc(normalized.approachSummary)}</p>`,
-        `<div class="note-band" style="margin-bottom:0.14in;">${esc("Final platform recommendations should be confirmed after validating current systems, API access, data quality, staffing ownership, and reporting needs.")}</div>`,
-        renderTechnologyTable(normalized.technologyLayers),
+        `<h2 class="section-title">${esc(index === 0 ? "Proposed Approach and Technology Architecture" : "Technology Architecture Continued")}</h2>`,
+        index === 0
+          ? `<p class="section-intro">${esc(normalized.approachSummary)}</p>`
+          : '<p class="section-intro">Additional architecture layers continue here.</p>',
+        index === 0
+          ? `<div class="note-band" style="margin-bottom:0.14in;">${esc("Final platform recommendations should be confirmed after validating current systems, API access, data quality, staffing ownership, and reporting needs.")}</div>`
+          : "",
+        renderTechnologyTable(items),
       ]),
-      normalized.footerLine,
-    ),
-  );
+    );
+  }
 
-  pages.push(
-    buildPage(
-      6,
+  const scopeChunks = chunkItems(normalized.scopePhases, 3);
+  for (const [index, items] of scopeChunks.entries()) {
+    pushPage(
       "Scope of Work and Phased Timeline",
       joinHtml([
-        `<h2 class="section-title">Scope of Work and Phased Timeline</h2>`,
-        `<p class="section-intro">${esc(normalized.scopeSummary)}</p>`,
-        renderScopePhaseCards(normalized.scopePhases),
+        `<h2 class="section-title">${esc(index === 0 ? "Scope of Work and Phased Timeline" : "Phased Timeline Continued")}</h2>`,
+        index === 0
+          ? `<p class="section-intro">${esc(normalized.scopeSummary)}</p>`
+          : '<p class="section-intro">Additional phases continue here in delivery order.</p>',
+        renderScopePhaseCards(items),
       ]),
-      normalized.footerLine,
-    ),
-  );
+    );
+  }
 
-  pages.push(
-    buildPage(
-      7,
+  const pricingChunks = chunkItems(normalized.pricingLineItems, 5);
+  const pricingPages = pricingChunks.length ? pricingChunks : [[]];
+  for (const [index, items] of pricingPages.entries()) {
+    pushPage(
       "Pricing, Assumptions, and Optional Add-Ons",
       joinHtml([
-        `<h2 class="section-title">Pricing, Assumptions, and Optional Add-Ons</h2>`,
-        `<p class="section-intro">${esc(normalized.pricingSummary)}</p>`,
-        renderPricingTable(normalized.pricingLineItems),
+        `<h2 class="section-title">${esc(index === 0 ? "Pricing, Assumptions, and Optional Add-Ons" : "Pricing, Assumptions, and Optional Add-Ons Continued")}</h2>`,
+        index === 0
+          ? `<p class="section-intro">${esc(normalized.pricingSummary)}</p>`
+          : '<p class="section-intro">Additional commercial line items continue here.</p>',
+        items.length
+          ? renderPricingTable(items)
+          : '<p class="muted">No structured pricing line items were resolved for this render.</p>',
       ]),
-      normalized.footerLine,
-    ),
+    );
+  }
+
+  pushPage(
+    "Ongoing Support",
+    joinHtml([
+      '<h2 class="section-title">Ongoing Support</h2>',
+      `<p class="section-intro">${esc(normalized.supportSummary)}</p>`,
+      renderSupportTable(normalized.supportTiers, normalized.hourlySupport),
+    ]),
   );
 
-  pages.push(
-    buildPage(
-      8,
-      "Ongoing Support and Information Needed",
+  const informationChunks = chunkItems(normalized.informationNeeded, 6);
+  if (informationChunks.length) {
+    for (const [index, items] of informationChunks.entries()) {
+      const isLastChunk = index === informationChunks.length - 1;
+      pushPage(
+        "Information and Access Needed",
+        joinHtml([
+          `<h2 class="section-title">${esc(index === 0 ? "Information and Access Needed" : "Information and Access Needed Continued")}</h2>`,
+          index === 0
+            ? '<p class="section-intro">This checklist answers the buyer’s request for the information, access, and resources needed to start well.</p>'
+            : '<p class="section-intro">Additional information and access items continue here.</p>',
+          renderInfoChecklist(items),
+          isLastChunk && normalized.questionsToConfirm.length
+            ? `<div class="soft-card" style="margin-top:0.14in;"><h4>Questions To Confirm</h4>${bulletList(normalized.questionsToConfirm)}</div>`
+            : "",
+        ]),
+      );
+    }
+  } else if (normalized.questionsToConfirm.length) {
+    pushPage(
+      "Information and Access Needed",
       joinHtml([
-        '<div class="grid-2">',
-        `<div class="stack"><h2 class="section-title">Ongoing Support</h2><p class="section-intro">${esc(normalized.supportSummary)}</p>${renderSupportTable(normalized.supportTiers, normalized.hourlySupport)}</div>`,
-        `<div class="stack"><h2 class="section-title">Information and Access Needed</h2><p class="section-intro">This checklist answers the buyer’s request for the information, access, and resources needed to start well.</p>${renderInfoChecklist(normalized.informationNeeded)}<div class="soft-card"><h4>Questions To Confirm</h4>${bulletList(normalized.questionsToConfirm)}</div></div>`,
-        "</div>",
+        '<h2 class="section-title">Information and Access Needed</h2>',
+        '<p class="section-intro">This checklist answers the buyer’s request for the information, access, and resources needed to start well.</p>',
+        '<p class="muted">No additional access items were specified.</p>',
+        `<div class="soft-card" style="margin-top:0.14in;"><h4>Questions To Confirm</h4>${bulletList(normalized.questionsToConfirm)}</div>`,
       ]),
-      normalized.footerLine,
-    ),
-  );
+    );
+  }
 
   return joinHtml([
     "<!doctype html>",
