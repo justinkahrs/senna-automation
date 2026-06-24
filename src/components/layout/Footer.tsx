@@ -1,150 +1,88 @@
-"use client";
-
-import {
-  Box,
-  Container,
-  Grid,
-  Typography,
-  Link,
-  IconButton,
-} from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import { usePathname } from "next/navigation";
-import { trackExternalLink } from "@/utils/analytics";
 
-const footerLinkGroups = [
+const companyLinks = [
+  { label: "About Us", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Solutions", href: "/solutions" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Blog", href: "/blog" },
+];
+
+const localLinks = [
+  { label: "AI Consulting", href: "/ai-consulting-grand-rapids" },
+  { label: "AI Automation", href: "/ai-automation-grand-rapids" },
   {
-    heading: "Company",
-    links: [
-      { label: "About Us", href: "/about" },
-      { label: "Services", href: "/services" },
-      { label: "Solutions", href: "/solutions" },
-      { label: "Pricing", href: "/pricing" },
-      { label: "Blog", href: "/blog" },
-    ],
+    label: "Workflow Consultant",
+    href: "/workflow-automation-consultant-grand-rapids",
   },
 ];
 
-const localFooterLinks = [
+const exploreLinks = [
+  { label: "Contact", href: "/contact" },
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+];
+
+const socialLinks = [
   {
-    heading: "Local",
-    links: [
-      { label: "AI Consulting", href: "/ai-consulting-grand-rapids" },
-      { label: "AI Automation", href: "/ai-automation-grand-rapids" },
-      {
-        label: "Workflow Consultant",
-        href: "/workflow-automation-consultant-grand-rapids",
-      },
-    ],
+    label: "LinkedIn",
+    href: "https://linkedin.com/company/senna-automation",
+    icon: LinkedInIcon,
   },
   {
-    heading: "Explore",
-    links: [
-      { label: "Contact", href: "/contact" },
-      { label: "Privacy", href: "/privacy" },
-      { label: "Terms", href: "/terms" },
-    ],
+    label: "Instagram",
+    href: "https://instagram.com/sennaautomation",
+    icon: InstagramIcon,
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/senna.automation",
+    icon: FacebookIcon,
   },
 ];
 
-export function Footer({ currentYear }: { currentYear: number }) {
-  const pathname = usePathname();
-  const usesYellowFooterBleed = ["/", "/about", "/contact"].includes(pathname);
-  const usesExtendedCtaBackdrop = [
-    "/blog",
-    "/pricing",
-    "/services",
-    "/solutions",
-  ].some((p) => pathname.startsWith(p));
-  const isLegalPage = ["/privacy", "/terms"].includes(pathname);
+const legalLinks = [
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+  { label: "Portal", href: "/login", isPortal: true },
+];
+
+const linkSx = {
+  color: "var(--color-accent-cyan)",
+  textDecoration: "none",
+  fontSize: "0.9375rem",
+  lineHeight: 1.7,
+  transition: "color var(--dur-base) ease",
+  "&:hover": {
+    color: "var(--color-bg-subtle)",
+  },
+};
+
+const footerHeadingSx = {
+  color: "var(--color-text-on-dark-prominent)",
+  display: "block",
+  mb: 2.5,
+  letterSpacing: "0.1em",
+};
+
+export function Footer() {
+  const currentYear = new Date().getFullYear();
 
   return (
     <Box
       component="footer"
       sx={{
-        pt: 0,
-        pb: 0,
-        px: 0,
-        mt: { xs: 0, md: -6 },
         position: "relative",
-        zIndex: usesExtendedCtaBackdrop ? 1 : 20,
-        ...(usesYellowFooterBleed
-          ? {
-              backgroundColor: "var(--color-text-highlight)",
-            }
-          : usesExtendedCtaBackdrop
-            ? {
-                backgroundColor: "transparent",
-                "@keyframes footerGradientBG": {
-                  "0%": {
-                    backgroundPosition: "0% 50%",
-                  },
-                  "50%": {
-                    backgroundPosition: "100% 50%",
-                  },
-                  "100%": {
-                    backgroundPosition: "0% 50%",
-                  },
-                },
-                "&::before": {
-                  content: '""',
-                  position: "absolute",
-                  top: { xs: "-45rem", sm: "-50rem", md: "-40rem" },
-                  left: "50%",
-                  bottom: 0,
-                  width: "100vw",
-                  transform: "translateX(-50%)",
-                  background:
-                    "linear-gradient(-45deg, var(--color-accent), var(--ds-shadow-grey), var(--color-accent))",
-                  backgroundSize: "400% 400%",
-                  animation: "footerGradientBG 15s ease infinite",
-                  pointerEvents: "none",
-                  zIndex: -1,
-                },
-                "&::after": {
-                  content: '""',
-                  position: "absolute",
-                  top: { xs: "-45rem", sm: "-50rem", md: "-40rem" },
-                  left: "50%",
-                  bottom: 0,
-                  width: "100vw",
-                  transform: "translateX(-50%)",
-                  opacity: 0.03,
-                  backgroundImage:
-                    'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
-                  pointerEvents: "none",
-                  zIndex: -1,
-                },
-              }
-            : isLegalPage
-              ? {
-                  backgroundColor: "var(--color-bg-base)",
-                }
-              : {
-                  background:
-                    "linear-gradient(-45deg, var(--color-accent), var(--ds-shadow-grey), var(--color-accent))",
-                  backgroundSize: "400% 400%",
-                  animation: "footerGradientBG 15s ease infinite",
-                  "@keyframes footerGradientBG": {
-                    "0%": {
-                      backgroundPosition: "0% 50%",
-                    },
-                    "50%": {
-                      backgroundPosition: "100% 50%",
-                    },
-                    "100%": {
-                      backgroundPosition: "0% 50%",
-                    },
-                  },
-                }),
+        zIndex: 10,
+        mt: { xs: 0, md: -6 },
       }}
     >
       <Box
         sx={{
           position: "relative",
-          zIndex: 1,
           maxWidth: { xs: "100%", md: 1240 },
           mx: "auto",
           bgcolor: "var(--ds-space-indigo)",
@@ -153,14 +91,10 @@ export function Footer({ currentYear }: { currentYear: number }) {
           overflow: "hidden",
         }}
       >
-        {/* Subtle texture overlay */}
         <Box
           sx={{
             position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
+            inset: 0,
             opacity: 0.02,
             backgroundImage:
               'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
@@ -174,11 +108,22 @@ export function Footer({ currentYear }: { currentYear: number }) {
             position: "relative",
             zIndex: 1,
             px: { xs: 3, sm: 5, md: 8, lg: 10 },
-            py: 10,
+            py: { xs: 8, md: 10 },
           }}
         >
-          <Grid container spacing={8}>
-            <Grid size={{ xs: 12, md: 2 }}>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "repeat(2, minmax(0, 1fr))",
+                md: "minmax(0, 1.2fr) repeat(3, minmax(0, 0.8fr)) minmax(0, 1fr)",
+              },
+              gap: { xs: 5, sm: 4, md: 4 },
+              alignItems: "start",
+            }}
+          >
+            <Box>
               <Box
                 component="img"
                 src="/images/master-logo.svg"
@@ -192,178 +137,123 @@ export function Footer({ currentYear }: { currentYear: number }) {
                 }}
               />
               <Typography
+                component="p"
                 variant="body2"
                 sx={{ color: "var(--color-text-on-dark-body)", mb: 0.5 }}
               >
                 Grand Rapids, MI
               </Typography>
               <Typography
+                component="p"
                 variant="body2"
-                sx={{ color: "var(--color-text-on-dark-body)", mb: 2 }}
+                sx={{ color: "var(--color-text-on-dark-body)" }}
               >
                 (616) 287-3360
               </Typography>
-            </Grid>
-            {footerLinkGroups.map((group) => (
-              <Grid
-                key={group.heading}
-                size={{ xs: 12, sm: 4, md: 2 }}>
-                <Box sx={{ ml: { md: 5 } }}>
-                  <Typography
-                    variant="overline"
-                    sx={{
-                      color: "var(--color-text-on-dark-prominent)",
-                      display: "block",
-                      mb: 3,
-                    }}
-                  >
-                    {group.heading}
-                  </Typography>
+            </Box>
+
+            <Box>
+              <Typography component="p" variant="overline" sx={footerHeadingSx}>
+                Company
+              </Typography>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 1.25 }}>
+                {companyLinks.map((link) => (
                   <Box
-                    sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}
+                    key={link.href}
+                    component="a"
+                    href={link.href}
+                    sx={linkSx}
                   >
-                    {group.links.map((link) => (
-                      <Link
-                        key={link.label}
-                        href={link.href}
-                        sx={{
-                          color: "var(--color-accent-cyan)",
-                          textDecoration: "none",
-                          transition: "color var(--dur-base) ease",
-                          "&:hover": { color: "var(--color-bg-subtle)" },
-                        }}
-                      >
-                        <Typography variant="body2" sx={{
-                          color: "inherit"
-                        }}>
-                          {link.label}
-                        </Typography>
-                      </Link>
-                    ))}
-                  </Box>
-                </Box>
-              </Grid>
-            ))}
-            <Grid size={{ xs: 12, sm: 4, md: 2 }}>
-              <Box sx={{ ml: { md: 5 }, display: "flex", flexDirection: "column", gap: 4 }}>
-                {localFooterLinks.map((group) => (
-                  <Box key={group.heading}>
-                    <Typography
-                      variant="overline"
-                      sx={{
-                        color: "var(--color-text-on-dark-prominent)",
-                        display: "block",
-                        mb: 3,
-                      }}
-                    >
-                      {group.heading}
-                    </Typography>
-                    <Box
-                      sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}
-                    >
-                      {group.links.map((link) => (
-                        <Link
-                          key={link.label}
-                          href={link.href}
-                          sx={{
-                            color: "var(--color-accent-cyan)",
-                            textDecoration: "none",
-                            transition: "color var(--dur-base) ease",
-                            "&:hover": { color: "var(--color-bg-subtle)" },
-                          }}
-                        >
-                          <Typography variant="body2" sx={{ color: "inherit" }}>
-                            {link.label}
-                          </Typography>
-                        </Link>
-                      ))}
-                    </Box>
+                    {link.label}
                   </Box>
                 ))}
               </Box>
-            </Grid>
-            <Grid size={{ xs: 12, sm: 4, md: 2 }}>
-              <Box sx={{ ml: { md: 5 } }}>
-                <Typography
-                  variant="overline"
-                  sx={{
-                    color: "var(--color-text-on-dark-prominent)",
-                    display: "block",
-                    mb: 3,
-                  }}
-                >
-                  Connect
-                </Typography>
-                <Box sx={{ display: "flex", gap: 2 }}>
-                  <IconButton
+            </Box>
+
+            <Box>
+              <Typography component="p" variant="overline" sx={footerHeadingSx}>
+                Local
+              </Typography>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 1.25 }}>
+                {localLinks.map((link) => (
+                  <Box
+                    key={link.href}
                     component="a"
-                    href="https://linkedin.com/company/senna-automation"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackExternalLink("https://linkedin.com/company/senna-automation", "LinkedIn")}
-                    sx={{
-                      color: "var(--color-text-on-dark-body)",
-                      p: 0,
-                      "&:hover": { color: "var(--color-accent-cyan)" },
-                    }}
+                    href={link.href}
+                    sx={linkSx}
                   >
-                    <LinkedInIcon />
-                  </IconButton>
-                  <IconButton
-                    component="a"
-                    href="https://instagram.com/sennaautomation"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackExternalLink("https://instagram.com/sennaautomation", "Instagram")}
-                    sx={{
-                      color: "var(--color-text-on-dark-body)",
-                      p: 0,
-                      "&:hover": { color: "var(--color-accent-cyan)" },
-                    }}
-                  >
-                    <InstagramIcon />
-                  </IconButton>
-                  <IconButton
-                    component="a"
-                    href="https://www.facebook.com/senna.automation"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackExternalLink("https://www.facebook.com/senna.automation", "Facebook")}
-                    sx={{
-                      color: "var(--color-text-on-dark-body)",
-                      p: 0,
-                      "&:hover": { color: "var(--color-accent-cyan)" },
-                    }}
-                  >
-                    <FacebookIcon />
-                  </IconButton>
-                </Box>
+                    {link.label}
+                  </Box>
+                ))}
               </Box>
-            </Grid>
-            <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-              <Box sx={{ ml: { md: 5 } }}>
-                <Typography
-                  variant="overline"
-                  sx={{
-                    color: "var(--color-text-on-dark-prominent)",
-                    display: "block",
-                    mb: 2,
-                    letterSpacing: "0.1em",
-                  }}
-                >
-                  Trust
-                </Typography>
-                <Link
+
+              <Typography
+                component="p"
+                variant="overline"
+                sx={{ ...footerHeadingSx, mt: 4 }}
+              >
+                Explore
+              </Typography>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 1.25 }}>
+                {exploreLinks.map((link) => (
+                  <Box
+                    key={link.href}
+                    component="a"
+                    href={link.href}
+                    sx={linkSx}
+                  >
+                    {link.label}
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+
+            <Box>
+              <Typography component="p" variant="overline" sx={footerHeadingSx}>
+                Connect
+              </Typography>
+              <Box sx={{ display: "flex", gap: 2 }}>
+                {socialLinks.map(({ label, href, icon: Icon }) => (
+                  <Box
+                    key={label}
+                    component="a"
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    sx={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "var(--color-text-on-dark-body)",
+                      transition: "color var(--dur-base) ease",
+                      "&:hover": {
+                        color: "var(--color-accent-cyan)",
+                      },
+                    }}
+                  >
+                    <Icon fontSize="small" />
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+
+            <Box>
+              <Typography component="p" variant="overline" sx={footerHeadingSx}>
+                Trust
+              </Typography>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <Box
+                  component="a"
                   href="https://www.bbb.org/us/mi/grand-rapids/profile/artificial-intelligence/senna-automation-0372-90070205"
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => trackExternalLink("https://www.bbb.org/us/mi/grand-rapids/profile/artificial-intelligence/senna-automation-0372-90070205", "BBB")}
                   sx={{
                     display: "inline-flex",
-                    opacity: 0.8,
+                    width: "fit-content",
+                    opacity: 0.84,
                     transition:
                       "opacity var(--dur-base) ease, transform var(--dur-base) ease",
-                    marginLeft: "-42px", // Align with the heading above
                     "&:hover": {
                       opacity: 1,
                       transform: "translateY(-2px)",
@@ -373,25 +263,26 @@ export function Footer({ currentYear }: { currentYear: number }) {
                   <Box
                     component="img"
                     src="/images/bbb.svg"
-                    alt="BBB Profile"
+                    alt="Better Business Bureau profile"
                     sx={{
-                      height: 100,
-                      width: "auto",
-                      borderRadius: "var(--radius-sm)",
+                      display: "block",
+                      width: { xs: 168, md: 190 },
+                      height: "auto",
                     }}
                   />
-                </Link>
-                <Link
+                </Box>
+
+                <Box
+                  component="a"
                   href="https://web.grandrapids.org/AI-(Artificial-Intelligence)/Senna-Automation-11264"
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => trackExternalLink("https://web.grandrapids.org/AI-(Artificial-Intelligence)/Senna-Automation-11264", "GR Chamber")}
                   sx={{
                     display: "inline-flex",
-                    opacity: 0.8,
+                    width: "fit-content",
+                    opacity: 0.84,
                     transition:
                       "opacity var(--dur-base) ease, transform var(--dur-base) ease",
-                    mt: 2,
                     "&:hover": {
                       opacity: 1,
                       transform: "translateY(-2px)",
@@ -401,88 +292,70 @@ export function Footer({ currentYear }: { currentYear: number }) {
                   <Box
                     component="img"
                     src="/grchamber.png"
-                    alt="Grand Rapids Chamber of Commerce"
+                    alt="Grand Rapids Chamber membership"
                     sx={{
                       display: "block",
-                      height: 150,
-                      width: "auto",
+                      width: { xs: 132, md: 150 },
+                      height: "auto",
                     }}
                   />
-                </Link>
+                </Box>
               </Box>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
 
           <Box
             sx={{
-              mt: 10,
-              pt: 4,
+              mt: { xs: 6, md: 8 },
+              pt: 3,
               borderTop: "8px solid var(--color-text-muted)",
               display: "flex",
               justifyContent: "space-between",
-              alignItems: "center",
-              flexWrap: "wrap",
+              alignItems: { xs: "flex-start", md: "center" },
+              flexDirection: { xs: "column", md: "row" },
               gap: 2,
               color: "var(--color-text-muted)",
             }}
           >
             <Typography
+              component="p"
               variant="body2"
               sx={{ color: "var(--color-text-muted)" }}
             >
               © {currentYear} Senna Automation LLC.
             </Typography>
-            <Box sx={{ display: "flex", gap: 3 }}>
-              <Link
-                href="/privacy"
-                sx={{
-                  color: "inherit",
-                  textDecoration: "none",
-                  "&:hover": { color: "var(--color-bg-subtle)" },
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  sx={{ color: "var(--color-text-muted)" }}
-                >
-                  Privacy
-                </Typography>
-              </Link>
-              <Link
-                href="/terms"
-                sx={{
-                  color: "inherit",
-                  textDecoration: "none",
-                  "&:hover": { color: "var(--color-bg-subtle)" },
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  sx={{ color: "var(--color-text-muted)" }}
-                >
-                  Terms
-                </Typography>
-              </Link>
-              <Link
-                href="/login"
-                sx={{
-                  color: "inherit",
-                  textDecoration: "none",
-                  opacity: 0.72,
-                  "&:hover": { color: "var(--color-bg-subtle)", opacity: 1 },
-                }}
-              >
-                <Typography
-                  variant="caption"
+
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 3,
+                alignItems: "center",
+              }}
+            >
+              {legalLinks.map((link) => (
+                <Box
+                  key={link.href}
+                  component="a"
+                  href={link.href}
                   sx={{
                     color: "var(--color-text-muted)",
-                    letterSpacing: "0.06em",
-                    textTransform: "uppercase",
+                    textDecoration: "none",
+                    fontSize: link.isPortal ? "0.75rem" : "0.875rem",
+                    letterSpacing: link.isPortal ? "0.06em" : 0,
+                    textTransform: link.isPortal ? "uppercase" : "none",
+                    opacity: link.isPortal ? 0.72 : 1,
+                    transition:
+                      "color var(--dur-base) ease, opacity var(--dur-base) ease",
+                    "&:hover": {
+                      color: "var(--color-bg-subtle)",
+                      opacity: 1,
+                    },
                   }}
                 >
-                  Portal
-                </Typography>
-              </Link>
+                  {link.label}
+                </Box>
+              ))}
             </Box>
           </Box>
         </Container>
