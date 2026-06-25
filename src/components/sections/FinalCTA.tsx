@@ -11,8 +11,6 @@ import {
   Theme,
 } from "@mui/material";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
-
-import { usePathname } from "next/navigation";
 import { trackContactLink, trackCta } from "@/utils/analytics";
 
 interface FinalCTAProps {
@@ -52,16 +50,12 @@ export default function FinalCTA({
   stackSpacing = 2,
   transparentBackground,
 }: FinalCTAProps) {
-  const pathname = usePathname();
-  const isExtended = ["/blog", "/pricing", "/services", "/solutions"].some(p => pathname.startsWith(p));
-  const isTransparent = transparentBackground || isExtended;
-
   return (
     <Box
       component="section"
       id="final-cta"
       sx={{
-        background: isTransparent
+        background: transparentBackground
           ? "transparent"
           : "linear-gradient(-45deg, var(--color-accent), var(--ds-shadow-grey), var(--color-accent))",
         backgroundSize: "400% 400%",
@@ -70,7 +64,7 @@ export default function FinalCTA({
         textAlign: "center",
         position: "relative",
         overflow: "hidden",
-        zIndex: isTransparent ? 2 : 1,
+        zIndex: transparentBackground ? 2 : 1,
         "@keyframes gradientBG": {
           "0%": {
             backgroundPosition: "0% 50%",
