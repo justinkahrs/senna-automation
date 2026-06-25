@@ -1,7 +1,23 @@
+"use client";
+
 import { Box, Container, Typography } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import { usePathname } from "next/navigation";
+
+const purpleBackdropRoutes = [
+  "/services",
+  "/solutions",
+  "/pricing",
+  "/blog",
+];
+
+const purpleBackdropPages = [
+  "/ai-consulting-grand-rapids",
+  "/ai-automation-grand-rapids",
+  "/workflow-automation-consultant-grand-rapids",
+];
 
 const companyLinks = [
   { label: "About Us", href: "/about" },
@@ -69,7 +85,13 @@ const footerHeadingSx = {
 };
 
 export function Footer() {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
+  const showHighlightBackdrop =
+    pathname === "/" || pathname === "/about" || pathname === "/contact";
+  const showPurpleBackdrop =
+    purpleBackdropRoutes.some((route) => pathname.startsWith(route)) ||
+    purpleBackdropPages.includes(pathname);
 
   return (
     <Box
@@ -78,6 +100,27 @@ export function Footer() {
         position: "relative",
         zIndex: 10,
         mt: { xs: 0, md: -6 },
+        bgcolor: showHighlightBackdrop
+          ? "var(--color-text-highlight)"
+          : undefined,
+        background: showPurpleBackdrop
+          ? "linear-gradient(-45deg, var(--color-accent), var(--ds-shadow-grey), var(--color-accent))"
+          : undefined,
+        backgroundSize: showPurpleBackdrop ? "400% 400%" : undefined,
+        "@keyframes footerGradientBG": {
+          "0%": {
+            backgroundPosition: "0% 50%",
+          },
+          "50%": {
+            backgroundPosition: "100% 50%",
+          },
+          "100%": {
+            backgroundPosition: "0% 50%",
+          },
+        },
+        animation: showPurpleBackdrop
+          ? "footerGradientBG 15s ease infinite"
+          : "none",
       }}
     >
       <Box
@@ -125,17 +168,25 @@ export function Footer() {
           >
             <Box>
               <Box
-                component="img"
-                src="/images/master-logo.svg"
-                alt="Senna Automation"
+                component="a"
+                href="/"
                 sx={{
                   display: "block",
-                  width: { xs: 180, md: 200 },
-                  height: "auto",
                   mb: 2,
-                  filter: "brightness(0) invert(1)",
                 }}
-              />
+              >
+                <Box
+                  component="img"
+                  src="/images/master-logo.svg"
+                  alt="Senna Automation"
+                  sx={{
+                    display: "block",
+                    width: { xs: 180, md: 200 },
+                    height: "auto",
+                    filter: "brightness(0) invert(1)",
+                  }}
+                />
+              </Box>
               <Typography
                 component="p"
                 variant="body2"
