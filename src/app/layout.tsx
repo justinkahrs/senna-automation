@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { CssBaseline } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
+import { ThemeProvider } from "@mui/material/styles";
 import { ClientProviders } from "./ClientProviders";
 import { AppBar } from "@/components/layout/AppBar";
 import { Footer } from "@/components/layout/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import PrivacyNoticeBanner from "@/components/PrivacyNoticeBanner";
 import AnalyticsProvider from "@/components/AnalyticsProvider";
+import { siteTheme } from "@/components/theme/siteTheme";
 import {
   ATOM_FEED_URL,
   BING_SITE_VERIFICATION,
@@ -280,26 +283,29 @@ export default function RootLayout({
           />
         )}
       </head>
-      <body suppressHydrationWarning>
+      <body>
         <AppRouterCacheProvider options={{ key: "mui" }}>
-          <ClientProviders>
-            <AppBar />
-            <main
-              style={{
-                minHeight: "100vh",
-                display: "flex",
-                flexDirection: "column",
-                position: "relative",
-                zIndex: 10,
-              }}
-            >
-              {children}
-            </main>
-            <Footer currentYear={new Date().getFullYear()} />
-            <PrivacyNoticeBanner />
-            <ChatWidget />
-            <AnalyticsProvider />
-          </ClientProviders>
+          <ThemeProvider theme={siteTheme}>
+            <CssBaseline />
+            <ClientProviders>
+              <AppBar />
+              <main
+                style={{
+                  minHeight: "100vh",
+                  display: "flex",
+                  flexDirection: "column",
+                  position: "relative",
+                  zIndex: 10,
+                }}
+              >
+                {children}
+              </main>
+              <Footer />
+              <PrivacyNoticeBanner />
+              <ChatWidget />
+              <AnalyticsProvider />
+            </ClientProviders>
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
