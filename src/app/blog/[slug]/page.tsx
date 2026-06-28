@@ -24,6 +24,7 @@ import { notFound } from "next/navigation";
 import { LOGO_URL, SITE_NAME, SITE_URL } from "@/utils/site";
 
 const QUOTE_AUTOMATION_ERP_STEPS_MARKER = "[[QUOTE_AUTOMATION_ERP_STEPS]]";
+const BLOG_OG_IMAGE_VERSION = "2026-06-27";
 const quoteAutomationErpSteps = [
   {
     number: "01",
@@ -72,7 +73,8 @@ export async function generateMetadata({
   }
 
   const canonicalUrl = `${SITE_URL}/blog/${slug}`;
-  const ogImageUrl = `${canonicalUrl}/opengraph-image`;
+  const ogImageUrl = new URL(`${canonicalUrl}/opengraph-image`);
+  ogImageUrl.searchParams.set("v", BLOG_OG_IMAGE_VERSION);
 
   return {
     title: post.title,
@@ -89,7 +91,7 @@ export async function generateMetadata({
       siteName: "Senna Automation",
       images: [
         {
-          url: ogImageUrl,
+          url: ogImageUrl.toString(),
           width: 1200,
           height: 630,
           alt: post.title,
@@ -100,7 +102,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-      images: [ogImageUrl],
+      images: [ogImageUrl.toString()],
     },
   };
 }
