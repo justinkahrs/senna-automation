@@ -1,8 +1,6 @@
-"use client";
-
 import React from "react";
 import { Box, BoxProps } from "@mui/material";
-import { WARM_BLACK } from "../theme/theme";
+import { WARM_BLACK } from "../theme/colors";
 
 interface LogoProps extends BoxProps {
   logoFontColor?: string;
