@@ -982,8 +982,8 @@ export default function Home() {
         </Container>
       </Box>
       <LocalSeoClusterSection
-        title="Grand Rapids and West Michigan services"
-        description="Start with the service angle that fits the work you need to improve: AI consulting, workflow automation, or hands-on implementation for repeated operational tasks."
+        title="Start with the kind of help you need"
+        description="Whether you need a clear AI plan, hands-on automation, or a better way to move work through the business, these pages show how we help Grand Rapids and West Michigan teams."
         sx={{
           py: { xs: 10, md: 15 },
           bgcolor: "background.paper",

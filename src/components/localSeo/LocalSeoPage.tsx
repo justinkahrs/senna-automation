@@ -693,8 +693,8 @@ export default function LocalSeoPage({ page }: { page: LocalSeoPageConfig }) {
         </Container>
       </Box>
       <LocalSeoClusterSection
-        title="Explore related Grand Rapids service pages"
-        description="These pages cover adjacent service needs so teams can start with strategy, workflow design, or direct implementation based on where the work is getting stuck."
+        title="Related ways we can help"
+        description="If the problem reaches beyond this workflow, these pages cover the related strategy, automation, and implementation work we handle for Grand Rapids and West Michigan businesses."
         excludeSlug={page.slug}
         sx={{ py: { xs: 10, md: 15 } }}
       />

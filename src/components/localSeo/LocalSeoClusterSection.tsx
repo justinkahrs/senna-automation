@@ -67,7 +67,7 @@ export default function LocalSeoClusterSection({
                       variant="body1"
                       sx={{ color: "text.secondary", mb: 3 }}
                     >
-                      {page.description}
+                      {page.lead}
                     </Typography>
                     <Link
                       href={`/${page.slug}`}
@@ -83,7 +83,7 @@ export default function LocalSeoClusterSection({
                         }}
                       >
                         <Typography component="span" variant="body1">
-                          Explore the page
+                          See how we help
                         </Typography>
                         <ArrowForwardIcon sx={{ fontSize: 18 }} />
                       </Box>

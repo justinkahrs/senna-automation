@@ -397,8 +397,8 @@ export default function ServicesPage() {
         </Container>
       </Box>
       <LocalSeoClusterSection
-        title="Grand Rapids service pages"
-        description="Use these pages when you need a narrower starting point around AI consulting, AI automation, or workflow automation for Grand Rapids and West Michigan operations."
+        title="Find the service that fits the work"
+        description="If you already know where work is slowing down, start with the page that matches it. We cover AI consulting, AI automation, and workflow automation for Grand Rapids and West Michigan businesses."
         sx={{
           py: { xs: 10, md: 15 },
           bgcolor: "background.default",
