@@ -34,6 +34,7 @@ import Link from "next/link";
 import { getAllBlogPosts } from "@/utils/blog";
 import { Button } from "@mui/material";
 import FinalCTA from "@/components/sections/FinalCTA";
+import LocalSeoClusterSection from "@/components/localSeo/LocalSeoClusterSection";
 
 const faqs: Array<{ question: string; answer: ReactNode }> = [
   {
@@ -980,6 +981,14 @@ export default function Home() {
           </CascadingStagger>
         </Container>
       </Box>
+      <LocalSeoClusterSection
+        title="Start with the kind of help you need"
+        description="Whether you need a clear AI plan, hands-on automation, or a better way to move work through the business, these pages show how we help Grand Rapids and West Michigan teams."
+        sx={{
+          py: { xs: 10, md: 15 },
+          bgcolor: "background.paper",
+        }}
+      />
       <FinalCTA
         title="Ready to see how this works for your business?"
         subtitle="Thirty minutes, no prep, no commitment."

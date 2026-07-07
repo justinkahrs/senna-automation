@@ -20,7 +20,7 @@ Small service businesses often manage scheduling with a mix of inboxes, spreadsh
 
 The operational problem is not just booking jobs. It is keeping the day stable after booking. A job that was entered correctly on Monday can still become a Friday problem if the customer never confirmed, the parts were not ready, or two appointments were placed on opposite sides of town with no buffer. Research on appointment reminders consistently finds that reminder systems improve attendance and reduce missed appointments, especially when they give people a clear path to confirm, cancel, or reschedule. Another recurring lesson from maintenance management guidance is that work becomes more controllable when it is planned, prioritized, and tracked in one system rather than passed around informally.
 
-For many HVAC, plumbing, electrical, and commercial service teams, the best first automation is not a giant software replacement. It is a scheduling control layer that sits between intake and dispatch.
+For many HVAC, plumbing, electrical, and commercial service teams, the best first automation is not a giant software replacement. It is a scheduling control layer that sits between intake and dispatch. Service businesses looking for local implementation help can see the same operating model on Senna's <a href="/ai-automation-grand-rapids">AI automation in Grand Rapids</a> page.
 
 ## Where schedule chaos usually starts
 

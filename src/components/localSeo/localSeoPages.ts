@@ -40,6 +40,7 @@ export type LocalSeoPageConfig = {
   nearbyCities: string[];
   primaryKeyword: string;
   secondaryKeywords: string[];
+  supportingPostSlugs: string[];
 };
 
 const nearbyCities = [
@@ -77,6 +78,11 @@ export const localSeoPages = {
       "AI consultant West Michigan",
       "custom AI solutions Grand Rapids",
       "AI workflow consulting Michigan",
+    ],
+    supportingPostSlugs: [
+      "how-west-michigan-manufacturers-start-with-ai-automation-without-a-full-system-replacement",
+      "where-west-michigan-teams-start-with-ai-automation-in-the-back-office",
+      "automating-inventory-sync-between-purchasing-production-and-the-stock-room",
     ],
     useCases: [
       {
@@ -182,6 +188,11 @@ export const localSeoPages = {
       "automation consultant West Michigan",
       "AI automation Michigan",
     ],
+    supportingPostSlugs: [
+      "how-west-michigan-manufacturers-start-with-ai-automation-without-a-full-system-replacement",
+      "where-west-michigan-teams-start-with-ai-automation-in-the-back-office",
+      "automating-lockout-tagout-readiness-before-maintenance-delays-and-safety-gaps-spread",
+    ],
     useCases: [
       {
         title: "Lead response automation",
@@ -285,6 +296,11 @@ export const localSeoPages = {
       "workflow automation consulting Michigan",
       "process automation consultant Grand Rapids",
       "operations automation West Michigan",
+    ],
+    supportingPostSlugs: [
+      "automating-service-call-scheduling-before-the-day-falls-apart",
+      "automating-shop-floor-quality-handoffs-before-scrap-and-rework-spread",
+      "automating-lockout-tagout-readiness-before-maintenance-delays-and-safety-gaps-spread",
     ],
     useCases: [
       {
