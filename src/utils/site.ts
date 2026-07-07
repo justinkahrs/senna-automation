@@ -15,6 +15,10 @@ export const INDEXNOW_KEY_LOCATION = `${SITE_URL}/${INDEXNOW_KEY}.txt`;
 
 export const LOGO_URL = `${SITE_URL}/images/senna-automation-new.png`;
 export const FAVICON_URL = `${SITE_URL}/images/favicon.svg`;
+export const BBB_PROFILE_URL =
+  "https://www.bbb.org/us/mi/grand-rapids/profile/artificial-intelligence/senna-automation-0372-90070205";
+export const GRAND_RAPIDS_CHAMBER_URL =
+  "https://web.grandrapids.org/AI-(Artificial-Intelligence)/Senna-Automation-11264";
 
 export const GOOGLE_SITE_VERIFICATION =
   process.env.GOOGLE_SITE_VERIFICATION ||

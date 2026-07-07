@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Box,
   Button,
@@ -14,7 +15,15 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlin
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import FinalCTA from "@/components/sections/FinalCTA";
-import { LOGO_URL, SITE_NAME, SITE_URL } from "@/utils/site";
+import { getBlogPostBySlug } from "@/utils/blog";
+import {
+  BBB_PROFILE_URL,
+  GRAND_RAPIDS_CHAMBER_URL,
+  LOGO_URL,
+  SITE_NAME,
+  SITE_URL,
+} from "@/utils/site";
+import LocalSeoClusterSection from "./LocalSeoClusterSection";
 import type { LocalSeoPageConfig } from "./localSeoPages";
 
 const homeEyebrowSx = {
@@ -125,6 +134,10 @@ function buildJsonLd(page: LocalSeoPageConfig) {
 
 export default function LocalSeoPage({ page }: { page: LocalSeoPageConfig }) {
   const jsonLd = buildJsonLd(page);
+  const relatedPosts = page.supportingPostSlugs.flatMap((slug) => {
+    const post = getBlogPostBySlug(slug);
+    return post ? [post] : [];
+  });
 
   return (
     <Box sx={{ bgcolor: "transparent", minHeight: "100vh" }}>
@@ -314,6 +327,145 @@ export default function LocalSeoPage({ page }: { page: LocalSeoPageConfig }) {
                   {page.assessmentBody}
                 </Typography>
               </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+      <Box
+        component="section"
+        sx={{
+          py: { xs: 10, md: 15 },
+          bgcolor: "background.paper",
+        }}
+      >
+        <Container maxWidth="lg">
+          <Grid container spacing={{ xs: 6, md: 8 }}>
+            <Grid size={{ xs: 12, md: 4 }}>
+              <Stack spacing={3}>
+                <Box>
+                  <Typography component="h2" variant="h2" gutterBottom>
+                    Local trust and recent examples
+                  </Typography>
+                  <Typography variant="body1" sx={{ color: "text.secondary" }}>
+                    Senna Automation is based in Grand Rapids and serves West
+                    Michigan operators who need practical automation work to
+                    move from idea to launch.
+                  </Typography>
+                </Box>
+                <Typography variant="body1" sx={{ color: "text.secondary" }}>
+                  The company is listed with the{" "}
+                  <Box
+                    component="a"
+                    href={BBB_PROFILE_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    sx={{ color: "text.primary", fontWeight: 600 }}
+                  >
+                    Better Business Bureau
+                  </Box>{" "}
+                  and the{" "}
+                  <Box
+                    component="a"
+                    href={GRAND_RAPIDS_CHAMBER_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    sx={{ color: "text.primary", fontWeight: 600 }}
+                  >
+                    Grand Rapids Chamber
+                  </Box>
+                  .
+                </Typography>
+                <Stack spacing={1.25}>
+                  {[
+                    "Grand Rapids, Michigan based",
+                    "Free assessment before larger scope",
+                    "Focused workflow builds start at $500",
+                  ].map((item) => (
+                    <Stack
+                      key={item}
+                      direction="row"
+                      spacing={1.5}
+                      sx={{ alignItems: "center" }}
+                    >
+                      <CheckCircleOutlineIcon color="primary" />
+                      <Typography variant="body1">{item}</Typography>
+                    </Stack>
+                  ))}
+                </Stack>
+              </Stack>
+            </Grid>
+            <Grid size={{ xs: 12, md: 8 }}>
+              <Stack spacing={3}>
+                <Box>
+                  <Typography component="h3" variant="h3" gutterBottom>
+                    Recent workflow examples
+                  </Typography>
+                  <Typography variant="body1" sx={{ color: "text.secondary" }}>
+                    These articles show the same workflow-first approach applied
+                    to manufacturing, service, and back-office problems across
+                    West Michigan.
+                  </Typography>
+                </Box>
+                <Grid container spacing={3}>
+                  {relatedPosts.map((post) => (
+                    <Grid key={post.slug} size={{ xs: 12, md: 4 }}>
+                      <Card
+                        sx={{
+                          height: "100%",
+                          borderRadius: { xs: 0, md: 1.5 },
+                          border: "1px solid",
+                          borderColor: "divider",
+                          boxShadow: "none",
+                        }}
+                      >
+                        <CardContent sx={{ p: 4 }}>
+                          <Typography
+                            variant="overline"
+                            sx={{
+                              color: "text.secondary",
+                              display: "block",
+                              mb: 1,
+                            }}
+                          >
+                            {post.category}
+                          </Typography>
+                          <Typography component="h4" variant="h5" gutterBottom>
+                            {post.title}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            sx={{ color: "text.secondary", mb: 3 }}
+                          >
+                            {post.excerpt}
+                          </Typography>
+                          <Link
+                            href={`/blog/${post.slug}`}
+                            style={{
+                              textDecoration: "none",
+                              color: "inherit",
+                            }}
+                          >
+                            <Box
+                              sx={{
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 1,
+                                color: "text.primary",
+                                fontWeight: 600,
+                              }}
+                            >
+                              <Typography component="span" variant="body1">
+                                Read the article
+                              </Typography>
+                              <ArrowForwardIcon sx={{ fontSize: 18 }} />
+                            </Box>
+                          </Link>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Stack>
             </Grid>
           </Grid>
         </Container>
@@ -540,6 +692,12 @@ export default function LocalSeoPage({ page }: { page: LocalSeoPageConfig }) {
           </Grid>
         </Container>
       </Box>
+      <LocalSeoClusterSection
+        title="Explore related Grand Rapids service pages"
+        description="These pages cover adjacent service needs so teams can start with strategy, workflow design, or direct implementation based on where the work is getting stuck."
+        excludeSlug={page.slug}
+        sx={{ py: { xs: 10, md: 15 } }}
+      />
       <FinalCTA
         title="Ready to find the first workflow worth automating?"
         subtitle="Book a free assessment. We will map one process, identify the fastest practical win, and show you what it would take to launch."

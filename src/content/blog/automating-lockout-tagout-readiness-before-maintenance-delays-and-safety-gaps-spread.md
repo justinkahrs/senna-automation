@@ -20,7 +20,7 @@ Small manufacturers and equipment-heavy service businesses often run into a comm
 
 This creates two distinct business risks. First, planned work is delayed because prep is incomplete. Second, the team is exposed to inconsistent execution as people rely on memory, hallway conversations, and disconnected paperwork. OSHA’s lockout/tagout standard requires employers to protect workers from hazardous energy during servicing, and their small business guidance emphasizes that a functional safety system relies on written programs, training, and verification. Similarly, the CDC’s hierarchy of controls highlights a vital principle for operations leaders: safer systems depend on deliberate design, not just reminders to be careful.
 
-For many SMBs, the most effective improvement isn't a massive EHS overhaul, but a lightweight readiness workflow that brings maintenance prep into view before the wrench ever turns.
+For many SMBs, the most effective improvement isn't a massive EHS overhaul, but a lightweight readiness workflow that brings maintenance prep into view before the wrench ever turns. For companies in West Michigan comparing local options, Senna's <a href="/workflow-automation-consultant-grand-rapids">workflow automation consultant in Grand Rapids</a> page is the clearest view of how this kind of operational rollout usually starts.
 
 ## Where maintenance prep usually breaks down
 

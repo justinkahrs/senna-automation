@@ -16,6 +16,7 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { NumberedSteps } from "@/components/blog/NumberedSteps";
+import LocalSeoClusterSection from "@/components/localSeo/LocalSeoClusterSection";
 import FinalCTA from "@/components/sections/FinalCTA";
 import { SITE_NAME, SITE_URL } from "@/utils/site";
 
@@ -395,6 +396,14 @@ export default function ServicesPage() {
           <NumberedSteps steps={steps} />
         </Container>
       </Box>
+      <LocalSeoClusterSection
+        title="Grand Rapids service pages"
+        description="Use these pages when you need a narrower starting point around AI consulting, AI automation, or workflow automation for Grand Rapids and West Michigan operations."
+        sx={{
+          py: { xs: 10, md: 15 },
+          bgcolor: "background.default",
+        }}
+      />
       {/* ── Final CTA ─────────────────────────────────────── */}
       <FinalCTA />
     </Box>
