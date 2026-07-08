@@ -1,0 +1,45 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageApp from "@/components/app/PageApp";
+import { getPortalAccessByEmail, hasActivePortalAccess } from "@/lib/portal-access";
+
+export const prerender = false;
+
+const session = Astro.locals.session;
+
+if (!session?.user?.email) {
+  return Astro.redirect("/login");
+}
+
+let portalAccess = null;
+
+try {
+  portalAccess = await getPortalAccessByEmail(
+    session.user.email,
+    session.user.id,
+  );
+} catch (error) {
+  console.error("[Portal] Failed to verify preview access", error);
+  return Astro.redirect("/login?access=unavailable");
+}
+
+if (!hasActivePortalAccess(portalAccess)) {
+  return Astro.redirect("/login?access=denied");
+}
+---
+
+<BaseLayout
+  metadata={{
+    title: "RFP Preview Studio",
+    robots: {
+      index: false,
+      follow: false,
+    },
+  }}
+>
+  <PageApp
+    client:load
+    pageId="portal-rfp-preview"
+    pathname="/portal/rfp-preview"
+  />
+</BaseLayout>

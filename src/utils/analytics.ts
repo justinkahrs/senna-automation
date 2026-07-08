@@ -12,7 +12,7 @@ declare global {
 }
 
 const IS_DEV =
-  process.env.NODE_ENV === "development" ||
+  import.meta.env.DEV ||
   (typeof window !== "undefined" &&
     (window.location.hostname === "localhost" ||
       window.location.hostname === "127.0.0.1"));

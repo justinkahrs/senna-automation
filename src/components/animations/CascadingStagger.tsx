@@ -1,7 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { Stack, StackProps } from "@mui/material";
+import { Stack } from "@mui/material";
+import type { StackProps } from "@mui/material/Stack";
 import React from "react";
 
 const containerVariants: Variants = {

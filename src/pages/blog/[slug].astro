@@ -1,0 +1,65 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageApp from "@/components/app/PageApp";
+import { getAllBlogPostsFromContent, getBlogPostBySlugFromContent } from "@/utils/astro-blog";
+import { SITE_URL } from "@/utils/site";
+
+export async function getStaticPaths() {
+  const posts = await getAllBlogPostsFromContent();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { slug: post.slug },
+  }));
+}
+
+const { slug } = Astro.props;
+const post = await getBlogPostBySlugFromContent(slug);
+
+if (!post) {
+  return Astro.redirect("/404");
+}
+
+const relatedPost = (await getAllBlogPostsFromContent()).find(
+  (entry) => entry.slug !== slug,
+);
+const canonicalUrl = `${SITE_URL}/blog/${slug}`;
+const ogImageUrl = `${canonicalUrl}/opengraph-image`;
+---
+
+<BaseLayout
+  metadata={{
+    title: post.title,
+    description: post.excerpt,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      type: "article",
+      url: canonicalUrl,
+      title: post.title,
+      description: post.excerpt,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [ogImageUrl],
+    },
+  }}
+>
+  <PageApp
+    client:load
+    pageId="blog-post"
+    pathname={`/blog/${slug}`}
+    post={post}
+    relatedPost={relatedPost ?? null}
+  />
+</BaseLayout>

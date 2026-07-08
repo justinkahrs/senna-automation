@@ -1,33 +1,9 @@
 import fs from "fs";
 import path from "path";
 import { load } from "js-yaml";
+import type { BlogPost, BlogPostPreview } from "@/types/blog";
 
 const contentDirectory = path.join(process.cwd(), "src/content/blog");
-
-export interface ProjectMetadata {
-  client: string;
-  company: string;
-  companyUrl: string;
-  year: string;
-  role: string;
-  tools: string;
-}
-
-export interface BlogPost {
-  slug: string;
-  title: string;
-  subtitle?: string;
-  heroTitle?: string;
-  heroSubtitle?: string;
-  date: string;
-  category: string;
-  excerpt: string;
-  image: string;
-  metadata: ProjectMetadata;
-  content: string;
-}
-
-export type BlogPostPreview = Omit<BlogPost, "content">;
 
 type BlogFrontMatter = Partial<Omit<BlogPost, "slug" | "content">>;
 

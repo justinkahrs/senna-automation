@@ -1,0 +1,22 @@
+---
+import ReactRoute from "@/components/app/ReactRoute.astro";
+import Home, { metadata } from "@/app/page";
+import { getAllBlogPostsFromContent } from "@/utils/astro-blog";
+
+const posts = await getAllBlogPostsFromContent();
+const latestPost = posts[0]
+  ? {
+      slug: posts[0].slug,
+      title: posts[0].title,
+      excerpt: posts[0].excerpt,
+      image: posts[0].image,
+    }
+  : null;
+---
+
+<ReactRoute
+  metadata={metadata}
+  pathname="/"
+  pageId="home"
+  pageProps={{ latestPost }}
+/>

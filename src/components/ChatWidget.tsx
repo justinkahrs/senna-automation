@@ -21,12 +21,13 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { BG_BASE, WARM_BLACK } from "@/components/theme/colors";
 import { Logo } from "@/components/layout/Logo";
-import { useModal } from "@/context/ModalContext";
+import { useModalStore } from "@/stores/modal-store";
 
 const POLL_INTERVAL = 3000;
 const STORAGE_KEY_SESSION = "tg_widget_session_id";
 const STORAGE_KEY_CONSENT = "tg_widget_consented";
 const STORAGE_KEY_NAME = "tg_widget_display_name";
+const STORAGE_KEY_OPEN = "tg_widget_is_open";
 
 type Message = {
   id: string;
@@ -37,7 +38,7 @@ type Message = {
 
 export default function ChatWidget() {
   const theme = useTheme();
-  const { isCalendlyOpen } = useModal();
+  const { isCalendlyOpen } = useModalStore();
   const [isOpen, setIsOpen] = useState(false);
   const [session, setSession] = useState<string | null>(null);
   const [hasConsent, setHasConsent] = useState(false);
@@ -60,14 +61,23 @@ export default function ChatWidget() {
     const storedSession = localStorage.getItem(STORAGE_KEY_SESSION);
     const storedConsent = localStorage.getItem(STORAGE_KEY_CONSENT);
     const storedName = localStorage.getItem(STORAGE_KEY_NAME);
+    const storedOpen = sessionStorage.getItem(STORAGE_KEY_OPEN);
 
     if (storedSession) setSession(storedSession);
     if (storedConsent === "true") setHasConsent(true);
     if (storedName) {
       setInputName(storedName);
     }
+    if (storedOpen === "true") {
+      setIsOpen(true);
+    }
     setInitializing(false);
   }, []);
+
+  useEffect(() => {
+    if (initializing) return;
+    sessionStorage.setItem(STORAGE_KEY_OPEN, isOpen ? "true" : "false");
+  }, [initializing, isOpen]);
 
   const fetchMessages = useCallback(
     async (isInitial = false) => {

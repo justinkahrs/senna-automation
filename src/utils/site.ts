@@ -1,5 +1,8 @@
 import siteConfig from "../../site.config.json";
 
+const readProcessEnv = (key: string) =>
+  typeof process !== "undefined" ? process.env?.[key] : undefined;
+
 export const SITE_NAME = siteConfig.siteName;
 export const SITE_URL = siteConfig.siteUrl.replace(/\/$/, "");
 export const SITE_HOST = new URL(SITE_URL).host;
@@ -17,11 +20,11 @@ export const LOGO_URL = `${SITE_URL}/images/senna-automation-new.png`;
 export const FAVICON_URL = `${SITE_URL}/images/favicon.svg`;
 
 export const GOOGLE_SITE_VERIFICATION =
-  process.env.GOOGLE_SITE_VERIFICATION ||
-  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
+  readProcessEnv("GOOGLE_SITE_VERIFICATION") ||
+  readProcessEnv("NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION") ||
   undefined;
 
 export const BING_SITE_VERIFICATION =
-  process.env.BING_SITE_VERIFICATION ||
-  process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION ||
+  readProcessEnv("BING_SITE_VERIFICATION") ||
+  readProcessEnv("NEXT_PUBLIC_BING_SITE_VERIFICATION") ||
   undefined;

@@ -14,7 +14,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import AppleIcon from "@mui/icons-material/Apple";
 import { authClient } from "@/lib/auth-client";
-import type { PortalProviderDefinition } from "@/lib/auth";
+import type { PortalProviderDefinition } from "@/lib/portal-providers";
 
 interface PortalLoginActionsProps {
   providers: PortalProviderDefinition[];

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Script from "next/script";
 import FinalCTA from "@/components/sections/FinalCTA";
 import { SITE_NAME, SITE_URL } from "@/utils/site";
+import type { BlogPostPreview } from "@/types/blog";
 
 export const metadata: Metadata = {
   title: "AI Automation Insights & Case Studies | Senna Automation Blog",
@@ -28,7 +29,6 @@ import {
 import { alpha } from "@mui/material/styles";
 
 import { LIGHT_CYAN } from "@/components/theme/colors";
-import { getAllBlogPosts } from "@/utils/blog";
 
 const homeEyebrowSx = {
   display: "inline-flex",
@@ -43,20 +43,6 @@ const homeEyebrowSx = {
     "color-mix(in srgb, var(--color-accent-cyan), transparent 84%)",
   color: "var(--color-text-secondary)",
   letterSpacing: "0.12em",
-};
-
-const blogPosts = getAllBlogPosts();
-
-const blogItemListJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: `${SITE_NAME} Blog`,
-  itemListElement: blogPosts.map((post, index) => ({
-    "@type": "ListItem",
-    position: index + 1,
-    url: `${SITE_URL}/blog/${post.slug}`,
-    name: post.title,
-  })),
 };
 
 const breadcrumbJsonLd = {
@@ -78,7 +64,22 @@ const breadcrumbJsonLd = {
   ],
 };
 
-export default function BlogPage() {
+export default function BlogPage({
+  blogPosts,
+}: {
+  blogPosts: BlogPostPreview[];
+}) {
+  const blogItemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${SITE_NAME} Blog`,
+    itemListElement: blogPosts.map((post, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: `${SITE_URL}/blog/${post.slug}`,
+      name: post.title,
+    })),
+  };
   const featuredHeroTitle =
     blogPosts[0]?.heroTitle || "The systems we build define how we scale.";
   const hasEndToEndLead = featuredHeroTitle.startsWith("End-to-End ");

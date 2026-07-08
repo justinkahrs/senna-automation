@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import Image, { type StaticImageData } from "next/image";
 import RequestFormButton from "@/components/RequestFormButton";
 import SennaAdvantageVideo from "@/components/home/SennaAdvantageVideo";
+import type { BlogPostPreview } from "@/types/blog";
 
 export const metadata: Metadata = {
   title:
@@ -31,7 +32,6 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CascadingStagger from "@/components/animations/CascadingStagger";
 import Link from "next/link";
-import { getAllBlogPosts } from "@/utils/blog";
 import { Button } from "@mui/material";
 import FinalCTA from "@/components/sections/FinalCTA";
 
@@ -198,10 +198,16 @@ const homeEyebrowSx = {
   letterSpacing: "0.12em",
 };
 
-export default function Home() {
-  const blogPosts = getAllBlogPosts();
-  const latestPost = blogPosts[0];
+type HomeFeaturedPost = Pick<
+  BlogPostPreview,
+  "slug" | "title" | "excerpt" | "image"
+>;
 
+export default function Home({
+  latestPost,
+}: {
+  latestPost?: HomeFeaturedPost | null;
+}) {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────── */}

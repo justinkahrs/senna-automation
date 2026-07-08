@@ -21,7 +21,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
-import { BlogPost } from "@/utils/blog";
+import type { BlogPost } from "@/types/blog";
 // import { WARM_BLACK } from "@/components/theme/colors";
 import FinalCTA from "@/components/sections/FinalCTA";
 

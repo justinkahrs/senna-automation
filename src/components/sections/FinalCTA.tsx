@@ -7,9 +7,8 @@ import {
   Container,
   Stack,
   Typography,
-  SxProps,
-  Theme,
 } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 
 import { usePathname } from "next/navigation";

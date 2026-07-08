@@ -16,7 +16,7 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   webServer: {
-    command: "npm run start -- -p 3001",
+    command: "node scripts/playwright-astro-dev.mjs",
     url: "http://127.0.0.1:3001",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

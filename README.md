@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Senna Automation
 
-## Getting Started
+Public marketing site and content hub for [senna-automation.com](https://www.senna-automation.com).
 
-First, run the development server:
+The site now runs on Astro v7 with React islands, MUI, Framer Motion, Astro content collections, and the Vercel adapter. Public URLs, feed endpoints, OG image routes, portal routes, and API paths are preserved from the previous Next.js implementation.
+
+## Stack
+
+- Astro v7
+- React + TypeScript
+- MUI
+- Framer Motion
+- Better Auth
+- Astro content collections for blog content
+- Vercel deployment target
+
+## Local Development
+
+Install dependencies and start the Astro dev server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Useful project checks:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm run lint
+npm run token-audit
+npm run test:visual
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Notes:
 
-## Learn More
+- `npm run dev` starts Astro on `http://localhost:3000` by default.
+- Visual regression tests currently run against Astro dev mode because `astro preview` is not supported with the Vercel adapter used in this repo.
+- The repo still contains the previous `src/app/**` implementation during the migration window. Astro routes live under `src/pages/**`.
 
-To learn more about Next.js, take a look at the following resources:
+## Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Do not commit secrets. Configure them locally in your shell or `.env`, and in production through Vercel or the relevant infrastructure environment.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Core site and integrations:
 
-## Deploy on Vercel
+- `DATABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `TELEGRAM_BOT_TOKEN`
+- `TELEGRAM_GROUP_CHAT_ID`
+- `TELEGRAM_WEBHOOK_SECRET`
+- `GOOGLE_SITE_VERIFICATION`
+- `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`
+- `BING_SITE_VERIFICATION`
+- `NEXT_PUBLIC_BING_SITE_VERIFICATION`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Better Auth:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `BETTER_AUTH_URL`
+- `BETTER_AUTH_SECRET`
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `GITHUB_CLIENT_ID`
+- `GITHUB_CLIENT_SECRET`
+- `FACEBOOK_CLIENT_ID`
+- `FACEBOOK_CLIENT_SECRET`
+- `APPLE_CLIENT_ID`
+- `APPLE_CLIENT_SECRET`
+
+Portal and RFP workflows:
+
+- `RFP_PORTAL_UPLOAD_SECRET`
+- `N8N_RFP_PORTAL_WEBHOOK_URL`
+- `N8N_PORTAL_ACCESS_WEBHOOK_URL`
+- `N8N_RFP_PREVIEW_PDF_WEBHOOK_URL`
+- `N8N_RFP_PORTAL_JOB_WEBHOOK_URL`
+
+## Content and Public Artifacts
+
+Key preserved routes and outputs:
+
+- `/`
+- `/about`
+- `/services`
+- `/solutions`
+- `/pricing`
+- `/contact`
+- `/blog`
+- `/blog/[slug]`
+- `/rss.xml`
+- `/atom.xml`
+- `/feed.json`
+- `/sitemap.xml`
+- `/opengraph-image`
+- `/blog/[slug]/opengraph-image`
+- `/api/**`
+
+Blog content lives in `src/content/blog/*.md`.
+
+## Deployment
+
+Production remains on Vercel. Before shipping:
+
+```bash
+npm run build
+npx eslint src --ext .ts,.tsx --ignore-pattern '*.astro' --ignore-pattern '.astro' --ignore-pattern 'dist' --ignore-pattern '.vercel/output'
+git status --short
+```
+
+If the release changes public content or feed metadata, also validate:
+
+- `/rss.xml`
+- `/atom.xml`
+- `/feed.json`
+- `/sitemap.xml`
+- `/robots.txt`
+- OG image endpoints

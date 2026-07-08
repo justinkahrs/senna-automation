@@ -1,0 +1,37 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/form-hook",
+      "destination": "https://hook.us2.make.com/vp8vpc4allsibttx61nk23bkw24etkrx"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/og/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/(admin\\.webm|businessFormula\\.webm|dashboard\\.webm|home-work\\.mp4|leads\\.webm|visualContent\\.mp4)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    }
+  ]
+}
