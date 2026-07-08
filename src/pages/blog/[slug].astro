@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageApp from "@/components/app/PageApp";
+import SiteFrame from "@/components/app/SiteFrame";
+import BlogPostPageContent from "@/components/blog/BlogPostPageContent";
 import { getAllBlogPostsFromContent, getBlogPostBySlugFromContent } from "@/utils/astro-blog";
 import { SITE_URL } from "@/utils/site";
 
@@ -55,11 +56,7 @@ const ogImageUrl = `${canonicalUrl}/opengraph-image`;
     },
   }}
 >
-  <PageApp
-    client:load
-    pageId="blog-post"
-    pathname={`/blog/${slug}`}
-    post={post}
-    relatedPost={relatedPost ?? null}
-  />
+  <SiteFrame client:load pathname={`/blog/${slug}`}>
+    <BlogPostPageContent post={post} relatedPost={relatedPost ?? null} />
+  </SiteFrame>
 </BaseLayout>

@@ -1,6 +1,9 @@
 ---
 import ReactRoute from "@/components/app/ReactRoute.astro";
+import ServicesPage from "@/site/pages/services";
 import { metadata } from "@/site/pages/services";
 ---
 
-<ReactRoute metadata={metadata} pathname="/services" pageId="services" />
+<ReactRoute metadata={metadata} pathname="/services">
+  <ServicesPage />
+</ReactRoute>

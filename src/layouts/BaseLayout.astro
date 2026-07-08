@@ -35,6 +35,8 @@ const resolved = getResolvedMetadata(metadata);
     <meta name="keywords" content={resolved.keywords.join(", ")} />
     <meta name="robots" content={resolved.robotsContent} />
     <link rel="canonical" href={resolved.canonical} />
+    <link rel="preconnect" href="https://use.typekit.net" />
+    <link rel="preconnect" href="https://p.typekit.net" crossorigin />
     <link rel="stylesheet" href="https://use.typekit.net/alo5gqx.css" />
     <link
       rel="alternate"
@@ -112,6 +114,6 @@ const resolved = getResolvedMetadata(metadata);
   </head>
   <body>
     <slot />
-    <PersistentWidgets client:load />
+    <PersistentWidgets client:idle />
   </body>
 </html>

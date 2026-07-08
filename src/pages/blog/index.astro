@@ -1,14 +1,12 @@
 ---
 import ReactRoute from "@/components/app/ReactRoute.astro";
+import BlogPage from "@/site/pages/blog/index";
 import { metadata } from "@/site/pages/blog/index";
 import { getAllBlogPostsFromContent } from "@/utils/astro-blog";
 
 const blogPosts = await getAllBlogPostsFromContent();
 ---
 
-<ReactRoute
-  metadata={metadata}
-  pathname="/blog"
-  pageId="blog"
-  pageProps={{ blogPosts }}
-/>
+<ReactRoute metadata={metadata} pathname="/blog">
+  <BlogPage blogPosts={blogPosts} />
+</ReactRoute>

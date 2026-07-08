@@ -24,11 +24,28 @@ function resolveSrc(src: ImageSource) {
   return typeof src === "string" ? src : src.src;
 }
 
+function resolveDimensions(src: ImageSource) {
+  if (typeof src === "string") {
+    return {
+      width: undefined,
+      height: undefined,
+    };
+  }
+
+  return {
+    width: src.width,
+    height: src.height,
+  };
+}
+
 const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
-  { src, alt, fill = false, priority = false, style, sizes, ...props },
+  { src, alt, fill = false, priority = false, style, sizes, decoding, ...props },
   ref,
 ) {
   const resolvedSrc = resolveSrc(src);
+  const resolvedDimensions = resolveDimensions(src);
+  const width = props.width ?? resolvedDimensions.width;
+  const height = props.height ?? resolvedDimensions.height;
 
   if (fill) {
     return (
@@ -37,6 +54,7 @@ const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
         src={resolvedSrc}
         alt={alt}
         sizes={sizes}
+        decoding={decoding ?? "async"}
         loading={priority ? "eager" : props.loading || "lazy"}
         fetchPriority={priority ? "high" : props.fetchPriority}
         {...props}
@@ -56,7 +74,10 @@ const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
       ref={ref}
       src={resolvedSrc}
       alt={alt}
+      width={width}
+      height={height}
       sizes={sizes}
+      decoding={decoding ?? "async"}
       loading={priority ? "eager" : props.loading || "lazy"}
       fetchPriority={priority ? "high" : props.fetchPriority}
       {...props}

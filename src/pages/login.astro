@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageApp from "@/components/app/PageApp";
+import SiteFrame from "@/components/app/SiteFrame";
+import LoginPageContent from "@/components/portal/LoginPageContent";
 import { configuredPortalProviders } from "@/lib/auth";
 import { getPortalAccessByEmail, hasActivePortalAccess } from "@/lib/portal-access";
 
@@ -46,5 +47,7 @@ if (session?.user?.email) {
     },
   }}
 >
-  <PageApp client:load pageId="login" pathname="/login" state={state} />
+  <SiteFrame client:load pathname="/login">
+    <LoginPageContent state={state} />
+  </SiteFrame>
 </BaseLayout>

@@ -1,10 +1,9 @@
 ---
 import ReactRoute from "@/components/app/ReactRoute.astro";
+import AiConsultingGrandRapidsPage from "@/site/pages/local-seo/ai-consulting-grand-rapids";
 import { metadata } from "@/site/pages/local-seo/ai-consulting-grand-rapids";
 ---
 
-<ReactRoute
-  metadata={metadata}
-  pathname="/ai-consulting-grand-rapids"
-  pageId="local-seo-ai-consulting"
-/>
+<ReactRoute metadata={metadata} pathname="/ai-consulting-grand-rapids">
+  <AiConsultingGrandRapidsPage />
+</ReactRoute>

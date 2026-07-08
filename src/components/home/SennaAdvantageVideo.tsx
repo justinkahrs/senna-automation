@@ -57,6 +57,7 @@ export default function SennaAdvantageVideo() {
         muted
         loop
         playsInline
+        preload="metadata"
         sx={{
           position: "absolute",
           inset: 0,

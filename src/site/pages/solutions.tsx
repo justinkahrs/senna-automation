@@ -401,6 +401,7 @@ const SolutionCard = ({
                     muted
                     loop
                     playsInline
+                    preload="metadata"
                     src={item.video}
                     style={{
                       maxWidth: "100%",
