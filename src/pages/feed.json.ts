@@ -1,4 +1,4 @@
 import type { APIRoute } from "astro";
-import { GET as getHandler } from "@/app/feed.json/route";
+import { GET as getHandler } from "@/site/feeds/feed-json";
 
 export const GET: APIRoute = () => getHandler();

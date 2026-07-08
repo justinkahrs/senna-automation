@@ -22,10 +22,11 @@
     "src/**/*",
     "scripts/**/*",
     "tests/**/*",
-    "astro.config.mjs",
-    "next-env.d.ts"
+    "astro.config.mjs"
   ],
   "exclude": [
+    ".next",
+    ".vercel",
     "dist",
     "node_modules"
   ]

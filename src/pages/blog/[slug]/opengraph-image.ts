@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import image from "@/app/blog/[slug]/opengraph-image";
+import image from "@/site/og/blog-post";
 import { getAllBlogPostsFromContent } from "@/utils/astro-blog";
 
 export async function getStaticPaths() {

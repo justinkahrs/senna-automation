@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { GET as getHandler } from "@/app/api/portal/rfp-jobs/[jobId]/route";
+import { GET as getHandler } from "@/server/routes/portal/rfp-jobs/job";
 
 export const prerender = false;
 export const GET: APIRoute = ({ request, params }) =>

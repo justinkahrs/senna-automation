@@ -8,9 +8,9 @@ import {
   Typography,
 } from "@mui/material";
 import type { PortalProviderDefinition } from "@/lib/portal-providers";
-import { PortalLoginActions } from "@/app/login/PortalLoginActions";
-import { PortalSessionRecovery } from "@/app/login/PortalSessionRecovery";
-import { PortalSignOutButton } from "@/app/login/PortalSignOutButton";
+import { PortalLoginActions } from "@/components/portal/PortalLoginActions";
+import { PortalSessionRecovery } from "@/components/portal/PortalSessionRecovery";
+import { PortalSignOutButton } from "@/components/portal/PortalSignOutButton";
 
 const accessCopy = {
   "oauth-error": "The sign-in flow did not complete. Try again.",

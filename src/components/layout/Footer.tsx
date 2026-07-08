@@ -11,7 +11,7 @@ import {
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/compat/next/navigation";
 import { trackExternalLink } from "@/utils/analytics";
 
 const footerLinkGroups = [

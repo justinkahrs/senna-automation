@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/compat/next/link";
 import {
   Box,
   Button,
@@ -11,7 +11,7 @@ import {
 import type { SxProps, Theme } from "@mui/material/styles";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/compat/next/navigation";
 import { trackContactLink, trackCta } from "@/utils/analytics";
 
 interface FinalCTAProps {

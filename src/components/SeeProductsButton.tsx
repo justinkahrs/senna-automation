@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import Link from "next/link";
+import Link from "@/compat/next/link";
 
 interface SeeProductsButtonProps {
   text?: string;

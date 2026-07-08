@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import sitemap from "@/app/sitemap";
+import sitemap from "@/site/feeds/sitemap";
 
 function escapeXml(value: string) {
   return value

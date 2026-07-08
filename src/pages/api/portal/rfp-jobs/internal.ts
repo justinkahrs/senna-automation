@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { POST as postHandler } from "@/app/api/portal/rfp-jobs/internal/route";
+import { POST as postHandler } from "@/server/routes/portal/rfp-jobs/internal";
 
 export const prerender = false;
 export const POST: APIRoute = ({ request }) => postHandler(request);

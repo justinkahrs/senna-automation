@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import { PortalUploadForm } from "@/app/portal/PortalUploadForm";
+import { PortalUploadForm } from "@/components/portal/PortalUploadForm";
 import type { PortalAccessRole } from "@/lib/portal-access";
 
 export default function PortalPageContent({

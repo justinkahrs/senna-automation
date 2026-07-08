@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
 import { createRfpPreviewInput } from "@/lib/rfp-proposal-renderer";
-import { RfpPreviewStudio } from "@/app/portal/rfp-preview/RfpPreviewStudio";
+import { RfpPreviewStudio } from "@/components/portal/RfpPreviewStudio";
 
 export default function RfpPreviewPageContent() {
   return (

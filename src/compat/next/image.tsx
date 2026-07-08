@@ -32,7 +32,6 @@ const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
 
   if (fill) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
       <img
         ref={ref}
         src={resolvedSrc}
@@ -53,7 +52,6 @@ const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
   }
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element
     <img
       ref={ref}
       src={resolvedSrc}

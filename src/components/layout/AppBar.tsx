@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/compat/next/link";
 import { useState, useEffect } from "react";
 import {
   AppBar as MUIAppBar,
@@ -15,7 +15,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import ScheduleCallButton from "../ScheduleCallButton";
 import { Logo } from "./Logo";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/compat/next/navigation";
 import { trackNavLink, trackContactLink } from "@/utils/analytics";
 
 const NAV_LINKS = [

@@ -22,12 +22,6 @@ export default defineConfig({
     resolve: {
       alias: {
         "@": fromRoot("./src"),
-        "next/image": fromRoot("./src/compat/next/image.tsx"),
-        "next/link": fromRoot("./src/compat/next/link.tsx"),
-        "next/navigation": fromRoot("./src/compat/next/navigation.tsx"),
-        "next/og": fromRoot("./src/compat/next/og.ts"),
-        "next/script": fromRoot("./src/compat/next/script.tsx"),
-        "next/server": fromRoot("./src/compat/next/server.ts"),
       },
     },
     ssr: {

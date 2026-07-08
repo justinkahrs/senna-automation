@@ -1,6 +1,6 @@
 ---
 import ReactRoute from "@/components/app/ReactRoute.astro";
-import Home, { metadata } from "@/app/page";
+import { metadata } from "@/site/pages/home";
 import { getAllBlogPostsFromContent } from "@/utils/astro-blog";
 
 const posts = await getAllBlogPostsFromContent();
