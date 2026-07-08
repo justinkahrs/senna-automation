@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import SiteFrame from "@/components/app/SiteFrame";
-import RfpPreviewPageContent from "@/components/portal/RfpPreviewPageContent";
+import PageApp from "@/components/app/PageApp";
 import { getPortalAccessByEmail, hasActivePortalAccess } from "@/lib/portal-access";
 
 export const prerender = false;
@@ -38,7 +37,9 @@ if (!hasActivePortalAccess(portalAccess)) {
     },
   }}
 >
-  <SiteFrame client:load pathname="/portal/rfp-preview">
-    <RfpPreviewPageContent />
-  </SiteFrame>
+  <PageApp
+    client:load
+    pageId="portal-rfp-preview"
+    pathname="/portal/rfp-preview"
+  />
 </BaseLayout>

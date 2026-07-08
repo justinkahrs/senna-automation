@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import SiteFrame from "@/components/app/SiteFrame";
-import PortalPageContent from "@/components/portal/PortalPageContent";
+import PageApp from "@/components/app/PageApp";
 import { getPortalAccessByEmail, hasActivePortalAccess } from "@/lib/portal-access";
 
 export const prerender = false;
@@ -38,11 +37,12 @@ if (!hasActivePortalAccess(portalAccess)) {
     },
   }}
 >
-  <SiteFrame client:load pathname="/portal">
-    <PortalPageContent
-      displayName={session.user.name || portalAccess.displayName || "Portal user"}
-      email={session.user.email}
-      role={portalAccess.role}
-    />
-  </SiteFrame>
+  <PageApp
+    client:load
+    pageId="portal"
+    pathname="/portal"
+    displayName={session.user.name || portalAccess.displayName || "Portal user"}
+    email={session.user.email}
+    role={portalAccess.role}
+  />
 </BaseLayout>

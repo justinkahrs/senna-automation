@@ -1,6 +1,5 @@
 ---
 import ReactRoute from "@/components/app/ReactRoute.astro";
-import SolutionsClient from "@/site/pages/solutions";
 import { metadata } from "@/site/pages/solutions";
 import { getLatestPostByCategoryFromContent } from "@/utils/astro-blog";
 
@@ -75,6 +74,9 @@ const enrichedSolutions = await Promise.all(
 );
 ---
 
-<ReactRoute metadata={metadata} pathname="/solutions">
-  <SolutionsClient solutions={enrichedSolutions} />
-</ReactRoute>
+<ReactRoute
+  metadata={metadata}
+  pathname="/solutions"
+  pageId="solutions"
+  pageProps={{ solutions: enrichedSolutions }}
+/>

@@ -1,18 +1,19 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import SiteFrame from "@/components/app/SiteFrame";
+import PageApp from "@/components/app/PageApp";
 import type { RouteMetadata } from "@/utils/metadata";
+import type { PageAppId } from "@/components/app/PageApp";
 
 interface Props {
   metadata?: RouteMetadata;
   pathname: string;
+  pageId: PageAppId;
+  pageProps?: Record<string, unknown>;
 }
 
-const { metadata, pathname } = Astro.props;
+const { metadata, pathname, pageId, pageProps = {} } = Astro.props;
 ---
 
 <BaseLayout metadata={metadata}>
-  <SiteFrame client:load pathname={pathname}>
-    <slot />
-  </SiteFrame>
+  <PageApp client:load pageId={pageId} pathname={pathname} {...pageProps} />
 </BaseLayout>
