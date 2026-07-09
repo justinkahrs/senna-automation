@@ -10,8 +10,6 @@ import {
 } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
-
-import { usePathname } from "@/compat/next/navigation";
 import { trackContactLink, trackCta } from "@/utils/analytics";
 
 interface FinalCTAProps {
@@ -51,9 +49,7 @@ export default function FinalCTA({
   stackSpacing = 2,
   transparentBackground,
 }: FinalCTAProps) {
-  const pathname = usePathname();
-  const isExtended = ["/blog", "/pricing", "/services", "/solutions"].some(p => pathname.startsWith(p));
-  const isTransparent = transparentBackground || isExtended;
+  const isTransparent = Boolean(transparentBackground);
 
   return (
     <Box

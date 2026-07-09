@@ -1,6 +1,6 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageApp from "@/components/app/PageApp";
+import BlogPostRouteClient from "@/components/app/routes/BlogPostRouteClient";
+import RouteShell from "@/components/app/RouteShell.astro";
 import { getAllBlogPostsFromContent, getBlogPostBySlugFromContent } from "@/utils/astro-blog";
 import { SITE_URL } from "@/utils/site";
 
@@ -26,7 +26,7 @@ const canonicalUrl = `${SITE_URL}/blog/${slug}`;
 const ogImageUrl = `${canonicalUrl}/opengraph-image`;
 ---
 
-<BaseLayout
+<RouteShell
   metadata={{
     title: post.title,
     description: post.excerpt,
@@ -54,12 +54,12 @@ const ogImageUrl = `${canonicalUrl}/opengraph-image`;
       images: [ogImageUrl],
     },
   }}
+  pathname={`/blog/${slug}`}
 >
-  <PageApp
+  <BlogPostRouteClient
     client:load
-    pageId="blog-post"
     pathname={`/blog/${slug}`}
     post={post}
     relatedPost={relatedPost ?? null}
   />
-</BaseLayout>
+</RouteShell>

@@ -3,7 +3,6 @@
 import Link from "@/compat/next/link";
 import type { RouteMetadata } from "@/utils/metadata";
 import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
-import { motion } from "framer-motion";
 import Image from "@/compat/next/image";
 import adminWork from "@/assets/solutions/admin-work.png";
 import qualifiedLeads from "@/assets/solutions/qualified-leads.png";
@@ -25,6 +24,7 @@ import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import type { BlogPost } from "@/types/blog";
 // import { WARM_BLACK } from "@/components/theme/colors";
 import FinalCTA from "@/components/sections/FinalCTA";
+import Reveal from "@/components/animations/Reveal";
 import { SITE_URL } from "@/utils/site";
 
 export const metadata: RouteMetadata = {
@@ -127,10 +127,6 @@ const SolutionCard = ({
 
   return (
     <Box
-      component={motion.div}
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       sx={{
         bgcolor: "background.paper",
         borderRadius: 4,
@@ -164,11 +160,7 @@ const SolutionCard = ({
               justifyContent: "center",
             }}
           >
-            <motion.div
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.15, duration: 0.5 }}
-            >
+            <Reveal delay={0.15} duration={0.5} x={-10} trigger="in-view">
               <Typography
                 variant="h3"
                 component="h3"
@@ -180,14 +172,10 @@ const SolutionCard = ({
               >
                 {item.title}
               </Typography>
-            </motion.div>
+            </Reveal>
 
             <Stack spacing={4}>
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25, duration: 0.5 }}
-              >
+              <Reveal delay={0.25} duration={0.5} y={10} trigger="in-view">
                 <Box>
                   <Typography
                     variant="overline"
@@ -211,13 +199,9 @@ const SolutionCard = ({
                     {item.problem}
                   </Typography>
                 </Box>
-              </motion.div>
+              </Reveal>
 
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-              >
+              <Reveal delay={0.3} duration={0.5} y={10} trigger="in-view">
                 <Box>
                   <Typography
                     variant="overline"
@@ -237,14 +221,10 @@ const SolutionCard = ({
                     {item.solution}
                   </Typography>
                 </Box>
-              </motion.div>
+              </Reveal>
 
               <Box>
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35, duration: 0.5 }}
-                >
+                <Reveal delay={0.35} duration={0.5} y={10} trigger="in-view">
                   <Typography
                     variant="overline"
                     sx={{
@@ -257,67 +237,71 @@ const SolutionCard = ({
                   >
                     Key Outcomes
                   </Typography>
-                </motion.div>
+                </Reveal>
                 <Stack spacing={1.5} sx={{ mt: 1 }}>
                   {item.outcomes.map((outcome, idx) => (
-                    <Box
+                    <Reveal
                       key={outcome}
-                      component={motion.div}
-                      initial={{ opacity: 0, x: -5 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 + idx * 0.05, duration: 0.4 }}
-                      sx={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        gap: 1.5,
-                      }}
+                      delay={0.4 + idx * 0.05}
+                      duration={0.4}
+                      x={-5}
+                      trigger="in-view"
                     >
-                      <CheckCircleOutlineIcon
+                      <Box
                         sx={{
-                          fontSize: 22,
-                          color: "primary.main",
-                          mt: 0.3,
-                        }}
-                      />
-                      <Typography
-                        variant="body1"
-                        sx={{
-                          color: "text.primary",
-                          fontWeight: 600,
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 1.5,
                         }}
                       >
-                        {outcome}
-                      </Typography>
-                    </Box>
+                        <CheckCircleOutlineIcon
+                          sx={{
+                            fontSize: 22,
+                            color: "primary.main",
+                            mt: 0.3,
+                          }}
+                        />
+                        <Typography
+                          variant="body1"
+                          sx={{
+                            color: "text.primary",
+                            fontWeight: 600,
+                          }}
+                        >
+                          {outcome}
+                        </Typography>
+                      </Box>
+                    </Reveal>
                   ))}
                 </Stack>
               </Box>
 
               {item.latestPost && (
-                <Box
-                  sx={{ pt: 2 }}
-                  component={motion.div}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.6, duration: 0.5 }}
+                <Reveal
+                  delay={0.6}
+                  duration={0.5}
+                  scaleFrom={0.95}
+                  trigger="in-view"
                 >
-                  <Button
-                    component={Link}
-                    href={`/blog/${item.latestPost.slug}`}
-                    variant="outlined"
-                    size="large"
-                    sx={{
-                      borderColor: "divider",
-                      color: "text.primary",
-                      "&:hover": {
-                        borderColor: "primary.main",
-                        bgcolor: "transparent",
-                      },
-                    }}
-                  >
-                    Read the Case Study
-                  </Button>
-                </Box>
+                  <Box sx={{ pt: 2 }}>
+                    <Button
+                      component={Link}
+                      href={`/blog/${item.latestPost.slug}`}
+                      variant="outlined"
+                      size="large"
+                      sx={{
+                        borderColor: "divider",
+                        color: "text.primary",
+                        "&:hover": {
+                          borderColor: "primary.main",
+                          bgcolor: "transparent",
+                        },
+                      }}
+                    >
+                      Read the Case Study
+                    </Button>
+                  </Box>
+                </Reveal>
               )}
             </Stack>
           </Box>
@@ -356,80 +340,86 @@ const SolutionCard = ({
             {item.video ? (
               <>
                 {item.mobileImage && (
+                  <Reveal
+                    duration={0.6}
+                    scaleFrom={1.02}
+                    trigger="in-view"
+                    style={{ display: "block" }}
+                  >
+                    <Box
+                      sx={{
+                        display: { xs: "block", md: "none" },
+                        position: "relative",
+                        width: "100%",
+                        aspectRatio: "16 / 9",
+                        px: 3,
+                        py: 3,
+                        boxSizing: "border-box",
+                      }}
+                    >
+                      <Image
+                        src={mobileImages[item.mobileImage] || item.mobileImage}
+                        alt={item.title}
+                        fill
+                        style={{ objectFit: "contain" }}
+                      />
+                    </Box>
+                  </Reveal>
+                )}
+                <Reveal duration={0.8} scaleFrom={1.05} trigger="in-view">
                   <Box
-                    component={motion.div}
-                    initial={{ opacity: 0, scale: 1.02 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
                     sx={{
-                      display: { xs: "block", md: "none" },
-                      position: "relative",
-                      width: "100%",
-                      aspectRatio: "16 / 9",
-                      px: 3,
-                      py: 3,
-                      boxSizing: "border-box",
+                      display: {
+                        xs: item.mobileImage ? "none" : "flex",
+                        md: "flex",
+                      },
+                      width: "90%",
+                      height: "90%",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    <Image
-                      src={mobileImages[item.mobileImage] || item.mobileImage}
-                      alt={item.title}
-                      fill
-                      style={{ objectFit: "contain" }}
+                    <video
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      src={item.video}
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        width: "auto",
+                        height: "auto",
+                        objectFit: "contain",
+                        display: "block",
+                      }}
                     />
                   </Box>
-                )}
-                <Box
-                  component={motion.div}
-                  initial={{ opacity: 0, scale: 1.05 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                  sx={{
-                    display: {
-                      xs: item.mobileImage ? "none" : "flex",
-                      md: "flex",
-                    },
-                    width: "90%",
-                    height: "90%",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    src={item.video}
-                    style={{
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                      width: "auto",
-                      height: "auto",
-                      objectFit: "contain",
-                      display: "block",
-                    }}
-                  />
-                </Box>
+                </Reveal>
               </>
             ) : (
               <>
-                <motion.p
-                  initial={{ opacity: 0, letterSpacing: 0 }}
-                  animate={{ opacity: 1, letterSpacing: 2 }}
-                  transition={{ delay: 0.3, duration: 0.8 }}
-                  style={{
-                    color: "var(--text-muted)",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                    zIndex: 1,
-                    margin: 0,
-                  }}
+                <Reveal
+                  delay={0.3}
+                  duration={0.8}
+                  letterSpacingFrom={0}
+                  letterSpacingTo={2}
+                  trigger="in-view"
                 >
-                  Solution Visualization
-                </motion.p>
+                  <Box
+                    component="p"
+                    sx={{
+                      color: "var(--text-muted)",
+                      fontWeight: 600,
+                      textTransform: "uppercase",
+                      zIndex: 1,
+                      m: 0,
+                    }}
+                  >
+                    Solution Visualization
+                  </Box>
+                </Reveal>
                 <Box
                   sx={{
                     position: "absolute",
@@ -561,15 +551,15 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
           </Typography>
           <Stack spacing={8}>
             {solutions.map((item, index) => (
-              <motion.div
+              <Reveal
                 key={item.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                y={30}
+                duration={0.8}
+                trigger="in-view"
+                amount={0.2}
               >
                 <SolutionCard item={item} index={index} />
-              </motion.div>
+              </Reveal>
             ))}
           </Stack>
         </Container>
@@ -646,7 +636,10 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
           </Grid>
         </Container>
       </Box>
-      <FinalCTA subtitle="Start with a quick 30-minute conversation about where time is being lost and what feels most repetitive. We will identify practical opportunities and map out the best place to start." />
+      <FinalCTA
+        subtitle="Start with a quick 30-minute conversation about where time is being lost and what feels most repetitive. We will identify practical opportunities and map out the best place to start."
+        transparentBackground
+      />
     </Box>
   );
 }

@@ -1,5 +1,8 @@
 ---
-import ReactRoute from "@/components/app/ReactRoute.astro";
+import RouteShell from "@/components/app/RouteShell.astro";
+import TermsRouteClient from "@/components/app/routes/TermsRouteClient";
 ---
 
-<ReactRoute pathname="/terms" pageId="terms" />
+<RouteShell pathname="/terms">
+  <TermsRouteClient client:load pathname="/terms" />
+</RouteShell>

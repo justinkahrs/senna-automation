@@ -1,6 +1,6 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageApp from "@/components/app/PageApp";
+import LoginRouteClient from "@/components/app/routes/LoginRouteClient";
+import RouteShell from "@/components/app/RouteShell.astro";
 import { configuredPortalProviders } from "@/lib/auth";
 import { getPortalAccessByEmail, hasActivePortalAccess } from "@/lib/portal-access";
 
@@ -37,7 +37,7 @@ if (session?.user?.email) {
 }
 ---
 
-<BaseLayout
+<RouteShell
   metadata={{
     title: "Portal Login",
     robots: {
@@ -45,6 +45,7 @@ if (session?.user?.email) {
       follow: false,
     },
   }}
+  pathname="/login"
 >
-  <PageApp client:load pageId="login" pathname="/login" state={state} />
-</BaseLayout>
+  <LoginRouteClient client:load pathname="/login" state={state} />
+</RouteShell>

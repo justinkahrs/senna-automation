@@ -1,0 +1,29 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import FooterFrame from "@/components/app/FooterFrame";
+import HeaderFrame from "@/components/app/HeaderFrame";
+import type { RouteMetadata } from "@/utils/metadata";
+
+interface Props {
+  metadata?: RouteMetadata;
+  pathname: string;
+}
+
+const { metadata, pathname } = Astro.props;
+---
+
+<BaseLayout metadata={metadata}>
+  <HeaderFrame client:load pathname={pathname} />
+  <main
+    style={{
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      position: "relative",
+      zIndex: 10,
+    }}
+  >
+    <slot />
+  </main>
+  <FooterFrame pathname={pathname} currentYear={new Date().getFullYear()} />
+</BaseLayout>

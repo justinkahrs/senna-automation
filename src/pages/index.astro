@@ -1,5 +1,6 @@
 ---
-import ReactRoute from "@/components/app/ReactRoute.astro";
+import RouteShell from "@/components/app/RouteShell.astro";
+import HomeRouteClient from "@/components/app/routes/HomeRouteClient";
 import { metadata } from "@/site/pages/home";
 import { getAllBlogPostsFromContent } from "@/utils/astro-blog";
 
@@ -14,9 +15,6 @@ const latestPost = posts[0]
   : null;
 ---
 
-<ReactRoute
-  metadata={metadata}
-  pathname="/"
-  pageId="home"
-  pageProps={{ latestPost }}
-/>
+<RouteShell metadata={metadata} pathname="/">
+  <HomeRouteClient client:load pathname="/" latestPost={latestPost} />
+</RouteShell>

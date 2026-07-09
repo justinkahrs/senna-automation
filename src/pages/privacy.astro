@@ -1,5 +1,8 @@
 ---
-import ReactRoute from "@/components/app/ReactRoute.astro";
+import RouteShell from "@/components/app/RouteShell.astro";
+import PrivacyRouteClient from "@/components/app/routes/PrivacyRouteClient";
 ---
 
-<ReactRoute pathname="/privacy" pageId="privacy" />
+<RouteShell pathname="/privacy">
+  <PrivacyRouteClient client:load pathname="/privacy" />
+</RouteShell>

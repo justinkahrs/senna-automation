@@ -1,6 +1,6 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageApp from "@/components/app/PageApp";
+import PortalRouteClient from "@/components/app/routes/PortalRouteClient";
+import RouteShell from "@/components/app/RouteShell.astro";
 import { getPortalAccessByEmail, hasActivePortalAccess } from "@/lib/portal-access";
 
 export const prerender = false;
@@ -28,7 +28,7 @@ if (!hasActivePortalAccess(portalAccess)) {
 }
 ---
 
-<BaseLayout
+<RouteShell
   metadata={{
     title: "Portal",
     robots: {
@@ -36,13 +36,13 @@ if (!hasActivePortalAccess(portalAccess)) {
       follow: false,
     },
   }}
+  pathname="/portal"
 >
-  <PageApp
+  <PortalRouteClient
     client:load
-    pageId="portal"
     pathname="/portal"
     displayName={session.user.name || portalAccess.displayName || "Portal user"}
     email={session.user.email}
     role={portalAccess.role}
   />
-</BaseLayout>
+</RouteShell>

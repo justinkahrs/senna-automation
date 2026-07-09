@@ -1,0 +1,9 @@
+---
+import AnalyticsCapture from "@/components/AnalyticsCapture.astro";
+import ChatWidgetShell from "@/components/app/ChatWidgetShell";
+import PrivacyNoticeShell from "@/components/app/PrivacyNoticeShell";
+---
+
+<AnalyticsCapture />
+<PrivacyNoticeShell client:idle />
+<ChatWidgetShell client:idle />

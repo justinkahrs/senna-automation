@@ -1,6 +1,9 @@
 ---
-import ReactRoute from "@/components/app/ReactRoute.astro";
+import RouteShell from "@/components/app/RouteShell.astro";
+import ContactRouteClient from "@/components/app/routes/ContactRouteClient";
 import { metadata } from "@/site/pages/contact";
 ---
 
-<ReactRoute metadata={metadata} pathname="/contact" pageId="contact" />
+<RouteShell metadata={metadata} pathname="/contact">
+  <ContactRouteClient client:load pathname="/contact" />
+</RouteShell>

@@ -379,6 +379,7 @@ export default function BlogPage({
         title="Want to automate something in your business?"
         subtitle="Book a free 30-min call. We'll identify the highest-impact opportunities and map out exactly where to start."
         buttonText="Schedule a Free Call"
+        transparentBackground
       />
     </Box>
   );

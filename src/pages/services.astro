@@ -1,6 +1,9 @@
 ---
-import ReactRoute from "@/components/app/ReactRoute.astro";
+import RouteShell from "@/components/app/RouteShell.astro";
+import ServicesRouteClient from "@/components/app/routes/ServicesRouteClient";
 import { metadata } from "@/site/pages/services";
 ---
 
-<ReactRoute metadata={metadata} pathname="/services" pageId="services" />
+<RouteShell metadata={metadata} pathname="/services">
+  <ServicesRouteClient client:load pathname="/services" />
+</RouteShell>

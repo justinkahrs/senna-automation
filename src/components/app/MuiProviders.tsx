@@ -1,20 +1,19 @@
-"use client";
-
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useMemo } from "react";
 import { getThemeTokens } from "@/components/theme/theme";
+
+const theme = createTheme(getThemeTokens());
 
 export default function MuiProviders({
   children,
+  includeCssBaseline = true,
 }: {
   children: React.ReactNode;
+  includeCssBaseline?: boolean;
 }) {
-  const theme = useMemo(() => createTheme(getThemeTokens()), []);
-
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+      {includeCssBaseline ? <CssBaseline /> : null}
       {children}
     </ThemeProvider>
   );

@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Box,
   Container,
@@ -11,8 +9,6 @@ import {
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import { usePathname } from "@/compat/next/navigation";
-import { trackExternalLink } from "@/utils/analytics";
 
 const footerLinkGroups = [
   {
@@ -49,8 +45,20 @@ const localFooterLinks = [
   },
 ];
 
-export function Footer({ currentYear }: { currentYear: number }) {
-  const pathname = usePathname();
+function externalLinkTrackingProps(href: string, label: string) {
+  return {
+    "data-track-external-link": href,
+    "data-track-external-label": label,
+  };
+}
+
+export function Footer({
+  pathname,
+  currentYear,
+}: {
+  pathname: string;
+  currentYear: number;
+}) {
   const usesYellowFooterBleed = ["/", "/about", "/contact"].includes(pathname);
   const usesExtendedCtaBackdrop = [
     "/blog",
@@ -300,7 +308,11 @@ export function Footer({ currentYear }: { currentYear: number }) {
                     href="https://linkedin.com/company/senna-automation"
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackExternalLink("https://linkedin.com/company/senna-automation", "LinkedIn")}
+                    aria-label="Senna Automation on LinkedIn"
+                    {...externalLinkTrackingProps(
+                      "https://linkedin.com/company/senna-automation",
+                      "LinkedIn",
+                    )}
                     sx={{
                       color: "var(--color-text-on-dark-body)",
                       p: 0,
@@ -314,7 +326,11 @@ export function Footer({ currentYear }: { currentYear: number }) {
                     href="https://instagram.com/sennaautomation"
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackExternalLink("https://instagram.com/sennaautomation", "Instagram")}
+                    aria-label="Senna Automation on Instagram"
+                    {...externalLinkTrackingProps(
+                      "https://instagram.com/sennaautomation",
+                      "Instagram",
+                    )}
                     sx={{
                       color: "var(--color-text-on-dark-body)",
                       p: 0,
@@ -328,7 +344,11 @@ export function Footer({ currentYear }: { currentYear: number }) {
                     href="https://www.facebook.com/senna.automation"
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackExternalLink("https://www.facebook.com/senna.automation", "Facebook")}
+                    aria-label="Senna Automation on Facebook"
+                    {...externalLinkTrackingProps(
+                      "https://www.facebook.com/senna.automation",
+                      "Facebook",
+                    )}
                     sx={{
                       color: "var(--color-text-on-dark-body)",
                       p: 0,
@@ -357,7 +377,10 @@ export function Footer({ currentYear }: { currentYear: number }) {
                   href="https://www.bbb.org/us/mi/grand-rapids/profile/artificial-intelligence/senna-automation-0372-90070205"
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => trackExternalLink("https://www.bbb.org/us/mi/grand-rapids/profile/artificial-intelligence/senna-automation-0372-90070205", "BBB")}
+                  {...externalLinkTrackingProps(
+                    "https://www.bbb.org/us/mi/grand-rapids/profile/artificial-intelligence/senna-automation-0372-90070205",
+                    "BBB",
+                  )}
                   sx={{
                     display: "inline-flex",
                     opacity: 0.8,
@@ -385,7 +408,10 @@ export function Footer({ currentYear }: { currentYear: number }) {
                   href="https://web.grandrapids.org/AI-(Artificial-Intelligence)/Senna-Automation-11264"
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => trackExternalLink("https://web.grandrapids.org/AI-(Artificial-Intelligence)/Senna-Automation-11264", "GR Chamber")}
+                  {...externalLinkTrackingProps(
+                    "https://web.grandrapids.org/AI-(Artificial-Intelligence)/Senna-Automation-11264",
+                    "GR Chamber",
+                  )}
                   sx={{
                     display: "inline-flex",
                     opacity: 0.8,

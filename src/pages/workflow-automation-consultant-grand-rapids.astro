@@ -1,11 +1,15 @@
 ---
-import ReactRoute from "@/components/app/ReactRoute.astro";
-import WorkflowAutomationConsultantGrandRapidsPage from "@/site/pages/local-seo/workflow-automation-consultant-grand-rapids";
+import RouteShell from "@/components/app/RouteShell.astro";
+import WorkflowConsultantRouteClient from "@/components/app/routes/WorkflowConsultantRouteClient";
 import { metadata } from "@/site/pages/local-seo/workflow-automation-consultant-grand-rapids";
 ---
 
-<ReactRoute
+<RouteShell
   metadata={metadata}
   pathname="/workflow-automation-consultant-grand-rapids"
-  pageId="local-seo-workflow"
-/>
+>
+  <WorkflowConsultantRouteClient
+    client:load
+    pathname="/workflow-automation-consultant-grand-rapids"
+  />
+</RouteShell>

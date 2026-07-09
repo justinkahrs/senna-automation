@@ -634,6 +634,7 @@ export default function PricingPage() {
         title="Ready to get your automation plan?"
         subtitle="Schedule a brief strategy call to walk through your current process. No pressure, just actionable insights on where automation can help you most."
         buttonText="Start Your Free Assessment"
+        transparentBackground
       />
     </Box>
   );

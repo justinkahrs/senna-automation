@@ -1,5 +1,5 @@
 ---
-import PersistentWidgets from "@/components/app/PersistentWidgets";
+import PersistentWidgets from "@/components/app/PersistentWidgets.astro";
 import "@/styles/globals.css";
 import type { RouteMetadata } from "@/utils/metadata";
 import { getResolvedMetadata } from "@/utils/metadata";
@@ -114,6 +114,6 @@ const resolved = getResolvedMetadata(metadata);
   </head>
   <body>
     <slot />
-    <PersistentWidgets client:idle />
+    <PersistentWidgets />
   </body>
 </html>

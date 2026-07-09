@@ -396,7 +396,7 @@ export default function ServicesPage() {
         </Container>
       </Box>
       {/* ── Final CTA ─────────────────────────────────────── */}
-      <FinalCTA />
+      <FinalCTA transparentBackground />
     </Box>
   );
 }

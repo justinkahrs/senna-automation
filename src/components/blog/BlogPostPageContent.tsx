@@ -456,7 +456,7 @@ export default function BlogPostPageContent({
         </Box>
       ) : null}
 
-      <FinalCTA />
+      <FinalCTA transparentBackground />
     </Box>
   );
 }

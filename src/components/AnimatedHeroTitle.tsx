@@ -1,13 +1,12 @@
 "use client";
 import { Typography, Box } from "@mui/material";
-import { motion } from "framer-motion";
+import Reveal from "@/components/animations/Reveal";
 
 export default function AnimatedHeroTitle() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+    <Reveal
+      y={20}
+      duration={0.8}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -89,6 +88,6 @@ export default function AnimatedHeroTitle() {
           handle itself.
         </Box>
       </Typography>
-    </motion.div>
+    </Reveal>
   );
 }
