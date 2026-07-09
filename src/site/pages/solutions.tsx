@@ -3,7 +3,6 @@
 import Link from "@/compat/next/link";
 import type { RouteMetadata } from "@/utils/metadata";
 import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
-import Image from "@/compat/next/image";
 import adminWork from "@/assets/solutions/admin-work.png";
 import qualifiedLeads from "@/assets/solutions/qualified-leads.png";
 import structuredData from "@/assets/solutions/structured-data.png";
@@ -124,6 +123,9 @@ const SolutionCard = ({
 }) => {
   const layoutIndex =
     forceLayout === "left" ? 0 : forceLayout === "right" ? 1 : index;
+  const posterSrc = item.mobileImage
+    ? mobileImages[item.mobileImage]?.src ?? item.mobileImage
+    : undefined;
 
   return (
     <Box
@@ -339,28 +341,6 @@ const SolutionCard = ({
           >
             {item.video ? (
               <>
-                {item.mobileImage && (
-                  <Box
-                    sx={{
-                      display: { xs: "block", md: "none" },
-                      position: "absolute",
-                      inset: 0,
-                      px: 3,
-                      py: 3,
-                      boxSizing: "border-box",
-                    }}
-                  >
-                    <Image
-                      src={mobileImages[item.mobileImage] || item.mobileImage}
-                      alt={item.title}
-                      fill
-                      style={{
-                        objectFit: "contain",
-                        objectPosition: "center center",
-                      }}
-                    />
-                  </Box>
-                )}
                 <Reveal
                   duration={0.8}
                   scaleFrom={1.05}
@@ -377,14 +357,13 @@ const SolutionCard = ({
                 >
                   <Box
                     sx={{
-                      display: {
-                        xs: item.mobileImage ? "none" : "flex",
-                        md: "flex",
-                      },
-                      width: "90%",
-                      height: "90%",
+                      display: "flex",
+                      width: "100%",
+                      height: "100%",
                       alignItems: "center",
                       justifyContent: "center",
+                      p: { xs: 2.5, md: 3 },
+                      boxSizing: "border-box",
                     }}
                   >
                     <video
@@ -393,12 +372,13 @@ const SolutionCard = ({
                       loop
                       playsInline
                       preload="metadata"
+                      poster={posterSrc}
                       src={item.video}
                       style={{
+                        width: "100%",
+                        height: "100%",
                         maxWidth: "100%",
                         maxHeight: "100%",
-                        width: "auto",
-                        height: "auto",
                         objectFit: "contain",
                         display: "block",
                       }}
