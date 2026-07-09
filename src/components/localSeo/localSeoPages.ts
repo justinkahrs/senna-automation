@@ -394,6 +394,127 @@ export const localSeoPages = {
     ],
     nearbyCities,
   },
+  businessProcessAutomationGrandRapids: {
+    slug: "business-process-automation-grand-rapids",
+    serviceName: "Business Process Automation in Grand Rapids",
+    serviceType: "Business process automation",
+    title: "Business Process Automation Grand Rapids | Senna Automation",
+    description:
+      "Grand Rapids business process automation for approvals, intake, quoting, scheduling, reporting, and back-office workflows. Free assessment available with projects starting at $500.",
+    eyebrow: "Grand Rapids Business Process Automation",
+    h1: "Business process automation for Grand Rapids companies",
+    lead:
+      "Senna Automation helps Grand Rapids and West Michigan businesses reduce manual handoffs, improve response time, and keep day-to-day operations moving with practical automation systems.",
+    introTitle: "Automate the workflows that slow your team down every week",
+    introBody:
+      "Business process automation works best when it starts with the repeated tasks your team already handles across email, forms, spreadsheets, ERP records, CRM updates, scheduling tools, and internal approvals. We design focused systems that remove duplicate entry, route work faster, and make bottlenecks visible without forcing a full software replacement first.",
+    assessmentTitle: "Free assessment with a practical first scope",
+    assessmentBody:
+      "The first step is a free assessment centered on one high-friction process. Small automation projects start at $500, and larger business process automation builds are scoped around your current systems, decision rules, approvals, and reporting needs.",
+    primaryKeyword: "business process automation grand rapids",
+    secondaryKeywords: [
+      "business process automation services Grand Rapids",
+      "process automation Grand Rapids",
+      "workflow automation Grand Rapids",
+      "operations automation West Michigan",
+      "business automation consultant Grand Rapids",
+      "back-office automation Grand Rapids",
+    ],
+    supportingPostSlugs: [
+      "where-west-michigan-teams-start-with-ai-automation-in-the-back-office",
+      "automating-inventory-sync-between-purchasing-production-and-the-stock-room",
+      "automating-service-call-scheduling-before-the-day-falls-apart",
+    ],
+    useCases: [
+      {
+        title: "Intake, approvals, and internal routing",
+        description:
+          "Move requests from inboxes, forms, and shared documents into one dependable workflow with approval logic, ownership rules, and escalation steps.",
+      },
+      {
+        title: "Quoting, order, and service coordination",
+        description:
+          "Reduce delays between sales, operations, purchasing, dispatch, and customer communication by automating the handoffs that usually stall work.",
+      },
+      {
+        title: "Reporting, alerts, and exception handling",
+        description:
+          "Surface what is waiting, blocked, overdue, or missing so managers can act sooner instead of discovering issues after the fact.",
+      },
+      {
+        title: "Document and data handoff automation",
+        description:
+          "Extract information from PDFs, emails, spreadsheets, and line-of-business systems so staff spend less time re-entering the same details.",
+      },
+    ],
+    industries: [
+      {
+        name: "Manufacturing",
+        description:
+          "RFQ intake, inventory coordination, production handoffs, maintenance workflows, quality escalations, and purchasing approvals.",
+      },
+      {
+        name: "Distribution",
+        description:
+          "Order processing, stock checks, customer request routing, vendor follow-up, document handling, and fulfillment visibility.",
+      },
+      {
+        name: "Trades and field service",
+        description:
+          "Service request intake, scheduling prep, technician coordination, estimate approvals, and day-of exception handling.",
+      },
+      {
+        name: "Office-heavy service teams",
+        description:
+          "Client intake, onboarding steps, document review, approvals, recurring reporting, and back-office task coordination.",
+      },
+    ],
+    process: [
+      {
+        title: "Map the current process and friction points",
+        description:
+          "We identify where work begins, what information is required, where approvals happen, and which manual checks or delays keep the process from moving cleanly.",
+      },
+      {
+        title: "Design the first automation around business rules",
+        description:
+          "We turn your operating logic into a focused workflow with the right triggers, routing, reminders, integrations, and exception paths.",
+      },
+      {
+        title: "Launch, refine, and expand from a working system",
+        description:
+          "We implement the first process, test real-world edge cases, train your team, and improve the workflow once live usage shows where to extend it next.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is business process automation for a Grand Rapids company?",
+        answer:
+          "Business process automation is the use of software, integrations, and workflow logic to move recurring work through the business with less manual entry, fewer delays, and clearer ownership. That can include intake, approvals, routing, reminders, reporting, and system-to-system updates.",
+      },
+      {
+        question: "What kinds of processes are good first automation projects?",
+        answer:
+          "Good first projects usually involve repeated handoffs, predictable rules, and too much manual follow-up. Common examples include quote intake, service scheduling prep, purchasing approvals, document processing, customer request routing, and internal status reporting.",
+      },
+      {
+        question: "Do we need to replace our current software first?",
+        answer:
+          "Usually no. Many business process automation projects work by connecting the tools you already use, such as spreadsheets, CRM platforms, ERP systems, forms, inboxes, and scheduling tools, so information moves more reliably between them.",
+      },
+      {
+        question: "How much does business process automation cost?",
+        answer:
+          "Focused automation work starts at $500. Larger projects depend on the number of systems involved, the complexity of the workflow rules, and whether custom integrations or AI-assisted steps are included.",
+      },
+      {
+        question: "Do you only work with businesses in Grand Rapids?",
+        answer:
+          "No. Senna Automation is based in Grand Rapids and supports companies across West Michigan, including Kentwood, Wyoming, Grandville, Walker, Holland, Rockford, Ada, and Byron Center.",
+      },
+    ],
+    nearbyCities,
+  },
 } satisfies Record<string, LocalSeoPageConfig>;
 
 export const localSeoPageList = Object.values(localSeoPages);
