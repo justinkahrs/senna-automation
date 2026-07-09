@@ -233,16 +233,6 @@ export default function Home({
                 maxWidth: { xs: "100%", md: 760 },
                 textAlign: { xs: "center", md: "left" }
               }}>
-              <Typography
-                variant="overline"
-                sx={{
-                  ...homeEyebrowSx,
-                  mb: 2,
-                  alignSelf: { xs: "center", md: "flex-start" },
-                }}
-              >
-                Workflow systems for lead follow-up, quoting, scheduling, and internal handoffs
-              </Typography>
               <AnimatedHeroTitle />
               <Box
                 component="hr"
