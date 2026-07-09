@@ -340,37 +340,26 @@ const SolutionCard = ({
             {item.video ? (
               <>
                 {item.mobileImage && (
-                  <Reveal
-                    duration={0.6}
-                    scaleFrom={1.02}
-                    trigger="in-view"
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      maxWidth: "100%",
-                      flex: "0 0 100%",
-                      alignSelf: "stretch",
+                  <Box
+                    sx={{
+                      display: { xs: "block", md: "none" },
+                      position: "absolute",
+                      inset: 0,
+                      px: 3,
+                      py: 3,
+                      boxSizing: "border-box",
                     }}
                   >
-                    <Box
-                      sx={{
-                        display: { xs: "block", md: "none" },
-                        position: "relative",
-                        width: "100%",
-                        aspectRatio: "16 / 9",
-                        px: 3,
-                        py: 3,
-                        boxSizing: "border-box",
+                    <Image
+                      src={mobileImages[item.mobileImage] || item.mobileImage}
+                      alt={item.title}
+                      fill
+                      style={{
+                        objectFit: "contain",
+                        objectPosition: "center center",
                       }}
-                    >
-                      <Image
-                        src={mobileImages[item.mobileImage] || item.mobileImage}
-                        alt={item.title}
-                        fill
-                        style={{ objectFit: "contain" }}
-                      />
-                    </Box>
-                  </Reveal>
+                    />
+                  </Box>
                 )}
                 <Reveal
                   duration={0.8}
