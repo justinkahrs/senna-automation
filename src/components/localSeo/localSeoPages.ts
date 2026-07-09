@@ -396,7 +396,13 @@ export const localSeoPages = {
   },
 } satisfies Record<string, LocalSeoPageConfig>;
 
-export const localSeoRoutes = Object.values(localSeoPages).map((page) => ({
+export const localSeoPageList = Object.values(localSeoPages);
+
+export function getLocalSeoPageBySlug(slug: string) {
+  return localSeoPageList.find((page) => page.slug === slug);
+}
+
+export const localSeoRoutes = localSeoPageList.map((page) => ({
   url: `${SITE_URL}/${page.slug}`,
   slug: page.slug,
 }));
