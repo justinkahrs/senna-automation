@@ -1,0 +1,49 @@
+---
+import RouteShell from "@/components/app/RouteShell.astro";
+import LocalSeoRouteClient from "@/components/app/routes/LocalSeoRouteClient";
+import {
+  getLocalSeoPageBySlug,
+  localSeoPageList,
+} from "@/components/localSeo/localSeoPages";
+import { SITE_URL } from "@/utils/site";
+import type { RouteMetadata } from "@/utils/metadata";
+
+export function getStaticPaths() {
+  return localSeoPageList.map((page) => ({
+    params: { localSeoSlug: page.slug },
+    props: { page },
+  }));
+}
+
+const page =
+  Astro.props.page ?? getLocalSeoPageBySlug(String(Astro.params.localSeoSlug || ""));
+
+if (!page) {
+  throw new Error(`Unknown local SEO slug: ${Astro.params.localSeoSlug}`);
+}
+
+const metadata: RouteMetadata = {
+  title: {
+    absolute: page.title,
+  },
+  description: page.description,
+  alternates: {
+    canonical: `${SITE_URL}/${page.slug}`,
+  },
+  openGraph: {
+    title: page.title,
+    description: page.description,
+    url: `${SITE_URL}/${page.slug}`,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: page.title,
+    description: page.description,
+  },
+};
+---
+
+<RouteShell metadata={metadata} pathname={`/${page.slug}`}>
+  <LocalSeoRouteClient client:load pathname={`/${page.slug}`} page={page} />
+</RouteShell>
