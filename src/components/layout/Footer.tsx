@@ -28,7 +28,7 @@ const localFooterLinks = [
     heading: "Local",
     links: [
       { label: "AI Consulting", href: "/ai-consulting-grand-rapids" },
-      { label: "AI Automation", href: "/ai-automation-grand-rapids" },
+      { label: "AI Systems", href: "/ai-automation-grand-rapids" },
       {
         label: "Workflow Consultant",
         href: "/workflow-automation-consultant-grand-rapids",
@@ -38,6 +38,7 @@ const localFooterLinks = [
   {
     heading: "Explore",
     links: [
+      { label: "Search", href: "/search" },
       { label: "Contact", href: "/contact" },
       { label: "Privacy", href: "/privacy" },
       { label: "Terms", href: "/terms" },

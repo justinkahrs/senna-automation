@@ -1,0 +1,33 @@
+{
+  "name": "astro-geoready",
+  "version": "0.1.0",
+  "description": "Make your Astro site GEO-ready at build time: generates llms.txt and AI discovery files (ai.txt, ai/summary.json) from your built routes.",
+  "type": "module",
+  "main": "./index.mjs",
+  "exports": {
+    ".": "./index.mjs"
+  },
+  "files": [
+    "index.mjs"
+  ],
+  "keywords": [
+    "astro",
+    "astro-integration",
+    "geo",
+    "llms.txt",
+    "ai-visibility"
+  ],
+  "author": "Auriti Labs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Auriti-Labs/geo-optimizer-skill.git",
+    "directory": "integrations/astro-geoready"
+  },
+  "peerDependencies": {
+    "astro": ">=4.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

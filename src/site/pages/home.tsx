@@ -1,15 +1,17 @@
-import type { ReactNode } from "react";
 import Image, { type StaticImageData } from "@/compat/next/image";
+import Script from "@/compat/next/script";
 import type { RouteMetadata } from "@/utils/metadata";
 import RequestFormButton from "@/components/RequestFormButton";
 import SennaAdvantageVideo from "@/components/home/SennaAdvantageVideo";
 import type { BlogPostPreview } from "@/types/blog";
+import { homeFaqEntries, formatAiFaqAnswer } from "@/utils/ai-discovery";
+import { SITE_NAME, SITE_URL } from "@/utils/site";
 
 export const metadata: RouteMetadata = {
   title:
-    "AI Workflow Automation & Business Process Automation | Senna Automation",
+    "AI Workflow Systems & Business Process Design | Senna Automation",
   description:
-    "Senna Automation helps businesses in Grand Rapids, MI and beyond eliminate repetitive work with AI-powered workflow automation. Schedule a free 30-min call to see what you can automate.",
+    "AI-powered workflow systems for Grand Rapids businesses that need faster lead follow-up, cleaner handoffs, and less repetitive back-office work.",
   alternates: {
     canonical: "https://www.senna-automation.com",
   },
@@ -18,9 +20,6 @@ export const metadata: RouteMetadata = {
 import AnimatedHeroTitle from "@/components/AnimatedHeroTitle";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
   Card,
   CardContent,
@@ -29,88 +28,11 @@ import {
   Typography,
   Grid,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CascadingStagger from "@/components/animations/CascadingStagger";
 import Link from "@/compat/next/link";
 import { Button } from "@mui/material";
 import FinalCTA from "@/components/sections/FinalCTA";
 import LocalSeoClusterSection from "@/components/localSeo/LocalSeoClusterSection";
-
-const faqs: Array<{ question: string; answer: ReactNode }> = [
-  {
-    question: "How is this different from other automation tools?",
-    answer: (
-      <>
-        <Box component="p" sx={{ m: 0 }}>
-          There are already powerful automation platforms out there, but most
-          are built for large teams and require time to learn and maintain.
-        </Box>
-        <Box component="p" sx={{ mt: 2, mb: 0 }}>
-          This is different. You&apos;re getting a system designed around your
-          business that actually runs, not a tool you have to manage.
-        </Box>
-      </>
-    ),
-  },
-  {
-    question: "Do I need to be technical to use this?",
-    answer: (
-      <>
-        <Box component="p" sx={{ m: 0 }}>
-          No.
-        </Box>
-        <Box component="p" sx={{ mt: 2, mb: 0 }}>
-          Everything is set up to match how your business already works. You and
-          your team just interact with simple inputs like emails, forms, or
-          messages, and the system handles the rest quietly in the background.
-        </Box>
-      </>
-    ),
-  },
-  {
-    question: "What kinds of things can actually be automated?",
-    answer: (
-      <>
-        <Box component="p" sx={{ m: 0 }}>
-          Anything that follows a pattern.
-        </Box>
-        <Box component="p" sx={{ mt: 2, mb: 0 }}>
-          That usually includes:
-        </Box>
-        <Box component="ul" sx={{ mt: 1.5, mb: 0, pl: 3 }}>
-          <Box component="li">
-            Incoming leads getting organized and qualified
-          </Box>
-          <Box component="li">Follow-ups happening without reminders</Box>
-          <Box component="li">Scheduling handled without back-and-forth</Box>
-          <Box component="li">
-            Invoices or documents created from conversations
-          </Box>
-          <Box component="li">
-            Tasks moving between people without manual coordination
-          </Box>
-        </Box>
-        <Box component="p" sx={{ mt: 2, mb: 0 }}>
-          Most businesses are already doing this work manually.
-        </Box>
-      </>
-    ),
-  },
-  {
-    question: "How do I get started?",
-    answer: (
-      <>
-        <Box component="p" sx={{ m: 0 }}>
-          We start by looking at where work is getting stuck or repeated.
-        </Box>
-        <Box component="p" sx={{ mt: 2, mb: 0 }}>
-          From there, we build one system that takes that off your plate. Once
-          that&apos;s running, we expand into other areas.
-        </Box>
-      </>
-    ),
-  },
-];
 
 import hubspot from "@/assets/home/integrations/hubspot.png";
 import quickbooks from "@/assets/home/integrations/quickbooks.png";
@@ -199,6 +121,60 @@ const homeEyebrowSx = {
   letterSpacing: "0.12em",
 };
 
+const homePageVideoTranscript =
+  "Homepage demo video showing a workflow interface. Steps move between tasks, messages, and operating dashboards. The video illustrates how routine work can be routed and completed in the background.";
+
+const homePageStructuredData = {
+  webpage: {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE_URL}/#webpage`,
+    url: SITE_URL,
+    name: String(metadata.title),
+    description: metadata.description,
+    inLanguage: "en-US",
+    isPartOf: {
+      "@id": `${SITE_URL}/#website`,
+    },
+    about: {
+      "@id": `${SITE_URL}/#organization`,
+    },
+    dateModified: "2026-04-08T13:35:58Z",
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/og/default.png`,
+    },
+  },
+  faq: {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: homeFaqEntries.map((entry) => ({
+      "@type": "Question",
+      name: entry.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: formatAiFaqAnswer(entry),
+      },
+    })),
+  },
+  video: {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: "Workflow systems overview video",
+    description:
+      "Short homepage overview showing how workflow systems can move routine tasks through client operations.",
+    thumbnailUrl: [`${SITE_URL}/og/default.png`],
+    uploadDate: "2026-04-08T13:35:58Z",
+    contentUrl: `${SITE_URL}/home-work.mp4`,
+    embedUrl: SITE_URL,
+    inLanguage: "en-US",
+    transcript: homePageVideoTranscript,
+    publisher: {
+      "@id": `${SITE_URL}/#organization`,
+    },
+  },
+};
+
 type HomeFeaturedPost = Pick<
   BlogPostPreview,
   "slug" | "title" | "excerpt" | "image"
@@ -211,6 +187,27 @@ export default function Home({
 }) {
   return (
     <>
+      <Script
+        id="home-webpage-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homePageStructuredData.webpage),
+        }}
+      />
+      <Script
+        id="home-faq-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homePageStructuredData.faq),
+        }}
+      />
+      <Script
+        id="home-video-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homePageStructuredData.video),
+        }}
+      />
       {/* ── Hero ─────────────────────────────────────── */}
       <Box
         component="section"
@@ -256,12 +253,38 @@ export default function Home({
                 sx={{
                   color: "text.secondary",
                   mt: 0,
-                  mb: 4,
+                  mb: 2,
                   maxWidth: 720,
                   textAlign: { xs: "center", md: "left" }
                 }}>
-                Support your team with systems that handle the repetitive work.
-                So they can focus on the work that moves things forward.
+                For small and mid-sized teams, we turn lead follow-up, quoting,
+                routing, scheduling, and repetitive back-office work into
+                practical AI-powered systems.
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: "text.secondary",
+                  mb: 4,
+                  maxWidth: 720,
+                  textAlign: { xs: "center", md: "left" },
+                }}
+              >
+                We build practical systems around the tools you already use, so
+                handoffs keep moving and your team spends less time chasing
+                status updates.
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "text.secondary",
+                  mb: 4,
+                  letterSpacing: "0.02em",
+                  textAlign: { xs: "center", md: "left" },
+                }}
+              >
+                Common starting points: lead response, quote intake, internal
+                routing, scheduling, and document handoffs.
               </Typography>
 
               <Box
@@ -287,7 +310,7 @@ export default function Home({
                     size="large"
                     text="Schedule a Call"
                     showIcon={false}
-                    aria-label="Schedule a consultation call with our AI automation experts via Calendly"
+                    ariaLabel="Schedule a consultation call with our workflow systems team via Calendly"
                   />
                 </Stack>
                 <Box
@@ -299,9 +322,9 @@ export default function Home({
                   <RequestFormButton
                     fullWidth
                     size="large"
-                    text="See What You Can Automate"
+                    text="See Example Workflows"
                     href="/services"
-                    aria-label="See what you can automate"
+                    ariaLabel="See example workflow systems"
                     sx={{
                       color: "var(--color-text-primary)",
                       borderColor: "var(--color-text-primary)",
@@ -396,11 +419,10 @@ export default function Home({
                       fontSize: "1.125rem",
                       lineHeight: 1.8
                     }}>
-                    Senna Automation builds systems that take work off your
-                    plate and keep your business moving. Instead of juggling
-                    emails, follow-ups, and repetitive tasks, your workflows run
-                    quietly in the background, turning inputs into completed
-                    outcomes.
+                    We build systems that take work off your plate and keep the
+                    day moving. Instead of juggling emails, follow-ups, and
+                    repetitive tasks, the right steps happen quietly in the
+                    background, turning inputs into completed outcomes.
                   </Typography>
 
                   <Typography
@@ -410,7 +432,7 @@ export default function Home({
                       fontSize: "1.125rem",
                       lineHeight: 1.8
                     }}>
-                    We design and build custom automation systems for small and
+                    We design and build custom workflow systems for small and
                     mid-sized businesses, combining modern AI with software that
                     fits the tools you already use. The result is less manual
                     work, fewer gaps, and more time focused on what actually
@@ -428,8 +450,8 @@ export default function Home({
                       py: 1,
                       mt: 2
                     }}>
-                    Based in Grand Rapids, Michigan, Senna Automation helps
-                    businesses <strong>simplify operations</strong>,{" "}
+                    Based in Grand Rapids, Michigan, we help businesses{" "}
+                    <strong>simplify operations</strong>,{" "}
                     <strong>reduce back-and-forth</strong>, and create systems
                     they can rely on.
                   </Typography>
@@ -736,7 +758,7 @@ export default function Home({
                   color: "var(--color-text-inverse)",
                 }}
               >
-                Using homegrown tools or internal systems? We build automation
+                Using homegrown tools or internal systems? We build workflow
                 directly into those as well.
               </Typography>
               <Button
@@ -943,53 +965,64 @@ export default function Home({
               mb: 8,
               opacity: 0.7
             }}>
-            A few common questions about how automation works and where to
+            A few common questions about how these systems work and where to
             start.
           </Typography>
 
           <CascadingStagger spacing={2}>
-            {faqs.map((faq) => (
-              <Accordion
+            {homeFaqEntries.map((faq) => (
+              <Card
                 key={faq.question}
-                disableGutters
-                slotProps={{ transition: { timeout: 140 } }}
                 sx={{
                   bgcolor: "background.paper",
-                  borderColor: "divider",
                   color: "inherit",
-                  "&.Mui-expanded": {
-                    bgcolor: "background.paper",
-                  },
+                  border: "1px solid",
+                  borderColor: "divider",
                 }}
               >
-                <AccordionSummary
-                  expandIcon={
-                    <ExpandMoreIcon sx={{ color: "primary.light" }} />
-                  }
-                >
-                  <Typography variant="h5" sx={{
-                    color: "inherit"
-                  }}>
+                <CardContent sx={{ p: { xs: 3, md: 4 } }}>
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      color: "inherit",
+                      mb: 2,
+                    }}
+                  >
                     {faq.question}
                   </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
                   <Typography
                     component="div"
                     variant="body1"
                     sx={{ color: "text.secondary" }}
                   >
-                    {faq.answer}
+                    {faq.paragraphs.map((paragraph, index) => (
+                      <Box
+                        key={`${faq.question}-paragraph-${index}`}
+                        component="p"
+                        sx={{ m: 0, mt: index === 0 ? 0 : 2 }}
+                      >
+                        {paragraph}
+                      </Box>
+                    ))}
+                    {faq.bulletPoints?.length ? (
+                      <Box component="ul" sx={{ mt: 2, mb: 0, pl: 3 }}>
+                        {faq.bulletPoints.map((point) => (
+                          <Box component="li" key={point}>
+                            {point}
+                          </Box>
+                        ))}
+                      </Box>
+                    ) : null}
                   </Typography>
-                </AccordionDetails>
-              </Accordion>
+                </CardContent>
+              </Card>
             ))}
           </CascadingStagger>
         </Container>
       </Box>
       <LocalSeoClusterSection
         title="Start with the kind of help you need"
-        description="Whether you need a clear AI plan, hands-on automation, or a better way to move work through the business, these pages show how we help Grand Rapids and West Michigan teams."
+        description="Whether you need a clear AI plan, hands-on workflow support, or a better way to move work through the business, these pages show how we help Grand Rapids and West Michigan teams."
         sx={{
           py: { xs: 10, md: 15 },
           bgcolor: "background.paper",

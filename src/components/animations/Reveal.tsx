@@ -56,16 +56,10 @@ export default function Reveal({
   once = true,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    if (trigger === "mount") {
-      const frame = window.requestAnimationFrame(() => {
-        setIsVisible(true);
-      });
-
-      return () => window.cancelAnimationFrame(frame);
-    }
+    if (trigger === "mount") return;
 
     const node = ref.current;
     if (!node) return;

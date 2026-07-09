@@ -8,6 +8,8 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  FormControl,
+  FormLabel,
   Typography,
   Container,
   Grid,
@@ -147,7 +149,7 @@ export default function ContactForm() {
                   textAlign: { xs: "center", md: "left" }
                 }}>
                 No prep needed. We&apos;ll walk through your current process and
-                find where automation can help.
+                find where a better system can help.
               </Typography>
                 <Typography
                   variant="body1"
@@ -181,6 +183,7 @@ export default function ContactForm() {
                 component="form"
                 id="contact-form"
                 onSubmit={handleSubmit}
+                aria-label="Request a workflow assessment"
                 sx={{
                   width: "100%",
                   "& .MuiInputLabel-root.MuiInputLabel-shrink": {
@@ -194,6 +197,8 @@ export default function ContactForm() {
                   id="contact-name"
                   label="Your Name"
                   placeholder="John Smith"
+                  name="name"
+                  autoComplete="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   margin="normal"
@@ -230,8 +235,11 @@ export default function ContactForm() {
                   placeholder="Acme Corp"
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
+                  name="company"
+                  autoComplete="organization"
                   margin="normal"
                   aria-label="Enter your company name"
+                  helperText="Optional, but useful if you want us to tailor the conversation to your team."
                   sx={{
                     "& .MuiOutlinedInput-root": {
                       bgcolor: "var(--color-bg-paper)",
@@ -263,10 +271,12 @@ export default function ContactForm() {
                   id="contact-assistance"
                   label="How can we assist you?"
                   placeholder="What’s taking too much time right now?"
+                  name="assistance"
                   value={assistance}
                   onChange={(e) => setAssistance(e.target.value)}
                   margin="normal"
                   aria-label="Describe how we can help your business"
+                  helperText="Describe the bottleneck, handoff, or repetitive work you want to improve."
                   multiline
                   rows={3}
                   sx={{
@@ -294,17 +304,29 @@ export default function ContactForm() {
                     },
                   }}
                 />
-                <Typography
+                <FormControl component="fieldset" sx={{ mt: 2, mb: 1 }}>
+                  <FormLabel
+                    component="legend"
+                    sx={{
+                      color: "text.primary",
+                      "&.Mui-focused": {
+                        color: "var(--color-accent)",
+                      },
+                    }}
+                  >
+                    Preferred Contact Method *
+                  </FormLabel>
+                  <Typography
                   variant="body2"
                   sx={{
                     color: "text.primary",
-                    mt: 2,
                     mb: 1
                   }}>
-                  Preferred Contact Method *
-                </Typography>
-                <RadioGroup
+                    Choose the channel you want us to use for follow-up.
+                  </Typography>
+                  <RadioGroup
                   row
+                  name="contactMethod"
                   aria-label="Select your preferred contact method"
                   value={contactMethod}
                   onChange={(e) => setContactMethod(e.target.value)}
@@ -337,19 +359,19 @@ export default function ContactForm() {
                     value="email"
                     control={<Radio />}
                     label="Email"
-                    id="contact-email"
                   />
                   <FormControlLabel
                     value="sms"
                     control={<Radio />}
                     label="SMS / Phone"
-                    id="contact-sms"
                   />
-                </RadioGroup>
+                  </RadioGroup>
+                </FormControl>
                 <TextField
                   fullWidth
                   required
                   id="contact-value"
+                  name="contactValue"
                   label={
                     contactMethod === "email"
                       ? "Your Email Address"
@@ -361,6 +383,7 @@ export default function ContactForm() {
                       ? "john@company.com"
                       : "(616) 555-1234"
                   }
+                  autoComplete={contactMethod === "email" ? "email" : "tel"}
                   value={contactValue}
                   onChange={(e) => setContactValue(e.target.value)}
                   onBlur={() => setTouched(true)}
@@ -376,7 +399,9 @@ export default function ContactForm() {
                       ? contactMethod === "email"
                         ? "Please enter a valid email address (e.g., name@domain.com)"
                         : "Please enter a valid phone number (e.g., (616) 555-1234)"
-                      : ""
+                      : contactMethod === "email"
+                        ? "We will use this address for the initial reply."
+                        : "We will use this number for a call or text reply."
                   }
                   sx={{
                     "& .MuiOutlinedInput-root": {
@@ -421,6 +446,8 @@ export default function ContactForm() {
                   }}
                   disabled={!isValidContact}
                   aria-label="Submit your contact request"
+                  toolname="submit_contact_request"
+                  tooldescription="Submit the contact form to request a workflow assessment from Senna Automation."
                 >
                   Request My Free Audit
                 </Button>

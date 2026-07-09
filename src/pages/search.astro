@@ -1,0 +1,17 @@
+---
+import RouteShell from "@/components/app/RouteShell.astro";
+import MuiProviders from "@/components/app/MuiProviders";
+import SearchPage, { metadata } from "@/site/pages/search";
+import { searchSiteContent } from "@/utils/search";
+
+export const prerender = false;
+
+const query = Astro.url.searchParams.get("q")?.trim() ?? "";
+const results = searchSiteContent(query);
+---
+
+<RouteShell metadata={metadata} pathname="/search">
+  <MuiProviders>
+    <SearchPage query={query} results={results} />
+  </MuiProviders>
+</RouteShell>

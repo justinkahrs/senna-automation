@@ -30,6 +30,7 @@ interface ScheduleCallButtonProps {
   sx?: any;
   showIcon?: boolean;
   inverse?: boolean;
+  ariaLabel?: string;
 }
 
 export default function ScheduleCallButton({
@@ -40,6 +41,7 @@ export default function ScheduleCallButton({
   sx = {},
   showIcon = true,
   inverse = false,
+  ariaLabel,
 }: ScheduleCallButtonProps) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -65,6 +67,12 @@ export default function ScheduleCallButton({
     // Redirect to confirmation after closing
   };
 
+  const schedulingActionAttributes = {
+    toolname: "schedule_call",
+    tooldescription:
+      "Open the scheduling modal to book a workflow consultation with Senna Automation.",
+  } as const;
+
   return (
     <>
       <Button
@@ -72,6 +80,8 @@ export default function ScheduleCallButton({
         size={size}
         onClick={handleOpen}
         fullWidth={fullWidth}
+        aria-label={ariaLabel ?? text}
+        {...schedulingActionAttributes}
         sx={{
           borderRadius: "var(--radius-pill)",
           fontWeight: "bold",
@@ -201,7 +211,7 @@ export default function ScheduleCallButton({
                     bgcolor: alpha(ACCENT, 0.1),
                   },
                 }}
-                aria-label="close"
+                aria-label="Close scheduling modal"
               >
                 <CloseIcon />
               </IconButton>

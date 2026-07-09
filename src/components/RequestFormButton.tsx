@@ -12,6 +12,7 @@ interface RequestFormButtonProps {
   fullWidth?: boolean;
   href?: string;
   sx?: any;
+  ariaLabel?: string;
 }
 
 export default function RequestFormButton({
@@ -21,7 +22,14 @@ export default function RequestFormButton({
   fullWidth = false,
   href = "/contact",
   sx = {},
+  ariaLabel,
 }: RequestFormButtonProps) {
+  const requestActionAttributes = {
+    toolname: "request_assessment",
+    tooldescription:
+      "Open the relevant page to request a workflow assessment or next-step conversation.",
+  } as const;
+
   return (
     <Button 
       component={Link} 
@@ -30,6 +38,8 @@ export default function RequestFormButton({
       size={size} 
       fullWidth={fullWidth}
       onClick={() => trackCta(text)}
+      aria-label={ariaLabel ?? text}
+      {...requestActionAttributes}
       sx={{
         borderRadius: "var(--radius-pill)",
         fontWeight: "bold",
