@@ -18,7 +18,7 @@ metadata:
 
 Many West Michigan companies kick off their search for automation by focusing on quoting, production, or sales. In reality, the quickest wins are usually found one step behind those functions: in intake, document handling, approvals, and status tracking. When these tasks remain manual, the same information gets typed and re-typed into emails, spreadsheets, accounting software, CRMs, and project folders.
 
-This is why a smart first project isn't typically a full platform overhaul. Instead, it’s one reliable workflow that captures data once, routes it to the right person, and flags potential delays before they become problems. For companies weighing their options for local AI support, this is a much better starting point than attempting to automate every process simultaneously. Teams in West Michigan can start with a specific use case and build from there through <a href="/ai-automation-grand-rapids">AI automation in Grand Rapids</a>.
+This is why a smart first project isn't typically a full platform overhaul. Instead, it’s one reliable workflow that captures data once, routes it to the right person, and flags potential delays before they become problems. For companies weighing their options for local AI support, this is a much better starting point than attempting to automate every process simultaneously. Teams in West Michigan can start with a specific use case and build from there through <a href="/ai-automation-grand-rapids">AI automation in Grand Rapids</a> or, if the priority is broader operational workflows, <a href="/business-process-automation-grand-rapids">business process automation in Grand Rapids</a>.
 
 ## The first signs a back-office workflow is ready for automation
 
