@@ -53,23 +53,23 @@ export interface RouteMetadata {
 
 export const defaultMetadata: RouteMetadata = {
   title:
-    "Senna Automation | AI Workflow Automation & Custom Software Development Grand Rapids, MI",
+    "Senna Automation | AI Workflow Systems & Custom Software Grand Rapids, MI",
   description:
-    "Transform your business with AI workflow automation, custom software development, and modern web solutions. Expert AI automation consulting serving Grand Rapids, Michigan and beyond. Get chatbot development, process automation, and enterprise AI solutions that drive real ROI.",
+    "Senna Automation designs AI workflow systems, custom software, and practical operations tools for Grand Rapids businesses and teams beyond West Michigan.",
   keywords: [
     "Grand Rapids web development",
     "Grand Rapids web design",
     "Michigan web development",
-    "AI workflow automation",
-    "artificial intelligence automation",
-    "business automation software",
-    "workflow automation consulting",
+    "AI workflow systems",
+    "artificial intelligence consulting",
+    "business process software",
+    "workflow consulting",
     "custom software development",
     "custom applications",
     "bespoke software solutions",
     "web development Grand Rapids MI",
     "AI tools for business",
-    "automation consulting",
+    "operations consulting",
     "software development Michigan",
     "chatbot development",
     "business AI integration",
@@ -81,8 +81,8 @@ export const defaultMetadata: RouteMetadata = {
     "responsive web design",
     "high-performance websites",
     "SEO-optimized websites",
-    "process automation consulting",
-    "AI automation Grand Rapids",
+    "process improvement consulting",
+    "AI systems Grand Rapids",
     "Michigan AI solutions",
   ],
   alternates: {
@@ -97,18 +97,18 @@ export const defaultMetadata: RouteMetadata = {
     locale: "en_US",
     url: SITE_URL,
     title:
-      "Senna Automation | AI Workflow Automation & Custom Software Development",
+      "Senna Automation | AI Workflow Systems & Custom Software Development",
     description:
-      "Transform your business with AI workflow automation, custom software development, and modern web solutions. Expert AI automation consulting serving Grand Rapids, Michigan.",
+      "AI workflow systems, custom software, and practical operations tools for Grand Rapids businesses and teams beyond West Michigan.",
     siteName: SITE_NAME,
     images: [`${SITE_URL}/opengraph-image`],
   },
   twitter: {
     card: "summary_large_image",
     title:
-      "Senna Automation | AI Workflow Automation & Custom Software Development",
+      "Senna Automation | AI Workflow Systems & Custom Software Development",
     description:
-      "Transform your business with AI workflow automation, custom software development, and modern web solutions. Expert AI automation consulting serving Grand Rapids, Michigan.",
+      "AI workflow systems, custom software, and practical operations tools for Grand Rapids businesses and teams beyond West Michigan.",
     images: [`${SITE_URL}/opengraph-image`],
   },
 };

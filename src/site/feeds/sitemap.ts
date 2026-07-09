@@ -55,6 +55,11 @@ export default function sitemap(): SitemapEntry[] {
       priority: 0.8,
     },
     {
+      url: `${SITE_URL}/search`,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
       url: `${SITE_URL}/blog`,
       ...(latestPostLastModified
         ? { lastModified: latestPostLastModified }

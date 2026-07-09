@@ -41,7 +41,7 @@ export default function AnimatedHeroTitle() {
             textTransform: "uppercase",
           }}
         >
-          Let the
+          Let the{" "}
         </Box>
         <Box
           component="span"
@@ -72,7 +72,7 @@ export default function AnimatedHeroTitle() {
           >
             B
           </Box>
-          usywork
+          usywork{" "}
         </Box>
         <Box
           component="span"
