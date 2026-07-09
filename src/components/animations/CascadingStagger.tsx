@@ -1,31 +1,8 @@
 "use client";
-import { motion } from "framer-motion";
-import type { Variants } from "framer-motion";
-import { Stack, StackProps } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
+import { Stack } from "@mui/material";
+import type { StackProps } from "@mui/material/Stack";
 import React from "react";
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: -20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.45,
-      ease: [0.16, 1, 0.3, 1] as const,
-    },
-  },
-};
 
 interface CascadingStaggerProps extends StackProps {
   children: React.ReactNode;
@@ -36,20 +13,47 @@ interface CascadingStaggerProps extends StackProps {
  * starting from the top and moving down into position.
  */
 export default function CascadingStagger({ children, spacing = 2, ...props }: CascadingStaggerProps) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setIsVisible(true);
+        observer.disconnect();
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-    >
+    <div ref={ref}>
       <Stack spacing={spacing} {...props}>
-        {React.Children.map(children, (child) => (
-          <motion.div variants={itemVariants}>
+        {React.Children.map(children, (child, index) => (
+          <div
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible
+                ? "translate3d(0, 0, 0)"
+                : "translate3d(0, -20px, 0)",
+              transition: [
+                `opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1) ${0.1 + index * 0.08}s`,
+                `transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) ${0.1 + index * 0.08}s`,
+              ].join(", "),
+              willChange: "opacity, transform",
+            }}
+          >
             {child}
-          </motion.div>
+          </div>
         ))}
       </Stack>
-    </motion.div>
+    </div>
   );
 }

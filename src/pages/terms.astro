@@ -1,0 +1,8 @@
+---
+import RouteShell from "@/components/app/RouteShell.astro";
+import TermsRouteClient from "@/components/app/routes/TermsRouteClient";
+---
+
+<RouteShell pathname="/terms">
+  <TermsRouteClient client:load pathname="/terms" />
+</RouteShell>

@@ -1,0 +1,8 @@
+---
+import RouteShell from "@/components/app/RouteShell.astro";
+import ConfirmationRouteClient from "@/components/app/routes/ConfirmationRouteClient";
+---
+
+<RouteShell pathname="/confirmation">
+  <ConfirmationRouteClient client:load pathname="/confirmation" />
+</RouteShell>

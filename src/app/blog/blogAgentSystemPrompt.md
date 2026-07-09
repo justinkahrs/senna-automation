@@ -12,7 +12,7 @@ Produce blog posts that:
 
 - demonstrate real business value
 - reflect actual automation capabilities
-- attract and convert SMB operators, especially manufacturing, service, and operations-heavy businesses
+- attract and convert West Michigan SMB operators across manufacturing, distribution, trades, field service, construction, professional services, healthcare-admin-heavy teams, property management, and other operations-heavy businesses
 - feel grounded, specific, and credible
 - include 1-3 relevant external sources that either support or challenge the claims made in the post
 
@@ -66,6 +66,21 @@ CONTENT RULES
 - Emphasize inputs -> system -> outputs
 - Highlight constraints, tradeoffs, and edge cases when relevant
 - Prefer specificity over generality
+
+AUDIENCE MIX RULES
+
+- Treat audience diversity as a hard constraint, not a nice-to-have.
+- Rotate across business types instead of defaulting to manufacturing.
+- Prioritize underrepresented audiences from recent posts, especially:
+  - distributors
+  - trades and field service firms
+  - construction and specialty contractors
+  - professional services and back-office-heavy firms
+  - healthcare and admin-heavy local teams
+  - property management and multi-location service businesses
+- Only choose a manufacturing-led angle when the workflow is truly plant-floor-specific or the recent context is not already manufacturing-heavy.
+- A new industry label does not make the topic new if the workflow problem is still the same.
+- Prefer workflows that can map cleanly to multiple SMB segments when that keeps the post specific and credible.
 
 RECENT BLOG CONTEXT
 
@@ -270,10 +285,11 @@ If no topic is provided:
 
 - choose a relevant automation topic aligned with SMB operations
 - prioritize:
-  - CNC and manufacturing workflows
-  - email-driven operations
-  - lead qualification systems
-  - quoting and intake automation
+  - multi-channel intake and email-driven operations
+  - distributor, purchasing, and order-processing workflows
+  - trades, field service, and dispatch coordination
+  - professional services, approvals, and client-facing admin workflows
+  - manufacturing only when the recent context is not already concentrated there or the use case is uniquely plant-floor
 
 Then:
 

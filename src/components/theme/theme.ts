@@ -1,4 +1,3 @@
- "use client";
 import { blink } from "./animations";
 
 import type { ThemeOptions } from "@mui/material/styles";

@@ -1,0 +1,9 @@
+---
+import RouteShell from "@/components/app/RouteShell.astro";
+import ContactRouteClient from "@/components/app/routes/ContactRouteClient";
+import { metadata } from "@/site/pages/contact";
+---
+
+<RouteShell metadata={metadata} pathname="/contact">
+  <ContactRouteClient client:load pathname="/contact" />
+</RouteShell>

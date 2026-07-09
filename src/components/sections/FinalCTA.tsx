@@ -1,15 +1,14 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/compat/next/link";
 import {
   Box,
   Button,
   Container,
   Stack,
   Typography,
-  SxProps,
-  Theme,
 } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import { trackContactLink, trackCta } from "@/utils/analytics";
 
@@ -50,12 +49,14 @@ export default function FinalCTA({
   stackSpacing = 2,
   transparentBackground,
 }: FinalCTAProps) {
+  const isTransparent = Boolean(transparentBackground);
+
   return (
     <Box
       component="section"
       id="final-cta"
       sx={{
-        background: transparentBackground
+        background: isTransparent
           ? "transparent"
           : "linear-gradient(-45deg, var(--color-accent), var(--ds-shadow-grey), var(--color-accent))",
         backgroundSize: "400% 400%",
@@ -64,7 +65,7 @@ export default function FinalCTA({
         textAlign: "center",
         position: "relative",
         overflow: "hidden",
-        zIndex: transparentBackground ? 2 : 1,
+        zIndex: isTransparent ? 2 : 1,
         "@keyframes gradientBG": {
           "0%": {
             backgroundPosition: "0% 50%",

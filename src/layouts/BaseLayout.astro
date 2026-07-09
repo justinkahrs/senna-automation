@@ -1,0 +1,119 @@
+---
+import PersistentWidgets from "@/components/app/PersistentWidgets.astro";
+import "@/styles/globals.css";
+import type { RouteMetadata } from "@/utils/metadata";
+import { getResolvedMetadata } from "@/utils/metadata";
+import {
+  ATOM_FEED_URL,
+  FAVICON_URL,
+  JSON_FEED_URL,
+  RSS_FEED_URL,
+  SITE_NAME,
+  WEBSUB_HUB_URL,
+} from "@/utils/site";
+import {
+  localBusinessJsonLd,
+  organizationJsonLd,
+  websiteJsonLd,
+} from "@/utils/site-jsonld";
+
+interface Props {
+  metadata?: RouteMetadata;
+}
+
+const { metadata } = Astro.props;
+const resolved = getResolvedMetadata(metadata);
+---
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{resolved.title}</title>
+    <meta name="description" content={resolved.description} />
+    <meta name="keywords" content={resolved.keywords.join(", ")} />
+    <meta name="robots" content={resolved.robotsContent} />
+    <link rel="canonical" href={resolved.canonical} />
+    <link rel="preconnect" href="https://use.typekit.net" />
+    <link rel="preconnect" href="https://p.typekit.net" crossorigin />
+    <link rel="stylesheet" href="https://use.typekit.net/alo5gqx.css" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${SITE_NAME} Blog RSS`}
+      href={RSS_FEED_URL}
+    />
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title={`${SITE_NAME} Blog Atom`}
+      href={ATOM_FEED_URL}
+    />
+    <link
+      rel="alternate"
+      type="application/feed+json"
+      title={`${SITE_NAME} Blog JSON Feed`}
+      href={JSON_FEED_URL}
+    />
+    <link rel="hub" href={WEBSUB_HUB_URL} />
+    <link rel="icon" href={FAVICON_URL} />
+    {resolved.verification.google && (
+      <meta name="google-site-verification" content={resolved.verification.google} />
+    )}
+    {resolved.verification.bing && (
+      <meta name="msvalidate.01" content={resolved.verification.bing} />
+    )}
+    <meta property="og:type" content={resolved.openGraph.type || "website"} />
+    <meta property="og:locale" content={resolved.openGraph.locale || "en_US"} />
+    <meta property="og:url" content={resolved.openGraph.url || resolved.canonical} />
+    <meta property="og:title" content={resolved.openGraph.title || resolved.title} />
+    <meta
+      property="og:description"
+      content={resolved.openGraph.description || resolved.description}
+    />
+    <meta property="og:site_name" content={resolved.openGraph.siteName || SITE_NAME} />
+    {resolved.openGraph.images.map((image) => (
+      <>
+        <meta property="og:image" content={image.url} />
+        {image.width && <meta property="og:image:width" content={String(image.width)} />}
+        {image.height && (
+          <meta property="og:image:height" content={String(image.height)} />
+        )}
+        {image.alt && <meta property="og:image:alt" content={image.alt} />}
+      </>
+    ))}
+    <meta name="twitter:card" content={resolved.twitter.card || "summary_large_image"} />
+    <meta name="twitter:title" content={resolved.twitter.title || resolved.title} />
+    <meta
+      name="twitter:description"
+      content={resolved.twitter.description || resolved.description}
+    />
+    {resolved.twitter.images.map((image) => (
+      <meta name="twitter:image" content={image.url} />
+    ))}
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(organizationJsonLd)}
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(localBusinessJsonLd)}
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(websiteJsonLd)}
+    />
+    {import.meta.env.PROD && (
+      <script
+        src="https://umami.senna-automation.com/script.js"
+        data-website-id="7f9f7986-0963-49f6-b357-35a5ccabe2f1"
+        defer
+      />
+    )}
+  </head>
+  <body>
+    <slot />
+    <PersistentWidgets />
+  </body>
+</html>

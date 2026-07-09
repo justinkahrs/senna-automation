@@ -1,0 +1,68 @@
+---
+import BlogPostRouteClient from "@/components/app/routes/BlogPostRouteClient";
+import RouteShell from "@/components/app/RouteShell.astro";
+import { getAllBlogPostsFromContent, getBlogPostBySlugFromContent } from "@/utils/astro-blog";
+import { SITE_URL } from "@/utils/site";
+
+const BLOG_OG_IMAGE_VERSION = "2026-06-27";
+
+export async function getStaticPaths() {
+  const posts = await getAllBlogPostsFromContent();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { slug: post.slug },
+  }));
+}
+
+const { slug } = Astro.props;
+const post = await getBlogPostBySlugFromContent(slug);
+
+if (!post) {
+  return Astro.redirect("/404");
+}
+
+const relatedPost = (await getAllBlogPostsFromContent()).find(
+  (entry) => entry.slug !== slug,
+);
+const canonicalUrl = `${SITE_URL}/blog/${slug}`;
+const ogImageUrl = new URL(`${canonicalUrl}/opengraph-image`);
+ogImageUrl.searchParams.set("v", BLOG_OG_IMAGE_VERSION);
+---
+
+<RouteShell
+  metadata={{
+    title: post.title,
+    description: post.excerpt,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      type: "article",
+      url: canonicalUrl,
+      title: post.title,
+      description: post.excerpt,
+      images: [
+        {
+          url: ogImageUrl.toString(),
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [ogImageUrl.toString()],
+    },
+  }}
+  pathname={`/blog/${slug}`}
+>
+  <BlogPostRouteClient
+    client:load
+    pathname={`/blog/${slug}`}
+    post={post}
+    relatedPost={relatedPost ?? null}
+  />
+</RouteShell>

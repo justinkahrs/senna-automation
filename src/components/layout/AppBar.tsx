@@ -1,7 +1,6 @@
 "use client";
-
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import Link from "@/compat/next/link";
+import { useState, useEffect } from "react";
 import {
   AppBar as MUIAppBar,
   Toolbar,
@@ -14,9 +13,9 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { usePathname } from "next/navigation";
 import ScheduleCallButton from "../ScheduleCallButton";
 import { Logo } from "./Logo";
+import { usePathname } from "@/compat/next/navigation";
 import { trackNavLink, trackContactLink } from "@/utils/analytics";
 
 const NAV_LINKS = [
@@ -42,10 +41,10 @@ const hasDarkHeroHeader = (pathname: string) =>
 
 export function AppBar() {
   const pathname = usePathname();
+
   const [mobileMenuAnchorEl, setMobileMenuAnchorEl] =
     useState<null | HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
-
   const usesDarkHeroHeader = hasDarkHeroHeader(pathname);
   const isDarkHeader = usesDarkHeroHeader && !scrolled;
   const navTextColor = isDarkHeader
@@ -67,7 +66,6 @@ export function AppBar() {
     ? "var(--color-text-on-dark-prominent)"
     : "var(--ds-space-indigo)";
   const logoColor = isDarkHeader ? "var(--color-bg-subtle)" : undefined;
-  const isOpen = Boolean(mobileMenuAnchorEl);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -83,6 +81,8 @@ export function AppBar() {
   const handleMobileMenuClose = () => {
     setMobileMenuAnchorEl(null);
   };
+
+  const isOpen = Boolean(mobileMenuAnchorEl);
 
   return (
     <MUIAppBar
@@ -112,12 +112,9 @@ export function AppBar() {
           gap: 2,
         }}
       >
+        {/* Logo */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Link
-            href="/"
-            passHref
-            style={{ display: "flex", alignItems: "center", textDecoration: "none" }}
-          >
+          <Link href="/" passHref style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
             <Logo
               logoFontColor={logoColor}
               logoIconColor={logoColor}
@@ -131,6 +128,7 @@ export function AppBar() {
           </Link>
         </Box>
 
+        {/* Desktop nav links */}
         <Box
           component="nav"
           aria-label="Main navigation"
@@ -159,6 +157,7 @@ export function AppBar() {
                   borderRadius: 2,
                   minWidth: 0,
                   backgroundColor: isActive ? activeNavBg : "transparent",
+                  position: "relative",
                   "&:hover": {
                     backgroundColor: navHoverBg,
                     color: navHoverColor,
@@ -174,8 +173,10 @@ export function AppBar() {
           })}
         </Box>
 
+        {/* Spacer */}
         <Box sx={{ flex: 1 }} />
 
+        {/* Desktop CTAs */}
         <Box
           sx={{
             display: { xs: "none", sm: "flex" },
@@ -223,6 +224,7 @@ export function AppBar() {
           />
         </Box>
 
+        {/* Mobile: hamburger */}
         <Box sx={{ display: { xs: "flex", sm: "none" }, alignItems: "center" }}>
           <IconButton
             edge="end"

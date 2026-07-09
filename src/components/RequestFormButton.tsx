@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/compat/next/link";
 import { Button } from "@mui/material";
 import { WARM_BLACK } from "@/components/theme/colors";
 import { trackCta } from "@/utils/analytics";

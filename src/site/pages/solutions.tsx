@@ -1,0 +1,680 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "@/compat/next/link";
+import type { RouteMetadata } from "@/utils/metadata";
+import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
+import adminWork from "@/assets/solutions/admin-work.png";
+import qualifiedLeads from "@/assets/solutions/qualified-leads.png";
+import structuredData from "@/assets/solutions/structured-data.png";
+import customAlgorithm from "@/assets/solutions/custom-algorithm.png";
+
+const mobileImages: Record<string, any> = {
+  "/admin-work.png": adminWork,
+  "/qualified-leads.png": qualifiedLeads,
+  "/structured-data.png": structuredData,
+  "/custom-algorithm.png": customAlgorithm,
+};
+
+import CascadingStagger from "@/components/animations/CascadingStagger";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import type { BlogPost } from "@/types/blog";
+// import { WARM_BLACK } from "@/components/theme/colors";
+import FinalCTA from "@/components/sections/FinalCTA";
+import Reveal from "@/components/animations/Reveal";
+import { SITE_URL } from "@/utils/site";
+
+export const metadata: RouteMetadata = {
+  title: "Solutions | Senna Automation",
+  description:
+    "See how Senna Automation helps businesses automate administrative work, lead generation, and sales workflows to save time, reduce manual work, and increase revenue.",
+  alternates: {
+    canonical: `${SITE_URL}/solutions`,
+  },
+};
+
+interface Solution {
+  title: string;
+  problem: string;
+  solution: string;
+  outcomes: string[];
+  category?: string;
+  video?: string;
+  mobileVideo?: string;
+  mobileImage?: string;
+  latestPost?: Omit<BlogPost, "content"> | null;
+}
+
+interface SolutionsClientProps {
+  solutions: Solution[];
+}
+
+const homeEyebrowSx = {
+  display: "inline-flex",
+  alignItems: "center",
+  width: "fit-content",
+  px: 1.75,
+  py: 0.5,
+  border: "1px solid",
+  borderColor: "var(--color-border-medium)",
+  borderRadius: "var(--radius-pill)",
+  bgcolor:
+    "color-mix(in srgb, var(--color-accent-cyan), transparent 84%)",
+  color: "var(--color-text-secondary)",
+  letterSpacing: "0.12em",
+};
+
+const faqs = [
+  {
+    question: "Who is this a good fit for?",
+    answer:
+      "This is for businesses that feel slowed down by repetitive tasks, manual processes, or inconsistent follow-up. It works well for teams that want to save time, stay organized, and keep things moving without adding more overhead.",
+  },
+  {
+    question: "What challenges does this help address?",
+    answer:
+      "It reduces time spent on repetitive work, prevents things from slipping through the cracks, and helps leads and tasks move forward without constant manual effort. The goal is smoother operations and more consistency across the board.",
+  },
+  {
+    question: "What types of work can be automated?",
+    answer:
+      "Common examples include lead capture and follow-up, scheduling, onboarding, data entry, reporting, approvals, notifications, and internal workflows. If something is repetitive or rule-based, it can likely be automated.",
+  },
+  {
+    question: "Do you offer chatbot or AI assistant solutions?",
+    answer:
+      "Yes, when it makes sense. Chat-based tools can help with lead qualification, answering common questions, or guiding users through a process. The focus is always on usefulness, not just adding a chatbot for the sake of it.",
+  },
+  {
+    question: "Can this work with the tools already in use?",
+    answer:
+      "Yes. Most systems can connect with tools already in use, such as CRMs, email platforms, scheduling tools, and internal systems. The goal is to improve what’s already there, not replace everything.",
+  },
+  {
+    question: "Is technical experience required to manage it?",
+    answer:
+      "No. Everything is set up to be simple and easy to manage. Once it’s in place, it should feel like part of the normal workflow, not something that requires technical expertise.",
+  },
+  {
+    question: "Is it possible to start with a smaller scope?",
+    answer:
+      "Yes. Many projects start with one workflow or a single problem area. That makes it easy to see value quickly before expanding into other areas.",
+  },
+  {
+    question: "What does getting started look like?",
+    answer:
+      "Start with a quick conversation about current workflows and where time is being lost. From there, it’s easy to identify a few opportunities to automate and outline what that would look like.",
+  },
+];
+
+const prefersMobileVideoFallback = () => {
+  if (typeof navigator === "undefined") {
+    return false;
+  }
+
+  const userAgent = navigator.userAgent;
+  return (
+    /iPhone|iPad|iPod/i.test(userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+  );
+};
+
+const SolutionCard = ({
+  item,
+  index,
+  isDesktop = false,
+  cardSx,
+  forceLayout, // New prop to control side order
+  enableMobileVideoFallback = false,
+  isHydrated = false,
+}: {
+  item: Solution;
+  index: number;
+  isDesktop?: boolean;
+  cardSx?: Record<string, unknown>;
+  forceLayout?: "left" | "right";
+  enableMobileVideoFallback?: boolean;
+  isHydrated?: boolean;
+}) => {
+  const layoutIndex =
+    forceLayout === "left" ? 0 : forceLayout === "right" ? 1 : index;
+  const posterSrc = item.mobileImage
+    ? mobileImages[item.mobileImage]?.src ?? item.mobileImage
+    : undefined;
+  const selectedVideo = isHydrated
+    ? enableMobileVideoFallback && item.mobileVideo
+      ? item.mobileVideo
+      : item.video
+    : undefined;
+  const selectedVideoType = selectedVideo?.endsWith(".mp4")
+    ? "video/mp4"
+    : selectedVideo?.endsWith(".webm")
+      ? "video/webm"
+      : undefined;
+
+  return (
+    <Box
+      sx={{
+        bgcolor: "background.paper",
+        borderRadius: 4,
+        border: "1px solid",
+        borderColor: "divider",
+        overflow: "hidden",
+        boxShadow: "var(--shadow-hero)",
+        position: "relative",
+        height: isDesktop ? "auto" : "100%",
+        minHeight: isDesktop ? { sm: 580, md: 620, lg: 680 } : undefined,
+        display: "flex",
+        flexDirection: "column",
+        ...(cardSx || {}),
+      }}
+    >
+      <Grid container spacing={0} sx={{ flexGrow: 1 }}>
+        {/* Content Side */}
+        <Grid
+          size={{ xs: 12, md: 5 }}
+          sx={{
+            order: { xs: 2, md: layoutIndex % 2 === 0 ? 1 : 2 },
+            display: "flex",
+            flexDirection: "column"
+          }}>
+          <Box
+            sx={{
+              p: { xs: 4, md: 6, lg: 8 },
+              flexGrow: 1,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <Reveal delay={0.15} duration={0.5} x={-10} trigger="in-view">
+              <Typography
+                variant="h3"
+                component="h3"
+                sx={{
+                  mb: 3,
+                  lineHeight: 1.2,
+                  fontSize: { xs: "1.75rem", md: "2.25rem" },
+                }}
+              >
+                {item.title}
+              </Typography>
+            </Reveal>
+
+            <Stack spacing={4}>
+              <Reveal delay={0.25} duration={0.5} y={10} trigger="in-view">
+                <Box>
+                  <Typography
+                    variant="overline"
+                    sx={{
+                      color: "primary.main",
+                      fontWeight: 800,
+                      letterSpacing: 1.5,
+                      display: "block",
+                      mb: 1,
+                    }}
+                  >
+                    The Problem
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: "text.secondary",
+                      fontSize: "1.1rem",
+                      lineHeight: 1.7
+                    }}>
+                    {item.problem}
+                  </Typography>
+                </Box>
+              </Reveal>
+
+              <Reveal delay={0.3} duration={0.5} y={10} trigger="in-view">
+                <Box>
+                  <Typography
+                    variant="overline"
+                    sx={{
+                      color: "primary.main",
+                      fontWeight: 800,
+                      letterSpacing: 1.5,
+                      display: "block",
+                      mb: 1,
+                    }}
+                  >
+                    The Solution
+                  </Typography>
+                  <Typography variant="subtitle1" sx={{
+                    color: "text.secondary"
+                  }}>
+                    {item.solution}
+                  </Typography>
+                </Box>
+              </Reveal>
+
+              <Box>
+                <Reveal delay={0.35} duration={0.5} y={10} trigger="in-view">
+                  <Typography
+                    variant="overline"
+                    sx={{
+                      color: "primary.main",
+                      fontWeight: 800,
+                      letterSpacing: 1.5,
+                      display: "block",
+                      mb: 1,
+                    }}
+                  >
+                    Key Outcomes
+                  </Typography>
+                </Reveal>
+                <Stack spacing={1.5} sx={{ mt: 1 }}>
+                  {item.outcomes.map((outcome, idx) => (
+                    <Reveal
+                      key={outcome}
+                      delay={0.4 + idx * 0.05}
+                      duration={0.4}
+                      x={-5}
+                      trigger="in-view"
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 1.5,
+                        }}
+                      >
+                        <CheckCircleOutlineIcon
+                          sx={{
+                            fontSize: 22,
+                            color: "primary.main",
+                            mt: 0.3,
+                          }}
+                        />
+                        <Typography
+                          variant="body1"
+                          sx={{
+                            color: "text.primary",
+                            fontWeight: 600,
+                          }}
+                        >
+                          {outcome}
+                        </Typography>
+                      </Box>
+                    </Reveal>
+                  ))}
+                </Stack>
+              </Box>
+
+              {item.latestPost && (
+                <Reveal
+                  delay={0.6}
+                  duration={0.5}
+                  scaleFrom={0.95}
+                  trigger="in-view"
+                >
+                  <Box sx={{ pt: 2 }}>
+                    <Button
+                      component={Link}
+                      href={`/blog/${item.latestPost.slug}`}
+                      variant="outlined"
+                      size="large"
+                      sx={{
+                        borderColor: "divider",
+                        color: "text.primary",
+                        "&:hover": {
+                          borderColor: "primary.main",
+                          bgcolor: "transparent",
+                        },
+                      }}
+                    >
+                      Read the Case Study
+                    </Button>
+                  </Box>
+                </Reveal>
+              )}
+            </Stack>
+          </Box>
+        </Grid>
+
+        {/* Visualization Side */}
+        <Grid
+          size={{ xs: 12, md: 7 }}
+          sx={{
+            order: { xs: 1, md: layoutIndex % 2 === 0 ? 2 : 1 },
+            display: "flex",
+            flexDirection: "column",
+
+            // borderLeft: {
+            //   md: layoutIndex % 2 === 0 ? "1px solid" : "none",
+            // },
+            // borderRight: {
+            //   md: layoutIndex % 2 !== 0 ? "1px solid" : "none",
+            // },
+            borderColor: "divider"
+          }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              width: "100%",
+              height: "100%",
+              minHeight: { xs: 300, md: "100%" },
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+              overflow: "hidden",
+              // bgcolor: "#FBFBFB",
+            }}
+          >
+            {item.video ? (
+              <>
+                <Reveal
+                  duration={0.8}
+                  scaleFrom={1.05}
+                  trigger="in-view"
+                  style={{
+                    width: "100%",
+                    maxWidth: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    height: "100%",
+                    flex: "0 0 100%",
+                    alignSelf: "stretch",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      width: "100%",
+                      height: "100%",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      p: { xs: 2.5, md: 3 },
+                      boxSizing: "border-box",
+                    }}
+                  >
+                    <video
+                      key={selectedVideo ?? "poster-only"}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      poster={posterSrc}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        objectFit: "contain",
+                        backgroundColor: "transparent",
+                        display: "block",
+                      }}
+                    >
+                      {selectedVideo && selectedVideoType && (
+                        <source src={selectedVideo} type={selectedVideoType} />
+                      )}
+                    </video>
+                  </Box>
+                </Reveal>
+              </>
+            ) : (
+              <>
+                <Reveal
+                  delay={0.3}
+                  duration={0.8}
+                  letterSpacingFrom={0}
+                  letterSpacingTo={2}
+                  trigger="in-view"
+                >
+                  <Box
+                    component="p"
+                    sx={{
+                      color: "var(--text-muted)",
+                      fontWeight: 600,
+                      textTransform: "uppercase",
+                      zIndex: 1,
+                      m: 0,
+                    }}
+                  >
+                    Solution Visualization
+                  </Box>
+                </Reveal>
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    opacity: 0.04,
+                    background: `radial-gradient(circle at 2px 2px, var(--color-text-on-dark) 1px, transparent 0)`,
+                    backgroundSize: "32px 32px",
+                  }}
+                />
+              </>
+            )}
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};
+
+export default function SolutionsClient({ solutions }: SolutionsClientProps) {
+  const [isHydrated, setIsHydrated] = useState(false);
+  const [enableMobileVideoFallback, setEnableMobileVideoFallback] =
+    useState(false);
+
+  useEffect(() => {
+    setEnableMobileVideoFallback(prefersMobileVideoFallback());
+    setIsHydrated(true);
+  }, []);
+
+  return (
+    <Box
+      sx={{
+        bgcolor: "transparent",
+        minHeight: "100vh",
+        pb: 0,
+      }}
+    >
+      <Box
+        component="section"
+        sx={{
+          bgcolor: "secondary.main",
+          color: "background.paper",
+          pt: { xs: 16, md: 28 },
+          pb: { xs: 10, md: 16 },
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {/* Subtle noise texture */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            opacity: 0.03,
+            backgroundImage:
+              'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
+            pointerEvents: "none",
+          }}
+        />
+        <Container
+          maxWidth="md"
+          sx={{ position: "relative", zIndex: 1, textAlign: "center" }}
+        >
+          <Box sx={{ maxWidth: "900px", mx: "auto" }}>
+            <Typography
+              variant="overline"
+              sx={{ ...homeEyebrowSx, mb: 2, mx: "auto" }}
+            >
+              Solutions
+            </Typography>
+            <Typography
+              component="h1"
+              variant="h1"
+              sx={{ mb: 2, color: "inherit" }}
+            >
+              Solve the work that slows you down
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                color: "var(--color-text-on-dark)",
+                mb: 4,
+              }}
+            >
+              Real-world automation for the repetitive work that drains time,
+              slows follow-up, and makes growth harder than it should be.
+            </Typography>
+            <Button
+              component={Link}
+              href="/contact"
+              variant="contained"
+              size="large"
+              endIcon={<ArrowForwardIcon />}
+            >
+              Get Your Automation Plan
+            </Button>
+          </Box>
+        </Container>
+      </Box>
+      <Box sx={{ py: { xs: 10, md: 16 }, bgcolor: "background.paper" }}>
+        <Container maxWidth="md" sx={{ textAlign: "left" }}>
+          <Typography
+            variant="h4"
+            component="h2"
+            sx={{
+              color: "text.primary",
+              maxWidth: 720,
+              lineHeight: 1.35
+            }}>
+            <Box component="span" sx={{ color: "var(--color-text-accent)" }}>
+              Most bottlenecks look more familiar than you think.
+            </Box>{" "}
+            Too much admin work, inconsistent follow-up, messy handoffs, and not
+            enough visibility.
+          </Typography>
+        </Container>
+      </Box>
+      {/* Linear Stack for All screen sizes */}
+      <Box
+        sx={{
+          py: { xs: 8, md: 12, lg: 16 },
+          bgcolor: "background.default",
+        }}
+      >
+        <Container maxWidth="lg">
+          <Typography
+            variant="h3"
+            component="h2"
+            align="center"
+            sx={{ mb: { xs: 6, lg: 8 } }}
+          >
+            Common problems we solve
+          </Typography>
+          <Stack spacing={8}>
+            {solutions.map((item, index) => (
+              <Reveal
+                key={item.title}
+                y={30}
+                duration={0.8}
+                trigger="in-view"
+                amount={0.2}
+              >
+                <SolutionCard
+                  item={item}
+                  index={index}
+                  enableMobileVideoFallback={enableMobileVideoFallback}
+                  isHydrated={isHydrated}
+                />
+              </Reveal>
+            ))}
+          </Stack>
+        </Container>
+      </Box>
+      <Box
+        sx={{
+          py: { xs: 8, md: 12 },
+          bgcolor: "background.paper",
+          borderTop: "1px solid",
+          borderColor: "divider",
+        }}
+      >
+        <Container maxWidth="lg">
+          <Grid container spacing={8}>
+            <Grid size={{ xs: 12, md: 4 }}>
+              <Typography
+                variant="h3"
+                component="h2"
+                sx={{
+                  mb: 2,
+                  fontSize: { xs: "2.2rem", md: "3rem" },
+                  fontWeight: 700,
+                  lineHeight: 1.1,
+                }}
+              >
+                Frequently asked questions
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: "text.secondary",
+                  fontSize: "1.1rem",
+                  maxWidth: 320
+                }}>
+                A few common questions teams ask before they start automating
+                their workflows.
+              </Typography>
+            </Grid>
+            <Grid size={{ xs: 12, md: 8 }}>
+              <CascadingStagger spacing={2}>
+                {faqs.map((faq) => (
+                  <Accordion
+                    key={faq.question}
+                    disableGutters
+                    slotProps={{ transition: { timeout: 140 } }}
+                    sx={{
+                      border: "1px solid",
+                      borderColor: "divider",
+                      borderRadius: 2,
+                      boxShadow: "none",
+                      "&:before": {
+                        display: "none",
+                      },
+                    }}
+                  >
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      <Typography variant="h5" sx={{
+                        color: "text.primary"
+                      }}>
+                        {faq.question}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails sx={{ pt: 0 }}>
+                      <Typography variant="body1" sx={{
+                        color: "text.secondary"
+                      }}>
+                        {faq.answer}
+                      </Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+              </CascadingStagger>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+      <FinalCTA
+        subtitle="Start with a quick 30-minute conversation about where time is being lost and what feels most repetitive. We will identify practical opportunities and map out the best place to start."
+        transparentBackground
+      />
+    </Box>
+  );
+}

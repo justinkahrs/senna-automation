@@ -1,12 +1,9 @@
 import { betterAuth } from "better-auth";
 import { SITE_URL } from "../utils/site";
-
-export type PortalProviderId = "google" | "github" | "facebook" | "apple";
-
-export interface PortalProviderDefinition {
-  id: PortalProviderId;
-  label: string;
-}
+import {
+  portalProviderCatalog,
+  type PortalProviderId,
+} from "@/lib/portal-providers";
 
 type SocialProviderConfig = {
   clientId: string;
@@ -72,14 +69,7 @@ registerProvider(
   process.env.APPLE_CLIENT_SECRET,
 );
 
-const providerCatalog: PortalProviderDefinition[] = [
-  { id: "google", label: "Google" },
-  { id: "github", label: "GitHub" },
-  { id: "facebook", label: "Facebook" },
-  { id: "apple", label: "Apple" },
-];
-
-export const configuredPortalProviders = providerCatalog.filter(
+export const configuredPortalProviders = portalProviderCatalog.filter(
   ({ id }) => Boolean(socialProviders[id]),
 );
 

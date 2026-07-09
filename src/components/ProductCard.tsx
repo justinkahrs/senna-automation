@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import Image from "next/image";
+import Image from "@/compat/next/image";
 import type { SvgIcon } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ScheduleCallButton from "@/components/ScheduleCallButton";

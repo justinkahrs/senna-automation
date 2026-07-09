@@ -20,7 +20,7 @@ import {
   STONE_600,
   WARM_BLACK,
 } from "@/components/theme/colors";
-import { useModal } from "@/context/ModalContext";
+import { setCalendlyOpen } from "@/stores/modal-store";
 
 interface ScheduleCallButtonProps {
   text?: string;
@@ -41,7 +41,6 @@ export default function ScheduleCallButton({
   showIcon = true,
   inverse = false,
 }: ScheduleCallButtonProps) {
-  const { setIsCalendlyOpen } = useModal();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const theme = useTheme();
@@ -56,13 +55,13 @@ export default function ScheduleCallButton({
 
   const handleOpen = () => {
     setOpen(true);
-    setIsCalendlyOpen(true);
+    setCalendlyOpen(true);
     trackCta(text);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setIsCalendlyOpen(false);
+    setCalendlyOpen(false);
     // Redirect to confirmation after closing
   };
 

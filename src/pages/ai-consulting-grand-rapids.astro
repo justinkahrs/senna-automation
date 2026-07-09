@@ -1,0 +1,9 @@
+---
+import AiConsultingRouteClient from "@/components/app/routes/AiConsultingRouteClient";
+import RouteShell from "@/components/app/RouteShell.astro";
+import { metadata } from "@/site/pages/local-seo/ai-consulting-grand-rapids";
+---
+
+<RouteShell metadata={metadata} pathname="/ai-consulting-grand-rapids">
+  <AiConsultingRouteClient client:load pathname="/ai-consulting-grand-rapids" />
+</RouteShell>

@@ -1,0 +1,12 @@
+---
+import BlogIndexRouteClient from "@/components/app/routes/BlogIndexRouteClient";
+import RouteShell from "@/components/app/RouteShell.astro";
+import { metadata } from "@/site/pages/blog/index";
+import { getAllBlogPostsFromContent } from "@/utils/astro-blog";
+
+const blogPosts = await getAllBlogPostsFromContent();
+---
+
+<RouteShell metadata={metadata} pathname="/blog">
+  <BlogIndexRouteClient client:load pathname="/blog" blogPosts={blogPosts} />
+</RouteShell>

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Box, Typography, Fade } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/compat/next/navigation";
 import { useTheme } from "@mui/material/styles";
 
 export default function SuccessMessage() {

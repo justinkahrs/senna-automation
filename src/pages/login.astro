@@ -1,0 +1,51 @@
+---
+import LoginRouteClient from "@/components/app/routes/LoginRouteClient";
+import RouteShell from "@/components/app/RouteShell.astro";
+import { configuredPortalProviders } from "@/lib/auth";
+import { getPortalAccessByEmail, hasActivePortalAccess } from "@/lib/portal-access";
+
+export const prerender = false;
+
+const accessState = Astro.url.searchParams.get("access") || undefined;
+const session = Astro.locals.session;
+
+let state:
+  | { kind: "login"; accessState?: string; providers: typeof configuredPortalProviders }
+  | { kind: "denied"; email: string }
+  | { kind: "unavailable"; email: string } = {
+  kind: "login",
+  accessState,
+  providers: configuredPortalProviders,
+};
+
+if (session?.user?.email) {
+  try {
+    const portalAccess = await getPortalAccessByEmail(
+      session.user.email,
+      session.user.id,
+    );
+
+    if (hasActivePortalAccess(portalAccess)) {
+      return Astro.redirect("/portal");
+    }
+
+    state = { kind: "denied", email: session.user.email };
+  } catch (error) {
+    console.error("[Portal] Failed to verify portal access", error);
+    state = { kind: "unavailable", email: session.user.email };
+  }
+}
+---
+
+<RouteShell
+  metadata={{
+    title: "Portal Login",
+    robots: {
+      index: false,
+      follow: false,
+    },
+  }}
+  pathname="/login"
+>
+  <LoginRouteClient client:load pathname="/login" state={state} />
+</RouteShell>

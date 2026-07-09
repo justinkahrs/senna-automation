@@ -1,0 +1,31 @@
+import LocalSeoPage from "@/components/localSeo/LocalSeoPage";
+import { localSeoPages } from "@/components/localSeo/localSeoPages";
+import { SITE_URL } from "@/utils/site";
+import type { RouteMetadata } from "@/utils/metadata";
+
+const page = localSeoPages.workflowAutomationConsultantGrandRapids;
+
+export const metadata: RouteMetadata = {
+  title: {
+    absolute: page.title,
+  },
+  description: page.description,
+  alternates: {
+    canonical: `${SITE_URL}/${page.slug}`,
+  },
+  openGraph: {
+    title: page.title,
+    description: page.description,
+    url: `${SITE_URL}/${page.slug}`,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: page.title,
+    description: page.description,
+  },
+};
+
+export default function WorkflowAutomationConsultantGrandRapidsPage() {
+  return <LocalSeoPage page={page} />;
+}

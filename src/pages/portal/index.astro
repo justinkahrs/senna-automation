@@ -1,0 +1,48 @@
+---
+import PortalRouteClient from "@/components/app/routes/PortalRouteClient";
+import RouteShell from "@/components/app/RouteShell.astro";
+import { getPortalAccessByEmail, hasActivePortalAccess } from "@/lib/portal-access";
+
+export const prerender = false;
+
+const session = Astro.locals.session;
+
+if (!session?.user?.email) {
+  return Astro.redirect("/login");
+}
+
+let portalAccess = null;
+
+try {
+  portalAccess = await getPortalAccessByEmail(
+    session.user.email,
+    session.user.id,
+  );
+} catch (error) {
+  console.error("[Portal] Failed to verify portal access", error);
+  return Astro.redirect("/login?access=unavailable");
+}
+
+if (!hasActivePortalAccess(portalAccess)) {
+  return Astro.redirect("/login?access=denied");
+}
+---
+
+<RouteShell
+  metadata={{
+    title: "Portal",
+    robots: {
+      index: false,
+      follow: false,
+    },
+  }}
+  pathname="/portal"
+>
+  <PortalRouteClient
+    client:load
+    pathname="/portal"
+    displayName={session.user.name || portalAccess.displayName || "Portal user"}
+    email={session.user.email}
+    role={portalAccess.role}
+  />
+</RouteShell>

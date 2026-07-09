@@ -12,7 +12,7 @@ import {
   Button,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import Image from "@/compat/next/image";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import type { SvgIconComponent } from "@mui/icons-material";
