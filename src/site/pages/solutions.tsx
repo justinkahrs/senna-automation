@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "@/compat/next/link";
 import type { RouteMetadata } from "@/utils/metadata";
 import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
@@ -42,7 +43,7 @@ interface Solution {
   outcomes: string[];
   category?: string;
   video?: string;
-  appleVideo?: string;
+  mobileVideo?: string;
   mobileImage?: string;
   latestPost?: Omit<BlogPost, "content"> | null;
 }
@@ -109,25 +110,50 @@ const faqs = [
   },
 ];
 
+const prefersMobileVideoFallback = () => {
+  if (typeof navigator === "undefined") {
+    return false;
+  }
+
+  const userAgent = navigator.userAgent;
+  return (
+    /iPhone|iPad|iPod/i.test(userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+  );
+};
+
 const SolutionCard = ({
   item,
   index,
   isDesktop = false,
   cardSx,
   forceLayout, // New prop to control side order
+  enableMobileVideoFallback = false,
+  isHydrated = false,
 }: {
   item: Solution;
   index: number;
   isDesktop?: boolean;
   cardSx?: Record<string, unknown>;
   forceLayout?: "left" | "right";
+  enableMobileVideoFallback?: boolean;
+  isHydrated?: boolean;
 }) => {
   const layoutIndex =
     forceLayout === "left" ? 0 : forceLayout === "right" ? 1 : index;
   const posterSrc = item.mobileImage
     ? mobileImages[item.mobileImage]?.src ?? item.mobileImage
     : undefined;
-  const videoType = item.video?.endsWith(".webm") ? "video/webm" : undefined;
+  const selectedVideo = isHydrated
+    ? enableMobileVideoFallback && item.mobileVideo
+      ? item.mobileVideo
+      : item.video
+    : undefined;
+  const selectedVideoType = selectedVideo?.endsWith(".mp4")
+    ? "video/mp4"
+    : selectedVideo?.endsWith(".webm")
+      ? "video/webm"
+      : undefined;
 
   return (
     <Box
@@ -369,6 +395,7 @@ const SolutionCard = ({
                     }}
                   >
                     <video
+                      key={selectedVideo ?? "poster-only"}
                       autoPlay
                       muted
                       loop
@@ -385,13 +412,9 @@ const SolutionCard = ({
                         display: "block",
                       }}
                     >
-                      {item.appleVideo && (
-                        <source
-                          src={item.appleVideo}
-                          type={'video/quicktime; codecs="hvc1"'}
-                        />
+                      {selectedVideo && selectedVideoType && (
+                        <source src={selectedVideo} type={selectedVideoType} />
                       )}
-                      {item.video && <source src={item.video} type={videoType} />}
                     </video>
                   </Box>
                 </Reveal>
@@ -440,6 +463,15 @@ const SolutionCard = ({
 };
 
 export default function SolutionsClient({ solutions }: SolutionsClientProps) {
+  const [isHydrated, setIsHydrated] = useState(false);
+  const [enableMobileVideoFallback, setEnableMobileVideoFallback] =
+    useState(false);
+
+  useEffect(() => {
+    setEnableMobileVideoFallback(prefersMobileVideoFallback());
+    setIsHydrated(true);
+  }, []);
+
   return (
     <Box
       sx={{
@@ -556,7 +588,12 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
                 trigger="in-view"
                 amount={0.2}
               >
-                <SolutionCard item={item} index={index} />
+                <SolutionCard
+                  item={item}
+                  index={index}
+                  enableMobileVideoFallback={enableMobileVideoFallback}
+                  isHydrated={isHydrated}
+                />
               </Reveal>
             ))}
           </Stack>
