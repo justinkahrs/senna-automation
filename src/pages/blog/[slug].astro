@@ -4,6 +4,8 @@ import RouteShell from "@/components/app/RouteShell.astro";
 import { getAllBlogPostsFromContent, getBlogPostBySlugFromContent } from "@/utils/astro-blog";
 import { SITE_URL } from "@/utils/site";
 
+const BLOG_OG_IMAGE_VERSION = "2026-06-27";
+
 export async function getStaticPaths() {
   const posts = await getAllBlogPostsFromContent();
   return posts.map((post) => ({
@@ -23,7 +25,8 @@ const relatedPost = (await getAllBlogPostsFromContent()).find(
   (entry) => entry.slug !== slug,
 );
 const canonicalUrl = `${SITE_URL}/blog/${slug}`;
-const ogImageUrl = `${canonicalUrl}/opengraph-image`;
+const ogImageUrl = new URL(`${canonicalUrl}/opengraph-image`);
+ogImageUrl.searchParams.set("v", BLOG_OG_IMAGE_VERSION);
 ---
 
 <RouteShell
@@ -40,7 +43,7 @@ const ogImageUrl = `${canonicalUrl}/opengraph-image`;
       description: post.excerpt,
       images: [
         {
-          url: ogImageUrl,
+          url: ogImageUrl.toString(),
           width: 1200,
           height: 630,
           alt: post.title,
@@ -51,7 +54,7 @@ const ogImageUrl = `${canonicalUrl}/opengraph-image`;
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-      images: [ogImageUrl],
+      images: [ogImageUrl.toString()],
     },
   }}
   pathname={`/blog/${slug}`}

@@ -1,15 +1,14 @@
 import { ImageResponse } from "@/compat/next/og";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { blogPostsMetadata } from "@/utils/blog-data";
+import { getBlogPostBySlugFromContent } from "@/utils/astro-blog";
+import { SITE_URL } from "@/utils/site";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 export const alt = "Senna Automation Blog Post";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-const SITE_URL = "https://www.senna-automation.com";
 
 async function getPublicImageSrc(imagePath?: string) {
   if (!imagePath) return "";
@@ -37,7 +36,7 @@ async function getPublicImageSrc(imagePath?: string) {
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = blogPostsMetadata[slug];
+  const post = await getBlogPostBySlugFromContent(slug);
   const title = post?.title || "Senna Automation Blog";
   const category = post?.category || "Automation";
   const subtitle =
