@@ -42,6 +42,7 @@ interface Solution {
   outcomes: string[];
   category?: string;
   video?: string;
+  appleVideo?: string;
   mobileImage?: string;
   latestPost?: Omit<BlogPost, "content"> | null;
 }
@@ -126,6 +127,7 @@ const SolutionCard = ({
   const posterSrc = item.mobileImage
     ? mobileImages[item.mobileImage]?.src ?? item.mobileImage
     : undefined;
+  const videoType = item.video?.endsWith(".webm") ? "video/webm" : undefined;
 
   return (
     <Box
@@ -373,16 +375,24 @@ const SolutionCard = ({
                       playsInline
                       preload="metadata"
                       poster={posterSrc}
-                      src={item.video}
                       style={{
                         width: "100%",
                         height: "100%",
                         maxWidth: "100%",
                         maxHeight: "100%",
                         objectFit: "contain",
+                        backgroundColor: "transparent",
                         display: "block",
                       }}
-                    />
+                    >
+                      {item.appleVideo && (
+                        <source
+                          src={item.appleVideo}
+                          type={'video/quicktime; codecs="hvc1"'}
+                        />
+                      )}
+                      {item.video && <source src={item.video} type={videoType} />}
+                    </video>
                   </Box>
                 </Reveal>
               </>

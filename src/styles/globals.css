@@ -26,6 +26,7 @@ body {
 body {
   color: var(--color-text-primary);
   background: var(--color-bg-base);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
