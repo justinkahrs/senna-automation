@@ -9,7 +9,7 @@ export function createRoutedPage<Props extends Record<string, unknown>>(
     ...pageProps
   }: Props & { pathname: string }) {
     return (
-      <MuiProviders includeCssBaseline={false}>
+      <MuiProviders>
         <Page {...(pageProps as Props)} />
       </MuiProviders>
     );

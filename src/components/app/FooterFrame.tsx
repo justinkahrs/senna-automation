@@ -9,7 +9,7 @@ export default function FooterFrame({
   currentYear: number;
 }) {
   return (
-    <MuiProviders includeCssBaseline={false}>
+    <MuiProviders>
       <Footer pathname={pathname} currentYear={currentYear} />
     </MuiProviders>
   );

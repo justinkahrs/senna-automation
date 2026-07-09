@@ -344,7 +344,13 @@ const SolutionCard = ({
                     duration={0.6}
                     scaleFrom={1.02}
                     trigger="in-view"
-                    style={{ display: "block" }}
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      maxWidth: "100%",
+                      flex: "0 0 100%",
+                      alignSelf: "stretch",
+                    }}
                   >
                     <Box
                       sx={{
@@ -366,7 +372,20 @@ const SolutionCard = ({
                     </Box>
                   </Reveal>
                 )}
-                <Reveal duration={0.8} scaleFrom={1.05} trigger="in-view">
+                <Reveal
+                  duration={0.8}
+                  scaleFrom={1.05}
+                  trigger="in-view"
+                  style={{
+                    width: "100%",
+                    maxWidth: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    height: "100%",
+                    flex: "0 0 100%",
+                    alignSelf: "stretch",
+                  }}
+                >
                   <Box
                     sx={{
                       display: {

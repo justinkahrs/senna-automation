@@ -1,0 +1,207 @@
+---
+const bannerId = "senna-privacy-notice";
+const storageKey = "senna_privacy_notice_acknowledged";
+---
+
+<div id={bannerId} class="privacy-notice" role="status" aria-live="polite" hidden>
+  <div class="privacy-notice__surface">
+    <div class="privacy-notice__content">
+      <div class="privacy-notice__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+          <path
+            d="M12 2.75 4.75 5.6v5.76c0 4.42 2.78 8.44 7.25 9.89 4.47-1.45 7.25-5.47 7.25-9.89V5.6L12 2.75Z"
+            stroke="currentColor"
+            stroke-width="1.8"
+          />
+          <path
+            d="m8.75 11.95 2.15 2.15 4.6-4.65"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+
+      <div class="privacy-notice__copy">
+        <p class="privacy-notice__title">
+          Senna Automation takes your privacy seriously.
+        </p>
+        <p class="privacy-notice__body">
+          We do not use tracking cookies. Site traffic is measured anonymously
+          with
+          <a href="https://umami.is" target="_blank" rel="noopener noreferrer">
+            Umami
+          </a>.
+        </p>
+      </div>
+    </div>
+
+    <button type="button" class="privacy-notice__button" data-dismiss-privacy>
+      Thanks!
+    </button>
+  </div>
+</div>
+
+<script is:inline define:vars={{ bannerId, storageKey }}>
+  (() => {
+    const banner = document.getElementById(bannerId);
+    if (!banner) return;
+
+    const dismissButton = banner.querySelector("[data-dismiss-privacy]");
+
+    const showBanner = () => {
+      banner.hidden = false;
+      window.requestAnimationFrame(() => {
+        banner.dataset.visible = "true";
+      });
+    };
+
+    const hideBanner = () => {
+      banner.dataset.visible = "false";
+      window.setTimeout(() => {
+        banner.hidden = true;
+      }, 220);
+    };
+
+    try {
+      if (localStorage.getItem(storageKey) !== "true") {
+        showBanner();
+      }
+    } catch {
+      showBanner();
+    }
+
+    dismissButton?.addEventListener("click", () => {
+      try {
+        localStorage.setItem(storageKey, "true");
+      } catch {
+        // Storage can be unavailable in restricted browser contexts.
+      }
+
+      hideBanner();
+    });
+  })();
+</script>
+
+<style>
+  .privacy-notice {
+    position: fixed;
+    left: var(--space-4);
+    right: var(--space-4);
+    bottom: calc(var(--space-16) + var(--space-5));
+    z-index: calc(var(--z-toast) - 1);
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+
+  .privacy-notice[data-visible="true"] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .privacy-notice__surface {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: stretch;
+    padding: var(--space-4);
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-2xl);
+    background-color: color-mix(
+      in srgb,
+      var(--color-bg-paper) 94%,
+      transparent
+    );
+    backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-dialog);
+  }
+
+  .privacy-notice__content {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    min-width: 0;
+  }
+
+  .privacy-notice__icon {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    border-radius: var(--radius-pill);
+    display: grid;
+    place-items: center;
+    color: var(--color-accent);
+    background-color: var(--color-bg-accent-subtle);
+    border: 1px solid var(--color-border-neutral-light);
+  }
+
+  .privacy-notice__copy {
+    min-width: 0;
+  }
+
+  .privacy-notice__title {
+    color: var(--color-text-primary);
+    font-size: var(--type-body);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
+    margin: 0 0 0.5rem;
+  }
+
+  .privacy-notice__body {
+    color: var(--color-text-secondary);
+    font-size: var(--type-body-sm);
+    line-height: var(--leading-normal);
+    margin: 0;
+  }
+
+  .privacy-notice__body a {
+    text-decoration: underline;
+  }
+
+  .privacy-notice__button {
+    align-self: flex-start;
+    min-width: 96px;
+    padding: 0.75rem 1.125rem;
+    border: none;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+    color: var(--color-text-inverse);
+    font-size: var(--type-button);
+    font-weight: var(--weight-semibold);
+    box-shadow: none;
+    cursor: pointer;
+  }
+
+  .privacy-notice__button:hover {
+    background: var(--color-accent-light);
+  }
+
+  .privacy-notice__button:active {
+    transform: translateY(1px);
+  }
+
+  @media (min-width: 600px) {
+    .privacy-notice {
+      left: var(--space-6);
+      right: auto;
+      bottom: var(--space-6);
+      width: min(560px, calc(100vw - var(--space-12)));
+    }
+
+    .privacy-notice__surface {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-5);
+      padding: 1.125rem;
+    }
+
+    .privacy-notice__button {
+      align-self: center;
+    }
+  }
+</style>
