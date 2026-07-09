@@ -5,6 +5,7 @@ const readProcessEnv = (key: string) =>
 
 export const SITE_NAME = siteConfig.siteName;
 export const SITE_URL = siteConfig.siteUrl.replace(/\/$/, "");
+export const SITE_DESCRIPTION = siteConfig.siteDescription;
 export const SITE_HOST = new URL(SITE_URL).host;
 
 export const RSS_FEED_URL = `${SITE_URL}/rss.xml`;

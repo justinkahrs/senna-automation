@@ -4,13 +4,22 @@
 
 Senna Automation helps small and mid-sized businesses reduce repetitive work, improve operational handoffs, and build custom AI-enabled systems around the tools they already use.
 
+For the complete public page inventory, see [llms-full.txt](https://www.senna-automation.com/llms-full.txt).
+
 ## Core Pages
 
 - [Home](https://www.senna-automation.com/): Overview of Senna Automation and its AI workflow automation work.
+- [About](https://www.senna-automation.com/about): Company background, founder, and operating approach.
 - [Services](https://www.senna-automation.com/services): Service areas including workflow automation, lead generation, sales automation, assistants, and internal tools.
 - [Solutions](https://www.senna-automation.com/solutions): Common business bottlenecks and automation patterns.
 - [Pricing](https://www.senna-automation.com/pricing): Pricing model and implementation expectations.
 - [Contact](https://www.senna-automation.com/contact): Contact and automation audit form.
+
+## Local Search Pages
+
+- [AI Consulting in Grand Rapids](https://www.senna-automation.com/ai-consulting-grand-rapids): Local service page for practical AI consulting and workflow planning.
+- [AI Automation in Grand Rapids](https://www.senna-automation.com/ai-automation-grand-rapids): Local service page for business automation and operations workflows.
+- [Workflow Automation Consultant in Grand Rapids](https://www.senna-automation.com/workflow-automation-consultant-grand-rapids): Local service page focused on process automation consulting.
 
 ## Case Studies And Insights
 
@@ -25,3 +34,11 @@ Senna Automation helps small and mid-sized businesses reduce repetitive work, im
 - [RSS feed](https://www.senna-automation.com/rss.xml): RSS 2.0 blog feed.
 - [Atom feed](https://www.senna-automation.com/atom.xml): Atom blog feed.
 - [JSON feed](https://www.senna-automation.com/feed.json): JSON Feed for blog posts.
+
+## Optional
+
+- [Search](https://www.senna-automation.com/search): Public site search for pages, location content, and blog posts.
+- [Full public page index](https://www.senna-automation.com/llms-full.txt): Broader inventory of published pages, blog posts, feeds, and legal pages.
+- [Sitemap](https://www.senna-automation.com/sitemap.xml): Canonical XML sitemap of public URLs.
+- [Privacy Policy](https://www.senna-automation.com/privacy): Privacy and data handling details.
+- [Terms](https://www.senna-automation.com/terms): Website terms and usage conditions.

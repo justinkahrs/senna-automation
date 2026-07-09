@@ -69,6 +69,13 @@ export default function SennaAdvantageVideo() {
         }}
       >
         <source src="/home-work.mp4" type="video/mp4" />
+        <track
+          kind="captions"
+          src="/home-work.vtt"
+          srcLang="en"
+          label="English captions"
+          default
+        />
       </Box>
 
       <Box

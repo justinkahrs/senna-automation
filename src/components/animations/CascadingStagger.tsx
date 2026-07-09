@@ -14,7 +14,7 @@ interface CascadingStaggerProps extends StackProps {
  */
 export default function CascadingStagger({ children, spacing = 2, ...props }: CascadingStaggerProps) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const node = ref.current;
@@ -22,9 +22,10 @@ export default function CascadingStagger({ children, spacing = 2, ...props }: Ca
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setIsVisible(true);
-        observer.disconnect();
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
       },
       { threshold: 0.1 },
     );
