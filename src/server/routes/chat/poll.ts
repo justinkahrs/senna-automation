@@ -1,5 +1,5 @@
 import { NextResponse } from "@/compat/next/server";
-import { query } from "@/utils/db";
+import { isChatDbWebhookError, pollChatMessages } from "@/lib/chat-db";
 
 export async function GET(request: Request) {
   try {
@@ -15,32 +15,25 @@ export async function GET(request: Request) {
       );
     }
 
-    let sql = `
-      SELECT * FROM messages 
-      WHERE session_id = $1 
-    `;
-    const params: any[] = [session_id];
-
-    if (cursor) {
-      sql += " AND created_at > $2 ";
-      params.push(cursor);
-    }
-
-    sql += ` ORDER BY created_at ASC LIMIT $${params.length + 1} `;
-    params.push(Math.min(limit, 200));
-
-    const { rows: messages } = await query(sql, params);
-
-    const nextCursor =
-      messages && messages.length > 0
-        ? messages[messages.length - 1].created_at
-        : cursor;
+    const { messages, nextCursor } = await pollChatMessages({
+      sessionId: session_id,
+      cursor,
+      limit,
+    });
 
     return NextResponse.json({
       messages: messages || [],
       nextCursor,
     });
   } catch (error: any) {
+    if (isChatDbWebhookError(error)) {
+      console.error("Poll DB error:", error);
+      return NextResponse.json(
+        { error: error.message || "Failed to poll chat messages" },
+        { status: error.status }
+      );
+    }
+
     console.error("Poll API error:", error);
     return NextResponse.json(
       { error: "Internal server error" },

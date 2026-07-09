@@ -1,11 +1,16 @@
 import { NextResponse } from "@/compat/next/server";
-import { query } from "@/utils/db";
+import {
+  getChatSession,
+  insertChatMessage,
+  isChatDbWebhookError,
+} from "@/lib/chat-db";
 import { sendTelegramMessage } from "@/utils/telegram";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { session_id, text } = body;
+    const session_id = typeof body?.session_id === "string" ? body.session_id : "";
+    const text = typeof body?.text === "string" ? body.text : "";
 
     if (!session_id || !text) {
       return NextResponse.json(
@@ -14,12 +19,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // 1. Get session to find the topic ID using Postgres
-    const sessionRes = await query(
-      "SELECT topic_thread_id, display_name FROM sessions WHERE session_id = $1",
-      [session_id]
-    );
-    const session = sessionRes.rows[0];
+    const session = await getChatSession(session_id);
 
     if (!session || !session.topic_thread_id) {
       return NextResponse.json(
@@ -48,33 +48,26 @@ export async function POST(request: Request) {
       );
     }
 
-    // 3. Store in DB using Postgres
-    const insertQuery = `
-      INSERT INTO messages (session_id, direction, text, telegram_message_id)
-      VALUES ($1, $2, $3, $4)
-      RETURNING *;
-    `;
-    const { rows } = await query(insertQuery, [
-      session_id,
-      "to_telegram",
+    const storedMessage = await insertChatMessage({
+      sessionId: session_id,
+      direction: "to_telegram",
       text,
-      telegramMsg.message_id,
-    ]);
-    const storedMessage = rows[0];
-
-    if (!storedMessage) {
-      console.error("Failed to save message to DB: No rows returned");
-      return NextResponse.json(
-        { error: "Message sent but failed to save history" },
-        { status: 500 }
-      );
-    }
+      telegramMessageId: telegramMsg.message_id,
+    });
 
     return NextResponse.json({
       ok: true,
       message: storedMessage,
     });
   } catch (error: any) {
+    if (isChatDbWebhookError(error)) {
+      console.error("Send message DB error:", error);
+      return NextResponse.json(
+        { error: error.message || "Failed to load chat session" },
+        { status: error.status }
+      );
+    }
+
     console.error("Send message error:", error);
     return NextResponse.json(
       { error: "Internal server error" },

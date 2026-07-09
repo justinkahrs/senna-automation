@@ -1,5 +1,9 @@
 import { NextResponse } from "@/compat/next/server";
-import { query } from "@/utils/db";
+import {
+  getChatSessionByTopic,
+  insertChatMessage,
+  isChatDbWebhookError,
+} from "@/lib/chat-db";
 
 export async function POST(request: Request) {
   try {
@@ -41,15 +45,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true }); // Ignore general messages
     }
 
-    // 2. Find session mapped to this thread using Postgres
-    const sessionRes = await query(
-      "SELECT session_id FROM sessions WHERE topic_thread_id = $1",
-      [threadId]
-    );
-    const session = sessionRes.rows[0];
+    const session = await getChatSessionByTopic(threadId);
 
     if (!session) {
-      console.warn(`[Webhook] No session found for thread ${threadId}.`);
+      console.warn(
+        `[Webhook] No session found for thread ${threadId}.`
+      );
       return NextResponse.json({ ok: true }); // No session to route to
     }
     
@@ -61,21 +62,25 @@ export async function POST(request: Request) {
         return NextResponse.json({ ok: true });
     }
 
-    const insertQuery = `
-      INSERT INTO messages (session_id, direction, text, telegram_message_id)
-      VALUES ($1, $2, $3, $4)
-    `;
-    await query(insertQuery, [
-      session.session_id,
-      "from_telegram",
-      message.text,
-      message.message_id,
-    ]);
+    await insertChatMessage({
+      sessionId: session.session_id,
+      direction: "from_telegram",
+      text: message.text,
+      telegramMessageId: message.message_id,
+    });
 
     console.log("[Webhook] Successfully stored message from Telegram.");
 
     return NextResponse.json({ ok: true });
   } catch (error: any) {
+    if (isChatDbWebhookError(error)) {
+      console.error("[Webhook] Chat DB error:", error);
+      return NextResponse.json(
+        { error: error.message || "Unable to store Telegram message" },
+        { status: error.status }
+      );
+    }
+
     console.error("Webhook error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
