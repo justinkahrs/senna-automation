@@ -150,7 +150,7 @@ export default function BlogPage({
                   variant="h1"
                   sx={{
                     color: "inherit",
-                    fontSize: "clamp(3.75rem, 9vw, 7rem)",
+                    fontSize: "clamp(3.75rem, 9vw, 5rem)",
                     lineHeight: 0.96,
                     letterSpacing: "-0.03em"
                   }}>
@@ -375,7 +375,7 @@ export default function BlogPage({
         </Container>
       </Box>
       {/* ── Final CTA ─────────────────────────────────── */}
-      <FinalCTA 
+      <FinalCTA
         title="Want to automate something in your business?"
         subtitle="Book a free 30-min call. We'll identify the highest-impact opportunities and map out exactly where to start."
         buttonText="Schedule a Free Call"
