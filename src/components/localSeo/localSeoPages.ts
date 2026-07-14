@@ -531,6 +531,138 @@ export const localSeoPages = {
     ],
     nearbyCities,
   },
+  customAiSolutionsGrandRapids: {
+    slug: "custom-ai-solutions-grand-rapids",
+    serviceName: "Custom AI Solutions in Grand Rapids",
+    serviceType: "Custom AI solutions",
+    title: "Custom AI Solutions Grand Rapids | Senna Automation",
+    description:
+      "Custom AI solutions in Grand Rapids for manufacturers, service businesses, distributors, and office teams. Senna Automation builds practical AI workflows, assistants, and integrations starting at $500.",
+    eyebrow: "Grand Rapids Custom AI Solutions",
+    h1: "Custom AI solutions for Grand Rapids businesses",
+    lead:
+      "Senna Automation helps Grand Rapids and West Michigan businesses design and build custom AI solutions that fit real workflows, reduce manual work, and improve speed across intake, operations, follow-up, and reporting.",
+    introTitle: "Custom AI solutions built around the way your business already works",
+    introBody:
+      "Businesses searching for custom AI solutions in Grand Rapids usually do not need a generic chatbot or a broad transformation pitch. They need a system built around a specific bottleneck, such as lead response, document handling, quoting support, service coordination, approvals, or internal knowledge access. Senna Automation designs custom AI solutions that connect with the tools your team already uses so the first release creates operational value instead of another disconnected experiment.",
+    assessmentTitle: "Free assessment and a focused first build",
+    assessmentBody:
+      "We start with one workflow that is costing time, slowing response, or creating repeated admin work today. That first assessment turns the problem into a practical build recommendation with clear scope, likely integrations, and a realistic starting point. Small projects start at $500, and larger custom AI systems are scoped around the complexity of the workflow, business rules, and connected tools.",
+    primaryKeyword: "custom ai solutions grand rapids",
+    secondaryKeywords: [
+      "custom AI services Grand Rapids",
+      "custom AI development Grand Rapids",
+      "AI solutions company Grand Rapids",
+      "AI workflow solutions West Michigan",
+      "custom business AI Grand Rapids",
+      "Grand Rapids AI integration services",
+      "West Michigan custom AI automation",
+    ],
+    supportingPostSlugs: [
+      "how-grand-rapids-businesses-choose-their-first-ai-automation-workflow",
+      "where-west-michigan-teams-start-with-ai-automation-in-the-back-office",
+      "lead-qualification",
+    ],
+    useCases: [
+      {
+        title: "Custom AI intake and routing systems",
+        description:
+          "Capture requests from forms, email, calls, and uploaded files, extract the right details, and route work automatically based on customer, urgency, job type, or internal rules.",
+      },
+      {
+        title: "Document processing and data extraction",
+        description:
+          "Turn PDFs, invoices, purchase orders, service records, quotes, and attachments into structured data that can move into your CRM, ERP, or internal workflows without repetitive re-entry.",
+      },
+      {
+        title: "Internal AI assistants for teams",
+        description:
+          "Give staff faster access to approved business knowledge, summaries, next-step guidance, and recurring answers without making them dig through shared drives, inboxes, or scattered documents.",
+      },
+      {
+        title: "Custom workflow automation with AI steps",
+        description:
+          "Combine AI tasks with approvals, notifications, exception handling, and system handoffs so the process works reliably from intake through completion.",
+      },
+      {
+        title: "Sales and operations support tools",
+        description:
+          "Build AI systems that help qualify leads, summarize conversations, prepare quotes, flag stalled work, and improve visibility for managers without replacing core software.",
+      },
+    ],
+    industries: [
+      {
+        name: "Manufacturing",
+        description:
+          "RFQ intake, quote prep, maintenance coordination, document handling, purchasing support, production communication, and internal status reporting.",
+      },
+      {
+        name: "Trades and field service",
+        description:
+          "Service request triage, estimate follow-up, scheduling prep, technician coordination, customer communication, and recurring admin handoffs.",
+      },
+      {
+        name: "Distribution",
+        description:
+          "Order intake, PO processing, customer request routing, stock communication, account support, and back-office workflow coordination.",
+      },
+      {
+        name: "Professional and admin-heavy service businesses",
+        description:
+          "Client intake, document review, approval routing, recurring follow-up, internal knowledge support, and operational reporting.",
+      },
+    ],
+    process: [
+      {
+        title: "Identify the workflow worth customizing",
+        description:
+          "We map where the work starts, what information is needed, which people and systems are involved, and where delays, re-entry, or missed handoffs are hurting the business today.",
+      },
+      {
+        title: "Design the AI tasks, rules, and integrations",
+        description:
+          "We define what the system should capture, extract, classify, summarize, route, approve, or escalate so the solution matches your actual operating process instead of forcing a generic template.",
+      },
+      {
+        title: "Launch a dependable first version",
+        description:
+          "We build the workflow, connect the right tools, test edge cases, and make sure the first release is usable and measurable before expanding the system further.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What counts as a custom AI solution for a Grand Rapids business?",
+        answer:
+          "A custom AI solution is a system designed around your specific workflow, data, and operating rules. That can include AI-assisted intake, document extraction, internal assistants, approval routing, follow-up automation, reporting support, or connected workflows across the tools you already use.",
+      },
+      {
+        question: "How is a custom AI solution different from a standard automation?",
+        answer:
+          "Standard automation works well when the process is fully rules-based. A custom AI solution is useful when the workflow also needs interpretation, summarization, classification, extraction from messy inputs, or guided decision support alongside normal automation logic.",
+      },
+      {
+        question: "What types of businesses hire Senna Automation for custom AI solutions?",
+        answer:
+          "We work with manufacturers, distributors, trades, service businesses, and office-heavy teams across Grand Rapids and West Michigan that need practical systems to reduce admin drag and improve workflow speed.",
+      },
+      {
+        question: "Do we need to replace our current CRM, ERP, or scheduling platform?",
+        answer:
+          "Usually no. Most custom AI solutions work best as a layer around your existing systems so information can move more cleanly between inboxes, forms, spreadsheets, CRMs, ERPs, scheduling tools, and internal dashboards.",
+      },
+      {
+        question: "How much do custom AI solutions cost?",
+        answer:
+          "Small focused projects start at $500. Total cost depends on the workflow scope, the number of integrations, the level of custom logic required, and whether the system includes assistants, extraction, reporting, or more advanced workflow orchestration.",
+      },
+      {
+        question: "Do you serve businesses outside Grand Rapids?",
+        answer:
+          "Yes. Senna Automation is based in Grand Rapids and supports businesses across West Michigan, including Kentwood, Wyoming, Grandville, Walker, Holland, Rockford, Ada, and Byron Center.",
+      },
+    ],
+    nearbyCities,
+  },
 } satisfies Record<string, LocalSeoPageConfig>;
 
 export const localSeoPageList = Object.values(localSeoPages);
