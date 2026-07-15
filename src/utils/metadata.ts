@@ -101,7 +101,7 @@ export const defaultMetadata: RouteMetadata = {
     description:
       "AI workflow systems, custom software, and practical operations tools for Grand Rapids businesses and teams beyond West Michigan.",
     siteName: SITE_NAME,
-    images: [`${SITE_URL}/opengraph-image`],
+    images: [`${SITE_URL}/opengraph-image.png`],
   },
   twitter: {
     card: "summary_large_image",
@@ -109,7 +109,7 @@ export const defaultMetadata: RouteMetadata = {
       "Senna Automation | AI Workflow Systems & Custom Software Development",
     description:
       "AI workflow systems, custom software, and practical operations tools for Grand Rapids businesses and teams beyond West Michigan.",
-    images: [`${SITE_URL}/opengraph-image`],
+    images: [`${SITE_URL}/opengraph-image.png`],
   },
 };
 
@@ -166,13 +166,13 @@ export function getResolvedMetadata(metadata?: RouteMetadata) {
       ...merged.openGraph,
       images: openGraphImages.length
         ? openGraphImages
-        : [{ url: `${SITE_URL}/opengraph-image` }],
+        : [{ url: `${SITE_URL}/opengraph-image.png` }],
     },
     twitter: {
       ...merged.twitter,
       images: twitterImages.length
         ? twitterImages
-        : [{ url: `${SITE_URL}/opengraph-image` }],
+        : [{ url: `${SITE_URL}/opengraph-image.png` }],
     },
     verification: {
       google: GOOGLE_SITE_VERIFICATION,

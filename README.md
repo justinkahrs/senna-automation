@@ -93,8 +93,8 @@ Key preserved routes and outputs:
 - `/atom.xml`
 - `/feed.json`
 - `/sitemap.xml`
-- `/opengraph-image`
-- `/blog/[slug]/opengraph-image`
+- `/opengraph-image.png`
+- `/blog/[slug]/opengraph-image.png`
 - `/api/**`
 
 Blog content lives in `src/content/blog/*.md`.
