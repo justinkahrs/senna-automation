@@ -25,7 +25,7 @@ const relatedPost = (await getAllBlogPostsFromContent()).find(
   (entry) => entry.slug !== slug,
 );
 const canonicalUrl = `${SITE_URL}/blog/${slug}`;
-const ogImageUrl = new URL(`${canonicalUrl}/opengraph-image`);
+const ogImageUrl = new URL(`${canonicalUrl}/opengraph-image.png`);
 ogImageUrl.searchParams.set("v", BLOG_OG_IMAGE_VERSION);
 ---
 
