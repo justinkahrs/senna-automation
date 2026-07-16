@@ -193,128 +193,140 @@ export const localSeoPages = {
     serviceType: "AI automation",
     title: "AI Automation Grand Rapids | Senna Automation",
     description:
-      "AI automation in Grand Rapids for manufacturers, service companies, distributors, and office teams. Senna Automation builds practical AI workflows starting at $500.",
+      "AI automation in Grand Rapids for manufacturers, service companies, distributors, and office teams. Senna Automation designs practical AI workflows, AI assistants, and business process automations for West Michigan companies starting at $500.",
     eyebrow: "Grand Rapids AI Automation",
-    h1: "AI automation for Grand Rapids businesses that need practical results",
+    h1: "AI automation for Grand Rapids businesses that need real operational gains",
     lead:
-      "Senna Automation helps Grand Rapids and West Michigan businesses automate repetitive work with AI-assisted workflows, system integrations, approvals, routing, document handling, and internal follow-up that reduce admin drag without forcing a full software replacement.",
-    introTitle: "AI automation built around real business bottlenecks",
+      "Senna Automation helps Grand Rapids and West Michigan businesses build AI automation systems that reduce admin drag, speed up response time, improve routing, and connect the tools their teams already use every day.",
+    introTitle: "Practical AI automation for Grand Rapids operations, service teams, and back offices",
     introBody:
-      "Most businesses searching for AI automation in Grand Rapids are not looking for a novelty demo. They need repeated work to move faster and more reliably across inboxes, forms, spreadsheets, PDFs, CRMs, ERPs, scheduling tools, and shared documents. Senna Automation designs practical AI automation systems around those day-to-day bottlenecks so your team can reduce copy and paste, speed up response times, and improve visibility without replacing everything at once.",
-    assessmentTitle: "Free assessment and a focused first AI automation project",
+      "Companies searching for AI automation in Grand Rapids usually want more than a chatbot demo or a generic AI strategy deck. They need a practical way to automate repetitive work across email, forms, spreadsheets, PDFs, CRM records, ERP data, scheduling tools, and internal approvals. Senna Automation builds workflow-first AI automation for Grand Rapids businesses so repeated work gets captured, interpreted, routed, and completed with fewer handoffs and less manual follow-up. The goal is not to replace everything at once. It is to launch one useful automation that improves daily operations and creates a stronger base for future AI adoption.",
+    assessmentTitle: "Free assessment and a focused first AI automation rollout",
     assessmentBody:
-      "We start by mapping one workflow that creates unnecessary delay, re-entry, or follow-up today. That might be lead intake, quote prep, service scheduling, document processing, approvals, or internal status reporting. Small projects start at $500, and larger builds are scoped around the systems, rules, exceptions, and integrations your team already manages.",
+      "We start with one business process that is already slowing the team down. That might be intake, quoting support, scheduling coordination, document handling, order processing, approval routing, or internal reporting. We map the trigger, the inputs, the rules, the exceptions, and the systems involved, then recommend the smallest useful AI automation project for your Grand Rapids business. Focused projects start at $500, and larger implementations are scoped around workflow complexity, integrations, exception handling, and operating requirements.",
     primaryKeyword: "ai automation grand rapids",
     secondaryKeywords: [
       "AI workflow automation Grand Rapids",
-      "business automation Grand Rapids",
       "AI automation company Grand Rapids",
-      "custom AI solutions Grand Rapids",
       "AI automation services Grand Rapids",
+      "business automation Grand Rapids",
+      "Grand Rapids AI agents",
+      "custom AI solutions Grand Rapids",
       "West Michigan AI automation",
       "Grand Rapids business automation services",
+      "AI process automation Grand Rapids",
     ],
     supportingPostSlugs: [
+      "how-grand-rapids-businesses-choose-their-first-ai-automation-workflow",
       "where-west-michigan-teams-start-with-ai-automation-in-the-back-office",
       "how-west-michigan-manufacturers-start-with-ai-automation-without-a-full-system-replacement",
-      "automating-service-call-scheduling-before-the-day-falls-apart",
     ],
     useCases: [
       {
-        title: "AI lead intake and follow-up automation",
+        title: "AI lead capture, qualification, and follow-up",
         description:
-          "Capture website, phone, email, and referral inquiries, summarize context, assign the right owner, and trigger next-step follow-up before leads go cold.",
+          "Capture inquiries from forms, email, phone notes, and referrals, summarize the request, assign ownership, and trigger immediate next-step follow-up so sales opportunities do not stall in a shared inbox.",
       },
       {
-        title: "Document extraction and back-office processing",
+        title: "AI document extraction and operations intake",
         description:
-          "Pull key data from forms, PDFs, invoices, purchase orders, service requests, and email attachments, then route it into the correct business system automatically.",
+          "Extract key details from PDFs, purchase orders, invoices, service requests, quote packages, and attachments so information becomes structured data that can move into CRM, ERP, or internal workflow tools.",
       },
       {
-        title: "Approval workflows and exception routing",
+        title: "AI-powered approval routing and exception handling",
         description:
-          "Move requests through approval steps, flag missing information, escalate stalled work, and notify the right person when a job falls outside the rules.",
+          "Route requests based on job type, urgency, customer, dollar amount, or missing data, then escalate exceptions automatically when work falls outside the rules or waits too long for review.",
       },
       {
-        title: "Scheduling, dispatch, and status automation",
+        title: "Scheduling, dispatch, and service coordination automation",
         description:
-          "Support service teams with cleaner intake, readiness checks, reminders, technician coordination, and internal updates that reduce day-of confusion.",
+          "Help service teams standardize intake, confirm readiness, alert dispatch, notify technicians, and keep customer communication moving without relying on scattered texts, spreadsheets, and manual calendar updates.",
       },
       {
-        title: "Internal AI assistants and reporting summaries",
+        title: "Internal AI assistants for teams and managers",
         description:
-          "Give teams faster answers, recurring summaries, next-step recommendations, and operational visibility using approved business context from the systems you already use.",
+          "Give staff faster access to approved business knowledge, summaries, status updates, and next-step guidance using company-specific context from the systems they already work in.",
+      },
+      {
+        title: "Reporting summaries and workflow visibility",
+        description:
+          "Generate recurring summaries of pending work, blocked items, turnaround time, and operational bottlenecks so managers can see what needs attention without chasing updates across departments.",
       },
     ],
     industries: [
       {
         name: "Manufacturing",
         description:
-          "Quote intake, purchasing handoffs, maintenance coordination, quality follow-up, production communication, and exception alerts across office and plant workflows.",
+          "RFQ intake, quote preparation support, purchasing coordination, maintenance readiness, production handoffs, quality follow-up, and reporting workflows across office and plant teams.",
       },
       {
         name: "Trades and field service",
         description:
-          "Missed-call follow-up, service request triage, estimate routing, scheduling prep, customer reminders, and technician coordination.",
+          "Lead response, missed-call follow-up, service request triage, estimate routing, scheduling prep, technician coordination, and customer reminder workflows.",
       },
       {
         name: "Distribution and logistics",
         description:
-          "Order intake, PO processing, shipment communication, stock questions, customer request routing, and sales support workflows.",
+          "Order intake, PO processing, shipment communication, stock question routing, sales support, and back-office coordination between customer service, purchasing, and operations.",
       },
       {
         name: "Professional and admin-heavy service teams",
         description:
-          "Client intake, document review, approval routing, recurring follow-up, meeting summaries, and back-office coordination.",
+          "Client intake, document review, internal approvals, meeting follow-up, recurring reporting, and knowledge support for firms with high administrative workload.",
       },
     ],
     process: [
       {
-        title: "Map the workflow, inputs, and delays",
+        title: "Find the workflow where AI automation will matter first",
         description:
-          "We identify where the work begins, what information is needed, which systems are involved, and where manual checks, missed handoffs, or status confusion keep slowing the process down.",
+          "We start with the specific process already causing delays, duplicate entry, missed follow-up, or status confusion so the automation project stays tied to a real operating problem.",
       },
       {
-        title: "Design the automation rules and AI tasks",
+        title: "Design the workflow logic, AI tasks, and system connections",
         description:
-          "We define what should be captured, extracted, scored, routed, approved, summarized, or escalated so the workflow matches how your business actually operates.",
+          "We define what should be captured, extracted, summarized, classified, routed, approved, or escalated and how the workflow should connect with the software your team already uses.",
       },
       {
-        title: "Launch with the right integrations and guardrails",
+        title: "Launch a dependable first automation and improve from real usage",
         description:
-          "We connect the workflow to your existing tools, test edge cases, verify outputs, and make sure the first release is dependable before expanding automation further.",
+          "We implement the workflow, test exceptions, validate outputs, and refine the release around actual team behavior so the system becomes reliable before expanding to the next use case.",
       },
     ],
     faqs: [
       {
         question: "What does AI automation mean for a Grand Rapids business?",
         answer:
-          "AI automation combines workflow logic, integrations, and AI-assisted tasks so repeated work moves with less manual effort. That can include extracting data from documents, routing requests, drafting summaries, triggering follow-up, and helping teams get answers faster from approved business information.",
+          "AI automation combines workflow rules, software integrations, and AI-assisted tasks so repeated work moves with less manual effort. For a Grand Rapids business, that can mean faster intake, document extraction, approval routing, follow-up, reporting, and internal knowledge support without replacing every current system.",
       },
       {
-        question: "What are common first AI automation projects?",
+        question: "What are the best first AI automation projects for local companies?",
         answer:
-          "Many Grand Rapids businesses start with lead response, service request intake, quote or order processing, document extraction, approval routing, scheduling coordination, or recurring status reporting because those workflows create visible delays and repeated admin work.",
+          "The best first projects are usually the workflows that create visible friction every day, such as lead response, service request intake, quote support, document processing, order entry, approvals, scheduling coordination, or recurring status reporting. A focused workflow usually produces results faster than a broad transformation plan.",
       },
       {
-        question: "Do we need to replace our CRM, ERP, or scheduling software?",
+        question: "Can Senna Automation build AI agents or assistants for Grand Rapids teams?",
         answer:
-          "Usually no. Most first AI automation projects are built around the software you already use so information moves between systems with fewer manual handoffs.",
+          "Yes. We can build practical AI assistants and agent-style workflows for internal teams when the use case is clear, the business context is defined, and the system needs to help staff answer questions, summarize records, route work, or guide the next step in an operational process.",
+      },
+      {
+        question: "Do we need to replace our CRM, ERP, or scheduling software first?",
+        answer:
+          "Usually no. Most AI automation projects work best as a layer around the software you already use so information can move more cleanly between inboxes, forms, spreadsheets, CRM records, ERP workflows, calendars, and internal dashboards.",
       },
       {
         question: "How much does AI automation cost?",
         answer:
-          "Focused AI automation work starts at $500. The total scope depends on the systems involved, the number of rules and exceptions, and whether the workflow includes AI extraction, summaries, assistants, or custom integrations.",
+          "Focused AI automation projects start at $500. Total cost depends on the workflow scope, the number of integrations, the amount of exception handling required, and whether the system includes document extraction, assistant features, reporting, or custom logic.",
       },
       {
-        question: "Do you only help manufacturers with AI automation?",
+        question: "What types of businesses do you help with AI automation in Grand Rapids?",
         answer:
-          "No. Senna Automation works with manufacturers, trades, field service teams, distributors, and office-heavy businesses across West Michigan that need faster handoffs and less manual admin.",
+          "Senna Automation works with manufacturers, field service companies, trades, distributors, and office-heavy teams that need better workflow speed, cleaner handoffs, and less repetitive manual work across daily operations.",
       },
       {
         question: "Do you serve businesses outside Grand Rapids?",
         answer:
-          "Yes. Senna Automation supports businesses in Grand Rapids and nearby West Michigan communities including Kentwood, Wyoming, Grandville, Walker, Holland, Rockford, Ada, and Byron Center.",
+          "Yes. Senna Automation supports businesses in Grand Rapids and across nearby West Michigan communities including Kentwood, Wyoming, Grandville, Walker, Holland, Rockford, Ada, and Byron Center.",
       },
     ],
     nearbyCities,
