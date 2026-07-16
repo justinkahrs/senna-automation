@@ -193,17 +193,17 @@ export default function ServicesPage() {
         }}
       >
         {/* Subtle noise texture */}
-        <Box 
-          sx={{ 
-            position: 'absolute', 
-            top: 0, 
-            left: 0, 
-            right: 0, 
-            bottom: 0, 
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
             opacity: 0.03,
             backgroundImage: 'url("https://www.transparenttextures.com/patterns/dark-matter.png")',
             pointerEvents: 'none'
-          }} 
+          }}
         />
         <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1, textAlign: "center" }}>
           <Box sx={{ maxWidth: "900px", mx: "auto" }}>
@@ -394,6 +394,128 @@ export default function ServicesPage() {
             How it works
           </Typography>
           <NumberedSteps steps={steps} />
+        </Container>
+      </Box>
+      {/* ── AI Governance ─────────────────────────────────── */}
+      <Box
+        component="section"
+        aria-labelledby="ai-governance-heading"
+        sx={{
+          bgcolor: "secondary.main",
+          color: "background.paper",
+          py: { xs: 9, md: 13 },
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <Box
+          aria-hidden="true"
+          sx={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(115deg, color-mix(in srgb, var(--color-accent), transparent 91%), transparent 54%)",
+            pointerEvents: "none",
+          }}
+        />
+        <Container maxWidth="lg" sx={{ position: "relative" }}>
+          <Grid container spacing={{ xs: 6, md: 10 }} alignItems="center">
+            <Grid size={{ xs: 12, md: 7 }}>
+              <Typography
+                variant="overline"
+                sx={{
+                  color: "var(--color-accent-cyan)",
+                  letterSpacing: "0.12em",
+                }}
+              >
+                Responsible by design
+              </Typography>
+              <Typography
+                id="ai-governance-heading"
+                variant="h2"
+                component="h2"
+                sx={{ color: "inherit", mt: 1.5, mb: 3, maxWidth: 640 }}
+              >
+                What about AI governance?
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: "var(--color-text-on-dark-prominent)",
+                  lineHeight: 1.8,
+                  maxWidth: 670,
+                  mb: 4,
+                }}
+              >
+                If your organization already has a
+                governance model, we map the workflow into it. If it does not,
+                we help establish a right-sized operating baseline.
+              </Typography>
+              <Button
+                href="/blog/practical-ai-governance-for-automation"
+                variant="contained"
+                size="large"
+                endIcon={<ArrowForwardIcon />}
+              >
+                Read our AI governance approach
+              </Button>
+            </Grid>
+            <Grid size={{ xs: 12, md: 5 }}>
+              <Stack
+                component="ol"
+                spacing={0}
+                sx={{
+                  listStyle: "none",
+                  p: 0,
+                  m: 0,
+                  borderTop: "1px solid var(--color-bg-on-dark-16)",
+                }}
+              >
+                {[
+                  ["01", "Work within your model", "We align to your existing policies, risk tiers, data controls, and approval paths."],
+                  ["02", "Match controls to the stakes", "Higher-impact uses receive stronger review, documentation, access limits, and stop conditions."],
+                  ["03", "Leave an operating trail", "Owners, approvals, system actions, exceptions, and incidents remain visible after launch."],
+                ].map(([number, title, description]) => (
+                  <Box
+                    component="li"
+                    key={number}
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "auto 1fr",
+                      gap: 2.5,
+                      py: 3,
+                      borderBottom: "1px solid var(--color-bg-on-dark-16)",
+                    }}
+                  >
+                    <Typography
+                      variant="overline"
+                      sx={{ color: "var(--color-accent-cyan)", pt: 0.25 }}
+                    >
+                      {number}
+                    </Typography>
+                    <Box>
+                      <Typography
+                        variant="h5"
+                        component="h3"
+                        sx={{ color: "inherit", mb: 0.75 }}
+                      >
+                        {title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: "var(--color-text-on-dark-body)",
+                          lineHeight: 1.7,
+                        }}
+                      >
+                        {description}
+                      </Typography>
+                    </Box>
+                  </Box>
+                ))}
+              </Stack>
+            </Grid>
+          </Grid>
         </Container>
       </Box>
       <LocalSeoClusterSection
