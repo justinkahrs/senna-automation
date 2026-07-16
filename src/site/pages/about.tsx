@@ -12,9 +12,7 @@ export const metadata: RouteMetadata = {
 };
 
 import { Box, Container, Stack, Typography, Grid } from "@mui/material";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FinalCTA from "@/components/sections/FinalCTA";
-import aboutGrandRapids from "@/assets/about/about-grand-rapids.jpg";
 
 const homeEyebrowSx = {
   display: "inline-flex",
@@ -28,18 +26,6 @@ const homeEyebrowSx = {
   bgcolor: "color-mix(in srgb, var(--color-accent-cyan), transparent 84%)",
   color: "var(--color-text-secondary)",
   letterSpacing: "0.12em",
-};
-
-const visuallyHiddenSx = {
-  position: "absolute",
-  width: "1px",
-  height: "1px",
-  p: 0,
-  m: "-1px",
-  overflow: "hidden",
-  clip: "rect(0, 0, 0, 0)",
-  whiteSpace: "nowrap",
-  border: 0,
 };
 
 export default function About() {
@@ -199,114 +185,17 @@ export default function About() {
                     boxShadow: "var(--shadow-hero)",
                     overflow: "hidden",
                     position: "relative",
-                    minHeight: { xs: 420, md: 720 },
+                    aspectRatio: "3 / 4",
                     m: 0,
                   }}
                 >
                   <Image
-                    src={aboutGrandRapids}
-                    alt="Grand Rapids skyline and blue bridge over the river"
+                    src="/images/ai-conf2.png"
+                    alt="Senna Automation founder Justin Kahrs at an AI conference"
                     fill
                     sizes="(max-width: 900px) 100vw, 40vw"
                     style={{ objectFit: "cover" }}
                   />
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      inset: 0,
-                      background:
-                        "linear-gradient(180deg, color-mix(in srgb, var(--ds-airforce-blue) 60%, transparent) 0%, color-mix(in srgb, var(--ds-airforce-blue) 60%, transparent) 100%)",
-                    }}
-                  />
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      inset: 0,
-                      display: "flex",
-                      alignItems: "flex-start",
-                      justifyContent: "center",
-                      pt: { xs: 8, md: 12 },
-                      px: 4,
-                      pb: 4,
-                    }}
-                  >
-                    <Stack spacing={2.5} sx={{
-                      alignItems: "center"
-                    }}>
-                      <Box
-                        component="img"
-                        src="/images/master-logo.svg"
-                        alt="Senna Automation"
-                        sx={{
-                          width: "100%",
-                          maxWidth: 1120,
-                          height: "auto",
-                          display: "block",
-                          filter:
-                            "brightness(0) invert(1) drop-shadow(0 12px 30px rgba(24,25,37,0.28))",
-                        }}
-                      />
-                      <Stack
-                        direction="row"
-                        spacing={1}
-                        sx={{
-                          alignItems: "center",
-                          px: 2,
-                          py: 1,
-                          borderRadius: "var(--radius-pill)",
-                          bgcolor: "rgba(255,255,255,0.16)",
-                          backdropFilter: "blur(6px)",
-                          color: "var(--color-text-inverse)"
-                        }}>
-                        <LocationOnIcon
-                          sx={{ fontSize: 18, color: "inherit" }}
-                        />
-                        <Typography
-                          variant="body1"
-                          sx={{
-                            color: "var(--color-text-inverse)",
-                            fontWeight: 600,
-                          }}
-                        >
-                          Grand Rapids, MI
-                        </Typography>
-                      </Stack>
-                      <Box
-                        sx={{
-                          width: { xs: 120, md: 156 },
-                          height: "8px",
-                          bgcolor: "var(--color-accent-cyan)",
-                          boxShadow: "0 0 18px rgba(146,220,229,0.25)",
-                        }}
-                      />
-                      <Typography
-                        variant="overline"
-                        sx={{
-                          fontSize: "1rem",
-                          color: "var(--color-text-inverse)",
-                          opacity: 0.92,
-                        }}
-                      >
-                        Est. 2024
-                      </Typography>
-                    </Stack>
-                  </Box>
-                  <Box component="figcaption" sx={visuallyHiddenSx}>
-                    Photo by{" "}
-                    <Box
-                      component="a"
-                      href="https://unsplash.com/@karishea?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-                    >
-                      Kari Shea
-                    </Box>{" "}
-                    on{" "}
-                    <Box
-                      component="a"
-                      href="https://unsplash.com/photos/blue-bridge-over-river-near-city-buildings-during-daytime-koxByITzIUg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-                    >
-                      Unsplash
-                    </Box>
-                  </Box>
                 </Box>
               </Box>
             </Grid>

@@ -44,7 +44,10 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     post?.subtitle ||
     post?.excerpt ||
     "Practical automation patterns for operational businesses.";
-  const imageSrc = await getPublicImageSrc(post?.image);
+  const [imageSrc, logoSrc] = await Promise.all([
+    getPublicImageSrc(post?.image),
+    getPublicImageSrc("/images/master-logo.png"),
+  ]);
 
   const interSemiBold = await fetch(
     new URL(
@@ -164,13 +167,35 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               style={{
                 display: "flex",
                 alignItems: "center",
-                marginTop: 42,
-                fontSize: 25,
-                fontWeight: 800,
+                marginTop: 30,
               }}
             >
-              <span style={{ color: "#ffffff" }}>SENNA</span>
-              <span style={{ color: "#92dce5", marginLeft: 10 }}>AUTOMATION</span>
+              <svg
+                width="230"
+                height="78"
+                viewBox="0 0 269 91"
+                role="img"
+                aria-label="Senna Automation"
+              >
+                <defs>
+                  <filter id="invert-logo" colorInterpolationFilters="sRGB">
+                    <feComponentTransfer>
+                      <feFuncR type="table" tableValues="1 0" />
+                      <feFuncG type="table" tableValues="1 0" />
+                      <feFuncB type="table" tableValues="1 0" />
+                    </feComponentTransfer>
+                  </filter>
+                  <mask id="logo-mask" maskUnits="userSpaceOnUse" maskType="luminance">
+                    <image
+                      href={logoSrc}
+                      width="269"
+                      height="91"
+                      filter="url(#invert-logo)"
+                    />
+                  </mask>
+                </defs>
+                <rect width="269" height="91" fill="#ffffff" mask="url(#logo-mask)" />
+              </svg>
             </div>
           </div>
 
