@@ -192,6 +192,7 @@ export function Footer({
                 component="img"
                 src="/images/master-logo.svg"
                 alt="Senna Automation"
+                loading="lazy"
                 sx={{
                   display: "block",
                   width: { xs: 180, md: 200 },
@@ -398,6 +399,7 @@ export function Footer({
                     component="img"
                     src="/images/bbb.svg"
                     alt="BBB Profile"
+                    loading="lazy"
                     sx={{
                       height: 100,
                       width: "auto",
@@ -429,6 +431,8 @@ export function Footer({
                     component="img"
                     src="/grchamber.png"
                     alt="Grand Rapids Chamber of Commerce"
+                    loading="lazy"
+                    data-image-component
                     sx={{
                       display: "block",
                       height: 150,

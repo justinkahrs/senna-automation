@@ -114,7 +114,12 @@ export function AppBar() {
       >
         {/* Logo */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Link href="/" passHref style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+          <Link
+            href="/"
+            passHref
+            aria-label="Senna Automation home"
+            style={{ display: "flex", alignItems: "center", textDecoration: "none" }}
+          >
             <Logo
               logoFontColor={logoColor}
               logoIconColor={logoColor}
