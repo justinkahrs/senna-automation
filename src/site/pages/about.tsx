@@ -190,10 +190,11 @@ export default function About() {
                   }}
                 >
                   <Image
-                    src="/images/ai-conf2.png"
+                    src="/images/about-ai-conference-960.webp"
+                    srcSet="/images/about-ai-conference-640.webp 640w, /images/about-ai-conference-960.webp 960w, /images/about-ai-conference-1440.webp 1440w, /images/about-ai-conference-1792.webp 1792w"
                     alt="Senna Automation founder Justin Kahrs at an AI conference"
                     fill
-                    sizes="(max-width: 900px) 100vw, 40vw"
+                    sizes="(max-width: 900px) calc(100vw - 32px), 40vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
