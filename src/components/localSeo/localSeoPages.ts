@@ -444,27 +444,28 @@ export const localSeoPages = {
     slug: "business-process-automation-grand-rapids",
     serviceName: "Business Process Automation in Grand Rapids",
     serviceType: "Business process automation",
-    title: "Business Process Automation Grand Rapids | Senna Automation",
+    title: "Business Process Automation West Michigan | Grand Rapids | Senna Automation",
     description:
-      "Business process automation in Grand Rapids for intake, approvals, routing, reporting, and system handoffs. Senna Automation helps West Michigan teams reduce manual work with practical automation starting at $500.",
-    eyebrow: "Grand Rapids Business Process Automation",
-    h1: "Business process automation for Grand Rapids businesses",
+      "Business process automation for Grand Rapids and West Michigan manufacturers, service companies, distributors, and office teams. Senna Automation builds practical workflow systems for intake, approvals, routing, reporting, and system handoffs starting at $500.",
+    eyebrow: "West Michigan Business Process Automation",
+    h1: "Business process automation for Grand Rapids and West Michigan businesses",
     lead:
-      "Senna Automation helps Grand Rapids and West Michigan teams reduce manual admin, speed up internal handoffs, and improve day-to-day operations with practical business process automation built around the systems they already use.",
-    introTitle: "Automate the workflows that keep slowing the business down",
+      "Senna Automation helps Grand Rapids and West Michigan businesses reduce manual admin, improve internal handoffs, and build practical process automation around the tools their teams already use every day.",
+    introTitle: "Business process automation that fits real West Michigan operations",
     introBody:
-      "Most companies do not need a full software replacement to improve operations. They need repeated work to move more reliably from inboxes, forms, spreadsheets, PDFs, CRMs, ERPs, and shared documents into the next step. Senna Automation designs business process automation around those real operational bottlenecks so teams can reduce re-entry, missed follow-up, approval delays, and status confusion without overcomplicating the rollout.",
-    assessmentTitle: "Free assessment and a practical first automation scope",
+      "Companies searching for business process automation in West Michigan are usually trying to fix repeated operational drag, not buy another oversized system. The problem is often the same across manufacturers, distributors, field service businesses, and office teams: work starts in email, forms, spreadsheets, PDFs, CRM records, ERP screens, and shared documents, then slows down when people have to re-enter information, chase approvals, and manually move status updates between departments. Senna Automation designs business process automation for Grand Rapids and West Michigan companies so those workflows move more reliably with clearer rules, better routing, and fewer preventable delays.",
+    assessmentTitle: "Free assessment and a focused first automation scope",
     assessmentBody:
-      "The first step is a free assessment focused on one process that creates drag today. Small projects start at $500, and larger automation systems are scoped around your current tools, decision rules, handoffs, and reporting needs.",
-    primaryKeyword: "business process automation grand rapids",
+      "The first step is a free assessment built around one workflow that is already costing time or creating avoidable mistakes. That could be quote intake, purchasing approvals, scheduling coordination, service dispatch prep, order processing, customer follow-up, or recurring internal reporting. We map the trigger, the required information, the handoffs, the exceptions, and the systems involved, then recommend the smallest useful automation that can improve operations quickly. Focused projects start at $500, and larger implementations are scoped around workflow complexity, integrations, exception handling, and business rules.",
+    primaryKeyword: "business process automation west michigan",
     secondaryKeywords: [
       "business process automation Grand Rapids",
-      "process automation Grand Rapids",
+      "West Michigan business process automation",
+      "process automation West Michigan",
       "business automation Grand Rapids",
-      "workflow automation Grand Rapids",
-      "operations automation West Michigan",
-      "business process consultant Grand Rapids",
+      "workflow automation West Michigan",
+      "operations automation Grand Rapids",
+      "business process consultant West Michigan",
     ],
     supportingPostSlugs: [
       "where-west-michigan-teams-start-with-ai-automation-in-the-back-office",
@@ -475,93 +476,98 @@ export const localSeoPages = {
       {
         title: "Intake and data capture automation",
         description:
-          "Capture requests from email, forms, phone notes, PDFs, and shared inboxes, then turn them into structured records without repeated copy and paste.",
+          "Capture requests from email, forms, PDFs, shared inboxes, and phone notes, then turn them into structured records so teams stop re-entering the same information across systems.",
       },
       {
         title: "Approval routing and exception handling",
         description:
-          "Move requests through clear approval paths, escalate missing information, and notify the right team when work stalls or falls outside the rules.",
+          "Move purchasing, scheduling, service, and operations requests through clear approval paths, escalate missing information, and alert the right owner when work stalls.",
       },
       {
-        title: "Internal handoff automation",
+        title: "Internal handoff automation between teams",
         description:
-          "Connect sales, operations, purchasing, service, and admin workflows so the next owner gets the right information at the right time.",
+          "Connect sales, operations, purchasing, service, and admin workflows so the next person receives the right context without relying on hallway follow-up or spreadsheet chasing.",
       },
       {
-        title: "Status tracking and reporting",
+        title: "Status tracking and recurring reporting",
         description:
-          "Give managers visibility into pending work, blocked items, turnaround time, and bottlenecks without relying on manual spreadsheet updates.",
+          "Give managers visibility into pending work, blocked items, turnaround time, and bottlenecks without forcing manual updates at the end of the day or week.",
+      },
+      {
+        title: "Document-driven workflow automation",
+        description:
+          "Use structured workflows around quotes, purchase orders, service requests, and customer documents so important details move into CRM, ERP, or internal task systems faster.",
       },
     ],
     industries: [
       {
         name: "Manufacturing",
         description:
-          "Quote intake, purchasing approvals, inventory coordination, quality follow-up, maintenance prep, and production handoffs.",
+          "Quote intake, purchasing approvals, inventory coordination, quality follow-up, production handoffs, maintenance prep, and reporting workflows across office and plant teams.",
       },
       {
         name: "Distribution and logistics",
         description:
-          "Order processing, stock checks, vendor communication, shipment updates, and exception routing across office teams.",
+          "Order processing, stock checks, vendor communication, customer request routing, shipment updates, and exception handling across back-office operations.",
       },
       {
         name: "Trades and field service",
         description:
-          "Service request intake, scheduling prep, estimate approvals, technician coordination, and customer communication workflows.",
+          "Service request intake, scheduling prep, estimate approvals, technician coordination, dispatch handoffs, and customer communication workflows.",
       },
       {
-        name: "Professional and admin-heavy service businesses",
+        name: "Professional and admin-heavy service teams",
         description:
-          "Client onboarding, document collection, internal approvals, recurring follow-up, and back-office coordination.",
+          "Client onboarding, document collection, internal approvals, recurring follow-up, reporting, and back-office coordination where too much work still lives in inboxes and spreadsheets.",
       },
     ],
     process: [
       {
-        title: "Map the process that breaks down today",
+        title: "Map the workflow that is creating drag today",
         description:
-          "We identify where the workflow starts, what information is required, who touches it, and where delays or manual checks keep appearing.",
+          "We identify where the process starts, what information is needed, who touches it, which rules apply, and where delays, re-entry, or missed handoffs are affecting day-to-day operations.",
       },
       {
         title: "Design the first useful automation boundary",
         description:
-          "We define a focused rollout with the right rules, approvals, notifications, and integrations so the system solves a real bottleneck quickly.",
+          "We define a practical first release with the right triggers, approvals, notifications, exception paths, and integrations so the workflow improves a real operating problem without becoming too broad.",
       },
       {
-        title: "Launch, test, and improve with real usage",
+        title: "Launch, test, and improve from real usage",
         description:
-          "We implement the workflow, test exceptions, train the team, and refine the process once actual users and edge cases expose what needs adjustment.",
+          "We implement the workflow, validate edge cases, train the team, and refine the automation once actual users expose the exceptions and reporting needs that matter most.",
       },
     ],
     faqs: [
       {
-        question: "What is business process automation for a Grand Rapids company?",
+        question: "What is business process automation for a West Michigan business?",
         answer:
-          "Business process automation uses software, integrations, and workflow logic to move repeated work through the business with less manual entry, fewer missed handoffs, and clearer visibility into what happens next.",
+          "Business process automation uses software, integrations, and workflow logic to move repeated work through the business with less manual entry, fewer missed handoffs, and better visibility into what happens next. For West Michigan businesses, that often means improving intake, approvals, routing, reporting, and coordination across the systems already in place.",
       },
       {
         question: "What kinds of processes are usually automated first?",
         answer:
-          "Common first projects include intake, approvals, routing, scheduling prep, quote handoffs, document processing, follow-up reminders, and internal status reporting.",
+          "Strong first projects usually include intake, approvals, quote handoffs, scheduling prep, service coordination, document processing, purchasing workflows, customer follow-up, and internal status reporting. The best first choice is usually the workflow that creates friction every day and has clear ownership.",
       },
       {
-        question: "Do we need to replace our current software to automate processes?",
+        question: "Do we need to replace our current software to automate business processes?",
         answer:
-          "Usually no. Many projects work best as a layer around the tools you already use, such as spreadsheets, email, CRM, ERP, forms, calendars, and shared documents.",
+          "Usually no. Many business process automation projects work best as a layer around the tools you already use, such as spreadsheets, email, CRM, ERP, calendars, forms, and shared documents. The goal is often to improve the handoffs between those systems before considering a larger replacement.",
       },
       {
         question: "How much does business process automation cost?",
         answer:
-          "Focused automation work starts at $500. Larger projects depend on the number of systems involved, the complexity of the business rules, and the amount of custom workflow design required.",
+          "Focused automation work starts at $500. Total cost depends on the workflow scope, the number of systems involved, the complexity of the business rules, and how much custom logic, reporting, or exception handling the process requires.",
       },
       {
-        question: "Do you only automate processes for manufacturers?",
+        question: "What types of West Michigan businesses do you help?",
         answer:
-          "No. Senna Automation supports manufacturers, distributors, trades, field service teams, and office-heavy businesses that need better workflow control and less manual admin.",
+          "Senna Automation works with manufacturers, distributors, trades, field service teams, and office-heavy businesses across Grand Rapids and West Michigan that need cleaner workflows, faster response times, and less repetitive manual admin.",
       },
       {
-        question: "Do you serve businesses outside Grand Rapids?",
+        question: "Do you only work with Grand Rapids companies?",
         answer:
-          "Yes. Senna Automation works with businesses across West Michigan, including Kentwood, Wyoming, Grandville, Walker, Holland, Rockford, Ada, and Byron Center.",
+          "No. Senna Automation supports businesses in Grand Rapids and across West Michigan, including Kentwood, Wyoming, Grandville, Walker, Holland, Rockford, Ada, and Byron Center.",
       },
     ],
     nearbyCities,
