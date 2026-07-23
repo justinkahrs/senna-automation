@@ -57,61 +57,68 @@ const nearbyCities = [
 export const localSeoPages = {
   aiConsultingGrandRapids: {
     slug: "ai-consulting-grand-rapids",
-    serviceName: "AI Consulting in Grand Rapids",
+    serviceName: "AI Consulting in Grand Rapids and West Michigan",
     serviceType: "AI consulting",
-    title: "AI Consulting Grand Rapids | Senna Automation",
+    title: "AI Consultant West Michigan | Grand Rapids AI Consulting | Senna Automation",
     description:
-      "AI consulting in Grand Rapids for manufacturers, service businesses, distributors, and office teams. Senna Automation helps West Michigan companies scope, design, and launch practical AI workflows starting at $500.",
-    eyebrow: "Grand Rapids AI Consulting",
-    h1: "AI consulting for Grand Rapids businesses that need practical results",
+      "Senna Automation is an AI consultant for West Michigan businesses needing practical AI consulting in Grand Rapids and nearby markets. We help manufacturers, service companies, distributors, and office teams scope, design, and launch usable AI workflows starting at $500.",
+    eyebrow: "West Michigan AI Consulting",
+    h1: "AI consulting for Grand Rapids and West Michigan businesses that need practical results",
     lead:
       "Senna Automation helps Grand Rapids and West Michigan companies turn AI ideas into usable workflows, internal tools, and connected systems that reduce manual work, improve response time, and create clearer day-to-day operations.",
-    introTitle: "AI consulting that leads to a working operational rollout",
+    introTitle: "A practical AI consultant for West Michigan companies, not just a strategy deck",
     introBody:
-      "Businesses searching for AI consulting in Grand Rapids are usually not looking for a generic innovation presentation. They need help deciding where AI fits, which workflow should come first, how existing tools should connect, and what can be launched without creating more complexity. Senna Automation focuses on workflow-first AI consulting that maps the operational bottleneck, identifies the right AI and automation tasks, and turns the recommendation into a practical first system your team can actually use.",
+      "Businesses searching for an AI consultant in West Michigan are usually not looking for a generic innovation presentation. They need help deciding where AI fits, which workflow should come first, how existing tools should connect, and what can be launched without creating more complexity. Senna Automation provides workflow-first AI consulting for companies in Grand Rapids and across West Michigan by mapping the operational bottleneck, identifying the right AI and automation tasks, and turning the recommendation into a practical first system your team can actually use.",
     assessmentTitle: "Free assessment and a focused first AI consulting scope",
     assessmentBody:
-      "The first conversation is built around one business process that is already creating delay, re-entry, or missed follow-up. We look at the inputs, decision points, people involved, and systems already in place, then recommend the smallest useful AI project that can prove value quickly. Focused engagements start at $500, and larger consulting and build work is scoped around workflow complexity, integrations, and business rules.",
-    primaryKeyword: "ai consulting grand rapids",
+      "The first conversation is built around one business process that is already creating delay, re-entry, or missed follow-up. We look at the inputs, decision points, people involved, and systems already in place, then recommend the smallest useful AI project that can prove value quickly. That may be an intake workflow, document process, internal assistant, approval flow, or reporting system. Focused engagements start at $500, and larger consulting and build work is scoped around workflow complexity, integrations, business rules, and implementation requirements.",
+    primaryKeyword: "ai consultant west michigan",
     secondaryKeywords: [
+      "AI consulting Grand Rapids",
       "AI consultant Grand Rapids",
-      "artificial intelligence consulting Grand Rapids",
-      "AI consulting services Grand Rapids",
-      "AI consultant West Michigan",
+      "artificial intelligence consulting West Michigan",
+      "AI consulting services West Michigan",
       "custom AI solutions Grand Rapids",
       "AI workflow consulting Michigan",
       "Grand Rapids AI strategy consulting",
+      "West Michigan AI consulting company",
+      "AI consultant for manufacturers West Michigan",
     ],
     supportingPostSlugs: [
-      "how-grand-rapids-businesses-choose-their-first-ai-automation-workflow",
+      "what-grand-rapids-companies-should-prepare-before-hiring-an-ai-consultant",
       "where-west-michigan-teams-start-with-ai-automation-in-the-back-office",
       "how-west-michigan-manufacturers-start-with-ai-automation-without-a-full-system-replacement",
     ],
     useCases: [
       {
-        title: "AI opportunity assessment and roadmap",
+        title: "AI opportunity assessment and first-project scoping",
         description:
-          "Identify which workflow is worth automating first, where AI is actually useful, what data is needed, and how to avoid spending on a broad rollout before the business case is clear.",
+          "Identify which workflow is worth improving first, where AI is actually useful, what data and approvals are involved, and how to avoid spending on a broad rollout before the business case is clear.",
       },
       {
-        title: "AI workflow design for operations",
+        title: "AI workflow design for operations and back-office teams",
         description:
-          "Design practical workflows for intake, routing, approvals, document handling, follow-up, and reporting so repeated work moves faster across the systems your team already uses.",
+          "Design practical workflows for intake, routing, approvals, document handling, follow-up, and reporting so repeated work moves faster across the systems your West Michigan team already uses.",
       },
       {
         title: "Internal AI assistants and knowledge support",
         description:
-          "Give office, service, sales, or operations teams a controlled way to find answers, summarize information, draft responses, and work from approved business context.",
+          "Give office, service, sales, or operations teams a controlled way to find answers, summarize information, draft responses, and work from approved business context without opening more software tabs.",
       },
       {
         title: "Document extraction and process automation",
         description:
-          "Use AI where messy inputs like emails, PDFs, forms, and attachments need to become structured records that can move into CRM, ERP, or internal workflows.",
+          "Use AI where messy inputs like emails, PDFs, forms, purchase orders, and attachments need to become structured records that can move into CRM, ERP, or internal workflow tools.",
       },
       {
         title: "Custom AI systems with implementation support",
         description:
-          "Move beyond consulting alone by turning the recommended workflow into a working build with the right integrations, handoffs, notifications, and guardrails.",
+          "Move beyond consulting alone by turning the recommended workflow into a working build with the right integrations, handoffs, notifications, exception handling, and guardrails.",
+      },
+      {
+        title: "AI consulting for phased regional rollouts",
+        description:
+          "Support multi-location West Michigan businesses that want to start in one department, plant, office, or service workflow before expanding the system to additional teams or sites.",
       },
     ],
     industries: [
@@ -126,14 +133,14 @@ export const localSeoPages = {
           "Lead response, service request triage, scheduling prep, estimate follow-up, technician coordination, and customer communication workflows.",
       },
       {
-        name: "Distribution",
+        name: "Distribution and logistics",
         description:
-          "Order intake, PO processing, stock questions, customer request routing, sales support, and back-office coordination between teams.",
+          "Order intake, PO processing, stock questions, customer request routing, sales support, and back-office coordination between teams handling customer and vendor communication.",
       },
       {
         name: "Professional and admin-heavy service teams",
         description:
-          "Client intake, document review, approval routing, meeting follow-up, recurring admin work, and internal knowledge support.",
+          "Client intake, document review, approval routing, meeting follow-up, recurring admin work, and internal knowledge support for firms with high information flow.",
       },
     ],
     process: [
@@ -145,7 +152,7 @@ export const localSeoPages = {
       {
         title: "Define the right AI tasks and system design",
         description:
-          "We determine what should be captured, extracted, classified, summarized, routed, approved, or escalated and which existing tools should stay in place.",
+          "We determine what should be captured, extracted, classified, summarized, routed, approved, or escalated and which existing tools should stay in place across the workflow.",
       },
       {
         title: "Launch a focused first system",
@@ -155,14 +162,19 @@ export const localSeoPages = {
     ],
     faqs: [
       {
-        question: "What does an AI consultant do for a Grand Rapids business?",
+        question: "What does an AI consultant do for a West Michigan business?",
         answer:
-          "An AI consultant helps a business decide where AI can improve operations, which workflow should come first, what data and tools are involved, and how to turn the idea into a practical system instead of an abstract plan.",
+          "An AI consultant helps a business decide where AI can improve operations, which workflow should come first, what data and tools are involved, and how to turn the idea into a practical system instead of an abstract plan. For many West Michigan companies, that means starting with one operational bottleneck rather than a broad transformation effort.",
       },
       {
-        question: "What kinds of AI consulting projects are common in Grand Rapids?",
+        question: "What kinds of AI consulting projects are common in Grand Rapids and West Michigan?",
         answer:
           "Common projects include lead intake and follow-up, document extraction, quote or order support, approval routing, scheduling coordination, internal assistants, and recurring reporting where teams are losing time to manual handoffs.",
+      },
+      {
+        question: "Do you work with businesses outside Grand Rapids?",
+        answer:
+          "Yes. Senna Automation supports companies across West Michigan, including Grand Rapids, Kentwood, Wyoming, Grandville, Walker, Holland, Rockford, Ada, and Byron Center. Many clients want one consulting partner who can help standardize a workflow across multiple nearby teams or locations.",
       },
       {
         question: "Do we need to replace our CRM, ERP, or other software first?",
@@ -180,9 +192,9 @@ export const localSeoPages = {
           "Focused AI consulting and small workflow engagements start at $500. Larger scopes depend on the number of workflows, integrations, AI tasks, business rules, and implementation support required.",
       },
       {
-        question: "Do you serve businesses outside Grand Rapids?",
+        question: "How do we choose the first AI project if we have several ideas?",
         answer:
-          "Yes. Senna Automation works with businesses across West Michigan, including Grand Rapids, Kentwood, Wyoming, Grandville, Walker, Holland, Rockford, Ada, and Byron Center.",
+          "The best first project is usually the workflow with clear ownership, repeated manual effort, and a visible business cost when it slows down. We help narrow the options so your first AI project is small enough to launch and useful enough to prove value.",
       },
     ],
     nearbyCities,
