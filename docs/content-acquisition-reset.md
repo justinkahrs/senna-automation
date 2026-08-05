@@ -55,15 +55,18 @@ failure; it must not be mistaken for invalid article syntax or bypassed.
 
 Production content and company-social delivery is enabled as of August 5, 2026
 for immutable infra rollout
-`4669be52810571955eac392e9ffce19f9012aff10055b71cafed5f989b76abb6`.
+`a8abe39fd8a529962a4fafbceaa642ea951bbef6dfd1183c790996cafcd4c600`.
 The accepted no-publish replay and live closed-gate cycle completed before the
 content gates opened. Mautic publication, sync, enrollment, sending, outreach,
 and paid-media gates remain disabled.
 
-Setup article PRs 128, 129, and 130 remain closed and quarantined as negative
-audit history. PR 131 fixed Mermaid compilation in CI with a direct JSDOM
-runtime and compiling positive/negative fixtures. Existing article dates were
-not changed and the setup fixtures must not be treated as releases.
+Setup article PRs 128, 129, 130, and 133 remain closed and quarantined as
+negative audit history. PR 131 fixed Mermaid compilation in CI with a direct
+JSDOM runtime and compiling positive/negative fixtures. PR 134 published the
+first live autonomous article at QA 91 after its page, feeds, sitemap, and Open
+Graph output passed public verification. The one-off retry did not change the
+recurring cadence or revive GitHub-diff social polling. Existing article dates
+were not changed and the setup fixtures must not be treated as releases.
 
 ## Measurement Rules
 

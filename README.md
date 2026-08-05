@@ -128,10 +128,11 @@ the direct `jsdom` development dependency, in addition to ROI, evidence,
 privacy, cadence, and novelty checks.
 
 Production content and company-social delivery is enabled on infra rollout
-`4669be52810571955eac392e9ffce19f9012aff10055b71cafed5f989b76abb6` as of
+`a8abe39fd8a529962a4fafbceaa642ea951bbef6dfd1183c790996cafcd4c600` as of
 August 5, 2026. Mautic publication/sending, outbound outreach, and paid media
-remain disabled. Closed setup PRs 128–130 are quarantined fixtures; PR 131 is
-the accepted generated-Mermaid validation repair.
+remain disabled. Closed setup PRs 128–130 and 133 are quarantined fixtures; PR
+131 is the accepted generated-Mermaid validation repair. PR 134 is the first
+live autonomous article and passed QA at 91 before public release verification.
 
 ## Deployment
 
