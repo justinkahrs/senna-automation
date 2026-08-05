@@ -250,13 +250,14 @@ export default function ChatWidget() {
     <Box
       sx={{
         position: "fixed",
-        bottom: 24,
-        right: 24,
+        bottom: "var(--senna-chat-bottom, 24px)",
+        right: { xs: 2, sm: 3 },
         zIndex: 9999,
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-end",
         pointerEvents: "none",
+        transition: "bottom 180ms ease",
       }}
     >
       <Fade in={isOpen} unmountOnExit>
@@ -264,9 +265,10 @@ export default function ChatWidget() {
           elevation={4}
           sx={{
             marginBottom: 2,
-            width: 350,
+            width: { xs: "calc(100vw - 32px)", sm: 350 },
             height: 500,
-            maxHeight: "80vh",
+            maxHeight:
+              "min(80dvh, calc(100dvh - var(--senna-chat-bottom, 24px) - 24px))",
             overflow: "hidden",
             display: "flex",
             flexDirection: "column",

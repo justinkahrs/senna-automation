@@ -5,6 +5,11 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      path:
+        description: Significant public path to notify (for example, /blog/example)
+        required: true
+        type: string
 
 concurrency:
   group: search-notifications-main
@@ -18,18 +23,113 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Resolve significant release path
+        id: release
+        shell: bash
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          MANUAL_PATH: ${{ inputs.path }}
+        run: |
+          set -euo pipefail
+
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            release_path="${MANUAL_PATH}"
+            content_id=""
+          else
+            base_sha="${BEFORE_SHA}"
+            if [[ -z "${base_sha}" || "${base_sha}" =~ ^0+$ ]]; then
+              base_sha="$(git rev-parse "${GITHUB_SHA}^")"
+            fi
+            mapfile -t added_blogs < <(
+              git diff --diff-filter=A --name-only "${base_sha}" "${GITHUB_SHA}" -- 'src/content/blog/*.md'
+            )
+            if [[ "${#added_blogs[@]}" -eq 0 ]]; then
+              echo "notify=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            if [[ "${#added_blogs[@]}" -ne 1 ]]; then
+              echo "Expected exactly one newly added blog file; found ${#added_blogs[@]}." >&2
+              exit 1
+            fi
+            slug="$(basename "${added_blogs[0]}" .md)"
+            release_path="/blog/${slug}"
+            content_id="$(
+              awk -F ':' '$1 == "contentId" { sub(/^[[:space:]]+/, "", $2); print $2; exit }' "${added_blogs[0]}" \
+                | tr -d "\"'"
+            )"
+            if [[ ! "${content_id}" =~ ^[A-Za-z0-9_-]+$ ]]; then
+              echo "New blog is missing a valid contentId: ${added_blogs[0]}" >&2
+              exit 1
+            fi
+          fi
+
+          if [[ ! "${release_path}" =~ ^/[A-Za-z0-9/_-]+$ ]]; then
+            echo "Invalid release path: ${release_path}" >&2
+            exit 1
+          fi
+
+          echo "notify=true" >> "$GITHUB_OUTPUT"
+          echo "path=${release_path}" >> "$GITHUB_OUTPUT"
+          echo "content_id=${content_id}" >> "$GITHUB_OUTPUT"
 
       - name: Set up Node
+        if: steps.release.outputs.notify == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Wait for production deploy
-        if: github.event_name == 'push'
-        run: sleep 180
+      - name: Wait for verified production deploy
+        if: steps.release.outputs.notify == 'true'
+        shell: bash
+        env:
+          RELEASE_PATH: ${{ steps.release.outputs.path }}
+          EXPECTED_CONTENT_ID: ${{ steps.release.outputs.content_id }}
+        run: |
+          set -euo pipefail
+          release_url="https://www.senna-automation.com${RELEASE_PATH}"
+          response_body="$(mktemp)"
+          trap 'rm -f "${response_body}"' EXIT
+          for attempt in {1..180}; do
+            if curl --fail --silent --show-error --location --max-time 15 "${release_url}" >"${response_body}"; then
+              if [[ -n "${EXPECTED_CONTENT_ID}" ]] && ! grep -Fq "name=\"senna:content-id\" content=\"${EXPECTED_CONTENT_ID}\"" "${response_body}"; then
+                sleep 10
+                continue
+              fi
+
+              dependencies_ok=true
+              if [[ "${RELEASE_PATH}" == /blog/* ]]; then
+                for output_path in /rss.xml /atom.xml /feed.json /sitemap.xml; do
+                  if ! curl --fail --silent --show-error --location --max-time 15 \
+                    "https://www.senna-automation.com${output_path}" \
+                    | grep -Fq "${RELEASE_PATH}"; then
+                    dependencies_ok=false
+                    break
+                  fi
+                done
+                if ! curl --fail --silent --show-error --location --max-time 15 \
+                  "${release_url}/opengraph-image.png" >/dev/null; then
+                  dependencies_ok=false
+                fi
+              fi
+              if [[ "${dependencies_ok}" == "true" ]]; then
+                echo "Verified article identity, feeds, sitemap, and Open Graph output for ${release_url}"
+                exit 0
+              fi
+            fi
+            sleep 10
+          done
+          echo "Production did not expose the expected content release within thirty minutes." >&2
+          exit 1
 
       - name: Submit URLs to IndexNow
-        run: npm run indexnow:submit -- --all
+        if: steps.release.outputs.notify == 'true'
+        env:
+          RELEASE_PATH: ${{ steps.release.outputs.path }}
+        run: npm run indexnow:submit -- "$RELEASE_PATH"
 
       - name: Publish WebSub feed updates
+        if: steps.release.outputs.notify == 'true'
         run: npm run websub:publish

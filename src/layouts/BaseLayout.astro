@@ -19,10 +19,16 @@ import {
 
 interface Props {
   metadata?: RouteMetadata;
+  hideChat?: boolean;
+  contentId?: string;
 }
 
-const { metadata } = Astro.props;
+const { metadata, hideChat = false, contentId } = Astro.props;
 const resolved = getResolvedMetadata(metadata);
+const googleAdsId = import.meta.env.PUBLIC_GOOGLE_ADS_ID || "";
+const umamiWebsiteId = import.meta.env.PROD
+  ? "7f9f7986-0963-49f6-b357-35a5ccabe2f1"
+  : "";
 ---
 
 <!doctype html>
@@ -30,6 +36,89 @@ const resolved = getResolvedMetadata(metadata);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {contentId && <meta name="senna:content-id" content={contentId} />}
+    <script is:inline define:vars={{ googleAdsId }}>
+      (() => {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag =
+          window.gtag ||
+          function () {
+            window.dataLayer.push(arguments);
+          };
+        window.gtag("consent", "default", {
+          ad_storage: "denied",
+          analytics_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          wait_for_update: 500,
+        });
+
+        let loaded = false;
+        window.__sennaLoadGoogleAds = () => {
+          if (loaded || !googleAdsId) return;
+          loaded = true;
+          const script = document.createElement("script");
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleAdsId)}`;
+          document.head.appendChild(script);
+          window.gtag("js", new Date());
+          window.gtag("config", googleAdsId, { send_page_view: true });
+        };
+
+        try {
+          const consent = JSON.parse(
+            localStorage.getItem("senna_consent_v1") || "null",
+          );
+          if (consent?.marketing === "granted") {
+            window.gtag("consent", "update", {
+              ad_storage: "granted",
+              ad_user_data: "granted",
+              ad_personalization: "granted",
+              analytics_storage:
+                consent.analytics === "granted" ? "granted" : "denied",
+            });
+            window.__sennaLoadGoogleAds();
+          }
+        } catch {
+          // Default-denied consent remains in force.
+        }
+      })();
+    </script>
+    <script is:inline define:vars={{ umamiWebsiteId }}>
+      (() => {
+        let loaded = false;
+        window.__sennaLoadUmami = () => {
+          if (loaded || !umamiWebsiteId) return;
+          try {
+            if (localStorage.getItem("senna_analytics_excluded_v1") === "true") {
+              return;
+            }
+          } catch {
+            return;
+          }
+          loaded = true;
+          const script = document.createElement("script");
+          script.async = true;
+          script.defer = true;
+          script.src = "https://umami.senna-automation.com/script.js";
+          script.dataset.websiteId = umamiWebsiteId;
+          script.dataset.domains = "senna-automation.com,www.senna-automation.com";
+          script.dataset.doNotTrack = "true";
+          document.head.appendChild(script);
+        };
+
+        try {
+          const consent = JSON.parse(
+            localStorage.getItem("senna_consent_v1") || "null",
+          );
+          if (consent?.analytics === "granted") {
+            window.__sennaLoadUmami();
+          }
+        } catch {
+          // Analytics remains unloaded without affirmative consent.
+        }
+      })();
+    </script>
     <title>{resolved.title}</title>
     <meta name="description" content={resolved.description} />
     <meta name="keywords" content={resolved.keywords.join(", ")} />
@@ -104,16 +193,9 @@ const resolved = getResolvedMetadata(metadata);
       type="application/ld+json"
       set:html={JSON.stringify(websiteJsonLd)}
     />
-    {import.meta.env.PROD && (
-      <script
-        src="https://umami.senna-automation.com/script.js"
-        data-website-id="7f9f7986-0963-49f6-b357-35a5ccabe2f1"
-        defer
-      />
-    )}
   </head>
   <body>
     <slot />
-    <PersistentWidgets />
+    <PersistentWidgets hideChat={hideChat} />
   </body>
 </html>

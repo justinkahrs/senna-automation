@@ -7,18 +7,6 @@ import type { SxProps, Theme } from "@mui/material/styles";
 import { BG_BASE, WARM_BLACK, BORDER_MED, ACCENT, BG_PAPER, BG_SUBTLE } from "@/components/theme/colors";
 import { Logo } from "@/components/layout/Logo";
 
-declare global {
-  interface Window {
-    mermaid?: {
-      initialize: (config: Record<string, unknown>) => void;
-      render: (
-        id: string,
-        chart: string
-      ) => Promise<{ svg: string }>;
-    };
-  }
-}
-
 interface MermaidDiagramProps {
   chart: string;
   sx?: SxProps<Theme>;
@@ -33,18 +21,22 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
     let cancelled = false;
 
     const renderDiagram = async () => {
-      const mermaid = window.mermaid;
-
-      if (!mermaid) {
-        window.setTimeout(renderDiagram, 100);
-        return;
-      }
-
       try {
+        const safeChart = chart.replace(/<br\s*\/?>/gi, " ");
+        if (
+          safeChart.length > 12_000 ||
+          !/^\s*(?:flowchart|graph)\s+(?:TB|TD|BT|RL|LR)\b/i.test(safeChart) ||
+          /%%\{|\bclick\b|<\/?[a-z][^>]*>|javascript\s*:|\bon[a-z]+\s*=/i.test(safeChart)
+        ) {
+          throw new Error("Unsafe or unsupported Mermaid workflow syntax.");
+        }
+
+        const { default: mermaid } = await import("mermaid");
         mermaid.initialize({
           startOnLoad: false,
           theme: "base",
-          securityLevel: "loose",
+          securityLevel: "strict",
+          suppressErrorRendering: true,
           themeVariables: {
             primaryColor: BG_BASE,
             primaryTextColor: WARM_BLACK,
@@ -58,7 +50,7 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
           },
           flowchart: {
             curve: "basis",
-            htmlLabels: true,
+            htmlLabels: false,
             useMaxWidth: true,
             nodeSpacing: 36,
             rankSpacing: 54,
@@ -66,13 +58,39 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
           },
         });
 
+        await mermaid.parse(safeChart, { suppressErrors: false });
         const { svg: renderedSvg } = await mermaid.render(
           `mermaid-${id}`,
-          chart
+          safeChart
+        );
+
+        const parsed = new DOMParser().parseFromString(
+          renderedSvg,
+          "image/svg+xml",
+        );
+        for (const element of parsed.querySelectorAll("script, foreignObject")) {
+          element.remove();
+        }
+        for (const element of parsed.querySelectorAll("*")) {
+          for (const attribute of [...element.attributes]) {
+            const name = attribute.name.toLowerCase();
+            const value = attribute.value.trim().toLowerCase();
+            if (
+              name.startsWith("on") ||
+              ((name === "href" || name.endsWith(":href")) &&
+                value &&
+                !value.startsWith("#"))
+            ) {
+              element.removeAttribute(attribute.name);
+            }
+          }
+        }
+        const safeSvg = new XMLSerializer().serializeToString(
+          parsed.documentElement,
         );
 
         if (!cancelled) {
-          setSvg(renderedSvg);
+          setSvg(safeSvg);
           setError(false);
         }
       } catch (renderError) {

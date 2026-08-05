@@ -55,6 +55,11 @@ export default function sitemap(): SitemapEntry[] {
       priority: 0.8,
     },
     {
+      url: `${SITE_URL}/workflow-bottleneck-review`,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: `${SITE_URL}/search`,
       changeFrequency: "monthly",
       priority: 0.5,

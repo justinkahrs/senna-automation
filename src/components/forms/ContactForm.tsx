@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import {
   Box,
@@ -19,9 +19,14 @@ import {
 import { validateContact } from "@/utils/validation";
 import SuccessMessage from "@/components/SuccessMessage";
 import SubmittingOverlay from "@/components/SubmittingOverlay";
-import { trackFormSubmission } from "@/utils/analytics";
+import {
+  trackFormSubmission,
+  trackGoogleLeadConversion,
+} from "@/utils/analytics";
+import { submitLead } from "@/utils/lead-submit";
 
 export default function ContactForm() {
+  const formStartedAt = useRef(new Date().toISOString());
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [assistance, setAssistance] = useState("");
@@ -30,6 +35,8 @@ export default function ContactForm() {
   const [submitting, setSubmitting] = useState(false);
   const [touched, setTouched] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [website, setWebsite] = useState("");
 
   const isValidContact = validateContact(contactMethod, contactValue);
   const showError = touched && contactValue !== "" && !isValidContact;
@@ -38,27 +45,29 @@ export default function ContactForm() {
     event.preventDefault();
     if (!isValidContact) return;
     setSubmitting(true);
+    setSubmitError("");
     try {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("company", company);
-      formData.append("assistance", assistance);
-      formData.append("contactMethod", contactMethod);
-      formData.append("contactValue", contactValue);
-
-      const res = await fetch("/api/form-hook", {
-        method: "POST",
-        body: formData,
+      const result = await submitLead({
+        name,
+        company,
+        assistance,
+        contactMethod: contactMethod === "sms" ? "sms" : "email",
+        contactValue,
+        formContext: "site-contact",
+        website,
+        formStartedAt: formStartedAt.current,
       });
-      if (res.ok) {
-        setSubmitted(true);
-        trackFormSubmission("contact", { contact_method: contactMethod });
-      } else {
-        setSubmitting(false);
-      }
+      setSubmitted(true);
+      trackFormSubmission("contact", { contact_method: contactMethod });
+      trackGoogleLeadConversion(result?.submissionId);
     } catch (error) {
       console.error(error);
       setSubmitting(false);
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "We could not submit your request. Please call (616) 287-3360.",
+      );
     }
   };
 
@@ -191,6 +200,26 @@ export default function ContactForm() {
                   },
                 }}
               >
+                <Box
+                  aria-hidden="true"
+                  sx={{
+                    position: "absolute",
+                    width: 1,
+                    height: 1,
+                    overflow: "hidden",
+                    clipPath: "inset(50%)",
+                  }}
+                >
+                  <label htmlFor="contact-website">Website</label>
+                  <input
+                    id="contact-website"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={website}
+                    onChange={(event) => setWebsite(event.target.value)}
+                  />
+                </Box>
                 <TextField
                   fullWidth
                   required
@@ -279,6 +308,7 @@ export default function ContactForm() {
                   helperText="Describe the bottleneck, handoff, or repetitive work you want to improve."
                   multiline
                   rows={3}
+                  inputProps={{ minLength: 20 }}
                   sx={{
                     "& .MuiOutlinedInput-root": {
                       bgcolor: "var(--color-bg-paper)",
@@ -451,6 +481,15 @@ export default function ContactForm() {
                 >
                   Request My Free Audit
                 </Button>
+                {submitError && (
+                  <Typography
+                    role="alert"
+                    variant="body2"
+                    sx={{ color: "error.main", mt: 1.5 }}
+                  >
+                    {submitError}
+                  </Typography>
+                )}
               </Box>
 
               <Card

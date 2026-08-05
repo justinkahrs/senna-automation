@@ -22,7 +22,7 @@ export default function Privacy() {
               color: "text.secondary",
               marginBottom: "16px"
             }}>
-            Last updated: May 8, 2025
+            Last updated: July 27, 2026
           </Typography>
           <Typography variant="body1" sx={{
             marginBottom: "16px"
@@ -60,6 +60,11 @@ export default function Privacy() {
               <strong>Support &amp; Feedback:</strong> Any content you provide
               when you submit a support request, bug report, or feedback form.
             </li>
+            <li>
+              <strong>Workflow Assessments and Bookings:</strong> Contact
+              details, company name, workflow context, form attribution, and
+              consultation scheduling or cancellation data you submit.
+            </li>
           </Typography>
 
           <Typography variant="subtitle1" gutterBottom>
@@ -77,7 +82,15 @@ export default function Privacy() {
               <strong>Cookies &amp; Tracking Technologies:</strong> We and our
               third-party partners use cookies, web beacons, and similar tools
               to collect data about your activity on the Site and over time
-              across different sites and devices. See Section 4 for details.
+              across different sites and devices when you grant the relevant
+              consent. See Section 4 for details.
+            </li>
+            <li>
+              <strong>Advertising Attribution:</strong> Campaign parameters,
+              landing-page variants, referring pages, and a single available
+              Google click identifier such as GCLID, GBRAID, or WBRAID. We
+              associate these details with an opaque attribution identifier so
+              we can understand which ads lead to inquiries and paid work.
             </li>
           </Typography>
 
@@ -95,8 +108,12 @@ export default function Privacy() {
             </li>
             <li>
               <strong>Analytics Providers:</strong> Aggregated usage and
-              performance metrics from services such as Google Analytics,
-              Sentry, or equivalent.
+              performance metrics from Umami and, with consent, Google Ads.
+            </li>
+            <li>
+              <strong>Business Systems:</strong> Lead lifecycle information
+              from Mautic, scheduling information from Calendly, and paid
+              invoice status and collected revenue from Akaunting.
             </li>
           </Typography>
 
@@ -116,6 +133,12 @@ export default function Privacy() {
               <strong>Process Transactions:</strong> Verify purchases, send
               receipts, and communicate about orders, license keys, and
               subscription renewals.
+            </li>
+            <li>
+              <strong>Measure Advertising Outcomes:</strong> Attribute lead
+              forms, consultations, qualified opportunities, and collected
+              revenue to the ads that produced them, audit campaign quality,
+              and prevent duplicate conversion reporting.
             </li>
             <li>
               <strong>Support &amp; Communicate:</strong> Respond to support
@@ -143,7 +166,16 @@ export default function Privacy() {
             <li>
               <strong>Service Providers:</strong> Vendors who perform services
               on our behalf (e.g. payment processors, hosting, analytics, email
-              delivery).
+              delivery, CRM, scheduling, and advertising measurement).
+            </li>
+            <li>
+              <strong>Google Ads Measurement:</strong> When advertising
+              measurement consent is recorded, we may send normalized,
+              SHA-256-hashed contact identifiers, click identifiers,
+              transaction IDs, lifecycle status, and conversion value to
+              Google&apos;s Data Manager API for enhanced and offline
+              conversion measurement. We do not permit this upload without the
+              recorded consent state.
             </li>
             <li>
               <strong>Legal &amp; Safety:</strong> When required by law, to
@@ -168,18 +200,23 @@ export default function Privacy() {
             </li>
             <li>
               <strong>Analytics Cookies:</strong> Collect anonymous usage data
-              to help us improve performance and content.
+              to help us improve performance and content. You can grant or
+              deny this category independently.
             </li>
             <li>
-              <strong>Advertising/Marketing Cookies:</strong> (Optional) Only if
-              you opt in, for tailored offers and retargeting.
+              <strong>Advertising/Marketing Storage:</strong> Optional. Google
+              advertising tags remain denied and are not loaded until you
+              grant advertising measurement consent. The current pilot uses
+              this category for conversion measurement, not Display
+              remarketing.
             </li>
           </Typography>
           <Typography variant="body2" sx={{
             marginBottom: "16px"
           }}>
             You can manage or disable cookies via your browser settings or
-            through our cookie banner on first visit.
+            through the privacy choices control available on every page. Your
+            choice is stored locally and can be changed later.
           </Typography>
 
           {/* 5. Your Choices & Rights */}
@@ -203,8 +240,8 @@ export default function Privacy() {
             </li>
             <li>
               <strong>Opt-Out:</strong> Withdraw consent for marketing
-              communications or opt out of analytics tracking (via cookie
-              settings).
+              communications or change analytics and advertising measurement
+              consent through the site&apos;s privacy choices control.
             </li>
           </Typography>
           <Typography variant="body2" sx={{
@@ -235,9 +272,12 @@ export default function Privacy() {
           <Typography variant="body1" sx={{
             marginBottom: "16px"
           }}>
-            We retain your personal data for as long as needed to fulfill the
-            purposes outlined in Section 2, or as required by law (e.g. tax
-            records). After that, we delete or anonymize the data.
+            We retain lead and advertising attribution data for the time needed
+            to measure the sales cycle and support customer service. The pilot
+            uses a 90-day originating-click window for first paid-customer
+            attribution. Accounting and tax records may be retained longer
+            where legally required. After the applicable period, we delete or
+            anonymize the data.
           </Typography>
 
           {/* 8. International Transfers */}

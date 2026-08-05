@@ -41,6 +41,23 @@ export type LocalSeoPageConfig = {
   primaryKeyword: string;
   secondaryKeywords: string[];
   supportingPostSlugs: string[];
+  areaServed?: Array<{
+    type: "City" | "AdministrativeArea";
+    name: string;
+  }>;
+  heroProofPoints?: string[];
+  trustTitle?: string;
+  trustBody?: string;
+  trustProofPoints?: string[];
+  relatedExamplesIntro?: string;
+  industriesTitle?: string;
+  industriesBody?: string;
+  coverageTitle?: string;
+  coverageBody?: string;
+  clusterDescription?: string;
+  finalCtaTitle?: string;
+  finalCtaSubtitle?: string;
+  finalCtaButtonText?: string;
 };
 
 const nearbyCities = [
@@ -52,6 +69,30 @@ const nearbyCities = [
   "Rockford",
   "Ada",
   "Byron Center",
+];
+
+const lowerMichiganMarkets = [
+  "Grand Rapids",
+  "Kalamazoo",
+  "Lansing",
+  "Ann Arbor",
+  "Detroit",
+  "Holland",
+  "Muskegon",
+  "Battle Creek",
+  "Jackson",
+];
+
+const chicagolandMarkets = [
+  "Chicago",
+  "Naperville",
+  "Schaumburg",
+  "Oak Brook",
+  "Elgin",
+  "Aurora",
+  "Joliet",
+  "Evanston",
+  "Arlington Heights",
 ];
 
 export const localSeoPages = {
@@ -685,6 +726,320 @@ export const localSeoPages = {
       },
     ],
     nearbyCities,
+  },
+  workflowAutomationLowerMichigan: {
+    slug: "workflow-automation-lower-michigan",
+    serviceName: "Workflow Automation for Lower Michigan Businesses",
+    serviceType: "Business workflow automation",
+    title: "Workflow Automation Lower Michigan | Senna Automation",
+    description:
+      "Workflow automation for Lower Michigan manufacturers, field service companies, distributors, and operations teams. Map one costly handoff and build the practical next step.",
+    eyebrow: "Lower Michigan Workflow Automation",
+    h1: "Workflow automation for Lower Michigan businesses with costly handoffs",
+    lead:
+      "Senna Automation helps Lower Michigan operators reduce re-entry, stalled approvals, missed follow-up, and exception chaos by improving one measurable workflow at a time around the systems they already use.",
+    introTitle: "Start with the handoff that creates the clearest operating cost",
+    introBody:
+      "A manufacturer in Grand Rapids, a service team in Lansing, and a distributor near Detroit may use different software, but the expensive pattern is often the same: information arrives in one place, someone interprets it manually, and the next owner learns about an exception too late. We map the trigger, required inputs, rules, system actions, exceptions, owner, and source of truth before recommending a build. That keeps the first project tied to throughput, labor, rework, or response time instead of a broad technology promise.",
+    assessmentTitle: "A 30-minute review built around one real workflow",
+    assessmentBody:
+      "Bring one recurring handoff such as RFQ intake, service scheduling, purchase-order processing, quality follow-up, or approval routing. We will map how it works today, identify the constraints and exception paths, estimate the operational impact using disclosed assumptions, and recommend the smallest practical next step.",
+    primaryKeyword: "workflow automation lower michigan",
+    secondaryKeywords: [
+      "business process automation Michigan",
+      "workflow automation consultant Michigan",
+      "manufacturing automation Lower Michigan",
+      "service business automation Michigan",
+      "operations automation Michigan",
+      "AI workflow automation Michigan",
+      "process automation consultant Lower Michigan",
+    ],
+    supportingPostSlugs: [
+      "automating-inventory-sync-between-purchasing-production-and-the-stock-room",
+      "automating-shop-floor-quality-handoffs-before-scrap-and-rework-spread",
+      "automating-service-call-scheduling-before-the-day-falls-apart",
+    ],
+    useCases: [
+      {
+        title: "RFQ and quote handoffs",
+        description:
+          "Capture requests from email, forms, PDFs, and portals; check for missing requirements; route the right work to estimating; and keep follow-up visible without pretending every quote follows the happy path.",
+      },
+      {
+        title: "Scheduling and dispatch exceptions",
+        description:
+          "Connect intake, calendars, technician or crew constraints, customer updates, and escalation rules so reschedules and incomplete requests reach an owner before the day unravels.",
+      },
+      {
+        title: "Purchasing and inventory coordination",
+        description:
+          "Reconcile demand, available stock, open purchase orders, and job priorities, then route shortages or ambiguous matches to the buyer or planner who can resolve them.",
+      },
+      {
+        title: "Quality, maintenance, and approval routing",
+        description:
+          "Create dependable handoffs for holds, corrective action, maintenance readiness, document review, and approvals while preserving the judgment and sign-off the process requires.",
+      },
+    ],
+    industries: [
+      {
+        name: "Manufacturing",
+        description:
+          "RFQs, quoting, purchasing, production handoffs, inventory, quality, maintenance, and reporting workflows across office and plant teams.",
+      },
+      {
+        name: "Trades and field service",
+        description:
+          "Lead intake, service triage, estimating, scheduling, dispatch exceptions, technician coordination, and customer communication.",
+      },
+      {
+        name: "Distribution and logistics",
+        description:
+          "Order intake, stock questions, purchase-order processing, exception routing, account follow-up, and status visibility across teams.",
+      },
+      {
+        name: "Professional and admin-heavy services",
+        description:
+          "Client intake, document collection, approvals, recurring follow-up, work assignment, and operational reporting where manual coordination limits capacity.",
+      },
+    ],
+    process: [
+      {
+        title: "Map the current operating reality",
+        description:
+          "We identify the trigger, inputs, decisions, systems, owners, exception paths, and actual source of truth, including the workarounds the written procedure usually misses.",
+      },
+      {
+        title: "Model the value and constraints",
+        description:
+          "We estimate time, volume, loaded labor, rework, implementation cost, and maintenance under low, base, and high assumptions so the business case is inspectable.",
+      },
+      {
+        title: "Build the smallest dependable release",
+        description:
+          "We connect the existing tools, automate the repeatable steps, route exceptions to a named owner, and measure the result before expanding the scope.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What kinds of Lower Michigan businesses are a good fit for workflow automation?",
+        answer:
+          "The strongest fit is a growing manufacturer, service company, distributor, or office-heavy team with repeated handoffs, enough transaction volume to matter, and a clear owner for exceptions. The software stack can be modern or highly mixed; the workflow economics matter more.",
+      },
+      {
+        question: "Do we need to replace our ERP, CRM, field-service platform, or spreadsheets?",
+        answer:
+          "Usually no. A first project often works as a control layer around the tools already in use, with a clear source of truth and explicit rules for what the automation may change.",
+      },
+      {
+        question: "How do you estimate ROI before a workflow is built?",
+        answer:
+          "We disclose the assumptions: monthly volume, minutes saved, loaded labor rate, current error or rework cost, expected reduction, implementation cost, and maintenance. A low, base, and high view makes uncertainty visible instead of hiding it in one confident number.",
+      },
+      {
+        question: "Can automation handle exceptions without removing staff judgment?",
+        answer:
+          "Yes. A dependable design automates the routine path and sends incomplete, risky, or out-of-policy work to the right owner with the context needed to decide. Human judgment remains part of the operating model.",
+      },
+      {
+        question: "Can Senna work with teams outside Grand Rapids?",
+        answer:
+          "Yes. Senna is based in Grand Rapids and works with businesses across Lower Michigan through remote discovery, shared workflow mapping, and implementation support, with on-site work scoped when it materially helps the project.",
+      },
+      {
+        question: "What happens in a Workflow Bottleneck Review?",
+        answer:
+          "In 30 minutes, we map one costly handoff, estimate its likely impact, identify constraints and exception paths, and decide on the next practical step. It is a focused working session, not a generic AI presentation.",
+      },
+    ],
+    nearbyCities: lowerMichiganMarkets,
+    areaServed: [
+      { type: "AdministrativeArea", name: "Lower Michigan" },
+      ...lowerMichiganMarkets.map((name) => ({ type: "City" as const, name })),
+    ],
+    heroProofPoints: [
+      "Grand Rapids based",
+      "Lower Michigan coverage",
+      "Workflow and ROI first",
+    ],
+    trustTitle: "Michigan-based delivery with an operational point of view",
+    trustBody:
+      "Senna Automation is based in Grand Rapids and works with Lower Michigan teams that want the person scoping the workflow to stay close to implementation, edge cases, and measurable business value.",
+    trustProofPoints: [
+      "Michigan-based automation partner",
+      "30-minute Workflow Bottleneck Review",
+      "Exceptions and ownership designed up front",
+    ],
+    relatedExamplesIntro:
+      "These workflow guides show how the approach applies to recognizable manufacturing and service constraints without presenting illustrative examples as client results.",
+    industriesTitle: "Built for Lower Michigan operating teams",
+    industriesBody:
+      "The strongest opportunities usually sit where customer requests, documents, schedules, inventory, approvals, and system records cross team boundaries.",
+    coverageTitle: "Serving businesses across Lower Michigan",
+    coverageBody:
+      "Projects can begin remotely across the region, with on-site discovery scoped when seeing the handoff in context will improve the design.",
+    clusterDescription:
+      "Explore related consulting, AI, and process-automation services, including focused Grand Rapids pages for businesses comparing local implementation options.",
+    finalCtaTitle: "Which handoff is costing your Lower Michigan team the most?",
+    finalCtaSubtitle:
+      "Bring one real workflow. In 30 minutes, we will map its rules and exceptions, estimate the impact, and identify the next practical step.",
+  },
+  workflowAutomationChicagoland: {
+    slug: "workflow-automation-chicagoland",
+    serviceName: "Workflow Automation for Chicagoland Businesses",
+    serviceType: "Business workflow automation",
+    title: "Workflow Automation Chicagoland | Senna Automation",
+    description:
+      "Workflow automation for Chicagoland service companies, manufacturers, distributors, and operations teams. Improve intake, scheduling, quoting, approvals, and exceptions.",
+    eyebrow: "Chicagoland Workflow Automation",
+    h1: "Workflow automation for Chicagoland teams outgrowing manual coordination",
+    lead:
+      "Senna Automation helps Chicagoland businesses turn high-volume intake, scheduling, quoting, approvals, and follow-up into dependable workflows with clear rules, owned exceptions, and measurable economics.",
+    introTitle: "Reduce coordination load without forcing another system replacement",
+    introBody:
+      "Dense service territories, multi-location operations, busy customer channels, and mixed software stacks create a particular kind of friction: the business has the data, but people still spend the day moving it between inboxes, portals, calendars, spreadsheets, CRMs, and operating systems. We design an automation layer around the workflow itself, including capacity constraints, service-area rules, incomplete requests, approval limits, and the moments where a person must decide.",
+    assessmentTitle: "Pressure-test one workflow before expanding the scope",
+    assessmentBody:
+      "A Workflow Bottleneck Review focuses on one process with visible cost or customer impact. We map how work enters, what information is required, which rules can be automated, where exceptions occur, who owns them, and what a realistic first release should measure.",
+    primaryKeyword: "workflow automation chicagoland",
+    secondaryKeywords: [
+      "business process automation Chicago",
+      "workflow automation consultant Chicago",
+      "service business automation Chicagoland",
+      "manufacturing workflow automation Chicago",
+      "operations automation Chicago suburbs",
+      "AI automation consultant Chicagoland",
+      "process automation company Chicago",
+    ],
+    supportingPostSlugs: [
+      "automating-service-call-scheduling-before-the-day-falls-apart",
+      "quote-automation",
+      "practical-ai-governance-for-automation",
+    ],
+    useCases: [
+      {
+        title: "High-volume service intake",
+        description:
+          "Normalize requests from phone, web, email, and referral channels; identify missing details; apply service-area and urgency rules; and route the next action before demand turns into an inbox backlog.",
+      },
+      {
+        title: "Scheduling and capacity exceptions",
+        description:
+          "Coordinate availability, travel zones, skills, parts, customer preferences, and reschedules while escalating the cases that cannot be safely assigned by a rule.",
+      },
+      {
+        title: "Quote and approval coordination",
+        description:
+          "Assemble inputs, flag gaps, route review by value or risk, keep customer follow-up moving, and preserve the estimator or manager's authority over the final commitment.",
+      },
+      {
+        title: "Multi-location operating visibility",
+        description:
+          "Create consistent status, exception, and ownership signals across branches or departments without asking every team to abandon the systems that already run its work.",
+      },
+    ],
+    industries: [
+      {
+        name: "Home and commercial services",
+        description:
+          "Lead response, request triage, estimates, scheduling, dispatch, reschedules, technician follow-up, and customer updates across a large service territory.",
+      },
+      {
+        name: "Manufacturing and fabrication",
+        description:
+          "RFQ intake, estimating support, purchasing, production handoffs, quality exceptions, maintenance readiness, and customer status workflows.",
+      },
+      {
+        name: "Distribution and multi-location operations",
+        description:
+          "Order and PO processing, stock questions, transfers, approvals, exception routing, account coordination, and consistent operating visibility between locations.",
+      },
+      {
+        name: "Professional services",
+        description:
+          "Client intake, document collection, work assignment, review and approval, deadline follow-up, and reporting where staff capacity is constrained by coordination.",
+      },
+    ],
+    process: [
+      {
+        title: "Choose a workflow with real operating pressure",
+        description:
+          "We start where volume, delay, rework, or missed follow-up is already visible and identify the source systems and people that control the outcome.",
+      },
+      {
+        title: "Design the rules and exception model",
+        description:
+          "We separate repeatable decisions from judgment calls, define the evidence each step needs, and give every exception a named owner and response path.",
+      },
+      {
+        title: "Launch, measure, and expand deliberately",
+        description:
+          "The first release is narrow enough to test safely and useful enough to measure. Expansion follows observed throughput, labor, rework, and customer-response outcomes.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Can a Michigan-based automation firm support a Chicagoland business?",
+        answer:
+          "Yes. Workflow discovery, system review, implementation, and testing can be handled collaboratively with your operating team, and on-site work can be scoped when a physical process or multi-location rollout makes it valuable. Senna is transparent that its home base is Grand Rapids.",
+      },
+      {
+        question: "Which Chicagoland workflows are usually worth reviewing first?",
+        answer:
+          "Strong first candidates include high-volume service intake, scheduling exceptions, quote preparation, approval routing, document collection, order processing, and follow-up where delays or re-entry affect revenue and capacity.",
+      },
+      {
+        question: "Will automation work with our existing scheduling, CRM, ERP, or line-of-business software?",
+        answer:
+          "Often yes. We first identify the authoritative record for each decision and the integration options available. The automation can then coordinate the handoff while leaving core systems in place.",
+      },
+      {
+        question: "How do you prevent edge cases from creating bad automated decisions?",
+        answer:
+          "We define validation rules, confidence or policy boundaries, exception queues, ownership, and audit context before launch. The system stops and asks for the right human decision when the evidence is incomplete or the request falls outside the rules.",
+      },
+      {
+        question: "How is the business case calculated?",
+        answer:
+          "We use disclosed low, base, and high assumptions for monthly volume, time saved, loaded labor, error or rework reduction, implementation cost, and maintenance. The goal is a decision model you can challenge, not a guaranteed savings claim.",
+      },
+      {
+        question: "What happens after the 30-minute review?",
+        answer:
+          "You receive a practical recommendation for the next step: clarify the process first, run a focused technical discovery, build a narrow workflow, or leave the process alone because the economics or constraints do not support automation yet.",
+      },
+    ],
+    nearbyCities: chicagolandMarkets,
+    areaServed: [
+      { type: "AdministrativeArea", name: "Chicago metropolitan area" },
+      ...chicagolandMarkets.map((name) => ({ type: "City" as const, name })),
+    ],
+    heroProofPoints: [
+      "Chicagoland service coverage",
+      "Remote-first discovery",
+      "Rules and exceptions mapped up front",
+    ],
+    trustTitle: "A regional partner that stays close to the workflow",
+    trustBody:
+      "Senna Automation is based in Grand Rapids and serves Chicagoland teams through collaborative discovery and implementation. The same person who helps frame the operating problem stays involved in the rules, exceptions, and rollout decisions.",
+    trustProofPoints: [
+      "Midwest-based delivery",
+      "30-minute Workflow Bottleneck Review",
+      "No performance guarantees or invented case studies",
+    ],
+    relatedExamplesIntro:
+      "These guides unpack scheduling, quoting, and governance problems with concrete workflow mechanics and clearly labeled illustrative economics.",
+    industriesTitle: "Built for Chicagoland operating complexity",
+    industriesBody:
+      "The best fit is a team where volume, territory, locations, approvals, or customer expectations have made manual coordination too expensive to ignore.",
+    coverageTitle: "Serving Chicago and the surrounding business corridor",
+    coverageBody:
+      "Discovery and implementation are remote-first across Chicagoland, with on-site work considered when it materially improves process understanding or rollout quality.",
+    clusterDescription:
+      "Explore Senna's related workflow, AI, and process-automation capabilities. Regional content remains separate from industry workflow guides so useful articles do not become city-keyword pages.",
+    finalCtaTitle: "Bring us one Chicagoland workflow that is straining capacity",
+    finalCtaSubtitle:
+      "In 30 minutes, we will map the handoff, surface its exception paths, estimate the impact, and decide whether automation is a practical next step.",
   },
 } satisfies Record<string, LocalSeoPageConfig>;
 

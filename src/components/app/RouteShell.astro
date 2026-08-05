@@ -7,12 +7,14 @@ import type { RouteMetadata } from "@/utils/metadata";
 interface Props {
   metadata?: RouteMetadata;
   pathname: string;
+  hideChat?: boolean;
+  contentId?: string;
 }
 
-const { metadata, pathname } = Astro.props;
+const { metadata, pathname, hideChat = false, contentId } = Astro.props;
 ---
 
-<BaseLayout metadata={metadata}>
+<BaseLayout metadata={metadata} hideChat={hideChat} contentId={contentId}>
   <HeaderFrame client:load pathname={pathname} />
   <main
     style={{

@@ -42,11 +42,11 @@ const homeEyebrowSx = {
 
 function buildJsonLd(page: LocalSeoPageConfig) {
   const pageUrl = `${SITE_URL}/${page.slug}`;
-  const areaServed = [
-    { "@type": "City", name: "Grand Rapids" },
-    { "@type": "AdministrativeArea", name: "West Michigan" },
-    ...page.nearbyCities.map((city) => ({ "@type": "City", name: city })),
-  ];
+  const areaServed = (page.areaServed || [
+    { type: "City" as const, name: "Grand Rapids" },
+    { type: "AdministrativeArea" as const, name: "West Michigan" },
+    ...page.nearbyCities.map((city) => ({ type: "City" as const, name: city })),
+  ]).map((area) => ({ "@type": area.type, name: area.name }));
 
   return {
     service: {
@@ -223,12 +223,12 @@ export default function LocalSeoPage({ page }: { page: LocalSeoPageConfig }) {
                   sx={{ pt: 1 }}
                 >
                   <Button
-                    href="/contact"
+                    href="/workflow-bottleneck-review"
                     variant="contained"
                     size="large"
                     endIcon={<ArrowForwardIcon />}
                   >
-                    Start Your Free Assessment
+                    Book a Workflow Bottleneck Review
                   </Button>
                   <Button
                     href="/pricing"
@@ -256,11 +256,11 @@ export default function LocalSeoPage({ page }: { page: LocalSeoPageConfig }) {
                   pl: { md: 4 },
                 }}
               >
-                {[
+                {(page.heroProofPoints || [
                   "Grand Rapids based",
                   "West Michigan coverage",
                   "Workflow-first implementation",
-                ].map((item) => (
+                ]).map((item) => (
                   <Stack
                     key={item}
                     direction="row"
@@ -344,12 +344,11 @@ export default function LocalSeoPage({ page }: { page: LocalSeoPageConfig }) {
               <Stack spacing={3}>
                 <Box>
                   <Typography component="h2" variant="h2" gutterBottom>
-                    Local trust and recent examples
+                    {page.trustTitle || "Local trust and recent examples"}
                   </Typography>
                   <Typography variant="body1" sx={{ color: "text.secondary" }}>
-                    Senna Automation is based in Grand Rapids and serves West
-                    Michigan operators who need practical automation work to
-                    move from idea to launch.
+                    {page.trustBody ||
+                      "Senna Automation is based in Grand Rapids and serves West Michigan operators who need practical automation work to move from idea to launch."}
                   </Typography>
                 </Box>
                 <Typography variant="body1" sx={{ color: "text.secondary" }}>
@@ -376,11 +375,11 @@ export default function LocalSeoPage({ page }: { page: LocalSeoPageConfig }) {
                   .
                 </Typography>
                 <Stack spacing={1.25}>
-                  {[
+                  {(page.trustProofPoints || [
                     "Grand Rapids, Michigan based",
-                    "Free assessment before larger scope",
+                    "30-minute Workflow Bottleneck Review",
                     "Focused workflow builds start at $500",
-                  ].map((item) => (
+                  ]).map((item) => (
                     <Stack
                       key={item}
                       direction="row"
@@ -401,9 +400,8 @@ export default function LocalSeoPage({ page }: { page: LocalSeoPageConfig }) {
                     Recent workflow examples
                   </Typography>
                   <Typography variant="body1" sx={{ color: "text.secondary" }}>
-                    These articles show the same workflow-first approach applied
-                    to manufacturing, service, and back-office problems across
-                    West Michigan.
+                    {page.relatedExamplesIntro ||
+                      "These articles show the same workflow-first approach applied to manufacturing, service, and back-office problems across West Michigan."}
                   </Typography>
                 </Box>
                 <Grid container spacing={3}>
@@ -528,13 +526,13 @@ export default function LocalSeoPage({ page }: { page: LocalSeoPageConfig }) {
           <Grid container spacing={{ xs: 6, md: 10 }}>
             <Grid size={{ xs: 12, md: 4 }}>
               <Typography component="h2" variant="h2" gutterBottom>
-                Built for West Michigan operators
+                {page.industriesTitle || "Built for West Michigan operators"}
               </Typography>
               <Typography variant="body1" sx={{
                 color: "text.secondary"
               }}>
-                Senna focuses on practical automation for teams where work
-                moves through people, tools, documents, and customer requests.
+                {page.industriesBody ||
+                  "Senna focuses on practical automation for teams where work moves through people, tools, documents, and customer requests."}
               </Typography>
             </Grid>
             <Grid size={{ xs: 12, md: 8 }}>
@@ -626,13 +624,13 @@ export default function LocalSeoPage({ page }: { page: LocalSeoPageConfig }) {
           <Grid container spacing={{ xs: 6, md: 10 }}>
             <Grid size={{ xs: 12, md: 5 }}>
               <Typography component="h2" variant="h2" gutterBottom>
-                Serving Grand Rapids and nearby cities
+                {page.coverageTitle || "Serving Grand Rapids and nearby cities"}
               </Typography>
               <Typography variant="body1" sx={{
                 color: "text.secondary"
               }}>
-                We work with businesses across the Grand Rapids metro and West
-                Michigan.
+                {page.coverageBody ||
+                  "We work with businesses across the Grand Rapids metro and West Michigan."}
               </Typography>
             </Grid>
             <Grid size={{ xs: 12, md: 7 }}>
@@ -694,14 +692,28 @@ export default function LocalSeoPage({ page }: { page: LocalSeoPageConfig }) {
       </Box>
       <LocalSeoClusterSection
         title="Related ways we can help"
-        description="If the problem reaches beyond this workflow, these pages cover the related strategy, automation, and implementation work we handle for Grand Rapids and West Michigan businesses."
+        description={
+          page.clusterDescription ||
+          "If the problem reaches beyond this workflow, these pages cover the related strategy, automation, and implementation work we handle for Grand Rapids and West Michigan businesses."
+        }
         excludeSlug={page.slug}
         sx={{ py: { xs: 10, md: 15 } }}
       />
       <FinalCTA
-        title="Ready to find the first workflow worth automating?"
-        subtitle="Book a free assessment. We will map one process, identify the fastest practical win, and show you what it would take to launch."
-        buttonText="Start Your Free Assessment"
+        title={
+          page.finalCtaTitle || "Ready to find the first workflow worth automating?"
+        }
+        subtitle={
+          page.finalCtaSubtitle ||
+          "In 30 minutes, we will map one costly handoff, estimate its impact, and identify the next practical step."
+        }
+        buttonText={
+          page.finalCtaButtonText || "Book a Workflow Bottleneck Review"
+        }
+        contentId={`local-seo:${page.slug}`}
+        assetId={`landing-page:${page.slug}`}
+        offerId="workflow-bottleneck-review"
+        placement="local-seo-final"
       />
     </Box>
   );
