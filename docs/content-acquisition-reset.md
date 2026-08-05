@@ -47,6 +47,10 @@ Social assets are selected from the opportunity library and are not article
 summary duplicates. A successful n8n execution is insufficient: publication is
 verified from Mixpost `published_at` and the provider-owned post ID.
 
+Generated article CI compiles the single required Mermaid workflow in a
+JSDOM-backed Node runtime. A parser/runtime initialization failure is a build
+failure; it must not be mistaken for invalid article syntax or bypassed.
+
 ## Measurement Rules
 
 - Umami loads only after analytics consent and can be disabled in an owner's

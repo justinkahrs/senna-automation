@@ -123,7 +123,9 @@ Blog content lives in `src/content/blog/*.md`.
 New generated articles carry ICP, workflow, buyer-stage, research, offer, and
 attribution metadata. Legacy posts remain valid without those fields. See
 `docs/content-acquisition-reset.md` for the active cadence and measurement
-contract.
+contract. Content validation performs an actual Mermaid parse under Node using
+the direct `jsdom` development dependency, in addition to ROI, evidence,
+privacy, cadence, and novelty checks.
 
 ## Deployment
 

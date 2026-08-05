@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
+import { JSDOM } from "jsdom";
 import { load } from "js-yaml";
 
 const GENERATED_REQUIRED_FIELDS = [
@@ -45,6 +46,41 @@ const META_SEO_PATTERNS = [
 
 const FRONT_MATTER_PATTERN = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/;
 const LEGACY_CONTENT_CUTOFF = new Date("2026-07-27T23:59:59Z");
+
+let mermaidValidatorPromise;
+
+function installValidationDom() {
+  if (globalThis.window?.document) return;
+  const dom = new JSDOM("<!doctype html><html><body></body></html>", {
+    url: "https://www.senna-automation.com/",
+  });
+  globalThis.window = dom.window;
+  globalThis.document = dom.window.document;
+  Object.defineProperty(globalThis, "navigator", {
+    configurable: true,
+    value: dom.window.navigator,
+  });
+  globalThis.Node = dom.window.Node;
+  globalThis.Element = dom.window.Element;
+  globalThis.HTMLElement = dom.window.HTMLElement;
+  globalThis.SVGElement = dom.window.SVGElement;
+}
+
+async function getMermaidValidator() {
+  if (!mermaidValidatorPromise) {
+    installValidationDom();
+    mermaidValidatorPromise = import("mermaid").then(({ default: mermaid }) => {
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: "strict",
+        suppressErrorRendering: true,
+        flowchart: { htmlLabels: false },
+      });
+      return mermaid;
+    });
+  }
+  return mermaidValidatorPromise;
+}
 
 export function parseBlogFile(fileContents, filename = "article.md") {
   const match = fileContents.match(FRONT_MATTER_PATTERN);
@@ -596,13 +632,7 @@ export function validateDirectory(contentDirectory) {
 
 export async function validateMermaidSyntax(articles) {
   const errors = [];
-  const { default: mermaid } = await import("mermaid");
-  mermaid.initialize({
-    startOnLoad: false,
-    securityLevel: "strict",
-    suppressErrorRendering: true,
-    flowchart: { htmlLabels: false },
-  });
+  const mermaid = await getMermaidValidator();
   for (const article of articles.filter((entry) => entry.data.contentId)) {
     const blocks = Array.from(
       article.body.matchAll(/```mermaid\s*\n([\s\S]*?)```/gi),
