@@ -10,7 +10,6 @@ export interface AdLandingPageConfig {
   proofPoints: string[];
   followUp: string;
 }
-
 export const adLandingPages: AdLandingPageConfig[] = [
   {
     slug: "ai-automation-grand-rapids",
@@ -86,4 +85,3 @@ export const adLandingPages: AdLandingPageConfig[] = [
 export function getAdLandingPage(slug: string) {
   return adLandingPages.find((page) => page.slug === slug) || null;
 }
-
