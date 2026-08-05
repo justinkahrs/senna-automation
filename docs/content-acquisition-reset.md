@@ -50,6 +50,11 @@ verified from Mixpost `published_at` and the provider-owned post ID.
 Generated article CI compiles the single required Mermaid workflow in a
 JSDOM-backed Node runtime. A parser/runtime initialization failure is a build
 failure; it must not be mistaken for invalid article syntax or bypassed.
+The v3 presentation contract also rejects raw machine metadata, generic or
+label-less diagrams, untraceable/default hero imagery, unexplained cohort
+language, and Markdown tables wider than seven columns. Low/base/high ROI data
+is structured frontmatter rendered as responsive cards rather than a wide
+buyer-facing table.
 
 ## Runtime Status
 
@@ -64,9 +69,13 @@ Setup article PRs 128, 129, 130, and 133 remain closed and quarantined as
 negative audit history. PR 131 fixed Mermaid compilation in CI with a direct
 JSDOM runtime and compiling positive/negative fixtures. PR 134 published the
 first live autonomous article at QA 91 after its page, feeds, sitemap, and Open
-Graph output passed public verification. The one-off retry did not change the
-recurring cadence or revive GitHub-diff social polling. Existing article dates
-were not changed and the setup fixtures must not be treated as releases.
+Graph output passed public verification. Its initial presentation defects were
+then repaired in place without changing the publication date: buyer context was
+made explicit, the default cover was replaced with a credited Pexels image,
+Mermaid labels were restored, and the ROI output became responsive cards. The
+one-off retry and repair did not change the recurring cadence or revive
+GitHub-diff social polling. Existing article dates were not changed and the
+setup fixtures must not be treated as releases.
 
 ## Measurement Rules
 

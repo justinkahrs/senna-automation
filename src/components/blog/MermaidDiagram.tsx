@@ -1,15 +1,50 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
-import { Box, Typography } from "@mui/material";
-import { alpha } from "@mui/material/styles";
+import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 import { BG_BASE, WARM_BLACK, BORDER_MED, ACCENT, BG_PAPER, BG_SUBTLE } from "@/components/theme/colors";
-import { Logo } from "@/components/layout/Logo";
 
 interface MermaidDiagramProps {
   chart: string;
   sx?: SxProps<Theme>;
+}
+
+function extractWorkflowLabels(chart: string) {
+  return [...chart.matchAll(
+    /\b[A-Za-z][\w-]*\s*(?:\["([^"]+)"\]|\[([^\]]+)\]|\{"([^"]+)"\}|\{([^}]+)\})/g,
+  )]
+    .map((match) => match.slice(1).find(Boolean)?.trim())
+    .filter((label): label is string => Boolean(label));
+}
+
+function WorkflowFallback({ chart, loading }: { chart: string; loading?: boolean }) {
+  const labels = extractWorkflowLabels(chart);
+  return (
+    <Stack spacing={2.25} sx={{ width: "100%", py: 1 }}>
+      {loading ? (
+        <Stack direction="row" spacing={1.5} alignItems="center">
+          <CircularProgress size={18} />
+          <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            Building workflow diagram…
+          </Typography>
+        </Stack>
+      ) : (
+        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+          The visual diagram could not load. The workflow stages are preserved below.
+        </Typography>
+      )}
+      {labels.length ? (
+        <Box component="ol" sx={{ m: 0, pl: 3, "& li": { mb: 1 } }}>
+          {labels.map((label) => (
+            <Typography component="li" variant="body2" key={label}>
+              {label}
+            </Typography>
+          ))}
+        </Box>
+      ) : null}
+    </Stack>
+  );
 }
 
 export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
@@ -68,7 +103,7 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
           renderedSvg,
           "image/svg+xml",
         );
-        for (const element of parsed.querySelectorAll("script, foreignObject")) {
+        for (const element of parsed.querySelectorAll("script")) {
           element.remove();
         }
         for (const element of parsed.querySelectorAll("*")) {
@@ -88,6 +123,10 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
         const safeSvg = new XMLSerializer().serializeToString(
           parsed.documentElement,
         );
+        const renderedLabels = parsed.querySelectorAll(".nodeLabel");
+        if (!renderedLabels.length || [...renderedLabels].every((node) => !node.textContent?.trim())) {
+          throw new Error("Mermaid rendered without visible workflow labels.");
+        }
 
         if (!cancelled) {
           setSvg(safeSvg);
@@ -120,11 +159,7 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
           ...sx,
         }}
       >
-        <Typography variant="body2" sx={{
-          color: "text.secondary"
-        }}>
-          Diagram unavailable.
-        </Typography>
+        <WorkflowFallback chart={chart} />
       </Box>
     );
   }
@@ -141,7 +176,8 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
         bgcolor: "rgba(143,0,107,0.04)",
         border: "1px solid",
         borderColor: "divider",
-        overflow: "hidden",
+        overflowX: "auto",
+        WebkitOverflowScrolling: "touch",
         maxWidth: "1120px",
         mx: "auto",
         width: "100%",
@@ -174,11 +210,12 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
         ...sx,
       }}
     >
-      <Box
+      {svg ? <Box
         sx={{
           position: "relative",
           zIndex: 1,
           width: "100%",
+          minWidth: 0,
           display: "flex",
           justifyContent: "center",
           "& svg": {
@@ -188,23 +225,9 @@ export function MermaidDiagram({ chart, sx }: MermaidDiagramProps) {
             display: "block",
           },
         }}
-        dangerouslySetInnerHTML={svg ? { __html: svg } : undefined}
-      />
-      <Logo
-        sx={{
-          position: "absolute",
-          right: { xs: 16, md: 20 },
-          bottom: { xs: 14, md: 18 },
-          width: { xs: 100, md: 148 },
-          height: "auto",
-          opacity: 0.12,
-          pointerEvents: "none",
-          userSelect: "none",
-          zIndex: 2,
-          filter: `grayscale(1) contrast(0.9) brightness(0.6)`,
-          backgroundColor: alpha("#FFFFFF", 0),
-        }}
-      />
+        aria-label="Workflow diagram"
+        dangerouslySetInnerHTML={{ __html: svg }}
+      /> : <WorkflowFallback chart={chart} loading />}
     </Box>
   );
 }

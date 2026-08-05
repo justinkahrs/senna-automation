@@ -125,14 +125,18 @@ attribution metadata. Legacy posts remain valid without those fields. See
 `docs/content-acquisition-reset.md` for the active cadence and measurement
 contract. Content validation performs an actual Mermaid parse under Node using
 the direct `jsdom` development dependency, in addition to ROI, evidence,
-privacy, cadence, and novelty checks.
+privacy, cadence, novelty, audience-context, hero-provenance, machine-metadata,
+diagram-label, and mobile table-width checks. Generated ROI data lives in
+structured frontmatter and renders as responsive scenario cards.
 
 Production content and company-social delivery is enabled on infra rollout
 `a8abe39fd8a529962a4fafbceaa642ea951bbef6dfd1183c790996cafcd4c600` as of
 August 5, 2026. Mautic publication/sending, outbound outreach, and paid media
 remain disabled. Closed setup PRs 128–130 and 133 are quarantined fixtures; PR
 131 is the accepted generated-Mermaid validation repair. PR 134 is the first
-live autonomous article and passed QA at 91 before public release verification.
+live autonomous article; its initial presentation defects prompted the v3
+contract and a same-day article repair covering hero relevance, contextual
+framing, labeled Mermaid output, and mobile ROI presentation.
 
 ## Deployment
 
