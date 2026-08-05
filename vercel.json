@@ -2,12 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "astro",
   "buildCommand": "npm run build",
-  "rewrites": [
-    {
-      "source": "/api/form-hook",
-      "destination": "https://hook.us2.make.com/vp8vpc4allsibttx61nk23bkw24etkrx"
-    }
-  ],
   "headers": [
     {
       "source": "/images/(.*)",

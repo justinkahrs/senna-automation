@@ -67,6 +67,12 @@ export const GET: APIRoute = async () => {
         description: "Contact page and automation assessment request.",
       },
       {
+        title: "Workflow Bottleneck Review",
+        url: `${SITE_URL}/workflow-bottleneck-review`,
+        description:
+          "A focused 30-minute session to map one costly handoff, estimate its impact, and identify the next practical step.",
+      },
+      {
         title: "Search",
         url: `${SITE_URL}/search`,
         description: "Public search across pages, location content, and blog posts.",
@@ -74,7 +80,7 @@ export const GET: APIRoute = async () => {
       {
         title: "Blog",
         url: `${SITE_URL}/blog`,
-        description: "Automation case studies and practical implementation articles.",
+        description: "Workflow guides and practical automation articles.",
       },
     ]),
     renderSection(

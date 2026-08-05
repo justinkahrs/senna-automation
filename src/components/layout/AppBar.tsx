@@ -17,6 +17,11 @@ import ScheduleCallButton from "../ScheduleCallButton";
 import { Logo } from "./Logo";
 import { usePathname } from "@/compat/next/navigation";
 import { trackNavLink, trackContactLink } from "@/utils/analytics";
+import {
+  CONSENT_CHANGED_EVENT,
+  CONSENT_MANAGE_EVENT,
+  hasConsentDecision,
+} from "@/utils/consent";
 
 const NAV_LINKS = [
   { label: "Services", href: "/services" },
@@ -45,6 +50,7 @@ export function AppBar() {
   const [mobileMenuAnchorEl, setMobileMenuAnchorEl] =
     useState<null | HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [hasPrivacyDecision, setHasPrivacyDecision] = useState(false);
   const usesDarkHeroHeader = hasDarkHeroHeader(pathname);
   const isDarkHeader = usesDarkHeroHeader && !scrolled;
   const navTextColor = isDarkHeader
@@ -72,6 +78,17 @@ export function AppBar() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const syncPrivacyDecision = () => {
+      setHasPrivacyDecision(hasConsentDecision());
+    };
+
+    syncPrivacyDecision();
+    window.addEventListener(CONSENT_CHANGED_EVENT, syncPrivacyDecision);
+    return () =>
+      window.removeEventListener(CONSENT_CHANGED_EVENT, syncPrivacyDecision);
   }, []);
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -345,6 +362,36 @@ export function AppBar() {
                 Contact Sales
               </Typography>
             </MenuItem>
+
+            {hasPrivacyDecision && (
+              <MenuItem
+                onClick={() => {
+                  handleMobileMenuClose();
+                  window.dispatchEvent(new Event(CONSENT_MANAGE_EVENT));
+                }}
+                sx={{
+                  backgroundColor: "transparent",
+                  color: "text.secondary",
+                  fontWeight: 500,
+                  fontSize: "var(--type-button)",
+                  py: 1.25,
+                  px: 2,
+                  borderRadius: 1,
+                  mx: 0.5,
+                  "&:hover": {
+                    backgroundColor: "var(--color-bg-neutral-hover)",
+                    color: "text.primary",
+                  },
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  sx={{ color: "inherit", fontWeight: "inherit" }}
+                >
+                  Privacy choices
+                </Typography>
+              </MenuItem>
+            )}
 
             <Box sx={{ px: 1.5, pb: 1.5, pt: 0.5 }}>
               <ScheduleCallButton

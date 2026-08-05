@@ -22,8 +22,8 @@ function ChatLauncher({
       disabled={disabled}
       style={{
         position: "fixed",
-        right: "24px",
-        bottom: "24px",
+        right: "clamp(16px, 4vw, 24px)",
+        bottom: "var(--senna-chat-bottom, 24px)",
         zIndex: 9999,
         display: "inline-flex",
         alignItems: "center",
@@ -41,7 +41,8 @@ function ChatLauncher({
         cursor: disabled ? "progress" : "pointer",
         opacity: disabled ? 0.92 : 1,
         pointerEvents: "auto",
-        transition: "filter var(--dur-base) ease, opacity var(--dur-base) ease",
+        transition:
+          "bottom 180ms ease, filter var(--dur-base) ease, opacity var(--dur-base) ease",
       }}
       onMouseEnter={(event) => {
         if (disabled) return;

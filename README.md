@@ -29,6 +29,9 @@ Useful project checks:
 npm run build
 npm run lint
 npm run token-audit
+npm run test:content-contract
+npm run validate:content
+npm run validate:content-outputs
 npm run test:visual
 ```
 
@@ -77,6 +80,21 @@ Portal and RFP workflows:
 - `N8N_RFP_PREVIEW_PDF_WEBHOOK_URL`
 - `N8N_RFP_PORTAL_JOB_WEBHOOK_URL`
 
+Google Ads pilot:
+
+- `ADS_LEAD_WEBHOOK_URL`
+- `ADS_ATTRIBUTION_WEBHOOK_URL`
+- `ADS_WEBHOOK_SIGNING_SECRET`
+- `LEAD_FINGERPRINT_SECRET` (HMAC secret used to rate-limit form traffic without storing raw IP addresses)
+- `ADS_SHADOW_MAKE_WEBHOOK_URL`
+- `ADS_SHADOW_MAKE_ENABLED`
+- `PUBLIC_GOOGLE_ADS_ID`
+- `PUBLIC_GOOGLE_LEAD_CONVERSION_LABEL`
+
+Keep the Google tag ID and conversion label unset until consent and paused
+tracking validation are ready. See `docs/google-ads-pilot.md` for the guarded
+rollout sequence.
+
 ## Content and Public Artifacts
 
 Key preserved routes and outputs:
@@ -89,6 +107,9 @@ Key preserved routes and outputs:
 - `/contact`
 - `/blog`
 - `/blog/[slug]`
+- `/workflow-bottleneck-review`
+- `/workflow-automation-lower-michigan`
+- `/workflow-automation-chicagoland`
 - `/rss.xml`
 - `/atom.xml`
 - `/feed.json`
@@ -98,6 +119,11 @@ Key preserved routes and outputs:
 - `/api/**`
 
 Blog content lives in `src/content/blog/*.md`.
+
+New generated articles carry ICP, workflow, buyer-stage, research, offer, and
+attribution metadata. Legacy posts remain valid without those fields. See
+`docs/content-acquisition-reset.md` for the active cadence and measurement
+contract.
 
 ## Deployment
 

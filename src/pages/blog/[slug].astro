@@ -2,6 +2,7 @@
 import BlogPostRouteClient from "@/components/app/routes/BlogPostRouteClient";
 import RouteShell from "@/components/app/RouteShell.astro";
 import { getAllBlogPostsFromContent, getBlogPostBySlugFromContent } from "@/utils/astro-blog";
+import { rankRelatedBlogPosts } from "@/utils/blog-related";
 import { SITE_URL } from "@/utils/site";
 
 const BLOG_OG_IMAGE_VERSION = "2026-06-27";
@@ -21,9 +22,10 @@ if (!post) {
   return Astro.redirect("/404");
 }
 
-const relatedPost = (await getAllBlogPostsFromContent()).find(
-  (entry) => entry.slug !== slug,
-);
+const relatedPost = rankRelatedBlogPosts(
+  post,
+  await getAllBlogPostsFromContent(),
+)[0];
 const canonicalUrl = `${SITE_URL}/blog/${slug}`;
 const ogImageUrl = new URL(`${canonicalUrl}/opengraph-image.png`);
 ogImageUrl.searchParams.set("v", BLOG_OG_IMAGE_VERSION);
@@ -58,6 +60,7 @@ ogImageUrl.searchParams.set("v", BLOG_OG_IMAGE_VERSION);
     },
   }}
   pathname={`/blog/${slug}`}
+  contentId={post.contentId}
 >
   <BlogPostRouteClient
     client:load

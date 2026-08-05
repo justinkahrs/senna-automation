@@ -1,12 +1,17 @@
 ---
-const bannerId = "senna-privacy-notice";
-const storageKey = "senna_privacy_notice_acknowledged";
+const bannerId = "senna-privacy-choices";
 ---
 
-<div id={bannerId} class="privacy-notice" role="status" aria-live="polite" hidden>
-  <div class="privacy-notice__surface">
-    <div class="privacy-notice__content">
-      <div class="privacy-notice__icon" aria-hidden="true">
+<div id={bannerId} class="privacy-choices" hidden>
+  <section
+    class="privacy-choices__surface"
+    role="dialog"
+    aria-modal="false"
+    aria-labelledby="privacy-choices-title"
+    aria-describedby="privacy-choices-description"
+  >
+    <div class="privacy-choices__heading">
+      <div class="privacy-choices__mark" aria-hidden="true">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
           <path
             d="M12 2.75 4.75 5.6v5.76c0 4.42 2.78 8.44 7.25 9.89 4.47-1.45 7.25-5.47 7.25-9.89V5.6L12 2.75Z"
@@ -14,7 +19,7 @@ const storageKey = "senna_privacy_notice_acknowledged";
             stroke-width="1.8"
           />
           <path
-            d="m8.75 11.95 2.15 2.15 4.6-4.65"
+            d="M9.25 11.7 11 13.45l3.75-3.8"
             stroke="currentColor"
             stroke-width="1.8"
             stroke-linecap="round"
@@ -22,76 +27,198 @@ const storageKey = "senna_privacy_notice_acknowledged";
           />
         </svg>
       </div>
-
-      <div class="privacy-notice__copy">
-        <p class="privacy-notice__title">
-          Senna Automation takes your privacy seriously.
+      <div>
+        <p id="privacy-choices-title" class="privacy-choices__title">
+          Your privacy choices
         </p>
-        <p class="privacy-notice__body">
-          We do not use tracking cookies. Site traffic is measured anonymously
-          with
-          <a href="https://umami.is" target="_blank" rel="noopener noreferrer">
-            Umami
-          </a>.
+        <p id="privacy-choices-description" class="privacy-choices__body">
+          Necessary storage keeps the site working. With your permission, we
+          also use analytics and Google Ads measurement to understand which
+          campaigns lead to real conversations.
+          <a href="/privacy">Read the privacy policy</a>.
         </p>
       </div>
     </div>
 
-    <button type="button" class="privacy-notice__button" data-dismiss-privacy>
-      Thanks!
-    </button>
-  </div>
+    <div class="privacy-choices__details" data-consent-details hidden>
+      <label class="privacy-choices__option">
+        <span>
+          <strong>Necessary</strong>
+          <small>Security, preferences, attribution continuity, and forms.</small>
+        </span>
+        <input type="checkbox" checked disabled />
+      </label>
+      <label class="privacy-choices__option">
+        <span>
+          <strong>Analytics</strong>
+          <small>Anonymous site measurement through Umami.</small>
+        </span>
+        <input type="checkbox" data-consent-analytics />
+      </label>
+      <label class="privacy-choices__option">
+        <span>
+          <strong>Advertising measurement</strong>
+          <small>Google Ads tags and consented offline conversion matching.</small>
+        </span>
+        <input type="checkbox" data-consent-marketing />
+      </label>
+    </div>
+
+    <div class="privacy-choices__actions">
+      <button type="button" class="privacy-choices__text" data-consent-customize>
+        Customize
+      </button>
+      <button type="button" class="privacy-choices__secondary" data-consent-reject>
+        Necessary only
+      </button>
+      <button type="button" class="privacy-choices__primary" data-consent-accept>
+        Accept all
+      </button>
+      <button
+        type="button"
+        class="privacy-choices__primary"
+        data-consent-save
+        hidden
+      >
+        Save choices
+      </button>
+    </div>
+  </section>
 </div>
 
-<script is:inline define:vars={{ bannerId, storageKey }}>
-  (() => {
-    const banner = document.getElementById(bannerId);
-    if (!banner) return;
+<button
+  type="button"
+  class="privacy-choices__manage"
+  data-consent-manage
+  hidden
+>
+  Privacy choices
+</button>
 
-    const dismissButton = banner.querySelector("[data-dismiss-privacy]");
+<script>
+  import {
+    CONSENT_CHANGED_EVENT,
+    CONSENT_MANAGE_EVENT,
+    getConsentState,
+    hasConsentDecision,
+    setConsentState,
+  } from "@/utils/consent";
+  import { captureAttribution, persistAttribution } from "@/utils/attribution";
 
-    const showBanner = () => {
+  const banner = document.getElementById("senna-privacy-choices");
+  const manageButton = document.querySelector("[data-consent-manage]");
+
+  if (banner instanceof HTMLElement && manageButton instanceof HTMLButtonElement) {
+    const details = banner.querySelector("[data-consent-details]");
+    const customizeButton = banner.querySelector("[data-consent-customize]");
+    const acceptButton = banner.querySelector("[data-consent-accept]");
+    const rejectButton = banner.querySelector("[data-consent-reject]");
+    const saveButton = banner.querySelector("[data-consent-save]");
+    const analyticsInput = banner.querySelector("[data-consent-analytics]");
+    const marketingInput = banner.querySelector("[data-consent-marketing]");
+    const mobileLayout = window.matchMedia("(max-width: 719px)");
+
+    const syncChatOffset = () => {
+      const isVisible = banner.dataset.visible === "true" && !banner.hidden;
+
+      if (!isVisible || !mobileLayout.matches) {
+        document.documentElement.style.removeProperty("--senna-chat-bottom");
+        return;
+      }
+
+      const bannerHeight = Math.ceil(banner.getBoundingClientRect().height);
+      document.documentElement.style.setProperty(
+        "--senna-chat-bottom",
+        `${bannerHeight + 24}px`,
+      );
+    };
+
+    const bannerResizeObserver = new ResizeObserver(syncChatOffset);
+    bannerResizeObserver.observe(banner);
+    mobileLayout.addEventListener("change", syncChatOffset);
+
+    const show = (customizing = false) => {
       banner.hidden = false;
+      manageButton.hidden = true;
+      if (customizing && details instanceof HTMLElement) {
+        details.hidden = false;
+        customizeButton?.setAttribute("hidden", "");
+        acceptButton?.setAttribute("hidden", "");
+        rejectButton?.setAttribute("hidden", "");
+        saveButton?.removeAttribute("hidden");
+      }
       window.requestAnimationFrame(() => {
         banner.dataset.visible = "true";
+        syncChatOffset();
       });
     };
 
-    const hideBanner = () => {
+    const hide = () => {
       banner.dataset.visible = "false";
       window.setTimeout(() => {
         banner.hidden = true;
-      }, 220);
+        manageButton.hidden = false;
+        syncChatOffset();
+      }, 180);
     };
 
-    try {
-      if (localStorage.getItem(storageKey) !== "true") {
-        showBanner();
-      }
-    } catch {
-      showBanner();
+    const apply = (analytics: "granted" | "denied", marketing: "granted" | "denied") => {
+      const state = setConsentState({ analytics, marketing });
+      window.gtag?.("consent", "update", {
+        analytics_storage: analytics,
+        ad_storage: marketing,
+        ad_user_data: marketing,
+        ad_personalization: marketing,
+      });
+      if (marketing === "granted") window.__sennaLoadGoogleAds?.();
+      if (analytics === "granted") window.__sennaLoadUmami?.();
+      void persistAttribution(captureAttribution());
+      hide();
+      return state;
+    };
+
+    const stored = getConsentState();
+    if (analyticsInput instanceof HTMLInputElement) {
+      analyticsInput.checked = stored.analytics === "granted";
+    }
+    if (marketingInput instanceof HTMLInputElement) {
+      marketingInput.checked = stored.marketing === "granted";
     }
 
-    dismissButton?.addEventListener("click", () => {
-      try {
-        localStorage.setItem(storageKey, "true");
-      } catch {
-        // Storage can be unavailable in restricted browser contexts.
-      }
+    if (hasConsentDecision()) {
+      manageButton.hidden = false;
+    } else {
+      show();
+    }
 
-      hideBanner();
+    customizeButton?.addEventListener("click", () => show(true));
+    acceptButton?.addEventListener("click", () => apply("granted", "granted"));
+    rejectButton?.addEventListener("click", () => apply("denied", "denied"));
+    saveButton?.addEventListener("click", () => {
+      apply(
+        analyticsInput instanceof HTMLInputElement && analyticsInput.checked
+          ? "granted"
+          : "denied",
+        marketingInput instanceof HTMLInputElement && marketingInput.checked
+          ? "granted"
+          : "denied",
+      );
     });
-  })();
+    manageButton.addEventListener("click", () => show(true));
+    window.addEventListener(CONSENT_MANAGE_EVENT, () => show(true));
+    window.addEventListener(CONSENT_CHANGED_EVENT, () => {
+      void persistAttribution(captureAttribution());
+    });
+  }
 </script>
 
 <style>
-  .privacy-notice {
+  .privacy-choices {
     position: fixed;
     left: var(--space-4);
     right: var(--space-4);
-    bottom: calc(var(--space-16) + var(--space-5));
-    z-index: calc(var(--z-toast) - 1);
-    pointer-events: auto;
+    bottom: var(--space-4);
+    z-index: var(--z-toast);
     opacity: 0;
     transform: translateY(12px);
     transition:
@@ -99,111 +226,212 @@ const storageKey = "senna_privacy_notice_acknowledged";
       transform 180ms ease;
   }
 
-  .privacy-notice[data-visible="true"] {
+  .privacy-choices[data-visible="true"] {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .privacy-notice__surface {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    align-items: stretch;
-    font-family: var(--font-sans);
-    padding: var(--space-4);
+  .privacy-choices__surface {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: var(--space-5);
     border: 1px solid var(--color-border-soft);
     border-radius: var(--radius-2xl);
-    background-color: color-mix(
-      in srgb,
-      var(--color-bg-paper) 94%,
-      transparent
-    );
-    backdrop-filter: blur(14px);
+    background: color-mix(in srgb, var(--color-bg-paper) 96%, transparent);
+    backdrop-filter: blur(16px);
     box-shadow: var(--shadow-dialog);
+    font-family: var(--font-sans);
   }
 
-  .privacy-notice__content {
+  .privacy-choices__heading,
+  .privacy-choices__option,
+  .privacy-choices__actions {
     display: flex;
+  }
+
+  .privacy-choices__heading {
     align-items: flex-start;
     gap: var(--space-3);
-    min-width: 0;
   }
 
-  .privacy-notice__icon {
-    width: 36px;
-    height: 36px;
-    flex: 0 0 36px;
-    border-radius: var(--radius-pill);
+  .privacy-choices__mark {
     display: grid;
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
     place-items: center;
     color: var(--color-accent);
-    background-color: var(--color-bg-accent-subtle);
     border: 1px solid var(--color-border-neutral-light);
+    border-radius: var(--radius-pill);
+    background: var(--color-bg-accent-subtle);
   }
 
-  .privacy-notice__copy {
-    min-width: 0;
-  }
-
-  .privacy-notice__title {
+  .privacy-choices__title {
+    margin: 0 0 0.35rem;
     color: var(--color-text-primary);
-    font-size: var(--type-body);
     font-weight: var(--weight-semibold);
     line-height: var(--leading-snug);
-    margin: 0 0 0.5rem;
   }
 
-  .privacy-notice__body {
+  .privacy-choices__body {
+    margin: 0;
     color: var(--color-text-secondary);
     font-size: var(--type-body-sm);
-    line-height: var(--leading-normal);
-    margin: 0;
+    line-height: 1.55;
   }
 
-  .privacy-notice__body a {
-    text-decoration: underline;
+  .privacy-choices__body a {
+    color: inherit;
+    text-underline-offset: 0.16em;
   }
 
-  .privacy-notice__button {
-    align-self: flex-start;
-    min-width: 96px;
-    padding: 0.75rem 1.125rem;
-    border: none;
+  .privacy-choices__details {
+    margin-top: var(--space-4);
+    border-top: 1px solid var(--color-border-soft);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .privacy-choices__option {
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-3) 0;
+  }
+
+  .privacy-choices__option + .privacy-choices__option {
+    border-top: 1px solid var(--color-border-soft);
+  }
+
+  .privacy-choices__option span {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .privacy-choices__option strong {
+    color: var(--color-text-primary);
+    font-size: var(--type-body-sm);
+  }
+
+  .privacy-choices__option small {
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+  }
+
+  .privacy-choices__option input {
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--color-accent);
+  }
+
+  .privacy-choices__actions {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+
+  .privacy-choices__actions button,
+  .privacy-choices__manage {
+    min-height: 42px;
     border-radius: var(--radius-pill);
-    background: var(--color-accent);
-    color: var(--color-text-inverse);
-    font-family: inherit;
-    font-size: var(--type-button);
+    padding: 0.65rem 1rem;
+    font: inherit;
+    font-size: var(--type-body-sm);
     font-weight: var(--weight-semibold);
-    box-shadow: none;
     cursor: pointer;
+    transition:
+      transform 160ms ease,
+      border-color 160ms ease,
+      background-color 160ms ease;
   }
 
-  .privacy-notice__button:hover {
-    background: var(--color-accent-light);
-  }
-
-  .privacy-notice__button:active {
+  .privacy-choices__actions button:active,
+  .privacy-choices__manage:active {
     transform: translateY(1px);
   }
 
-  @media (min-width: 600px) {
-    .privacy-notice {
+  .privacy-choices__primary {
+    border: 1px solid var(--color-accent);
+    background: var(--color-accent);
+    color: var(--color-text-on-dark);
+  }
+
+  .privacy-choices__secondary {
+    border: 1px solid var(--color-border-medium);
+    background: var(--color-bg-paper);
+    color: var(--color-text-primary);
+  }
+
+  .privacy-choices__text {
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--color-text-secondary);
+  }
+
+  .privacy-choices__manage {
+    position: fixed;
+    left: var(--space-4);
+    right: auto;
+    bottom: var(--space-4);
+    z-index: calc(var(--z-toast) - 1);
+    min-height: 36px;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid var(--color-border-soft);
+    background: color-mix(in srgb, var(--color-bg-paper) 94%, transparent);
+    color: var(--color-text-secondary);
+    box-shadow: var(--shadow-subtle);
+    backdrop-filter: blur(12px);
+  }
+
+  @media (min-width: 720px) {
+    .privacy-choices {
       left: var(--space-6);
       right: auto;
       bottom: var(--space-6);
-      width: min(560px, calc(100vw - var(--space-12)));
+      width: min(660px, calc(100vw - var(--space-12)));
     }
 
-    .privacy-notice__surface {
-      flex-direction: row;
-      align-items: center;
-      gap: var(--space-5);
-      padding: 1.125rem;
+    .privacy-choices__surface {
+      margin: 0;
     }
 
-    .privacy-notice__button {
-      align-self: center;
+    .privacy-choices__actions {
+      justify-content: flex-end;
+    }
+
+    .privacy-choices__manage {
+      left: var(--space-6);
+      bottom: var(--space-6);
+    }
+  }
+
+  @media (max-width: 719px) {
+    .privacy-choices {
+      left: var(--space-3);
+      right: var(--space-3);
+      bottom: max(var(--space-3), env(safe-area-inset-bottom));
+    }
+
+    .privacy-choices__surface {
+      padding: var(--space-4);
+    }
+
+    .privacy-choices__actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .privacy-choices__actions button {
+      width: 100%;
+      padding-inline: 0.75rem;
+    }
+
+    .privacy-choices__text,
+    .privacy-choices__primary[data-consent-save] {
+      grid-column: 1 / -1;
+    }
+
+    .privacy-choices__manage {
+      display: none;
     }
   }
 </style>

@@ -8,6 +8,9 @@ declare global {
     umami?: {
       track: (name: string, data?: Record<string, unknown>) => void;
     };
+    gtag?: (...args: unknown[]) => void;
+    __sennaLoadGoogleAds?: () => void;
+    __sennaLoadUmami?: () => void;
   }
 }
 
@@ -135,8 +138,11 @@ export function trackEvent(
 // ─── Convenience Helpers ────────────────────────────────────────
 
 /** Track a primary CTA click. */
-export function trackCta(label: string): void {
-  trackEvent("Clicked CTA", { label });
+export function trackCta(
+  label: string,
+  meta?: Record<string, unknown>,
+): void {
+  trackEvent("Clicked CTA", { label, ...meta });
 }
 
 /** Track a navigation link click. */
@@ -145,8 +151,11 @@ export function trackNavLink(href: string, label?: string): void {
 }
 
 /** Track a contact-related link click. */
-export function trackContactLink(label?: string): void {
-  trackEvent("Clicked Contact Link", { label });
+export function trackContactLink(
+  label?: string,
+  meta?: Record<string, unknown>,
+): void {
+  trackEvent("Clicked Contact Link", { label, ...meta });
 }
 
 /** Track an external link click. */
@@ -160,4 +169,18 @@ export function trackFormSubmission(
   meta?: Record<string, unknown>,
 ): void {
   trackEvent("Submitted Contact Form", { form_type: formType, ...meta });
+}
+
+export function trackGoogleLeadConversion(transactionId?: string) {
+  if (typeof window === "undefined") return;
+
+  const adsId = import.meta.env.PUBLIC_GOOGLE_ADS_ID;
+  const conversionLabel = import.meta.env.PUBLIC_GOOGLE_LEAD_CONVERSION_LABEL;
+  if (!adsId || !conversionLabel) return;
+
+  window.__sennaLoadGoogleAds?.();
+  window.gtag?.("event", "conversion", {
+    send_to: `${adsId}/${conversionLabel}`,
+    transaction_id: transactionId || "",
+  });
 }

@@ -1,0 +1,12 @@
+---
+import RouteShell from "@/components/app/RouteShell.astro";
+import WorkflowBottleneckReviewRouteClient from "@/components/app/routes/WorkflowBottleneckReviewRouteClient";
+import { metadata } from "@/site/pages/workflow-bottleneck-review";
+---
+
+<RouteShell metadata={metadata} pathname="/workflow-bottleneck-review">
+  <WorkflowBottleneckReviewRouteClient
+    client:load
+    pathname="/workflow-bottleneck-review"
+  />
+</RouteShell>

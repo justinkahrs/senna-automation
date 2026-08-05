@@ -11,8 +11,12 @@ import {
 import type { SxProps, Theme } from "@mui/material/styles";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import { trackContactLink, trackCta } from "@/utils/analytics";
+import {
+  captureAttribution,
+  type ContentAttributionContext,
+} from "@/utils/attribution";
 
-interface FinalCTAProps {
+interface FinalCTAProps extends ContentAttributionContext {
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
   buttonText?: string;
@@ -48,8 +52,19 @@ export default function FinalCTA({
   showTexture = true,
   stackSpacing = 2,
   transparentBackground,
+  contentId,
+  assetId,
+  offerId,
+  placement = "final-cta",
 }: FinalCTAProps) {
   const isTransparent = Boolean(transparentBackground);
+  const trackingContext = { contentId, assetId, offerId, placement };
+  const analyticsContext = {
+    content_id: contentId,
+    asset_id: assetId,
+    offer_id: offerId,
+    placement,
+  };
 
   return (
     <Box
@@ -124,7 +139,10 @@ export default function FinalCTA({
               href={buttonHref}
               variant="contained"
               size="large"
-              onClick={() => trackCta(buttonText)}
+              onClick={() => {
+                captureAttribution(trackingContext);
+                trackCta(buttonText, analyticsContext);
+              }}
               sx={{
                 bgcolor: "var(--color-highlight)",
                 color: "var(--color-text-primary)",
@@ -153,6 +171,7 @@ export default function FinalCTA({
                 ...buttonSx,
               }}
               showIcon={false}
+              {...trackingContext}
             />
           )}
           {showCalendlyMeta && (
@@ -192,7 +211,10 @@ export default function FinalCTA({
               <Box
                 component={Link}
                 href="/contact"
-                onClick={() => trackContactLink("FinalCTA Contact Link")}
+                onClick={() => {
+                  captureAttribution(trackingContext);
+                  trackContactLink("FinalCTA Contact Link", analyticsContext);
+                }}
                 sx={{
                   display: "inline",
                   color: "var(--color-text-on-dark-subtle)",

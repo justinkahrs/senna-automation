@@ -17,6 +17,24 @@ export interface BlogPostBase {
   category: string;
   excerpt: string;
   image: string;
+  /** Stable marketing-system identifier. Legacy articles intentionally omit it. */
+  contentId?: string;
+  contentType?: string;
+  icp?: string;
+  cohorts?: string[];
+  buyerStage?: string;
+  problem?: string;
+  workflow?: string;
+  /** Stable offer identifier, such as `workflow-bottleneck-review`. */
+  offer?: string;
+  researchPacketId?: string;
+  researchCheckedAt?: string;
+  qaScore?: number;
+  qaReportHash?: string;
+  promptVersion?: string;
+  researchHash?: string;
+  opportunityFingerprint?: string;
+  topicFingerprint?: string;
   metadata: ProjectMetadata;
 }
 

@@ -25,6 +25,7 @@ function getAllSiteUrls() {
     `${siteUrl}/solutions`,
     `${siteUrl}/pricing`,
     `${siteUrl}/contact`,
+    `${siteUrl}/workflow-bottleneck-review`,
     `${siteUrl}/blog`,
   ];
 

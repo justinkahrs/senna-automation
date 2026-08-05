@@ -11,6 +11,7 @@ import {
 import { alpha } from "@mui/material/styles";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { useEffect } from "react";
 import { ACCENT } from "@/components/theme/colors";
 import FinalCTA from "@/components/sections/FinalCTA";
 import {
@@ -18,7 +19,9 @@ import {
   parseNumberedSteps,
 } from "@/components/blog/NumberedSteps";
 import { MermaidDiagram } from "@/components/blog/MermaidDiagram";
+import BlogOfferCTA from "@/components/blog/BlogOfferCTA";
 import { LOGO_URL, SITE_NAME, SITE_URL } from "@/utils/site";
+import { captureAttribution, persistAttribution } from "@/utils/attribution";
 import type { BlogPost, BlogPostPreview } from "@/types/blog";
 
 const QUOTE_AUTOMATION_ERP_STEPS_MARKER = "[[QUOTE_AUTOMATION_ERP_STEPS]]";
@@ -42,6 +45,26 @@ const quoteAutomationErpSteps = [
       "Finally, the system packages the verified items, customer ID, and metadata into a final payload, generating a fully fleshed out Quote PDF file on the fly.",
   },
 ];
+
+function splitMarkdownForInlineOffer(markdown: string) {
+  const headingPositions = Array.from(markdown.matchAll(/^##\s+/gm)).map(
+    (match) => match.index || 0,
+  );
+
+  const target = markdown.length * 0.45;
+  const paragraphPositions = Array.from(markdown.matchAll(/\n\n+/g)).map(
+    (match) => (match.index || 0) + match[0].length,
+  );
+  const candidates = headingPositions.length >= 2
+    ? headingPositions
+    : paragraphPositions;
+  const splitAt =
+    candidates.find((position) => position >= target) ||
+    candidates[candidates.length - 1] ||
+    Math.max(1, Math.floor(markdown.length / 2));
+
+  return [markdown.slice(0, splitAt), markdown.slice(splitAt)] as const;
+}
 
 function toAbsoluteUrl(url?: string) {
   if (!url) return undefined;
@@ -194,7 +217,24 @@ export default function BlogPostPageContent({
     post.content.includes(QUOTE_AUTOMATION_ERP_STEPS_MARKER)
       ? post.content.split(QUOTE_AUTOMATION_ERP_STEPS_MARKER)
       : null;
-  const hasMermaidDiagram = post.content.includes("```mermaid");
+  const hasContextualOffer = Boolean(
+    post.contentId && post.offer === "workflow-bottleneck-review",
+  );
+  const contextualContentParts = hasContextualOffer
+    ? splitMarkdownForInlineOffer(post.content)
+    : null;
+  const contentAssetId = `blog:${post.contentId || post.slug}`;
+
+  useEffect(() => {
+    if (!post.contentId) return;
+    const state = captureAttribution({
+      contentId: post.contentId,
+      assetId: contentAssetId,
+      offerId: post.offer || "workflow-bottleneck-review",
+      placement: "article-view",
+    });
+    void persistAttribution(state);
+  }, [contentAssetId, post.contentId, post.offer]);
   const canonicalUrl = `${SITE_URL}/blog/${post.slug}`;
   const imageUrl = toAbsoluteUrl(post.image);
   const publishedDate = post.date ? new Date(post.date).toISOString() : undefined;
@@ -266,12 +306,6 @@ export default function BlogPostPageContent({
           __html: JSON.stringify(breadcrumbJsonLd),
         }}
       />
-      {hasMermaidDiagram && (
-        <Script
-          src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
-          strategy="afterInteractive"
-        />
-      )}
       <Box
         sx={{
           position: "fixed",
@@ -389,6 +423,22 @@ export default function BlogPostPageContent({
                 {contentParts[1] || ""}
               </ReactMarkdown>
             </>
+          ) : contextualContentParts ? (
+            <>
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={markdownComponents as any}
+              >
+                {contextualContentParts[0]}
+              </ReactMarkdown>
+              <BlogOfferCTA post={post} placement="article-inline" />
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={markdownComponents as any}
+              >
+                {contextualContentParts[1]}
+              </ReactMarkdown>
+            </>
           ) : (
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
@@ -426,7 +476,7 @@ export default function BlogPostPageContent({
                             textDecoration: "underline",
                           }}
                         >
-                          Read the next case study
+                          Read the next workflow guide
                         </Typography>
                       </Link>
                     </Box>
@@ -456,7 +506,26 @@ export default function BlogPostPageContent({
         </Box>
       ) : null}
 
-      <FinalCTA transparentBackground />
+      <FinalCTA
+        transparentBackground
+        title={
+          hasContextualOffer
+            ? "Find the costly handoff hiding in this workflow"
+            : undefined
+        }
+        subtitle={
+          hasContextualOffer
+            ? "In 30 minutes, we'll map one bottleneck, estimate its impact, and decide whether automation is the practical next step."
+            : undefined
+        }
+        buttonText={
+          hasContextualOffer ? "Book a Workflow Bottleneck Review" : undefined
+        }
+        contentId={post.contentId}
+        assetId={contentAssetId}
+        offerId={post.offer}
+        placement="article-final"
+      />
     </Box>
   );
 }

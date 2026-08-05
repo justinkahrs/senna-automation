@@ -1,9 +1,13 @@
 {
   "name": "senna-automation",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "test:ads-contract": "node --test tests/ads-contract.test.mjs",
+    "test:content-contract": "node --test tests/content-contract.test.mjs",
+    "validate:content": "node scripts/validate-blog-content.mjs",
+    "validate:content-outputs": "node scripts/validate-content-outputs.mjs",
     "build": "astro build",
     "start": "astro preview",
     "lint": "eslint .",
@@ -34,7 +38,8 @@
     "better-auth": "^1.6.20",
     "feed": "^5.2.1",
     "framer-motion": "^12.41.0",
-    "js-yaml": "^5.1.0",
+    "js-yaml": "5.2.3",
+    "mermaid": "11.16.1",
     "pg": "^8.22.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
@@ -52,6 +57,7 @@
     "typescript-eslint": "^8.63.0"
   },
   "overrides": {
-    "postcss": "^8.5.15"
+    "postcss": "^8.5.15",
+    "svgo": "4.0.2"
   }
 }

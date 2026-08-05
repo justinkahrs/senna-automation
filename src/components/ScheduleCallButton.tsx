@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { trackCta } from "@/utils/analytics";
+import { trackCta, trackEvent } from "@/utils/analytics";
 import {
   Button,
   Modal,
@@ -21,8 +21,14 @@ import {
   WARM_BLACK,
 } from "@/components/theme/colors";
 import { setCalendlyOpen } from "@/stores/modal-store";
+import {
+  buildCalendlyUrl,
+  getAttributionState,
+  persistAttribution,
+  type ContentAttributionContext,
+} from "@/utils/attribution";
 
-interface ScheduleCallButtonProps {
+interface ScheduleCallButtonProps extends ContentAttributionContext {
   text?: string;
   variant?: "text" | "outlined" | "contained";
   size?: "small" | "medium" | "large";
@@ -42,9 +48,16 @@ export default function ScheduleCallButton({
   showIcon = true,
   inverse = false,
   ariaLabel,
+  contentId,
+  assetId,
+  offerId,
+  placement,
 }: ScheduleCallButtonProps) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [calendlyUrl, setCalendlyUrl] = useState(
+    "https://calendly.com/senna-automation/intro?hide_event_type_details=1&hide_gdpr_banner=1",
+  );
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"), {
     noSsr: true,
@@ -55,10 +68,42 @@ export default function ScheduleCallButton({
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const onCalendlyMessage = (event: MessageEvent) => {
+      if (event.origin !== "https://calendly.com") return;
+      const payload = event.data as { event?: string } | null;
+      if (payload?.event !== "calendly.event_scheduled") return;
+      trackEvent("Scheduled Calendly Meeting", {
+        source: "calendly_embed",
+        content_id: contentId,
+        asset_id: assetId,
+        offer_id: offerId,
+        placement,
+      });
+    };
+    window.addEventListener("message", onCalendlyMessage);
+    return () => window.removeEventListener("message", onCalendlyMessage);
+  }, [assetId, contentId, offerId, open, placement]);
+
   const handleOpen = () => {
+    const contentContext = {
+      contentId,
+      assetId,
+      offerId,
+      placement,
+    };
+    setCalendlyUrl(buildCalendlyUrl(undefined, contentContext));
+    const attributionState = getAttributionState();
+    if (attributionState) void persistAttribution(attributionState);
     setOpen(true);
     setCalendlyOpen(true);
-    trackCta(text);
+    trackCta(text, {
+      content_id: contentId,
+      asset_id: assetId,
+      offer_id: offerId,
+      placement,
+    });
   };
 
   const handleClose = () => {
@@ -236,7 +281,7 @@ export default function ScheduleCallButton({
               }}
             >
               <iframe
-                src="https://calendly.com/senna-automation/intro?hide_event_type_details=1&hide_gdpr_banner=1"
+                src={calendlyUrl}
                 width="100%"
                 height="100%"
                 style={{ border: "none" }}
