@@ -181,12 +181,12 @@ articles, opens website PRs, waits for Vercel HTTP success, and then distributes
 independent social assets through Mixpost and HyperFrames.
 
 Production delivery is enabled for immutable infra rollout
-`4669be52810571955eac392e9ffce19f9012aff10055b71cafed5f989b76abb6` as of
+`a8abe39fd8a529962a4fafbceaa642ea951bbef6dfd1183c790996cafcd4c600` as of
 August 5, 2026. Website and company-social gates are open; Mautic publication,
 sync, enrollment, sending, outreach, and paid-media gates remain closed. The
 accepted replay, activation journal, closed-gate cycle, and provider repair
 records are documented in `~/Projects/infra/AGENTS.md` and
-`~/Projects/infra/docs/autonomous-content-operations.md`.
+`~/Projects/infra/docs/autonomous-content-production-state.md`.
 
 Current cadence and boundaries:
 
@@ -213,15 +213,41 @@ Mermaid's sanitizer cannot perform a real CI parse. `npm run
 validate:content-outputs` verifies feeds, sitemap, robots, and OG build
 artifacts.
 
+The live publisher accepts only drafts whose generator and QA metadata both
+carry `senna-article-contract/v2`, then rechecks the deterministic Mermaid,
+exact `Implementation cost` ROI header, operating/evidence sections, and
+Workflow Bottleneck Review CTA before creating a branch. A stale queued draft
+is quarantined before GitHub rather than relying on website CI to catch it.
+Article publication uses a content-specific lease, and the fifteen-minute
+recovery trigger stands down during the primary 8:30 AM Eastern cadence minute.
+Content Telegram alerts are durably deduplicated for fifteen minutes and include
+workflow, trigger/mode, node, available content/PR context, cause, and the
+fail-closed action.
+
+The repaired rollout's first same-day live article retry published PR 134,
+“Reducing Missed Updates in Customer Handoffs for Membership-Based Activity
+Operations,” at QA 91. Its page, RSS, Atom, JSON Feed, sitemap, and Open Graph
+image were publicly verified, and its content asset and opportunity are both
+durably `published`. This one-off retry did not alter the recurring schedule or
+trigger article-diff social promotion.
+
+The publisher sends no-cache GitHub requests and reconciles the branch head
+from the created PR's authoritative `head.sha`. Release checks use the n8n 2.x
+HTTP helper response options; do not restore the legacy request-promise flags
+that made successful public HTTP responses appear as status zero. Waiting
+release checks must retain article/feed/sitemap/OG diagnostics rather than
+returning unexplained empty output.
+
 Social publication is opportunity-driven and must not be restored to GitHub
 diff polling. Provider success requires Mixpost `published_at` plus a provider
 post ID. The legacy Scheduled Blog Agent, old blog-social polling, humanizer,
 and prior Instagram producer/completion flows remain retired. The SEO publisher
 and hardened SEO PR helper remain manual-only and non-blog-only.
 
-Closed setup article PRs 128–130 are quarantined audit fixtures, not publishable
-articles. PR 131 is the accepted JSDOM/Mermaid validation repair. Do not reopen,
-redate, or promote the setup fixtures.
+Closed setup article PRs 128–130 and 133 are quarantined audit fixtures, not
+publishable articles. PR 133 is the stale-contract artifact from the August 5
+8:30 AM run. PR 131 is the accepted JSDOM/Mermaid validation repair. Do not
+reopen, redate, or promote the setup fixtures.
 
 Do not change live automation from this repo. Update the generator and pinned
 rollout in `~/Projects/infra`, run its replay/audit controls, and verify live
