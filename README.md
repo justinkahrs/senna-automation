@@ -127,6 +127,12 @@ contract. Content validation performs an actual Mermaid parse under Node using
 the direct `jsdom` development dependency, in addition to ROI, evidence,
 privacy, cadence, and novelty checks.
 
+Production content and company-social delivery is enabled on infra rollout
+`4669be52810571955eac392e9ffce19f9012aff10055b71cafed5f989b76abb6` as of
+August 5, 2026. Mautic publication/sending, outbound outreach, and paid media
+remain disabled. Closed setup PRs 128–130 are quarantined fixtures; PR 131 is
+the accepted generated-Mermaid validation repair.
+
 ## Deployment
 
 Production remains on Vercel. Before shipping:

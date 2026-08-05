@@ -180,6 +180,14 @@ demand, creates one-cohort/one-problem opportunities, drafts and validates
 articles, opens website PRs, waits for Vercel HTTP success, and then distributes
 independent social assets through Mixpost and HyperFrames.
 
+Production delivery is enabled for immutable infra rollout
+`4669be52810571955eac392e9ffce19f9012aff10055b71cafed5f989b76abb6` as of
+August 5, 2026. Website and company-social gates are open; Mautic publication,
+sync, enrollment, sending, outreach, and paid-media gates remain closed. The
+accepted replay, activation journal, closed-gate cycle, and provider repair
+records are documented in `~/Projects/infra/AGENTS.md` and
+`~/Projects/infra/docs/autonomous-content-operations.md`.
+
 Current cadence and boundaries:
 
 - Qualified ICP snapshot: Saturday 6:30 AM Eastern.
@@ -210,6 +218,10 @@ diff polling. Provider success requires Mixpost `published_at` plus a provider
 post ID. The legacy Scheduled Blog Agent, old blog-social polling, humanizer,
 and prior Instagram producer/completion flows remain retired. The SEO publisher
 and hardened SEO PR helper remain manual-only and non-blog-only.
+
+Closed setup article PRs 128–130 are quarantined audit fixtures, not publishable
+articles. PR 131 is the accepted JSDOM/Mermaid validation repair. Do not reopen,
+redate, or promote the setup fixtures.
 
 Do not change live automation from this repo. Update the generator and pinned
 rollout in `~/Projects/infra`, run its replay/audit controls, and verify live
