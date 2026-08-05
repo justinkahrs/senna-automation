@@ -203,20 +203,24 @@ Current cadence and boundaries:
   sending, outreach, and paid-media gates remain disabled.
 
 Every generated article must include the optional legacy-compatible metadata
-fields defined in `src/content.config.ts`, one Mermaid workflow, disclosed
-low/base/high ROI assumptions, three to six valid sources, and the Workflow
-Bottleneck Review offer. `npm run validate:content` enforces the content
-contract, privacy and fake-case-study checks, deterministic ROI math, required
-sections, novelty thresholds, and Mermaid compilation in a JSDOM-backed Node
-environment. Keep `jsdom` as a direct development dependency; without it,
-Mermaid's sanitizer cannot perform a real CI parse. `npm run
-validate:content-outputs` verifies feeds, sitemap, robots, and OG build
+fields defined in `src/content.config.ts`, one Mermaid workflow, structured
+low/base/high ROI assumptions, a relevant traceable Pexels hero, three to six
+valid sources, and the Workflow Bottleneck Review offer. `npm run
+validate:content` enforces the content contract, privacy and fake-case-study
+checks, deterministic ROI math, audience context, non-generic diagram labels,
+machine-metadata isolation, table width, required sections, novelty thresholds,
+and Mermaid compilation in a JSDOM-backed Node environment. Keep `jsdom` as a
+direct development dependency; without it, Mermaid's sanitizer cannot perform
+a real CI parse. The browser renderer must preserve sanitized Mermaid
+`foreignObject` labels and show a readable workflow-stage fallback on failure.
+`npm run validate:content-outputs` verifies feeds, sitemap, robots, and OG build
 artifacts.
 
 The live publisher accepts only drafts whose generator and QA metadata both
-carry `senna-article-contract/v2`, then rechecks the deterministic Mermaid,
-exact `Implementation cost` ROI header, operating/evidence sections, and
-Workflow Bottleneck Review CTA before creating a branch. A stale queued draft
+carry `senna-article-contract/v3`, then rechecks the deterministic Mermaid,
+structured ROI component marker, Pexels image provenance, audience context,
+buyer-facing section names, operating/evidence sections, and Workflow
+Bottleneck Review CTA before creating a branch. A stale queued draft
 is quarantined before GitHub rather than relying on website CI to catch it.
 Article publication uses a content-specific lease, and the fifteen-minute
 recovery trigger stands down during the primary 8:30 AM Eastern cadence minute.
@@ -224,12 +228,15 @@ Content Telegram alerts are durably deduplicated for fifteen minutes and include
 workflow, trigger/mode, node, available content/PR context, cause, and the
 fail-closed action.
 
-The repaired rollout's first same-day live article retry published PR 134,
-“Reducing Missed Updates in Customer Handoffs for Membership-Based Activity
-Operations,” at QA 91. Its page, RSS, Atom, JSON Feed, sitemap, and Open Graph
-image were publicly verified, and its content asset and opportunity are both
-durably `published`. This one-off retry did not alter the recurring schedule or
-trigger article-diff social promotion.
+The repaired rollout's first same-day live article retry published PR 134. Its
+initial presentation exposed the ROI machine payload, used the default social
+cover, deleted Mermaid labels during sanitation, rendered a fourteen-column
+mobile table, and failed to define the children’s-activity audience. The
+same-day repair retitled it “How Children’s Activity Businesses Can Stop Losing
+Customer Handoffs,” added immediate business/family-account context, a credited
+Pexels photo, visible workflow labels with fallback behavior, and responsive ROI
+cards. This one-off repair does not alter the recurring schedule or trigger
+article-diff social promotion.
 
 The publisher sends no-cache GitHub requests and reconciles the branch head
 from the created PR's authoritative `head.sha`. Release checks use the n8n 2.x

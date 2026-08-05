@@ -14,6 +14,7 @@ function generatedArticle(overrides = {}) {
     "The operations team reviews each queued request, resolves unusual exceptions, and records the final decision in the shared system.",
   ).join(" ");
   const roiModel = {
+    version: "senna-roi-model-v1",
     scenarios: [
       {
         name: "low",
@@ -22,6 +23,7 @@ function generatedArticle(overrides = {}) {
         loaded_labor_rate: 30,
         baseline_monthly_error_rework_cost: 500,
         error_rework_reduction_rate: 0.1,
+        monthly_labor_savings: 250,
         monthly_error_savings: 50,
         implementation_cost: 3000,
         monthly_maintenance: 50,
@@ -37,6 +39,7 @@ function generatedArticle(overrides = {}) {
         loaded_labor_rate: 35,
         baseline_monthly_error_rework_cost: 1000,
         error_rework_reduction_rate: 0.15,
+        monthly_labor_savings: 875,
         monthly_error_savings: 150,
         implementation_cost: 6000,
         monthly_maintenance: 100,
@@ -52,6 +55,7 @@ function generatedArticle(overrides = {}) {
         loaded_labor_rate: 40,
         baseline_monthly_error_rework_cost: 1500,
         error_rework_reduction_rate: 0.2,
+        monthly_labor_savings: 2000,
         monthly_error_savings: 300,
         implementation_cost: 9000,
         monthly_maintenance: 150,
@@ -65,26 +69,23 @@ function generatedArticle(overrides = {}) {
   const body = overrides.body || `
 ## Workflow
 
-The trigger receives inputs from the owner. Business rules route normal work while exceptions return to a human and the CRM remains the source of truth.
+For CNC machine shops and contract manufacturers, the RFQ trigger receives drawing and quantity inputs from the estimator. Business rules route normal work while exceptions return to a named owner and the CRM remains the source of truth.
 
 \`\`\`mermaid
 flowchart LR
-  A[Request] --> B{Rules}
-  B --> C[System action]
-  B --> D[Human exception]
+  A["Customer RFQ arrives with drawings"] --> B["Capture material, quantity, and due date"]
+  B --> C{"Drawing or tolerance exception?"}
+  C --> D["Create estimator task with a due time"]
+  C --> E["Route drawing exception to engineering"]
+  D --> F["Write quote status to the CRM"]
+  E --> F
 \`\`\`
 
 ## Illustrative ROI model
 
 This illustrative model discloses transaction volume, minutes saved, loaded labor rate, baseline error or rework cost, error or rework reduction, implementation cost, and monthly maintenance.
 
-<!-- senna-roi-model-v1:${JSON.stringify(roiModel)} -->
-
-| Scenario | Transactions/month | Minutes saved | Loaded labor rate | Baseline rework | Reduction | Error savings | Implementation | Maintenance | Monthly benefit | Annual benefit | First-year net | Payback months |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Low | 100 | 5 | $30 | $500 | 10% | $50 | $3,000 | $50 | $300 | $3,600 | $0 | 12 |
-| Base | 200 | 7.5 | $35 | $1,000 | 15% | $150 | $6,000 | $100 | $1,025 | $12,300 | $5,100 | 6.4865 |
-| High | 300 | 10 | $40 | $1,500 | 20% | $300 | $9,000 | $150 | $2,300 | $27,600 | $16,800 | 4.186 |
+[[ROI_SENSITIVITY]]
 
 Sources: [SBA](https://www.sba.gov/), [NIST](https://www.nist.gov/), and [BLS](https://www.bls.gov/).
 
@@ -95,6 +96,11 @@ ${filler}
     filename: overrides.filename || "generated.md",
     data: {
       title: "A focused workflow guide",
+      excerpt: "CNC machine shops can route drawing exceptions without losing quote ownership.",
+      image: "https://images.pexels.com/photos/123456/pexels-photo-123456.jpeg",
+      imageAlt: "Estimator reviewing a CNC part drawing",
+      imageCredit: "Example Photographer on Pexels",
+      imageSource: "https://www.pexels.com/photo/example-cnc-workflow-123456/",
       date: overrides.date || "2026-08-05",
       contentId: overrides.contentId || "cnt_test_001",
       contentType: "workflow-guide",
@@ -112,6 +118,7 @@ ${filler}
       researchHash: "b".repeat(64),
       opportunityFingerprint: "c".repeat(64),
       topicFingerprint: "d".repeat(64),
+      roiModel,
       ...overrides.data,
     },
     body,
@@ -128,8 +135,8 @@ test("Mermaid validation compiles generated flowcharts in Node", async () => {
   const invalid = generatedArticle({
     filename: "invalid-mermaid.md",
     body: generatedArticle().body.replace(
-      "A[Request] --> B{Rules}",
-      "A[Request] --> B{Rules",
+      'A["Customer RFQ arrives with drawings"]',
+      'A["Customer RFQ arrives with drawings"',
     ),
   });
   assert.deepEqual(await validateMermaidSyntax([invalid]), [
@@ -158,10 +165,17 @@ test("deterministic hard failures reject bad ROI, unsafe diagrams, and invalid e
     filename: "invalid.md",
     contentId: "cnt_test_bad",
     body: valid.body
-      .replace('"monthly_benefit":300', '"monthly_benefit":99999')
       .replace("flowchart LR", "flowchart LR\n  click A javascript:alert(1)")
       .replace("https://www.sba.gov/", "https://www.sba.gov/example-fake")
       .concat("\nA qualified prospect reported a 97% guaranteed reduction.\n"),
+    data: {
+      roiModel: {
+        ...valid.data.roiModel,
+        scenarios: valid.data.roiModel.scenarios.map((scenario) =>
+          scenario.name === "low" ? { ...scenario, monthly_benefit: 99999 } : scenario,
+        ),
+      },
+    },
   });
   const errors = validateGeneratedArticle(invalid, []);
   assert.ok(errors.some((error) => error.includes("mathematically incorrect")));
@@ -215,6 +229,46 @@ test("cadence is enforced across month boundaries", () => {
   assert.ok(
     validateGeneratedPortfolio([first, tooSoon]).some((error) =>
       error.includes("minimum is 14 days"),
+    ),
+  );
+});
+
+test("presentation QA rejects exposed machine metadata and fallback imagery", () => {
+  const article = generatedArticle({
+    filename: "presentation-defects.md",
+    body: `${generatedArticle().body}\n<!-- senna-roi-model-v1:{"scenarios":[]} -->`,
+    data: { image: "/og/default.png" },
+  });
+  const errors = validateGeneratedArticle(article, []);
+  assert.ok(errors.some((error) => error.includes("machine metadata")));
+  assert.ok(errors.some((error) => error.includes("non-fallback hero image")));
+});
+
+test("presentation QA rejects generic diagrams and mobile-hostile tables", () => {
+  const article = generatedArticle({
+    filename: "generic-presentation.md",
+    body: generatedArticle().body
+      .replace('A["Customer RFQ arrives with drawings"]', 'A["Operational trigger"]')
+      .concat("\n| A | B | C | D | E | F | G | H |\n|---|---|---|---|---|---|---|---|\n"),
+  });
+  const errors = validateGeneratedArticle(article, []);
+  assert.ok(errors.some((error) => error.includes("generic placeholder labels")));
+  assert.ok(errors.some((error) => error.includes("seven columns")));
+});
+
+test("children's-activity content must explain the audience and family context up front", () => {
+  const article = generatedArticle({
+    filename: "missing-cohort-context.md",
+    data: {
+      icp: "high_volume_services",
+      cohorts: ["childrens_activities"],
+      title: "A better customer handoff",
+      excerpt: "A practical workflow for a busy service operation.",
+    },
+  });
+  assert.ok(
+    validateGeneratedArticle(article, []).some((error) =>
+      error.includes("family-account context"),
     ),
   );
 });

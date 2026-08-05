@@ -11,7 +11,7 @@ import {
 import { alpha } from "@mui/material/styles";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { ACCENT } from "@/components/theme/colors";
 import FinalCTA from "@/components/sections/FinalCTA";
 import {
@@ -19,12 +19,14 @@ import {
   parseNumberedSteps,
 } from "@/components/blog/NumberedSteps";
 import { MermaidDiagram } from "@/components/blog/MermaidDiagram";
+import { RoiSensitivity } from "@/components/blog/RoiSensitivity";
 import BlogOfferCTA from "@/components/blog/BlogOfferCTA";
 import { LOGO_URL, SITE_NAME, SITE_URL } from "@/utils/site";
 import { captureAttribution, persistAttribution } from "@/utils/attribution";
 import type { BlogPost, BlogPostPreview } from "@/types/blog";
 
 const QUOTE_AUTOMATION_ERP_STEPS_MARKER = "[[QUOTE_AUTOMATION_ERP_STEPS]]";
+const ROI_SENSITIVITY_MARKER = "[[ROI_SENSITIVITY]]";
 const quoteAutomationErpSteps = [
   {
     number: "01",
@@ -166,6 +168,32 @@ const markdownComponents = {
       {children}
     </Box>
   ),
+  table: ({ children }: any) => (
+    <Box
+      sx={{
+        width: "100%",
+        overflowX: "auto",
+        WebkitOverflowScrolling: "touch",
+        my: 5,
+        border: "1px solid",
+        borderColor: "divider",
+        borderRadius: 2,
+        "& table": { width: "100%", minWidth: 620, borderCollapse: "collapse" },
+        "& th, & td": {
+          px: 2,
+          py: 1.5,
+          borderBottom: "1px solid",
+          borderColor: "divider",
+          textAlign: "left",
+          verticalAlign: "top",
+        },
+        "& th": { bgcolor: "var(--color-bg-accent-faint)", fontWeight: 700 },
+        "& tr:last-child td": { borderBottom: 0 },
+      }}
+    >
+      <table>{children}</table>
+    </Box>
+  ),
   pre: ({ children }: any) => <Box component="div">{children}</Box>,
   code: ({ className, children, ...props }: any) => {
     const language = className?.replace("language-", "");
@@ -290,6 +318,23 @@ export default function BlogPostPageContent({
     ],
   };
 
+  const renderMarkdown = (markdown: string) => {
+    const parts = markdown.split(ROI_SENSITIVITY_MARKER);
+    return parts.map((part, index) => (
+      <Fragment key={`${index}-${part.slice(0, 24)}`}>
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={markdownComponents as any}
+        >
+          {part}
+        </ReactMarkdown>
+        {index < parts.length - 1 && post.roiModel ? (
+          <RoiSensitivity model={post.roiModel} />
+        ) : null}
+      </Fragment>
+    ));
+  };
+
   return (
     <Box sx={{ bgcolor: "transparent", minHeight: "100vh", pb: 0 }}>
       <Script
@@ -389,13 +434,31 @@ export default function BlogPostPageContent({
               >
                 <Image
                   src={post.image || "/gradient-fallback.png"}
-                  alt={post.title}
+                  alt={post.imageAlt || post.title}
                   fill
                   style={{ objectFit: "cover" }}
                   priority
                   sizes="(max-width: 900px) 100vw, 460px"
                 />
               </Box>
+              {post.imageCredit && post.imageSource ? (
+                <Typography
+                  component="a"
+                  href={post.imageSource}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="caption"
+                  sx={{
+                    display: "inline-block",
+                    mt: 1.25,
+                    color: "var(--color-text-on-dark)",
+                    opacity: 0.72,
+                    textDecorationColor: "currentColor",
+                  }}
+                >
+                  Photo: {post.imageCredit}
+                </Typography>
+              ) : null}
             </Grid>
           </Grid>
         </Container>
@@ -425,28 +488,11 @@ export default function BlogPostPageContent({
             </>
           ) : contextualContentParts ? (
             <>
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={markdownComponents as any}
-              >
-                {contextualContentParts[0]}
-              </ReactMarkdown>
+              {renderMarkdown(contextualContentParts[0])}
               <BlogOfferCTA post={post} placement="article-inline" />
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={markdownComponents as any}
-              >
-                {contextualContentParts[1]}
-              </ReactMarkdown>
+              {renderMarkdown(contextualContentParts[1])}
             </>
-          ) : (
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={markdownComponents as any}
-            >
-              {post.content}
-            </ReactMarkdown>
-          )}
+          ) : renderMarkdown(post.content)}
         </Container>
       </Box>
 

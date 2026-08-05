@@ -20,11 +20,15 @@ const GENERATED_REQUIRED_FIELDS = [
   "researchHash",
   "opportunityFingerprint",
   "topicFingerprint",
+  "imageAlt",
+  "imageCredit",
+  "imageSource",
 ];
 
 const SHA256_PATTERN = /^[a-f0-9]{64}$/i;
-const ROI_MODEL_PATTERN =
-  /<!--\s*senna-roi-model-v1:([\s\S]*?)-->/i;
+const ROI_SENSITIVITY_MARKER = "[[ROI_SENSITIVITY]]";
+const RAW_MACHINE_METADATA_PATTERN =
+  /<!--[\s\S]*?(?:senna-roi-model|transactions_per_month|researchPacketId)[\s\S]*?-->/i;
 const SAFE_MERMAID_START = /^\s*(?:flowchart|graph)\s+(?:TB|TD|BT|RL|LR)\b/i;
 const UNSAFE_MERMAID_PATTERN =
   /%%\{|\bclick\b|<\/?[a-z][^>]*>|javascript\s*:|\bon[a-z]+\s*=/i;
@@ -155,22 +159,23 @@ function nearlyEqual(actual, expected) {
   );
 }
 
-export function parseRoiModel(body) {
-  const match = body.match(ROI_MODEL_PATTERN);
-  if (!match) return null;
-  try {
-    return JSON.parse(match[1].trim());
-  } catch {
-    return null;
-  }
+export function parseRoiModel(data) {
+  return data?.roiModel && typeof data.roiModel === "object"
+    ? data.roiModel
+    : null;
 }
 
-function validateRoiModel(filename, body) {
+function validateRoiModel(filename, data, body) {
   const errors = [];
-  const model = parseRoiModel(body);
+  const model = parseRoiModel(data);
   const scenarios = Array.isArray(model?.scenarios) ? model.scenarios : [];
-  if (scenarios.length !== 3) {
-    return [`${filename}: missing a valid senna-roi-model-v1 contract.`];
+  if (model?.version !== "senna-roi-model-v1" || scenarios.length !== 3) {
+    return [`${filename}: missing a valid structured senna-roi-model-v1 contract.`];
+  }
+
+  const markerCount = body.split(ROI_SENSITIVITY_MARKER).length - 1;
+  if (markerCount !== 1) {
+    errors.push(`${filename}: expected exactly one ${ROI_SENSITIVITY_MARKER} component marker.`);
   }
 
   const expectedNames = new Set(["low", "base", "high"]);
@@ -189,6 +194,7 @@ function validateRoiModel(filename, body) {
     );
     const reductionRate = parseNumber(scenario.error_rework_reduction_rate);
     const errorSavings = parseNumber(scenario.monthly_error_savings);
+    const laborSavings = parseNumber(scenario.monthly_labor_savings);
     const implementation = parseNumber(scenario.implementation_cost);
     const maintenance = parseNumber(scenario.monthly_maintenance);
     const monthlyBenefit = parseNumber(scenario.monthly_benefit);
@@ -217,8 +223,9 @@ function validateRoiModel(filename, body) {
     }
 
     const calculatedErrorSavings = baselineRework * reductionRate;
+    const calculatedLaborSavings = (transactions * minutes * laborRate) / 60;
     const calculatedMonthlyBenefit =
-      (transactions * minutes * laborRate) / 60 + calculatedErrorSavings;
+      calculatedLaborSavings + calculatedErrorSavings;
     const calculatedAnnualBenefit = calculatedMonthlyBenefit * 12;
     const calculatedFirstYearNet =
       (calculatedMonthlyBenefit - maintenance) * 12 - implementation;
@@ -227,6 +234,7 @@ function validateRoiModel(filename, body) {
         ? implementation / (calculatedMonthlyBenefit - maintenance)
         : 999;
     const checks = [
+      ["monthly labor savings", laborSavings, calculatedLaborSavings],
       ["monthly error/rework savings", errorSavings, calculatedErrorSavings],
       ["monthly benefit", monthlyBenefit, calculatedMonthlyBenefit],
       ["annual benefit", annualBenefit, calculatedAnnualBenefit],
@@ -239,41 +247,6 @@ function validateRoiModel(filename, body) {
       }
     }
 
-    const scenarioRow = body
-      .split(/\r?\n/)
-      .find((line) => new RegExp(`^\\|\\s*${name}\\s*\\|`, "i").test(line));
-    if (!scenarioRow) {
-      errors.push(`${filename}: ROI table is missing the ${name} row.`);
-      continue;
-    }
-    const visibleNumbers = scenarioRow
-      .split("|")
-      .flatMap((cell) => cell.match(/-?\$?[\d,]+(?:\.\d+)?%?/g) || [])
-      .map(parseNumber)
-      .filter(Number.isFinite);
-    const visibleExpectations = [
-      transactions,
-      minutes,
-      laborRate,
-      baselineRework,
-      reductionRate * 100,
-      errorSavings,
-      implementation,
-      maintenance,
-      monthlyBenefit,
-      annualBenefit,
-      firstYearNet,
-      payback,
-    ];
-    if (
-      visibleExpectations.some(
-        (expected) => !visibleNumbers.some((actual) => nearlyEqual(actual, expected)),
-      )
-    ) {
-      errors.push(
-        `${filename}: ${name} ROI row does not disclose every validated assumption and result.`,
-      );
-    }
   }
 
   return errors;
@@ -322,7 +295,6 @@ function validateTraceabilityAndPrivacy(filename, body) {
 
   const paragraphs = body
     .replace(/```[\s\S]*?```/g, "")
-    .replace(ROI_MODEL_PATTERN, "")
     .split(/\n\s*\n/);
   for (const paragraph of paragraphs) {
     const statistic = /\b\d+(?:\.\d+)?\s*%|\b\$[\d,.]+\b/.test(paragraph);
@@ -346,6 +318,82 @@ function validateTraceabilityAndPrivacy(filename, body) {
 
 function normalized(value) {
   return typeof value === "string" ? value.trim().toLowerCase() : "";
+}
+
+function mermaidNodeLabels(chart) {
+  return [...chart.matchAll(
+    /\b[A-Za-z][\w-]*\s*(?:\["([^"]+)"\]|\[([^\]]+)\]|\{"([^"]+)"\}|\{([^}]+)\})/g,
+  )]
+    .map((match) => match.slice(1).find(Boolean)?.trim())
+    .filter(Boolean);
+}
+
+function validateEditorialPresentation(filename, data, body, mermaidChart) {
+  const errors = [];
+  if (RAW_MACHINE_METADATA_PATTERN.test(body)) {
+    errors.push(`${filename}: exposes machine metadata in buyer-facing article content.`);
+  }
+  if (/:\s*$/.test(String(data.excerpt || "").trim())) {
+    errors.push(`${filename}: excerpt ends with an incomplete colon.`);
+  }
+  if (
+    /^(?:##|###)\s+(?:Problem framing|Evidence boundary)\s*$/im.test(body) ||
+    /Authoritative source\s+\d+/i.test(body)
+  ) {
+    errors.push(`${filename}: contains internal or generic editorial scaffolding.`);
+  }
+
+  const tableRows = body.split(/\r?\n/).filter((line) => /^\s*\|.*\|\s*$/.test(line));
+  if (tableRows.some((line) => line.split("|").length - 2 > 7)) {
+    errors.push(`${filename}: buyer-facing Markdown tables may not exceed seven columns.`);
+  }
+
+  const image = String(data.image || "").trim();
+  if (
+    !image ||
+    /(?:\/og\/default|gradient-fallback|cover-photo|facebook)/i.test(image)
+  ) {
+    errors.push(`${filename}: generated content requires a relevant, non-fallback hero image.`);
+  }
+  if (!/^https:\/\/www\.pexels\.com\/photo\//i.test(String(data.imageSource || ""))) {
+    errors.push(`${filename}: generated hero image requires a traceable Pexels photo-page source.`);
+  }
+  if (image.startsWith("/")) {
+    const imagePath = path.join(process.cwd(), "public", image.replace(/^\/+/, ""));
+    if (!fs.existsSync(imagePath)) {
+      errors.push(`${filename}: local hero image does not exist at ${image}.`);
+    }
+  }
+
+  if (mermaidChart) {
+    const labels = mermaidNodeLabels(mermaidChart);
+    const genericLabels = new Set([
+      "operational trigger",
+      "validate required inputs",
+      "business rules satisfied?",
+      "execute system actions",
+      "route exception to owner",
+      "update source of truth",
+    ]);
+    if (new Set(labels.map(normalized)).size < 5) {
+      errors.push(`${filename}: Mermaid workflow requires at least five distinct labeled stages.`);
+    }
+    if (labels.some((label) => genericLabels.has(normalized(label)))) {
+      errors.push(`${filename}: Mermaid workflow uses generic placeholder labels.`);
+    }
+  }
+
+  if ((data.cohorts || []).map(normalized).includes("childrens_activities")) {
+    const opening = `${data.title || ""} ${data.excerpt || ""} ${markdownToWords(body).slice(0, 250).join(" ")}`;
+    const businessTypes = opening.match(
+      /\b(?:dance studios?|gymnastics gyms?|swim schools?|martial arts academ(?:y|ies)|camps?|music schools?|tutoring programs?|enrichment programs?)\b/gi,
+    ) || [];
+    if (new Set(businessTypes.map(normalized)).size < 2 || !/parent|guardian|family/i.test(opening)) {
+      errors.push(`${filename}: children’s-activity content must immediately define the business audience and family-account context.`);
+    }
+  }
+
+  return errors;
 }
 
 export function topicFingerprint(article) {
@@ -437,14 +485,15 @@ export function validateGeneratedArticle(article, corpus = []) {
     errors.push(`${filename}: Mermaid diagram uses unsafe or unsupported syntax.`);
   }
 
-  const hasRoiScenarios = ["low", "base", "high"].every((scenario) =>
-    new RegExp(`^\\|[^\\n]*${scenario}[^\\n]*\\|`, "im").test(body),
+  errors.push(...validateRoiModel(filename, data, body));
+  errors.push(
+    ...validateEditorialPresentation(
+      filename,
+      data,
+      body,
+      mermaidBlocks.length === 1 ? mermaidBlocks[0][1] : "",
+    ),
   );
-  if (!hasRoiScenarios) {
-    errors.push(`${filename}: ROI table must include low, base, and high rows.`);
-  }
-
-  errors.push(...validateRoiModel(filename, body));
 
   if (!/\billustrative\b/i.test(body)) {
     errors.push(`${filename}: ROI example must be labeled illustrative.`);
