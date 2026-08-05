@@ -16,6 +16,10 @@ function money(value: number) {
 
 function ScenarioCard({ scenario }: { scenario: RoiScenario }) {
   const isBase = scenario.name === "base";
+  const payback =
+    scenario.first_year_net < 0
+      ? "Not reached in year one"
+      : `${number.format(scenario.payback_months)} months`;
   const assumptions = [
     ["Customer handoffs / month", number.format(scenario.transactions_per_month)],
     ["Minutes removed / handoff", number.format(scenario.minutes_saved_per_transaction)],
@@ -88,7 +92,7 @@ function ScenarioCard({ scenario }: { scenario: RoiScenario }) {
         </Box>
 
         <Grid container spacing={2}>
-          <Grid size={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Typography variant="caption" sx={{ color: "text.secondary", display: "block" }}>
               First-year net
             </Typography>
@@ -96,12 +100,12 @@ function ScenarioCard({ scenario }: { scenario: RoiScenario }) {
               {money(scenario.first_year_net)}
             </Typography>
           </Grid>
-          <Grid size={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Typography variant="caption" sx={{ color: "text.secondary", display: "block" }}>
               Payback
             </Typography>
             <Typography sx={{ mt: 0.4, fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>
-              {number.format(scenario.payback_months)} months
+              {payback}
             </Typography>
           </Grid>
         </Grid>
@@ -121,7 +125,7 @@ export function RoiSensitivity({ model }: { model: RoiModel }) {
         ))}
       </Grid>
       <Typography variant="caption" sx={{ display: "block", mt: 2.5, color: "text.secondary", lineHeight: 1.6 }}>
-        Illustrative planning estimates, not client results or a performance guarantee. First-year net subtracts implementation and twelve months of upkeep. Payback uses monthly benefit after upkeep.
+        Illustrative planning estimates, not client results or a performance guarantee. First-year net subtracts implementation and twelve months of upkeep. Payback uses monthly benefit after upkeep; a negative first-year net is shown as not reached in year one.
       </Typography>
     </Box>
   );
