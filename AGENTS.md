@@ -199,8 +199,11 @@ fields defined in `src/content.config.ts`, one Mermaid workflow, disclosed
 low/base/high ROI assumptions, three to six valid sources, and the Workflow
 Bottleneck Review offer. `npm run validate:content` enforces the content
 contract, privacy and fake-case-study checks, deterministic ROI math, required
-sections, and novelty thresholds. `npm run validate:content-outputs` verifies
-feeds, sitemap, robots, and OG build artifacts.
+sections, novelty thresholds, and Mermaid compilation in a JSDOM-backed Node
+environment. Keep `jsdom` as a direct development dependency; without it,
+Mermaid's sanitizer cannot perform a real CI parse. `npm run
+validate:content-outputs` verifies feeds, sitemap, robots, and OG build
+artifacts.
 
 Social publication is opportunity-driven and must not be restored to GitHub
 diff polling. Provider success requires Mixpost `published_at` plus a provider

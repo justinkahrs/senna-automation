@@ -6,6 +6,7 @@ import {
   parseBlogFile,
   validateGeneratedArticle,
   validateGeneratedPortfolio,
+  validateMermaidSyntax,
 } from "../scripts/validate-blog-content.mjs";
 
 function generatedArticle(overrides = {}) {
@@ -120,6 +121,20 @@ ${filler}
 test("generated article contract accepts a complete workflow guide", () => {
   const article = generatedArticle();
   assert.deepEqual(validateGeneratedArticle(article, []), []);
+});
+
+test("Mermaid validation compiles generated flowcharts in Node", async () => {
+  assert.deepEqual(await validateMermaidSyntax([generatedArticle()]), []);
+  const invalid = generatedArticle({
+    filename: "invalid-mermaid.md",
+    body: generatedArticle().body.replace(
+      "A[Request] --> B{Rules}",
+      "A[Request] --> B{Rules",
+    ),
+  });
+  assert.deepEqual(await validateMermaidSyntax([invalid]), [
+    "invalid-mermaid.md: Mermaid workflow does not compile.",
+  ]);
 });
 
 test("similarity detector rejects repeated framing above the threshold", () => {
