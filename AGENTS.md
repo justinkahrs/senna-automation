@@ -181,8 +181,8 @@ articles, opens website PRs, waits for Vercel HTTP success, and then distributes
 independent social assets through Mixpost and HyperFrames.
 
 Production delivery is enabled for immutable infra rollout
-`a8abe39fd8a529962a4fafbceaa642ea951bbef6dfd1183c790996cafcd4c600` as of
-August 5, 2026. Website and company-social gates are open; Mautic publication,
+`0266d60f3145bee1a505545a786a5032bb9a327710321f8510db27207e84241e` as of
+August 6, 2026. Website and company-social gates are open; Mautic publication,
 sync, enrollment, sending, outreach, and paid-media gates remain closed. The
 accepted replay, activation journal, closed-gate cycle, and provider repair
 records are documented in `~/Projects/infra/AGENTS.md` and
@@ -235,8 +235,12 @@ mobile table, and failed to define the children’s-activity audience. The
 same-day repair retitled it “How Children’s Activity Businesses Can Stop Losing
 Customer Handoffs,” added immediate business/family-account context, a credited
 Pexels photo, visible workflow labels with fallback behavior, and responsive ROI
-cards. This one-off repair does not alter the recurring schedule or trigger
-article-diff social promotion.
+cards. Website PR 136 contains that repair; PR 137 presents a negative
+first-year case as “Not reached in year one” and stacks the result metrics at
+mobile widths. Production browser QA at 1,440 px and 390 px confirmed a visible
+workflow SVG, no horizontal overflow, and no console warnings. This one-off
+repair does not alter the recurring schedule or trigger article-diff social
+promotion.
 
 The publisher sends no-cache GitHub requests and reconciles the branch head
 from the created PR's authoritative `head.sha`. Release checks use the n8n 2.x

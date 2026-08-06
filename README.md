@@ -130,13 +130,16 @@ diagram-label, and mobile table-width checks. Generated ROI data lives in
 structured frontmatter and renders as responsive scenario cards.
 
 Production content and company-social delivery is enabled on infra rollout
-`a8abe39fd8a529962a4fafbceaa642ea951bbef6dfd1183c790996cafcd4c600` as of
-August 5, 2026. Mautic publication/sending, outbound outreach, and paid media
+`0266d60f3145bee1a505545a786a5032bb9a327710321f8510db27207e84241e` as of
+August 6, 2026. Mautic publication/sending, outbound outreach, and paid media
 remain disabled. Closed setup PRs 128–130 and 133 are quarantined fixtures; PR
 131 is the accepted generated-Mermaid validation repair. PR 134 is the first
 live autonomous article; its initial presentation defects prompted the v3
 contract and a same-day article repair covering hero relevance, contextual
-framing, labeled Mermaid output, and mobile ROI presentation.
+framing, labeled Mermaid output, and mobile ROI presentation in PR 136. PR 137
+presents a negative first-year ROI case as “Not reached in year one.” Rendered
+desktop and 390 px browser checks confirm the workflow and responsive ROI
+cards without horizontal overflow.
 
 ## Deployment
 

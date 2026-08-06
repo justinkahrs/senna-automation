@@ -58,9 +58,9 @@ buyer-facing table.
 
 ## Runtime Status
 
-Production content and company-social delivery is enabled as of August 5, 2026
+Production content and company-social delivery is enabled as of August 6, 2026
 for immutable infra rollout
-`a8abe39fd8a529962a4fafbceaa642ea951bbef6dfd1183c790996cafcd4c600`.
+`0266d60f3145bee1a505545a786a5032bb9a327710321f8510db27207e84241e`.
 The accepted no-publish replay and live closed-gate cycle completed before the
 content gates opened. Mautic publication, sync, enrollment, sending, outreach,
 and paid-media gates remain disabled.
@@ -73,7 +73,10 @@ Graph output passed public verification. Its initial presentation defects were
 then repaired in place without changing the publication date: buyer context was
 made explicit, the default cover was replaced with a credited Pexels image,
 Mermaid labels were restored, and the ROI output became responsive cards. The
-one-off retry and repair did not change the recurring cadence or revive
+accepted repairs are website PRs 136 and 137. Production browser QA at 1,440 px
+and 390 px confirmed a populated workflow, stacked ROI scenarios, no horizontal
+overflow, and no console warnings. The one-off retry and repair did not change
+the recurring cadence or revive
 GitHub-diff social polling. Existing article dates were not changed and the
 setup fixtures must not be treated as releases.
 
