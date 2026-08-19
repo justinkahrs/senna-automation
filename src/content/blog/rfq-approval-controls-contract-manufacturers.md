@@ -85,7 +85,7 @@ The sections below focus on the practical mechanics of RFQ approval controls: wh
 
 ## Why RFQ approvals break down in contract manufacturing teams
 
-RFQ approvals usually break down for predictable reasons. The first is version drift: a quote gets revised, but the approving leader sees an earlier draft or a forwarded attachment with no clear lineage. The second is role ambiguity: estimators, vendors, production leaders, and account owners all think someone else is responsible for the sign-off. The third is exception sprawl: discounts, late customer changes, or missing cost inputs are handled ad hoc, so the final quote may be approved without a consistent record of why it changed.
+RFQ approvals usually break down for predictable reasons. The first is version drift: a quote gets revised, but the approving leader sees an earlier draft or a forwarded attachment with no clear lineage. The second is role ambiguity: estimators, production leaders, and account owners all think someone else is responsible for the sign-off. The third is exception sprawl: discounts, late customer changes, or missing cost inputs are handled ad hoc, so the final quote may be approved without a consistent record of why it changed.
 
 In contract manufacturing, these issues are amplified because quotes are not isolated documents. They often connect customer specs, costed quote assumptions, supplier input, and the eventual production plan. If the approval step does not preserve that chain, the team may still close the RFQ, but it will struggle later when someone asks why the price was accepted or whether the quoted scope matched the released work.
 
@@ -103,7 +103,7 @@ Ownership should be explicit at each stage. The quoting manager should confirm r
 
 A useful workflow is deterministic: a new RFQ enters the queue, the system evaluates the required review path, and the quote moves forward only when the rule conditions are satisfied. The inputs usually include RFQ details, the costed quote, customer specs, and revision history. Those inputs should not live in separate places if the organization expects reliable routing.
 
-At a minimum, the workflow should route to the right approver, record the approval decision, notify the next owner, and release the quote to the vendor only after approval is complete. Approved quotes should lock the version so later edits do not overwrite the decision that was already made. If a new revision is required, the system should create a fresh approval cycle rather than silently altering the record.
+At a minimum, the workflow should route to the right approver, record the approval decision, notify the next owner, and release the approved quote to the customer-facing owner only after approval is complete. Approved quotes should lock the version so later edits do not overwrite the decision that was already made. If a new revision is required, the system should create a fresh approval cycle rather than silently altering the record.
 
 This is also where pricing rules matter. If a price change needs review, the workflow should detect it and pause for sign-off. If an over-limit discount appears, the quote should not slip through on a side conversation. A controlled workflow can still be flexible, but flexibility should happen through rules, not memory.
 
@@ -149,7 +149,7 @@ Required inputs:
 - Route to approver.
 - Record approval decision.
 - Notify next owner.
-- Release quote to vendor.
+- Release approved quote to the customer-facing owner.
 
 ### Exception handling
 
@@ -186,10 +186,10 @@ Labor savings move with transaction volume, minutes removed from each handoff, a
 
 These public sources support the operating context. The workflow recommendations are Senna Automation's analysis, and the ROI scenarios are illustrative planning estimates.
 
-- [proshoperp.com](https://proshoperp.com/product/estimating-quoting/): Book a Call From Quote to Production Without the Guesswork Automate quotes with real shop-floor data, apply dynamic pricing rules, and convert to work orders in one click.
-- [bls.gov](https://www.bls.gov/oes/2023/may/oes519199.htm): 41 Annual Wage (2) $ 29,220 $ 33,070 $ 37,430 $ 46,520 $ 59,090 Industry profile for Production Workers, All Other: Industries with the highest published employment and wages for Production Workers, All Other are provided.
+- [proshoperp.com](https://proshoperp.com/product/estimating-quoting/): ProShop describes estimating and quoting software that automates quotes with shop-floor data, applies pricing rules, and converts approved quotes to work orders.
+- [bls.gov](https://www.bls.gov/oes/2023/may/oes519199.htm): The BLS occupational profile for production workers provides wage context for manufacturing labor assumptions.
 - [bls.gov](https://www.bls.gov/careeroutlook/2026/article/manufacturing.htm): Among the industries in table 2, aerospace product and parts manufacturing had the highest median annual wage in 2024 of $91,630, the third-highest pay of all manufacturing industries.
-- [bls.gov](https://www.bls.gov/oes/current/oessrci.htm): May 2025 National Industry-Specific Occupational Employment and Wage Estimates.
+- [bls.gov](https://www.bls.gov/oes/current/oessrci.htm): BLS industry-specific occupational employment and wage estimates provide a public reference point for manufacturing workforce cost context.
 
 ## Review this bottleneck with your own numbers
 
