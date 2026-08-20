@@ -24,6 +24,7 @@ interface PortalUploadFormProps {
   displayName: string;
   email: string;
   role: "admin" | "client";
+  presentation?: "standalone" | "workspace";
 }
 
 function parseFilenameFromDisposition(value: string | null) {
@@ -112,6 +113,21 @@ const opportunityTypeOptions = [
   { value: "crm-integration", label: "CRM Integration" },
 ];
 
+const proposalWorkflowSteps = [
+  {
+    label: "Source PDF",
+    detail: "Original RFP and issuer context",
+  },
+  {
+    label: "Commercial scope",
+    detail: "Pricing, support, staffing, and exclusions",
+  },
+  {
+    label: "Final package",
+    detail: "Async n8n job with downloadable PDF",
+  },
+];
+
 function parseMultilineList(value: string) {
   return value
     .split("\n")
@@ -123,7 +139,9 @@ export function PortalUploadForm({
   displayName,
   email,
   role,
+  presentation = "standalone",
 }: PortalUploadFormProps) {
+  const isWorkspacePresentation = presentation === "workspace";
   const activeJobStorageKey = getActiveJobStorageKey(email);
   const [file, setFile] = useState<File | null>(null);
   const [opportunityTitle, setOpportunityTitle] = useState("");
@@ -556,16 +574,29 @@ export function PortalUploadForm({
     }
   };
 
+  const formSectionSx = isWorkspacePresentation
+    ? {
+        p: { xs: 2, md: 2.5 },
+        border: "1px solid",
+        borderColor: "divider",
+        borderRadius: "10px",
+        bgcolor: "rgba(248,247,249,0.52)",
+      }
+    : undefined;
+
   return (
     <Paper
       elevation={0}
       sx={{
-        p: { xs: 3, md: 4 },
-        borderRadius: "28px",
+        p: isWorkspacePresentation ? { xs: 2.5, md: 3 } : { xs: 3, md: 4 },
+        borderRadius: isWorkspacePresentation ? "12px" : "28px",
         border: "1px solid var(--color-border-soft)",
-        background:
-          "linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,247,249,0.98) 100%)",
-        boxShadow: "0 24px 80px rgba(24, 25, 37, 0.08)",
+        background: isWorkspacePresentation
+          ? "rgba(255,255,255,0.96)"
+          : "linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,247,249,0.98) 100%)",
+        boxShadow: isWorkspacePresentation
+          ? "0 18px 60px rgba(24, 25, 37, 0.06)"
+          : "0 24px 80px rgba(24, 25, 37, 0.08)",
       }}
     >
       <Stack spacing={3.5} component="form" onSubmit={handleSubmit}>
@@ -574,12 +605,13 @@ export function PortalUploadForm({
           spacing={2}
           sx={{
             justifyContent: "space-between",
-            alignItems: { xs: "flex-start", md: "center" }
-          }}>
+            alignItems: { xs: "flex-start", md: "center" },
+          }}
+        >
           <Box>
             <Stack direction="row" spacing={1} sx={{ mb: 1.5 }}>
               <Chip
-                label="Portal"
+                label={isWorkspacePresentation ? "Proposal studio" : "Portal"}
                 sx={{
                   bgcolor: "rgba(143, 0, 107, 0.08)",
                   color: "var(--color-accent)",
@@ -595,28 +627,79 @@ export function PortalUploadForm({
                   letterSpacing: "0.08em",
                 }}
               />
+              {isWorkspacePresentation ? (
+                <Chip
+                  label="n8n final PDF job"
+                  variant="outlined"
+                  sx={{ borderColor: "var(--color-border-soft)" }}
+                />
+              ) : null}
             </Stack>
-            <Typography variant="h3" sx={{ mb: 1 }}>
-              Upload an RFP PDF
+            <Typography
+              variant={isWorkspacePresentation ? "h4" : "h3"}
+              sx={{ mb: 1 }}
+            >
+              {isWorkspacePresentation
+                ? "Build a final proposal package"
+                : "Upload an RFP PDF"}
             </Typography>
             <Typography variant="body1" sx={{ color: "var(--color-text-secondary)" }}>
-              Signed in as {displayName} ({email}). The file posts directly to
-              the Senna n8n workflow after the website issues a short-lived
-              upload token.
+              {isWorkspacePresentation
+                ? `Submitted as ${displayName} (${email}). The source file and commercial context travel together in the v2 payload.`
+                : `Signed in as ${displayName} (${email}). The file posts directly to the Senna n8n workflow after the website issues a short-lived upload token.`}
             </Typography>
           </Box>
-          <Stack direction={{ xs: "column", sm: "row" }} spacing={1.25}>
-            <Button
-              href="/portal/rfp-preview"
-              variant="outlined"
-              startIcon={<VisibilityOutlinedIcon />}
-              sx={{ borderRadius: "999px" }}
-            >
-              Open layout preview
-            </Button>
-            <PortalSignOutButton />
-          </Stack>
+          {isWorkspacePresentation ? null : (
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={1.25}>
+              <Button
+                href="/portal/rfp-preview"
+                variant="outlined"
+                startIcon={<VisibilityOutlinedIcon />}
+                sx={{ borderRadius: "999px" }}
+              >
+                Open layout preview
+              </Button>
+              <PortalSignOutButton />
+            </Stack>
+          )}
         </Stack>
+
+        {isWorkspacePresentation ? (
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+              border: "1px solid",
+              borderColor: "divider",
+              borderRadius: "10px",
+              overflow: "hidden",
+              bgcolor: "rgba(248,247,249,0.62)",
+            }}
+          >
+            {proposalWorkflowSteps.map((step, index) => (
+              <Box
+                key={step.label}
+                sx={{
+                  p: 2,
+                  borderLeft: {
+                    xs: 0,
+                    md: index === 0 ? 0 : "1px solid",
+                  },
+                  borderTop: {
+                    xs: index === 0 ? 0 : "1px solid",
+                    md: 0,
+                  },
+                  borderColor: "divider",
+                }}
+              >
+                <Typography sx={{ fontWeight: 800 }}>{step.label}</Typography>
+                <Typography variant="body2" sx={{ color: "text.secondary", mt: 0.5 }}>
+                  {step.detail}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        ) : null}
 
         {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
         {successMessage ? <Alert severity="success">{successMessage}</Alert> : null}
@@ -642,13 +725,13 @@ export function PortalUploadForm({
           </Alert>
         ) : null}
 
-        <Stack spacing={1.5}>
-          <Typography variant="h6">RFP PDF</Typography>
+        <Stack spacing={1.5} sx={formSectionSx}>
+          <Typography variant="h6">Source document</Typography>
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={1.5}
             sx={{
-              alignItems: { xs: "stretch", sm: "center" }
+              alignItems: { xs: "stretch", sm: "center" },
             }}
           >
             <Button
@@ -666,7 +749,7 @@ export function PortalUploadForm({
               />
             </Button>
             <Stack direction="row" spacing={1} sx={{
-              alignItems: "center"
+              alignItems: "center",
             }}>
               <ArticleIcon sx={{ color: "var(--color-accent)" }} />
               <Typography variant="body2" sx={{ color: "var(--color-text-secondary)" }}>
@@ -676,7 +759,8 @@ export function PortalUploadForm({
           </Stack>
         </Stack>
 
-        <Stack spacing={2}>
+        <Stack spacing={2} sx={formSectionSx}>
+          <Typography variant="h6">Opportunity context</Typography>
           <TextField
             label="Opportunity Title"
             value={opportunityTitle}
@@ -702,8 +786,8 @@ export function PortalUploadForm({
           />
         </Stack>
 
-        <Stack spacing={2}>
-          <Typography variant="h6">Commercial Inputs</Typography>
+        <Stack spacing={2} sx={formSectionSx}>
+          <Typography variant="h6">Commercial scope</Typography>
           <Alert severity="info">
             Exact pricing is optional here, but final-ready output should use
             either exact values or the selected budgetary profile.
@@ -784,8 +868,8 @@ export function PortalUploadForm({
           </Stack>
         </Stack>
 
-        <Stack spacing={2}>
-          <Typography variant="h6">Support And Delivery Inputs</Typography>
+        <Stack spacing={2} sx={formSectionSx}>
+          <Typography variant="h6">Support and delivery</Typography>
           <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
             <TextField
               label="Basic Support"
@@ -843,8 +927,9 @@ export function PortalUploadForm({
           spacing={1.5}
           sx={{
             justifyContent: "space-between",
-            alignItems: { xs: "stretch", sm: "center" }
-          }}>
+            alignItems: { xs: "stretch", sm: "center" },
+          }}
+        >
           <Typography
             variant="body2"
             sx={{ color: "var(--color-text-muted)", maxWidth: 540 }}
