@@ -264,6 +264,39 @@ Do not change live automation from this repo. Update the generator and pinned
 rollout in `~/Projects/infra`, run its replay/audit controls, and verify live
 workflow, provider, and attribution state.
 
+## Header Contrast Contract
+
+Every active Astro page using `RouteShell` must declare `heroSurface="light"`
+or `heroSurface="dark"` to describe its actual hero. This is a contrast setting,
+not permission to make the navbar transparent. `headerMode` defaults to `solid`:
+an opaque paper/white navbar with dark logo/navigation/menu colors, even over a
+dark hero. Solid mode uses the compact toolbar at the top as well as after
+scrolling so it does not cover content padded for a standard navbar. Ads, forms,
+portal, legal, and ordinary light pages use this default.
+
+Use `headerMode="hero-overlay"` only when the page intentionally places the
+navbar over a continuous hero background with enough top padding and readable
+contrast at both desktop and mobile widths. Existing editorial, service, and
+local SEO heroes explicitly opt in. Overlay is allowed only at the top
+(`scrollY <= 8`) with the mobile menu closed. Scrolling or opening the menu
+immediately uses an opaque white background and dark foreground; returning to
+the top restores overlay only for opted-in routes. Never use translucent white
+or blur as a substitute for the opaque state, or animate background/foreground
+through mismatched contrast states.
+
+The settings flow through `HeaderFrame` to `AppBar`; `headerAppearance.ts` owns
+the state rule. Do not infer appearance from URL lists, pathname exceptions,
+hero color alone, or separately maintained route lists. Missing/invalid hero
+settings and invalid modes fail rendering. Shared page templates declare the
+settings once for all their generated routes. New routes stay solid unless an
+intentional hero overlay is explicitly reviewed.
+
+When changing a hero or header mode, update the route in the same patch. Run
+`node --test tests/header-appearance.test.mjs` and browser-check desktop/mobile
+at the top, after scrolling, after returning to the top, and with the mobile
+menu open. Include an ads route and an opted-in hero route; check actual computed
+background opacity and foreground colors, not only screenshots.
+
 ## Conversion And Analytics Reality
 
 Umami is a useful directional signal, not a clean lead ledger. Client-side

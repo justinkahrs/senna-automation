@@ -31,7 +31,7 @@ const ogImageUrl = new URL(`${canonicalUrl}/opengraph-image.png`);
 ogImageUrl.searchParams.set("v", BLOG_OG_IMAGE_VERSION);
 ---
 
-<RouteShell
+<RouteShell headerMode="hero-overlay" heroSurface="dark"
   metadata={{
     title: post.title,
     description: post.excerpt,

@@ -4,6 +4,6 @@ import AboutRouteClient from "@/components/app/routes/AboutRouteClient";
 import { metadata } from "@/site/pages/about";
 ---
 
-<RouteShell metadata={metadata} pathname="/about">
+<RouteShell headerMode="hero-overlay" heroSurface="dark" metadata={metadata} pathname="/about">
   <AboutRouteClient client:load pathname="/about" />
 </RouteShell>

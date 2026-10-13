@@ -15,6 +15,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import ScheduleCallButton from "../ScheduleCallButton";
 import { Logo } from "./Logo";
+import { getHeaderAppearance, type HeaderMode, type HeaderSurface } from "./headerAppearance";
 import { usePathname } from "@/compat/next/navigation";
 import { trackNavLink, trackContactLink } from "@/utils/analytics";
 import {
@@ -30,32 +31,27 @@ const NAV_LINKS = [
   { label: "Blog", href: "/blog" },
 ];
 
-const localSeoDarkHeroPaths = new Set([
-  "/ai-consulting-grand-rapids",
-  "/ai-automation-grand-rapids",
-  "/workflow-automation-consultant-grand-rapids",
-]);
+export type { HeaderMode, HeaderSurface } from "./headerAppearance";
 
-const hasDarkHeroHeader = (pathname: string) =>
-  localSeoDarkHeroPaths.has(pathname) ||
-  pathname === "/about" ||
-  pathname === "/blog" ||
-  pathname.startsWith("/blog/") ||
-  pathname === "/services" ||
-  pathname === "/solutions";
-
-export function AppBar() {
+// The page owns its hero surface. URLs only determine active navigation.
+export function AppBar({ heroSurface, headerMode = "solid" }: {
+  heroSurface: HeaderSurface;
+  headerMode?: HeaderMode;
+}) {
   const pathname = usePathname();
 
   const [mobileMenuAnchorEl, setMobileMenuAnchorEl] =
     useState<null | HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [hasPrivacyDecision, setHasPrivacyDecision] = useState(false);
-  const usesDarkHeroHeader = hasDarkHeroHeader(pathname);
-  const isDarkHeader = usesDarkHeroHeader && !scrolled;
+  const isOpen = Boolean(mobileMenuAnchorEl);
+  const { isOverlay, isDarkHeader } = getHeaderAppearance({
+    heroSurface, headerMode, scrolled, menuOpen: isOpen,
+  });
+  const isCompact = scrolled || headerMode === "solid";
   const navTextColor = isDarkHeader
     ? "var(--color-bg-subtle)"
-    : "text.secondary";
+    : "text.primary";
   const navHoverBg = isDarkHeader
     ? "rgba(255, 255, 255, 0.08)"
     : "var(--color-bg-neutral-hover)";
@@ -77,7 +73,11 @@ export function AppBar() {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("pageshow", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("pageshow", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -99,19 +99,21 @@ export function AppBar() {
     setMobileMenuAnchorEl(null);
   };
 
-  const isOpen = Boolean(mobileMenuAnchorEl);
-
   return (
     <MUIAppBar
+      data-header-mode={headerMode}
+      data-header-overlay={String(isOverlay)}
+      data-hero-surface={heroSurface}
+      data-header-surface={isDarkHeader ? "dark" : "light"}
       position="fixed"
       elevation={0}
       sx={{
-        backgroundColor: scrolled ? "rgba(255, 255, 255, 0.94)" : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
+        backgroundColor: isOverlay ? "transparent" : "var(--color-bg-paper)",
+        backgroundImage: "none",
         borderBottom: "none",
         boxShadow: scrolled ? "var(--shadow-appbar)" : "var(--shadow-none)",
         transition:
-          "background-color var(--dur-moderate) ease, backdrop-filter var(--dur-moderate) ease, border-color var(--dur-moderate) ease, box-shadow var(--dur-moderate) ease",
+          "box-shadow var(--dur-moderate) ease",
         top: 0,
         left: 0,
         right: 0,
@@ -123,8 +125,8 @@ export function AppBar() {
           maxWidth: 1440,
           mx: "auto",
           px: { xs: 2, md: 4 },
-          minHeight: scrolled ? "64px !important" : "112px !important",
-          py: scrolled ? 0.5 : 3.5,
+          minHeight: isCompact ? "64px !important" : "112px !important",
+          py: isCompact ? 0.5 : 3.5,
           transition: "min-height 0.4s ease, padding 0.4s ease",
           gap: 2,
         }}
@@ -141,7 +143,7 @@ export function AppBar() {
               logoFontColor={logoColor}
               logoIconColor={logoColor}
               sx={{
-                height: scrolled ? 56 : 80,
+                height: isCompact ? 56 : 80,
                 cursor: "pointer",
                 transition: "height 0.4s ease, opacity var(--dur-base) ease",
                 "&:hover": { opacity: 0.8 },
@@ -185,7 +187,7 @@ export function AppBar() {
                     color: navHoverColor,
                   },
                   transition:
-                    "color var(--dur-base) ease, background-color var(--dur-base) ease",
+                    "background-color var(--dur-base) ease",
                 }}
                 onClick={() => trackNavLink(href, label)}
               >

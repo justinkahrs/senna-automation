@@ -7,6 +7,6 @@ import { getAllBlogPostsFromContent } from "@/utils/astro-blog";
 const blogPosts = await getAllBlogPostsFromContent();
 ---
 
-<RouteShell metadata={metadata} pathname="/blog">
+<RouteShell headerMode="hero-overlay" heroSurface="dark" metadata={metadata} pathname="/blog">
   <BlogIndexRouteClient client:load pathname="/blog" blogPosts={blogPosts} />
 </RouteShell>
