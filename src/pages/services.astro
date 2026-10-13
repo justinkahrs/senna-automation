@@ -4,6 +4,6 @@ import ServicesRouteClient from "@/components/app/routes/ServicesRouteClient";
 import { metadata } from "@/site/pages/services";
 ---
 
-<RouteShell metadata={metadata} pathname="/services">
+<RouteShell headerMode="hero-overlay" heroSurface="dark" metadata={metadata} pathname="/services">
   <ServicesRouteClient client:load pathname="/services" />
 </RouteShell>

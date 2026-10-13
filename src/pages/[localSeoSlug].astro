@@ -44,6 +44,6 @@ const metadata: RouteMetadata = {
 };
 ---
 
-<RouteShell metadata={metadata} pathname={`/${page.slug}`}>
+<RouteShell headerMode="hero-overlay" heroSurface="dark" metadata={metadata} pathname={`/${page.slug}`}>
   <LocalSeoRouteClient client:load pathname={`/${page.slug}`} page={page} />
 </RouteShell>

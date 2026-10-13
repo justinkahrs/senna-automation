@@ -15,6 +15,6 @@ const latestPost = posts[0]
   : null;
 ---
 
-<RouteShell metadata={metadata} pathname="/">
+<RouteShell heroSurface="light" metadata={metadata} pathname="/">
   <HomeRouteClient client:load pathname="/" latestPost={latestPost} />
 </RouteShell>

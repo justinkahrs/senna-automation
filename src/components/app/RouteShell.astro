@@ -2,20 +2,30 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import FooterFrame from "@/components/app/FooterFrame";
 import HeaderFrame from "@/components/app/HeaderFrame";
+import type { HeaderMode, HeaderSurface } from "@/components/layout/AppBar";
 import type { RouteMetadata } from "@/utils/metadata";
 
 interface Props {
   metadata?: RouteMetadata;
   pathname: string;
+  heroSurface: HeaderSurface;
+  headerMode?: HeaderMode;
   hideChat?: boolean;
   contentId?: string;
 }
 
-const { metadata, pathname, hideChat = false, contentId } = Astro.props;
+const { metadata, pathname, heroSurface, headerMode = "solid", hideChat = false, contentId } = Astro.props;
+// Fail during rendering/build rather than silently shipping an unreadable header.
+if (heroSurface !== "light" && heroSurface !== "dark") {
+  throw new Error(`RouteShell requires a light or dark heroSurface for ${pathname}`);
+}
+if (headerMode !== "solid" && headerMode !== "hero-overlay") {
+  throw new Error(`Invalid headerMode for ${pathname}: ${headerMode}`);
+}
 ---
 
 <BaseLayout metadata={metadata} hideChat={hideChat} contentId={contentId}>
-  <HeaderFrame client:load pathname={pathname} />
+  <HeaderFrame client:load pathname={pathname} heroSurface={heroSurface} headerMode={headerMode} />
   <main
     style={{
       minHeight: "100vh",

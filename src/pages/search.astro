@@ -10,7 +10,7 @@ const query = Astro.url.searchParams.get("q")?.trim() ?? "";
 const results = searchSiteContent(query);
 ---
 
-<RouteShell metadata={metadata} pathname="/search">
+<RouteShell headerMode="hero-overlay" heroSurface="dark" metadata={metadata} pathname="/search">
   <MuiProviders>
     <SearchPage query={query} results={results} />
   </MuiProviders>
