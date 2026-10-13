@@ -282,7 +282,10 @@ local SEO heroes explicitly opt in. Overlay is allowed only at the top
 immediately uses an opaque white background and dark foreground; returning to
 the top restores overlay only for opted-in routes. Never use translucent white
 or blur as a substitute for the opaque state, or animate background/foreground
-through mismatched contrast states.
+through mismatched contrast states. Explicitly override shared-theme backdrop
+blur with `backdropFilter: "none"`; otherwise transparent headers blur hero text.
+The expanded toolbar must fit within 112 px (80 px logo plus 32 px padding),
+and hero content must start below it at both viewport sizes.
 
 The settings flow through `HeaderFrame` to `AppBar`; `headerAppearance.ts` owns
 the state rule. Do not infer appearance from URL lists, pathname exceptions,

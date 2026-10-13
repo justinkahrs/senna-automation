@@ -110,6 +110,8 @@ export function AppBar({ heroSurface, headerMode = "solid" }: {
       sx={{
         backgroundColor: isOverlay ? "transparent" : "var(--color-bg-paper)",
         backgroundImage: "none",
+        // The shared MUI theme adds blur; hero overlays must stay clear.
+        backdropFilter: "none",
         borderBottom: "none",
         boxShadow: scrolled ? "var(--shadow-appbar)" : "var(--shadow-none)",
         transition:
@@ -126,7 +128,7 @@ export function AppBar({ heroSurface, headerMode = "solid" }: {
           mx: "auto",
           px: { xs: 2, md: 4 },
           minHeight: isCompact ? "64px !important" : "112px !important",
-          py: isCompact ? 0.5 : 3.5,
+          py: isCompact ? 0.5 : 2,
           transition: "min-height 0.4s ease, padding 0.4s ease",
           gap: 2,
         }}
