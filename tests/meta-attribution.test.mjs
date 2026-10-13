@@ -29,7 +29,7 @@ test('Signed persistence removes Meta data on denied consent and exclusion',asyn
  globalThis.fetch=async(_url,options)=>{received.push(JSON.parse(options.body));return new Response('{}',{status:202});};
  try {
   for(const [marketing,excluded] of [['denied',false],['granted',true],['granted',false]]){
-   const response=await handleAttribution(new Request('https://www.senna-automation.com/api/attribution',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({attributionId:'attr_12345678-1234-4234-9234-123456789abc',consent:{marketing},analyticsExcluded:excluded,firstTouch:{metaAttribution:{fbclid:'real_click'}},lastTouch:{metaAttribution:{fbclid:'real_click'}}})}));
+   const response=await handleAttribution(new Request('https://www.senna-automation.com/api/attribution',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({attributionId:'attr_12345678-1234-4234-9234-123456789abc',consent:{marketing,version:2},analyticsExcluded:excluded,firstTouch:{metaAttribution:{fbclid:'real_click'}},lastTouch:{metaAttribution:{fbclid:'real_click'}}})}));
    assert.equal(response.status,202);
   }
   assert.deepEqual(received[0].lastTouch.metaAttribution,{});

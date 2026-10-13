@@ -252,7 +252,7 @@ export function captureAttribution(
 ): AttributionState {
   const now = new Date().toISOString();
   const touch = parseAttributionTouch(window.location.href, options);
-  const metaAllowed = getConsentState().marketing === "granted" && !isAnalyticsExcluded();
+  const metaAllowed = getConsentState().version === 2 && getConsentState().marketing === "granted" && !isAnalyticsExcluded();
   const capturedMeta = captureMetaAttribution(window, metaAllowed);
   if (Object.keys(capturedMeta).length) touch.metaAttribution = capturedMeta;
   const sessionState = safeStorageRead(
@@ -375,7 +375,7 @@ export function attributionToLeadFields() {
     utm_campaign: touch.utm_campaign || "",
     utm_term: touch.utm_term || "",
     utm_content: touch.utm_content || "",
-    metaAttribution: normalizeMetaAttribution(touch.metaAttribution, getConsentState().marketing === "granted" && !isAnalyticsExcluded()),
+    metaAttribution: normalizeMetaAttribution(touch.metaAttribution, getConsentState().version === 2 && getConsentState().marketing === "granted" && !isAnalyticsExcluded()),
     analyticsExcluded: isAnalyticsExcluded(),
     clickIdType: clickIdentifier?.type || "",
     clickId: clickIdentifier?.value || "",

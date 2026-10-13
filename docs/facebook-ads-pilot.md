@@ -191,7 +191,10 @@ revoke provider consent. Unknown query parameters block loading. No noscript
 tracking image is installed. Server Lead and Schedule are implemented behind disabled gates. Qualification
 and payment delivery remain outside the initial adapter.
 
-Website production deployment and Pixel configuration remain pending. The
+PUBLIC_META_PIXEL_ID is configured for Production only. PR 143 was released,
+then held on the previous production build while explicit Meta disclosure and
+renewed consent were added. The follow-up release requires consent version 2;
+older Google consent does not authorize Meta capture or server events. The
 approved synthetic server Lead was accepted by the API and shown as Processed /
 Server in Events Manager, event ID senna-meta-test-20261013-acceptance. This test
 created no acquisition record and does not establish real conversion matching.
@@ -230,5 +233,7 @@ meta_enabled=false, meta_dry_run=true. Google retains $500 monthly / $16.44 dail
 limits and disabled spending controls. All 155 workflow pins and other running
 services are unchanged. The approved synthetic server test is Processed in Meta.
 Website code passed lint, build and 12 contract tests; service tests and temporary
-PostgreSQL migration/retry/consent replay passed. Website deployment and production
-browser acceptance remain pending Vercel sign-in.
+PostgreSQL migration/retry/consent replay passed. The public Pixel setting is installed. Production consent acceptance is recorded
+in the infra release receipt after the disclosure follow-up. Actual Meta URL
+macro expansion remains an owner-approved launch prerequisite; the parameter
+template and a substituted URL fixture were verified without ad publication.
