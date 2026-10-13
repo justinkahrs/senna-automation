@@ -71,7 +71,6 @@ export function initializeMetaPixel(
       browser.fbq = command;
       browser._fbq = command;
       command.push = command;
-      command("consent", "revoke");
       command("set", "autoConfig", false, pixelId);
       command("init", pixelId);
       const script = browser.document.createElement("script");
@@ -82,7 +81,14 @@ export function initializeMetaPixel(
       initialized = true;
     }
 
-    if (!granted) browser.fbq?.("consent", "grant");
+    if (!granted && browser.fbq) {
+      // The SDK stops draining its queue on revoke. A delayed re-grant must
+      // replace pending consent commands so the bootstrap cannot stay locked.
+      if (!browser.fbq.callMethod) {
+        browser.fbq.queue = browser.fbq.queue.filter((args) => args[0] !== "consent");
+      }
+      browser.fbq("consent", "grant");
+    }
     granted = true;
     const page = browser.location.href;
     if (lastPage !== page) {
