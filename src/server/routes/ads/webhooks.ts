@@ -1,3 +1,4 @@
+import { normalizeMetaAttribution } from "../../../utils/meta-attribution.ts";
 import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
 
 const MAX_LENGTHS = {
@@ -144,7 +145,7 @@ export function selectClickId(body: JsonRecord) {
   return null;
 }
 
-function normalizeTouch(value: unknown) {
+function normalizeTouch(value: unknown, metaAllowed = false) {
   const touch = isObject(value) ? value : {};
   const clickId = isObject(touch.clickId)
     ? {
@@ -154,6 +155,7 @@ function normalizeTouch(value: unknown) {
     : null;
 
   return {
+    metaAttribution: normalizeMetaAttribution(touch.metaAttribution, metaAllowed),
     utm_source: cleanString(touch.utm_source, MAX_LENGTHS.utm),
     utm_medium: cleanString(touch.utm_medium, MAX_LENGTHS.utm),
     utm_campaign: cleanString(touch.utm_campaign, MAX_LENGTHS.utm),
@@ -287,15 +289,16 @@ function requestFingerprint(request: Request) {
     : "";
 }
 
-function deriveAcquisitionChannel(body: JsonRecord, clickId: unknown) {
+export function deriveAcquisitionChannel(body: JsonRecord, clickId: unknown) {
   const medium = cleanString(body.utm_medium, MAX_LENGTHS.utm).toLowerCase();
   const source = cleanString(body.utm_source, MAX_LENGTHS.utm).toLowerCase();
   const referrer = cleanString(body.referrer, MAX_LENGTHS.referrer).toLowerCase();
+  if (["paid_social", "paid-social"].includes(medium)) return "paid_social";
   if (clickId || ["cpc", "ppc", "paid", "paid_search"].includes(medium)) {
     return "paid_search";
   }
   if (
-    ["social", "paid_social"].includes(medium) ||
+    ["social", "organic-social", "organic_social"].includes(medium) ||
     /(facebook|instagram|linkedin|twitter|x\.com|tiktok)/.test(source + referrer)
   ) {
     return "social";
@@ -374,13 +377,15 @@ export async function handleLeadSubmission(request: Request) {
     contactMethod,
     contactValue,
     attributionId: cleanString(body.attributionId, MAX_LENGTHS.attributionId),
-    firstTouch: normalizeTouch(body.firstTouch),
-    lastTouch: normalizeTouch(body.lastTouch),
+    firstTouch: normalizeTouch(body.firstTouch, readConsent(body.consent).marketing === "granted" && body.analyticsExcluded !== true),
+    lastTouch: normalizeTouch(body.lastTouch, readConsent(body.consent).marketing === "granted" && body.analyticsExcluded !== true),
     utm_source: cleanString(body.utm_source, MAX_LENGTHS.utm),
     utm_medium: cleanString(body.utm_medium, MAX_LENGTHS.utm),
     utm_campaign: cleanString(body.utm_campaign, MAX_LENGTHS.utm),
     utm_term: cleanString(body.utm_term, MAX_LENGTHS.utm),
     utm_content: cleanString(body.utm_content, MAX_LENGTHS.utm),
+    metaAttribution: normalizeMetaAttribution(body.metaAttribution, readConsent(body.consent).marketing === "granted" && body.analyticsExcluded !== true),
+    analyticsExcluded: body.analyticsExcluded === true,
     clickId,
     acquisitionChannel: deriveAcquisitionChannel(body, clickId),
     requestFingerprint: requestFingerprint(request),
@@ -466,10 +471,11 @@ export async function handleAttribution(request: Request) {
   const conversionContext = normalizeContentContext(body.conversionContext);
   const payload = {
     event: "attribution.touched",
+    analyticsExcluded: body.analyticsExcluded === true,
     schemaVersion: 1,
     attributionId,
-    firstTouch: normalizeTouch(body.firstTouch),
-    lastTouch: normalizeTouch(body.lastTouch),
+    firstTouch: normalizeTouch(body.firstTouch, readConsent(body.consent).marketing === "granted" && body.analyticsExcluded !== true),
+    lastTouch: normalizeTouch(body.lastTouch, readConsent(body.consent).marketing === "granted" && body.analyticsExcluded !== true),
     conversionContext,
     contentId: conversionContext.contentId,
     assetId: conversionContext.assetId,

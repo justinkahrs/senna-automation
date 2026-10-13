@@ -1,4 +1,5 @@
-import { getConsentState, type ConsentState } from "@/utils/consent";
+import { captureMetaAttribution, normalizeMetaAttribution, type MetaAttribution } from "./meta-attribution.ts";
+import { CONSENT_CHANGED_EVENT, isAnalyticsExcluded, getConsentState, type ConsentState } from "@/utils/consent";
 import {
   buildTrackedCalendlyUrl,
   mergeCalendlyContentContext,
@@ -48,6 +49,7 @@ export interface ClickIdentifier {
 
 export interface AttributionTouch extends UtmFields, ContentAttributionContext {
   clickId?: ClickIdentifier;
+  metaAttribution?: MetaAttribution;
   landingPage: string;
   landingPageSlug: string;
   landingPageVariant: string;
@@ -135,7 +137,7 @@ function isExternalReferrer(value: string) {
 
 function hasAcquisitionParameters(touch: AttributionTouch) {
   return Boolean(
-    touch.clickId || UTM_KEYS.some((key) => Boolean(touch[key])),
+    touch.clickId || touch.metaAttribution?.fbclid || UTM_KEYS.some((key) => Boolean(touch[key])),
   );
 }
 
@@ -250,11 +252,23 @@ export function captureAttribution(
 ): AttributionState {
   const now = new Date().toISOString();
   const touch = parseAttributionTouch(window.location.href, options);
+  const metaAllowed = getConsentState().marketing === "granted" && !isAnalyticsExcluded();
+  const capturedMeta = captureMetaAttribution(window, metaAllowed);
+  if (Object.keys(capturedMeta).length) touch.metaAttribution = capturedMeta;
   const sessionState = safeStorageRead(
     window.sessionStorage,
     ATTRIBUTION_SESSION_KEY,
   );
   const existing = getAttributionState();
+  if (existing) {
+    const previousMeta = normalizeMetaAttribution(existing.lastTouch.metaAttribution, metaAllowed);
+    if (capturedMeta.fbclid && capturedMeta.fbclid === previousMeta.fbclid && previousMeta.fbc) {
+      touch.metaAttribution = { ...capturedMeta, fbc: previousMeta.fbc };
+    }
+    for (const previous of [existing.firstTouch, existing.lastTouch]) {
+      previous.metaAttribution = normalizeMetaAttribution(previous.metaAttribution, metaAllowed);
+    }
+  }
   const suppliedContext = Object.fromEntries(
     Object.entries({
       contentId: touch.contentId,
@@ -283,7 +297,7 @@ export function captureAttribution(
     attributionId: existing?.attributionId || createOpaqueId(),
     firstTouch: existing?.firstTouch || touch,
     lastTouch:
-      !existing || isNewAcquisition ? touch : existing.lastTouch,
+      !existing || isNewAcquisition ? touch : { ...existing.lastTouch, metaAttribution: { ...existing.lastTouch.metaAttribution, ...capturedMeta } },
     consent: getConsentState(),
     conversionContext,
     createdAt: existing?.createdAt || now,
@@ -303,6 +317,7 @@ export async function persistAttribution(state = captureAttribution()) {
     lastTouch: state.lastTouch,
     conversionContext: state.conversionContext,
     consent: state.consent,
+    analyticsExcluded: isAnalyticsExcluded(),
   });
   try {
     if (window.sessionStorage.getItem(ATTRIBUTION_PERSISTED_KEY) === signature) {
@@ -317,7 +332,7 @@ export async function persistAttribution(state = captureAttribution()) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       keepalive: true,
-      body: JSON.stringify(state),
+      body: JSON.stringify({ ...state, analyticsExcluded: isAnalyticsExcluded() }),
     });
     if (response.ok) {
       try {
@@ -341,6 +356,7 @@ export function initializeAttributionCapture() {
 
   capture();
   document.addEventListener("astro:page-load", capture);
+  window.addEventListener(CONSENT_CHANGED_EVENT, capture);
 }
 
 export function attributionToLeadFields() {
@@ -359,6 +375,8 @@ export function attributionToLeadFields() {
     utm_campaign: touch.utm_campaign || "",
     utm_term: touch.utm_term || "",
     utm_content: touch.utm_content || "",
+    metaAttribution: normalizeMetaAttribution(touch.metaAttribution, getConsentState().marketing === "granted" && !isAnalyticsExcluded()),
+    analyticsExcluded: isAnalyticsExcluded(),
     clickIdType: clickIdentifier?.type || "",
     clickId: clickIdentifier?.value || "",
     landingPageSlug: touch.landingPageSlug,
