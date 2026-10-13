@@ -19,7 +19,7 @@ const pixelId = import.meta.env.PROD
   initializeMetaPixel(
     window,
     pixelId,
-    () => getConsentState().marketing === "granted" && !isAnalyticsExcluded(),
+    () => getConsentState().version === 2 && getConsentState().marketing === "granted" && !isAnalyticsExcluded(),
     CONSENT_CHANGED_EVENT,
   );
 </script>

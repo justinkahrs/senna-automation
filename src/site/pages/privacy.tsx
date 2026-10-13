@@ -88,7 +88,9 @@ export default function Privacy() {
             <li>
               <strong>Advertising Attribution:</strong> Campaign parameters,
               landing-page variants, referring pages, and a single available
-              Google click identifier such as GCLID, GBRAID, or WBRAID. We
+              Google click identifier such as GCLID, GBRAID, or WBRAID, and,
+              with renewed advertising consent, separate Meta click and browser
+              identifiers (fbclid, _fbc, and _fbp). We
               associate these details with an opaque attribution identifier so
               we can understand which ads lead to inquiries and paid work.
             </li>
@@ -108,7 +110,7 @@ export default function Privacy() {
             </li>
             <li>
               <strong>Analytics Providers:</strong> Aggregated usage and
-              performance metrics from Umami and, with consent, Google Ads.
+              performance metrics from Umami and, with consent, Google Ads and Meta.
             </li>
             <li>
               <strong>Business Systems:</strong> Lead lifecycle information
@@ -178,6 +180,15 @@ export default function Privacy() {
               recorded consent state.
             </li>
             <li>
+              <strong>Meta Measurement:</strong> With advertising measurement
+              consent that includes Meta, the Meta Pixel can receive page views
+              on public pilot pages. If server measurement is enabled, Meta may
+              receive accepted lead and verified booking events, stable event IDs,
+              click/browser identifiers and SHA-256-hashed email addresses. We do
+              not include form message text or raw IP addresses in server events.
+              You can withdraw this consent through privacy choices.
+            </li>
+            <li>
               <strong>Legal &amp; Safety:</strong> When required by law, to
               protect rights, or in connection with a merger or sale of assets.
             </li>
@@ -204,9 +215,10 @@ export default function Privacy() {
               deny this category independently.
             </li>
             <li>
-              <strong>Advertising/Marketing Storage:</strong> Optional. Google
+              <strong>Advertising/Marketing Storage:</strong> Optional. Google and Meta
               advertising tags remain denied and are not loaded until you
-              grant advertising measurement consent. The current pilot uses
+              grant advertising measurement consent. Meta requires a renewed
+              choice that includes its disclosure. The current pilot uses
               this category for conversion measurement, not Display
               remarketing.
             </li>

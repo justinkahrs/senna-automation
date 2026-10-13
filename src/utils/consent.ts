@@ -10,7 +10,7 @@ export interface ConsentState {
   analytics: ConsentChoice;
   marketing: ConsentChoice;
   updatedAt: string | null;
-  version: 1;
+  version: 1 | 2;
 }
 
 const defaultConsent: ConsentState = {
@@ -41,7 +41,7 @@ export function getConsentState(): ConsentState {
           : "unset",
       updatedAt:
         typeof parsed.updatedAt === "string" ? parsed.updatedAt : null,
-      version: 1,
+      version: parsed.version === 2 ? 2 : 1,
     };
   } catch {
     return defaultConsent;
@@ -56,7 +56,7 @@ export function setConsentState(
     analytics: choice.analytics,
     marketing: choice.marketing,
     updatedAt: new Date().toISOString(),
-    version: 1,
+    version: 2,
   };
 
   try {
@@ -73,7 +73,7 @@ export function setConsentState(
 
 export function hasConsentDecision() {
   const consent = getConsentState();
-  return consent.analytics !== "unset" && consent.marketing !== "unset";
+  return consent.version === 2 && consent.analytics !== "unset" && consent.marketing !== "unset";
 }
 
 export function isAnalyticsExcluded() {
