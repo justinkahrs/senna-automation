@@ -113,6 +113,25 @@ export default function AdLandingPage({
         </Container>
       </Box>
 
+      {page.serviceSections && (
+        <Box component="section" sx={{ pt: { xs: 8, md: 12 } }}>
+          <Container maxWidth="lg">
+            <Grid container spacing={4}>
+              {page.serviceSections.map((service) => (
+                <Grid key={service.heading} size={{ xs: 12, md: 4 }}>
+                  <Typography component="h2" variant="h4" sx={{ mb: 2 }}>
+                    {service.heading}
+                  </Typography>
+                  <Typography sx={{ color: "text.secondary" }}>
+                    {service.body}
+                  </Typography>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </Box>
+      )}
+
       <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
         <Container maxWidth="lg">
           <Grid container spacing={{ xs: 6, md: 10 }}>

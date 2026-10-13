@@ -9,8 +9,46 @@ export interface AdLandingPageConfig {
   assessmentFocus: string[];
   proofPoints: string[];
   followUp: string;
+  serviceSections?: { heading: string; body: string }[];
 }
 export const adLandingPages: AdLandingPageConfig[] = [
+  {
+    slug: "business-workflow-automation-michigan",
+    organicSlug: "services",
+    variant: "michigan-ai-workflow-v3",
+    eyebrow: "AI consulting and workflow automation in Michigan",
+    h1: "Find the right AI or automation project for your business",
+    lead:
+      "Bring one repeated task or stalled handoff. Senna reviews your workflow, data, and existing systems to scope a practical first project.",
+    formPrompt:
+      "What does your team repeat, where does work stall, and which systems are involved?",
+    assessmentFocus: [
+      "Map the task, trigger, information, owner, and exceptions",
+      "Assess where AI fits, where fixed rules fit, and which decisions need human review",
+      "Review data readiness and scope one practical first implementation",
+    ],
+    proofPoints: [
+      "Grand Rapids based · Remote work across Michigan",
+      "Focused projects start at $500",
+      "Built around your existing systems",
+    ],
+    followUp:
+      "Start with a free 30-minute assessment of one workflow. We will respond to the problem you describe and help define a focused next step.",
+    serviceSections: [
+      {
+        heading: "AI consulting",
+        body: "Assess a real business workflow, your data, and the risks before choosing a first AI project.",
+      },
+      {
+        heading: "AI implementation",
+        body: "Scope AI-assisted document, intake, or follow-up work with clear inputs, outputs, and human review steps. ChatGPT-related work starts with a review of workflow fit and data handling.",
+      },
+      {
+        heading: "Workflow automation",
+        body: "Map handoffs, approvals, and repeated data entry. Connect the systems your team already uses.",
+      },
+    ],
+  },
   {
     slug: "ai-automation-grand-rapids",
     organicSlug: "ai-automation-grand-rapids",
