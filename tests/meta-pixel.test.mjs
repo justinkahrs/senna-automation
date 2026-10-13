@@ -17,7 +17,7 @@ test("Meta loads only after consent and removes pending events on withdrawal", (
   window.dispatchEvent(new window.Event(event));
   assert.equal(window.document.querySelectorAll("script").length, 1);
   assert.deepEqual(window.fbq.queue.slice(0, 3), [
-    ["consent", "revoke"], ["set", "autoConfig", false, pixelId], ["init", pixelId],
+    ["set", "autoConfig", false, pixelId], ["init", pixelId], ["consent", "grant"],
   ]);
   assert.equal(window.fbq.disablePushState, true);
   assert.equal(window.fbq.queue.filter((args) => args[0] === "trackSingle").length, 1);
@@ -55,4 +55,51 @@ test("Navigation into the portal revokes consent without issuing another event",
   window.history.pushState({}, "", "/portal/ads");
   window.document.dispatchEvent(new window.Event("astro:page-load"));
   assert.deepEqual(window.fbq.queue, [["consent", "revoke"]]);
+});
+
+// Meta's SDK drains queued commands only while consent is unlocked. Model that
+// provider behavior, rather than treating script insertion as event delivery.
+function loadConsentLockedSdk(window) {
+  let locked = false;
+  const received = [];
+  const drain = () => {
+    while (window.fbq.queue.length && !locked) {
+      window.fbq.callMethod(...window.fbq.queue.shift());
+    }
+  };
+  window.fbq.callMethod = (...args) => {
+    if (args[0] === "consent") {
+      locked = args[1] === "revoke";
+      if (!locked) drain();
+    } else if (locked) {
+      window.fbq.queue.push(args);
+    } else if (args[0] === "trackSingle") {
+      received.push(args);
+    }
+  };
+  drain();
+  return received;
+}
+
+test("Consent-approved startup drains the provider queue into a PageView", () => {
+  const { window } = new JSDOM("<html><head></head></html>", { url: pilotUrl });
+  initializeMetaPixel(window, pixelId, () => true, event);
+  assert.deepEqual(loadConsentLockedSdk(window), [["trackSingle", pixelId, "PageView"]]);
+  assert.equal(window.fbq.queue.length, 0);
+});
+
+test("Delayed SDK load honors withdrawal and can recover from a pending re-grant", () => {
+  for (const regrant of [false, true]) {
+    const { window } = new JSDOM("<html><head></head></html>", { url: pilotUrl });
+    let allowed = true;
+    initializeMetaPixel(window, pixelId, () => allowed, event);
+    allowed = false;
+    window.dispatchEvent(new window.Event(event));
+    if (regrant) {
+      allowed = true;
+      window.dispatchEvent(new window.Event(event));
+    }
+    const received = loadConsentLockedSdk(window);
+    assert.deepEqual(received, regrant ? [["trackSingle", pixelId, "PageView"]] : []);
+  }
 });

@@ -237,3 +237,14 @@ PostgreSQL migration/retry/consent replay passed. The public Pixel setting is in
 in the infra release receipt after the disclosure follow-up. Actual Meta URL
 macro expansion remains an owner-approved launch prerequisite; the parameter
 template and a substituted URL fixture were verified without ad publication.
+
+## Pixel startup validation
+
+The consent-approved bootstrap must not queue an initial revoke before init/grant.
+Meta’s SDK stops draining its command queue while consent is revoked; a queued
+grant behind that revoke cannot unlock it. A re-grant before the SDK arrives
+replaces pending consent commands so withdrawal/re-grant cannot deadlock startup.
+Regressions cover provider queue draining and withdrawal during delayed loading.
+Production acceptance requires an actual successful PageView transport request,
+not merely a loaded fbevents.js script. Test Events acceptance is separate from
+live Lead eligibility; customer server events remain behind disabled controls.
