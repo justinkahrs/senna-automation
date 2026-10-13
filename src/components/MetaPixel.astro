@@ -1,0 +1,25 @@
+---
+const pixelId = import.meta.env.PROD
+  ? import.meta.env.PUBLIC_META_PIXEL_ID || ""
+  : "";
+---
+
+<meta name="senna:meta-pixel-id" content={pixelId} />
+<script>
+  import {
+    CONSENT_CHANGED_EVENT,
+    getConsentState,
+    isAnalyticsExcluded,
+  } from "@/utils/consent";
+  import { initializeMetaPixel } from "@/utils/meta-pixel";
+
+  const pixelId = document.querySelector<HTMLMetaElement>(
+    'meta[name="senna:meta-pixel-id"]',
+  )?.content || "";
+  initializeMetaPixel(
+    window,
+    pixelId,
+    () => getConsentState().marketing === "granted" && !isAnalyticsExcluded(),
+    CONSENT_CHANGED_EVENT,
+  );
+</script>

@@ -15,3 +15,7 @@ modal remains a CTA interaction; it is not counted as a booked meeting.
 pages and required on generated-content conversion paths. The same identifiers
 are persisted in first/last-touch attribution, lead payloads, and Calendly custom
 answers (`a2`–`a5`); `a1` remains the attribution ID.
+
+## Guarded Facebook pilot
+
+Optional PUBLIC_META_PIXEL_ID enables PageView only on public pilot routes after marketing consent, with owner exclusions and explicit revoke handling. No browser Lead or Schedule is emitted. Separate metaAttribution fields capture only consented valid fbclid/_fbc/_fbp; signed intake strips them on denial or exclusion. Paid Facebook uses paid_social; organic social remains social. Authoritative Lead/Schedule come from durable accepted leads/verified bookings in the infra service, behind independent disabled Meta gates.

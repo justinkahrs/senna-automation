@@ -1,5 +1,6 @@
 ---
 import PersistentWidgets from "@/components/app/PersistentWidgets.astro";
+import MetaPixel from "@/components/MetaPixel.astro";
 import "@/styles/globals.css";
 import type { RouteMetadata } from "@/utils/metadata";
 import { getResolvedMetadata } from "@/utils/metadata";
@@ -36,6 +37,7 @@ const umamiWebsiteId = import.meta.env.PROD
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <MetaPixel />
     {contentId && <meta name="senna:content-id" content={contentId} />}
     <script is:inline define:vars={{ googleAdsId }}>
       (() => {
