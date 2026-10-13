@@ -22,7 +22,7 @@ export default function Privacy() {
               color: "text.secondary",
               marginBottom: "16px"
             }}>
-            Last updated: July 27, 2026
+            Last updated: October 13, 2026
           </Typography>
           <Typography variant="body1" sx={{
             marginBottom: "16px"
