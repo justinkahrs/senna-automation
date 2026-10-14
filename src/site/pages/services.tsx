@@ -9,12 +9,12 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
-import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
-import PersonSearchIcon from "@mui/icons-material/PersonSearch";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import SmartToyIcon from "@mui/icons-material/SmartToy";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import AutoFixHighIcon from "@/components/icons/material/AutoFixHigh.mjs";
+import PersonSearchIcon from "@/components/icons/material/PersonSearch.mjs";
+import TrendingUpIcon from "@/components/icons/material/TrendingUp.mjs";
+import SmartToyIcon from "@/components/icons/material/SmartToy.mjs";
+import CheckCircleOutlineIcon from "@/components/icons/material/CheckCircleOutlineOutlined.mjs";
+import ArrowForwardIcon from "@/components/icons/material/ArrowForward.mjs";
 import { NumberedSteps } from "@/components/blog/NumberedSteps";
 import LocalSeoClusterSection from "@/components/localSeo/LocalSeoClusterSection";
 import FinalCTA from "@/components/sections/FinalCTA";

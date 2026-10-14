@@ -13,10 +13,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
-import DownloadIcon from "@mui/icons-material/Download";
-import ArticleIcon from "@mui/icons-material/Article";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import UploadFileIcon from "@/components/icons/material/UploadFile.mjs";
+import DownloadIcon from "@/components/icons/material/Download.mjs";
+import ArticleIcon from "@/components/icons/material/Article.mjs";
+import VisibilityOutlinedIcon from "@/components/icons/material/VisibilityOutlined.mjs";
 import { getRfpPricingProfiles } from "@/lib/rfp-pricing-profiles";
 import { PortalSignOutButton } from "./PortalSignOutButton";
 

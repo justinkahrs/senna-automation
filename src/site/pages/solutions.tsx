@@ -17,9 +17,9 @@ const mobileImages: Record<string, any> = {
 };
 
 import CascadingStagger from "@/components/animations/CascadingStagger";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ArrowForwardIcon from "@/components/icons/material/ArrowForward.mjs";
+import CheckCircleOutlineIcon from "@/components/icons/material/CheckCircleOutlineOutlined.mjs";
+import ExpandMoreIcon from "@/components/icons/material/ExpandMore.mjs";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import type { BlogPost } from "@/types/blog";
 // import { WARM_BLACK } from "@/components/theme/colors";

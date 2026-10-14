@@ -14,14 +14,14 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutlineOutlined";
-import WarningAmberIcon from "@mui/icons-material/WarningAmber";
-import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
-import ScheduleIcon from "@mui/icons-material/Schedule";
-import StorageOutlinedIcon from "@mui/icons-material/StorageOutlined";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import RefreshIcon from "@/components/icons/material/Refresh.mjs";
+import CheckCircleOutlineIcon from "@/components/icons/material/CheckCircleOutlineOutlined.mjs";
+import ErrorOutlineIcon from "@/components/icons/material/ErrorOutlineOutlined.mjs";
+import WarningAmberIcon from "@/components/icons/material/WarningAmber.mjs";
+import ArticleOutlinedIcon from "@/components/icons/material/ArticleOutlined.mjs";
+import ScheduleIcon from "@/components/icons/material/Schedule.mjs";
+import StorageOutlinedIcon from "@/components/icons/material/StorageOutlined.mjs";
+import OpenInNewIcon from "@/components/icons/material/OpenInNew.mjs";
 
 type StatusLevel = "ok" | "warning" | "error" | "unknown";
 

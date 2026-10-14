@@ -13,9 +13,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutlineOutlined";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
+import RefreshIcon from "@/components/icons/material/Refresh.mjs";
+import PauseCircleOutlineIcon from "@/components/icons/material/PauseCircleOutlineOutlined.mjs";
+import CheckCircleOutlineIcon from "@/components/icons/material/CheckCircleOutlineOutlined.mjs";
 import {
   isAnalyticsExcluded,
   setAnalyticsExcluded,

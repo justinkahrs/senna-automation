@@ -7,10 +7,10 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import AccountTreeOutlinedIcon from "@mui/icons-material/AccountTreeOutlined";
-import QueryStatsOutlinedIcon from "@mui/icons-material/QueryStatsOutlined";
-import RuleOutlinedIcon from "@mui/icons-material/RuleOutlined";
-import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
+import AccountTreeOutlinedIcon from "@/components/icons/material/AccountTreeOutlined.mjs";
+import QueryStatsOutlinedIcon from "@/components/icons/material/QueryStatsOutlined.mjs";
+import RuleOutlinedIcon from "@/components/icons/material/RuleOutlined.mjs";
+import TaskAltOutlinedIcon from "@/components/icons/material/TaskAltOutlined.mjs";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import FinalCTA from "@/components/sections/FinalCTA";
 import type { RouteMetadata } from "@/utils/metadata";

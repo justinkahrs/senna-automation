@@ -9,10 +9,10 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import GoogleIcon from "@mui/icons-material/Google";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import AppleIcon from "@mui/icons-material/Apple";
+import GoogleIcon from "@/components/icons/material/Google.mjs";
+import GitHubIcon from "@/components/icons/material/GitHub.mjs";
+import FacebookIcon from "@/components/icons/material/Facebook.mjs";
+import AppleIcon from "@/components/icons/material/Apple.mjs";
 import { authClient } from "@/lib/auth-client";
 import type { PortalProviderDefinition } from "@/lib/portal-providers";
 

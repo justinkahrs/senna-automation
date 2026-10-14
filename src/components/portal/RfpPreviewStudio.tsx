@@ -11,10 +11,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import DownloadIcon from "@mui/icons-material/Download";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import RefreshIcon from "@/components/icons/material/Refresh.mjs";
+import DownloadIcon from "@/components/icons/material/Download.mjs";
+import ContentCopyIcon from "@/components/icons/material/ContentCopy.mjs";
+import OpenInNewIcon from "@/components/icons/material/OpenInNew.mjs";
 import {
   getRfpPromptStageViews,
   type RfpPromptStageId,

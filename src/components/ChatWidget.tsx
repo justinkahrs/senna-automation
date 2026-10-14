@@ -13,11 +13,9 @@ import {
   Stack,
   CircularProgress,
 } from "@mui/material";
-import {
-  ChatBubble as ChatIcon,
-  Close as CloseIcon,
-  Send as SendIcon,
-} from "@mui/icons-material";
+import ChatIcon from "@/components/icons/material/ChatBubble.mjs";
+import CloseIcon from "@/components/icons/material/Close.mjs";
+import SendIcon from "@/components/icons/material/Send.mjs";
 import { useTheme } from "@mui/material/styles";
 import { BG_BASE, WARM_BLACK } from "@/components/theme/colors";
 import { Logo } from "@/components/layout/Logo";
