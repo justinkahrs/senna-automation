@@ -14,7 +14,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
+import CheckCircleOutlineIcon from "@/components/icons/material/CheckCircleOutlineOutlined.mjs";
 import { submitLead } from "@/utils/lead-submit";
 import {
   trackFormSubmission,

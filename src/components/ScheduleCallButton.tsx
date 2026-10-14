@@ -13,7 +13,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
-import CloseIcon from "@mui/icons-material/Close";
+import CloseIcon from "@/components/icons/material/Close.mjs";
 import {
   ACCENT,
   BORDER_SOFT,

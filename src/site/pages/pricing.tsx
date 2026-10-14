@@ -20,8 +20,8 @@ import {
   useTheme,
   Chip,
 } from "@mui/material";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import CheckCircleOutlineIcon from "@/components/icons/material/CheckCircleOutlineOutlined.mjs";
+import TrendingUpIcon from "@/components/icons/material/TrendingUp.mjs";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import { growthTier, starterTier } from "@/components/pricing/tierData";
 import { SITE_URL } from "@/utils/site";

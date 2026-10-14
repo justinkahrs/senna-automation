@@ -6,9 +6,9 @@ import {
   Link,
   IconButton,
 } from "@mui/material";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
+import LinkedInIcon from "@/components/icons/material/LinkedIn.mjs";
+import InstagramIcon from "@/components/icons/material/Instagram.mjs";
+import FacebookIcon from "@/components/icons/material/Facebook.mjs";
 
 const footerLinkGroups = [
   {

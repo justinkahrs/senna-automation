@@ -10,10 +10,10 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
+import ArrowForwardIcon from "@/components/icons/material/ArrowForward.mjs";
+import CheckCircleOutlineIcon from "@/components/icons/material/CheckCircleOutlineOutlined.mjs";
+import LocationOnIcon from "@/components/icons/material/LocationOn.mjs";
+import AutoFixHighIcon from "@/components/icons/material/AutoFixHigh.mjs";
 import FinalCTA from "@/components/sections/FinalCTA";
 import { getBlogPostBySlug } from "@/utils/blog";
 import {

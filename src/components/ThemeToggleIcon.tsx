@@ -3,8 +3,8 @@ import { Box, IconButton } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@/components/icons/material/LightMode.mjs";
+import DarkModeIcon from "@/components/icons/material/DarkMode.mjs";
 
 interface Props {
   mode: "dark" | "light";

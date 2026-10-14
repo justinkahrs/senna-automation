@@ -7,8 +7,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
+import CheckCircleOutlineIcon from "@/components/icons/material/CheckCircleOutlineOutlined.mjs";
+import PhoneOutlinedIcon from "@/components/icons/material/PhoneOutlined.mjs";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
 import AdLeadForm from "@/components/ads/AdLeadForm";
 import type { AdLandingPageConfig } from "@/components/ads/adLandingPages";

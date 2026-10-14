@@ -13,9 +13,11 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import Image from "@/compat/next/image";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import type { SvgIconComponent } from "@mui/icons-material";
+import CheckCircleIcon from "@/components/icons/material/CheckCircle.mjs";
+import OpenInNewIcon from "@/components/icons/material/OpenInNew.mjs";
+import type SvgIcon from "@mui/material/SvgIcon";
+
+type SvgIconComponent = typeof SvgIcon;
 
 interface CustomApplication {
   title: string;

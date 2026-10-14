@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Box, IconButton } from "@mui/material";
-import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
-import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
+import PauseRoundedIcon from "@/components/icons/material/PauseRounded.mjs";
+import PlayArrowRoundedIcon from "@/components/icons/material/PlayArrowRounded.mjs";
 
 export default function SennaAdvantageVideo() {
   const videoRef = useRef<HTMLVideoElement | null>(null);

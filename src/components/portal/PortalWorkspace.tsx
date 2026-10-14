@@ -11,18 +11,18 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import AccountTreeOutlinedIcon from "@mui/icons-material/AccountTreeOutlined";
-import AdsClickOutlinedIcon from "@mui/icons-material/AdsClickOutlined";
-import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
-import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
-import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
-import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomizeOutlined";
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
-import FactCheckOutlinedIcon from "@mui/icons-material/FactCheckOutlined";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import RequestQuoteOutlinedIcon from "@mui/icons-material/RequestQuoteOutlined";
-import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
-import TuneOutlinedIcon from "@mui/icons-material/TuneOutlined";
+import AccountTreeOutlinedIcon from "@/components/icons/material/AccountTreeOutlined.mjs";
+import AdsClickOutlinedIcon from "@/components/icons/material/AdsClickOutlined.mjs";
+import AssessmentOutlinedIcon from "@/components/icons/material/AssessmentOutlined.mjs";
+import BusinessCenterOutlinedIcon from "@/components/icons/material/BusinessCenterOutlined.mjs";
+import CampaignOutlinedIcon from "@/components/icons/material/CampaignOutlined.mjs";
+import DashboardCustomizeOutlinedIcon from "@/components/icons/material/DashboardCustomizeOutlined.mjs";
+import DescriptionOutlinedIcon from "@/components/icons/material/DescriptionOutlined.mjs";
+import FactCheckOutlinedIcon from "@/components/icons/material/FactCheckOutlined.mjs";
+import OpenInNewIcon from "@/components/icons/material/OpenInNew.mjs";
+import RequestQuoteOutlinedIcon from "@/components/icons/material/RequestQuoteOutlined.mjs";
+import ShieldOutlinedIcon from "@/components/icons/material/ShieldOutlined.mjs";
+import TuneOutlinedIcon from "@/components/icons/material/TuneOutlined.mjs";
 import { ContentSystemDashboard } from "@/components/portal/ContentSystemDashboard";
 import { PortalUploadForm } from "@/components/portal/PortalUploadForm";
 import { PortalSignOutButton } from "@/components/portal/PortalSignOutButton";

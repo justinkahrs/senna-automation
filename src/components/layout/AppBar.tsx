@@ -11,8 +11,8 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
+import MenuIcon from "@/components/icons/material/Menu.mjs";
+import CloseIcon from "@/components/icons/material/Close.mjs";
 import ScheduleCallButton from "../ScheduleCallButton";
 import { Logo } from "./Logo";
 import { getHeaderAppearance, type HeaderMode, type HeaderSurface } from "./headerAppearance";

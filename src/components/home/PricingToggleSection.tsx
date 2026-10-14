@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "@/compat/next/link";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowForwardIcon from "@/components/icons/material/ArrowForward.mjs";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import {
   growthTier,

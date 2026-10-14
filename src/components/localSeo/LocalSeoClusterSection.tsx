@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowForwardIcon from "@/components/icons/material/ArrowForward.mjs";
 import { localSeoPages } from "./localSeoPages";
 
 type LocalSeoClusterSectionProps = {

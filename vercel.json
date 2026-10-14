@@ -2,6 +2,18 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "astro",
   "buildCommand": "npm run build",
+  "redirects": [
+    {
+      "source": "/opengraph-image",
+      "destination": "/opengraph-image.png",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug/opengraph-image",
+      "destination": "/blog/:slug/opengraph-image.png",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/images/(.*)",
@@ -22,7 +34,7 @@
       ]
     },
     {
-      "source": "/(admin\\.webm|businessFormula\\.webm|dashboard\\.webm|home-work\\.mp4|leads\\.webm|visualContent\\.mp4)",
+      "source": "/(admin\\.webm|businessFormula\\.webm|dashboard\\.webm|home-work\\.mp4|leads\\.webm)",
       "headers": [
         {
           "key": "Cache-Control",
