@@ -57,6 +57,11 @@ const umamiWebsiteId = import.meta.env.PROD
 
         let loaded = false;
         window.__sennaLoadGoogleAds = () => {
+          try {
+            const consent = JSON.parse(localStorage.getItem("senna_consent_v1") || "null");
+            if (consent?.version !== 2 || consent.marketing !== "granted" ||
+                localStorage.getItem("senna_analytics_excluded_v1") === "true") return;
+          } catch { return; }
           if (loaded || !googleAdsId) return;
           loaded = true;
           const script = document.createElement("script");
@@ -71,7 +76,7 @@ const umamiWebsiteId = import.meta.env.PROD
           const consent = JSON.parse(
             localStorage.getItem("senna_consent_v1") || "null",
           );
-          if (consent?.marketing === "granted") {
+          if (consent?.version === 2 && consent.marketing === "granted") {
             window.gtag("consent", "update", {
               ad_storage: "granted",
               ad_user_data: "granted",
@@ -92,6 +97,8 @@ const umamiWebsiteId = import.meta.env.PROD
         window.__sennaLoadUmami = () => {
           if (loaded || !umamiWebsiteId) return;
           try {
+            const consent = JSON.parse(localStorage.getItem("senna_consent_v1") || "null");
+            if (consent?.version !== 2 || consent.analytics !== "granted") return;
             if (localStorage.getItem("senna_analytics_excluded_v1") === "true") {
               return;
             }
@@ -113,7 +120,7 @@ const umamiWebsiteId = import.meta.env.PROD
           const consent = JSON.parse(
             localStorage.getItem("senna_consent_v1") || "null",
           );
-          if (consent?.analytics === "granted") {
+          if (consent?.version === 2 && consent.analytics === "granted") {
             window.__sennaLoadUmami();
           }
         } catch {
