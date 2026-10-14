@@ -3,6 +3,8 @@
 // All event tracking should go through `trackEvent` — never call
 // `umami.track` directly in components.
 
+import { getConsentState, isAnalyticsExcluded } from "./consent";
+
 declare global {
   interface Window {
     umami?: {
@@ -119,6 +121,8 @@ export function trackEvent(
 ): void {
   if (IS_DEV) return;
   if (typeof window === "undefined" || !window.umami) return;
+  const consent = getConsentState();
+  if (consent.version !== 2 || consent.analytics !== "granted" || isAnalyticsExcluded()) return;
 
   const utm = getStoredUtm();
   const context = getPageContext();
@@ -173,6 +177,8 @@ export function trackFormSubmission(
 
 export function trackGoogleLeadConversion(transactionId?: string) {
   if (typeof window === "undefined") return;
+  const consent = getConsentState();
+  if (consent.version !== 2 || consent.marketing !== "granted" || isAnalyticsExcluded()) return;
 
   const adsId = import.meta.env.PUBLIC_GOOGLE_ADS_ID;
   const conversionLabel = import.meta.env.PUBLIC_GOOGLE_LEAD_CONVERSION_LABEL;
