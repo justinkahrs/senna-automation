@@ -16,6 +16,7 @@ type LocalSeoClusterSectionProps = {
   title: string;
   description: string;
   excludeSlug?: string;
+  pageSlugs?: string[];
   sx?: SxProps<Theme>;
 };
 
@@ -23,11 +24,17 @@ export default function LocalSeoClusterSection({
   title,
   description,
   excludeSlug,
+  pageSlugs,
   sx,
 }: LocalSeoClusterSectionProps) {
-  const pages = Object.values(localSeoPages).filter(
-    (page) => page.slug !== excludeSlug,
-  );
+  const allPages = Object.values(localSeoPages);
+  const selectedPages = pageSlugs
+    ? pageSlugs.flatMap((slug) => {
+        const page = allPages.find((candidate) => candidate.slug === slug);
+        return page ? [page] : [];
+      })
+    : allPages;
+  const pages = selectedPages.filter((page) => page.slug !== excludeSlug);
 
   return (
     <Box component="section" sx={sx}>

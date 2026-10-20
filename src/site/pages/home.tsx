@@ -1022,7 +1022,12 @@ export default function Home({
       </Box>
       <LocalSeoClusterSection
         title="Start with the kind of help you need"
-        description="Whether you need a clear AI plan, hands-on workflow support, or a better way to move work through the business, these pages show how we help Grand Rapids and West Michigan teams."
+        description="Choose a starting point: clarify where AI fits, build a solution around your business, or automate a workflow that is slowing work down."
+        pageSlugs={[
+          "ai-consulting-grand-rapids",
+          "custom-ai-solutions-grand-rapids",
+          "workflow-automation-consultant-grand-rapids",
+        ]}
         sx={{
           py: { xs: 10, md: 15 },
           bgcolor: "background.paper",
