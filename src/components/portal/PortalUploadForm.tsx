@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import UploadFileIcon from "@/components/icons/material/UploadFile.mjs";
+import { PORTAL_RFP_MAX_UPLOAD_BYTES } from "@/lib/portal-rfp-limits";
 import DownloadIcon from "@/components/icons/material/Download.mjs";
 import ArticleIcon from "@/components/icons/material/Article.mjs";
 import VisibilityOutlinedIcon from "@/components/icons/material/VisibilityOutlined.mjs";
@@ -328,6 +329,13 @@ export function PortalUploadForm({
     if (!isPdf) {
       setFile(null);
       setErrorMessage("Portal uploads are PDF-only in v1.");
+      event.target.value = "";
+      return;
+    }
+
+    if (selectedFile.size > PORTAL_RFP_MAX_UPLOAD_BYTES) {
+      setFile(null);
+      setErrorMessage("RFP PDFs must be 5 MiB or smaller.");
       event.target.value = "";
       return;
     }

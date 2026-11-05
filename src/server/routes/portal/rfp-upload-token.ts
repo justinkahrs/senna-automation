@@ -8,6 +8,7 @@ import {
   hasActivePortalAccess,
 } from "@/lib/portal-access";
 import { getPortalSession } from "@/lib/portal-session";
+import { isPortalRfpAdmissionReady } from "@/lib/portal-rfp-admission.mjs";
 
 export async function POST(request: Request) {
   try {
@@ -15,6 +16,16 @@ export async function POST(request: Request) {
 
     if (!session?.user?.email) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    if (!isPortalRfpAdmissionReady()) {
+      return NextResponse.json(
+        { error: "RFP proposal generation is temporarily unavailable." },
+        {
+          status: 503,
+          headers: { "Cache-Control": "no-store" },
+        },
+      );
     }
 
     const portalAccess = await getPortalAccessByEmail(
