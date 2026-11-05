@@ -5,6 +5,12 @@ import test from 'node:test';
 const config = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
 const universalRule = config.headers.find((rule) => rule.source === '/(.*)');
 const headerMap = new Map((universalRule?.headers ?? []).map(({ key, value }) => [key.toLowerCase(), value]));
+const portalCacheRule = config.headers.find((rule) => rule.source === '/api/portal/(.*)');
+
+test('portal API responses are never stored by shared caches', () => {
+  const cacheControl = portalCacheRule?.headers.find(({ key }) => key.toLowerCase() === 'cache-control')?.value;
+  assert.equal(cacheControl, 'no-store');
+});
 
 test('global response headers include the reviewed report-only policy and browser protections', () => {
   assert.ok(universalRule, 'the policy applies to all website routes');
