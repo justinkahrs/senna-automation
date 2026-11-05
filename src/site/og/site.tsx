@@ -1,4 +1,4 @@
-import { ImageResponse } from '@/compat/next/og';
+import { renderOgResponse } from "./render";
 
 // Use edge runtime for consistency and performance
 export const runtime = 'edge';
@@ -17,7 +17,7 @@ export default async function Image() {
     new URL('https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuDyYMZg.ttf')
   ).then((res) => res.arrayBuffer());
 
-  return new ImageResponse(
+  return renderOgResponse(
     (
       <div
         style={{

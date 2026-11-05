@@ -35,7 +35,11 @@ export default defineConfig({
         "@": fromRoot("./src"),
       },
     },
+    optimizeDeps: {
+      exclude: ["@resvg/resvg-js"],
+    },
     ssr: {
+      external: ["@resvg/resvg-js"],
       noExternal: ["framer-motion"],
     },
   },
