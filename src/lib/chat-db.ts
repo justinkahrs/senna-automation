@@ -62,29 +62,6 @@ function getChatDbWebhookEndpoint() {
   return derivedEndpoint.toString();
 }
 
-async function readWebhookError(response: Response) {
-  const contentType = response.headers.get("content-type") || "";
-
-  if (contentType.includes("application/json")) {
-    const payload = (await response.json().catch(() => null)) as
-      | { error?: string; message?: string }
-      | null;
-    const errorMessage = payload?.error || payload?.message;
-
-    if (typeof errorMessage === "string" && errorMessage.trim()) {
-      return errorMessage.trim();
-    }
-  }
-
-  const text = (await response.text().catch(() => "")).trim();
-
-  if (text) {
-    return text.slice(0, 240);
-  }
-
-  return `Chat DB webhook failed with status ${response.status}.`;
-}
-
 async function callChatDbWebhook<TPayload>(
   payload: Record<string, unknown>,
 ): Promise<TPayload> {
@@ -100,10 +77,9 @@ async function callChatDbWebhook<TPayload>(
   });
 
   if (!response.ok) {
-    throw new ChatDbWebhookError(
-      response.status,
-      await readWebhookError(response),
-    );
+    // Never copy upstream response bodies into logs or public API messages.
+    if (response.body) await response.body.cancel().catch(() => undefined);
+    throw new ChatDbWebhookError(response.status, "Chat service request failed.");
   }
 
   const body = (await response.json().catch(() => null)) as TPayload | null;

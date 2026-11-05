@@ -33,15 +33,16 @@ export async function POST(request: Request) {
     try {
       telegramMsg = await sendTelegramMessage(session.topic_thread_id, text);
     } catch (err: any) {
-      console.error("Failed to send to Telegram:", err);
       const errorMessage = err.message || "";
       if (errorMessage.toLowerCase().includes("thread not found") || errorMessage.toLowerCase().includes("topic not found")) {
+          console.warn("Telegram rejected a message for an unavailable conversation");
           return NextResponse.json(
             { error: "Conversation ended on server" },
             { status: 410 }
           );
       }
 
+      console.error("Telegram message delivery failed");
       return NextResponse.json(
         { error: "Failed to send message to Telegram" },
         { status: 502 }
@@ -61,14 +62,16 @@ export async function POST(request: Request) {
     });
   } catch (error: any) {
     if (isChatDbWebhookError(error)) {
-      console.error("Send message DB error:", error);
+      console.error("Send message database request failed", {
+        status: error.status,
+      });
       return NextResponse.json(
-        { error: error.message || "Failed to load chat session" },
+        { error: "Failed to load chat session" },
         { status: error.status }
       );
     }
 
-    console.error("Send message error:", error);
+    console.error("Send message request failed");
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

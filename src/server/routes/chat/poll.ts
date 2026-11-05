@@ -27,14 +27,16 @@ export async function GET(request: Request) {
     });
   } catch (error: any) {
     if (isChatDbWebhookError(error)) {
-      console.error("Poll DB error:", error);
+      console.error("Poll chat database request failed", {
+        status: error.status,
+      });
       return NextResponse.json(
-        { error: error.message || "Failed to poll chat messages" },
+        { error: "Failed to poll chat messages" },
         { status: error.status }
       );
     }
 
-    console.error("Poll API error:", error);
+    console.error("Poll chat request failed");
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
