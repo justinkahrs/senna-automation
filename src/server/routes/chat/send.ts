@@ -5,17 +5,49 @@ import {
   isChatDbWebhookError,
 } from "@/lib/chat-db";
 import { sendTelegramMessage } from "@/utils/telegram";
+import {
+  isSameOriginRequest,
+  readLimitedJson,
+  readChatCapabilitySessionId,
+} from "@/lib/chat-capability.mjs";
+
+export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const session_id = typeof body?.session_id === "string" ? body.session_id : "";
+    if (!isSameOriginRequest(request)) {
+      return NextResponse.json(
+        { error: "Request origin is not allowed." },
+        { status: 403, headers: { "Cache-Control": "no-store" } },
+      );
+    }
+
+    const session_id = readChatCapabilitySessionId(request);
+    if (!session_id) {
+      return NextResponse.json(
+        { error: "Chat session expired. Start a new chat." },
+        { status: 401, headers: { "Cache-Control": "no-store" } },
+      );
+    }
+
+    let body: Record<string, unknown>;
+    try {
+      body = await readLimitedJson(request, 16384);
+    } catch (error) {
+      return NextResponse.json(
+        { error: error instanceof RangeError ? "Message request is too large." : "Invalid JSON request." },
+        {
+          status: error instanceof RangeError ? 413 : 400,
+          headers: { "Cache-Control": "no-store" },
+        },
+      );
+    }
     const text = typeof body?.text === "string" ? body.text : "";
 
-    if (!session_id || !text) {
+    if (!text.trim() || text.length > 4000) {
       return NextResponse.json(
         { error: "Missing required fields" },
-        { status: 400 }
+        { status: 400, headers: { "Cache-Control": "no-store" } },
       );
     }
 
@@ -24,7 +56,7 @@ export async function POST(request: Request) {
     if (!session || !session.topic_thread_id) {
       return NextResponse.json(
         { error: "Session invalid or missing topic" },
-        { status: 404 }
+        { status: 404, headers: { "Cache-Control": "no-store" } },
       );
     }
 
@@ -38,14 +70,14 @@ export async function POST(request: Request) {
           console.warn("Telegram rejected a message for an unavailable conversation");
           return NextResponse.json(
             { error: "Conversation ended on server" },
-            { status: 410 }
+            { status: 410, headers: { "Cache-Control": "no-store" } },
           );
       }
 
       console.error("Telegram message delivery failed");
       return NextResponse.json(
         { error: "Failed to send message to Telegram" },
-        { status: 502 }
+        { status: 502, headers: { "Cache-Control": "no-store" } },
       );
     }
 
@@ -56,10 +88,13 @@ export async function POST(request: Request) {
       telegramMessageId: telegramMsg.message_id,
     });
 
-    return NextResponse.json({
-      ok: true,
-      message: storedMessage,
-    });
+    return NextResponse.json(
+      {
+        ok: true,
+        message: storedMessage,
+      },
+      { headers: { "Cache-Control": "no-store" } },
+    );
   } catch (error: any) {
     if (isChatDbWebhookError(error)) {
       console.error("Send message database request failed", {
@@ -67,14 +102,14 @@ export async function POST(request: Request) {
       });
       return NextResponse.json(
         { error: "Failed to load chat session" },
-        { status: error.status }
+        { status: error.status, headers: { "Cache-Control": "no-store" } },
       );
     }
 
     console.error("Send message request failed");
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500, headers: { "Cache-Control": "no-store" } },
     );
   }
 }
