@@ -1,0 +1,64 @@
+name: Security scan
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source without a persisted token
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Scan current source and verify scanner fixtures
+        env:
+          GITLEAKS_IMAGE: ghcr.io/gitleaks/gitleaks@sha256:b109bc5f8f76a38196a3e413704fc5b9e3c32360bce4e4b603bd6f45b3721dbb
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker pull --platform linux/amd64 "$GITLEAKS_IMAGE"
+          scanner() {
+            docker run --rm --network none --volume "$1:/scan:ro" "$GITLEAKS_IMAGE" \
+              dir --no-banner --redact --exit-code=1 /scan
+          }
+          fixtures="$(mktemp -d)"
+          trap 'rm -rf "$fixtures"' EXIT
+          mkdir "$fixtures/benign" "$fixtures/leak"
+          printf '%s\n' 'ordinary fixture text' > "$fixtures/benign/readme.txt"
+          scanner "$fixtures/benign"
+          python3 -c 'import secrets,string; print("ghp_"+"".join(secrets.choice(string.ascii_letters+string.digits) for _ in range(40)))' > "$fixtures/leak/token.txt"
+          if scanner "$fixtures/leak"; then
+            echo 'Gitleaks did not reject the synthetic token fixture.' >&2
+            exit 1
+          else
+            status=$?
+            if [[ "$status" -ne 1 ]]; then exit "$status"; fi
+          fi
+          changed="$(mktemp -d)"
+          trap 'rm -rf "$fixtures" "$changed"' EXIT
+          python3 - "$BASE_SHA" "$GITHUB_SHA" "$changed" <<'PY'
+          import os, subprocess, sys, tarfile
+          base, head, destination = sys.argv[1:]
+          if base and set(base) != {'0'} and subprocess.run(['git','cat-file','-e',base+'^{commit}'],stderr=subprocess.DEVNULL).returncode == 0:
+              raw = subprocess.check_output(['git','diff','--name-only','-z','--diff-filter=ACMR',base,head])
+          else:
+              raw = subprocess.check_output(['git','diff-tree','--root','--no-commit-id','--name-only','-r','-z',head])
+          paths = [os.fsdecode(p) for p in raw.split(b'\0') if p]
+          if paths:
+              archive_path = destination + '.tar'
+              with open(archive_path,'wb') as archive:
+                  subprocess.run(['git','--literal-pathspecs','archive','--format=tar',head,'--',*paths],stdout=archive,check=True)
+              with tarfile.open(archive_path,mode='r:') as bundle:
+                  bundle.extractall(destination,filter='data')
+              os.unlink(archive_path)
+          PY
+          scanner "$changed"
