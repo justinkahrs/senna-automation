@@ -44,8 +44,8 @@ export async function POST(request: Request) {
           topicThreadId,
           topicTitle,
         });
-      } catch (err: any) {
-        console.error("Telegram topic creation failed:", err);
+      } catch {
+        console.error("Telegram topic creation failed");
         return NextResponse.json(
           { error: "Failed to create communication channel" },
           { status: 502 }
@@ -61,14 +61,16 @@ export async function POST(request: Request) {
     });
   } catch (error: any) {
     if (isChatDbWebhookError(error)) {
-      console.error("Start chat DB error:", error);
+      console.error("Start chat database request failed", {
+        status: error.status,
+      });
       return NextResponse.json(
-        { error: error.message || "Failed to create session" },
+        { error: "Failed to create session" },
         { status: error.status }
       );
     }
 
-    console.error("Start chat error:", error);
+    console.error("Start chat request failed");
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
