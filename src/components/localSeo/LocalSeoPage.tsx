@@ -15,7 +15,6 @@ import CheckCircleOutlineIcon from "@/components/icons/material/CheckCircleOutli
 import LocationOnIcon from "@/components/icons/material/LocationOn.mjs";
 import AutoFixHighIcon from "@/components/icons/material/AutoFixHigh.mjs";
 import FinalCTA from "@/components/sections/FinalCTA";
-import { getBlogPostBySlug } from "@/utils/blog";
 import {
   BBB_PROFILE_URL,
   GRAND_RAPIDS_CHAMBER_URL,
@@ -25,6 +24,7 @@ import {
 } from "@/utils/site";
 import LocalSeoClusterSection from "./LocalSeoClusterSection";
 import type { LocalSeoPageConfig } from "./localSeoPages";
+import type { BlogPostPreview } from "@/types/blog";
 
 const homeEyebrowSx = {
   display: "inline-flex",
@@ -132,12 +132,14 @@ function buildJsonLd(page: LocalSeoPageConfig) {
   };
 }
 
-export default function LocalSeoPage({ page }: { page: LocalSeoPageConfig }) {
+export default function LocalSeoPage({
+  page,
+  relatedPosts,
+}: {
+  page: LocalSeoPageConfig;
+  relatedPosts: BlogPostPreview[];
+}) {
   const jsonLd = buildJsonLd(page);
-  const relatedPosts = page.supportingPostSlugs.flatMap((slug) => {
-    const post = getBlogPostBySlug(slug);
-    return post ? [post] : [];
-  });
 
   return (
     <Box sx={{ bgcolor: "transparent", minHeight: "100vh" }}>
