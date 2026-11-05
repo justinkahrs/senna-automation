@@ -15,7 +15,10 @@ export async function POST(request: Request) {
     const session = await getPortalSession(request.headers);
 
     if (!session?.user?.email) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401, headers: { "Cache-Control": "no-store" } },
+      );
     }
 
     if (!isPortalRfpAdmissionReady()) {
@@ -36,7 +39,7 @@ export async function POST(request: Request) {
     if (!hasActivePortalAccess(portalAccess)) {
       return NextResponse.json(
         { error: "Portal access is not enabled for this account." },
-        { status: 403 },
+        { status: 403, headers: { "Cache-Control": "no-store" } },
       );
     }
 
@@ -62,7 +65,7 @@ export async function POST(request: Request) {
     console.error("[Portal] Failed to mint upload token", error);
     return NextResponse.json(
       { error: "Unable to prepare the portal upload right now." },
-      { status: 500 },
+      { status: 500, headers: { "Cache-Control": "no-store" } },
     );
   }
 }
