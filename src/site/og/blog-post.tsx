@@ -1,4 +1,4 @@
-import { ImageResponse } from "@/compat/next/og";
+import { renderOgResponse } from "./render";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { getBlogPostBySlugFromContent } from "@/utils/astro-blog";
@@ -61,7 +61,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     ),
   ).then((res) => res.arrayBuffer());
 
-  return new ImageResponse(
+  return renderOgResponse(
     (
       <div
         style={{
