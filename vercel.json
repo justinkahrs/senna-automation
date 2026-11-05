@@ -41,6 +41,15 @@
       ]
     },
     {
+      "source": "/api/portal/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
       "source": "/images/(.*)",
       "headers": [
         {
