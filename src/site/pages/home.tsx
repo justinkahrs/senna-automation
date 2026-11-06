@@ -832,7 +832,7 @@ export default function Home({
               {
                 quote:
                   "I think it looks great. I think it is really well structured.",
-                name: "Manufacturing Leader",
+                name: "IT Manager",
                 source: "Feedback on Justin's work",
               },
             ].map((t) => (
