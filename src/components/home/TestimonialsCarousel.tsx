@@ -65,8 +65,13 @@ export default function TestimonialsCarousel() {
     const track = trackRef.current;
     if (!track) return;
     const next = Math.max(0, Math.min(index, testimonials.length - 1));
+    const left = next * track.clientWidth;
+    if (Math.abs(track.scrollLeft - left) < 1) {
+      setActiveIndex(next);
+      return;
+    }
     track.scrollTo({
-      left: next * track.clientWidth,
+      left,
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
     });
   };
