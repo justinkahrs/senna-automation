@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Box, Card, CardContent, Container, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Card, CardContent, IconButton, Stack, Typography } from "@mui/material";
 import ArrowForwardIcon from "@/components/icons/material/ArrowForward.mjs";
 import Link from "@/compat/next/link";
 
@@ -78,7 +78,7 @@ export default function TestimonialsCarousel() {
       aria-roledescription="carousel"
       sx={{ bgcolor: "background.paper", py: { xs: 8, md: 10 } }}
     >
-      <Container maxWidth={false} sx={{ width: "100%", maxWidth: 960, mx: "auto", px: { xs: 3, sm: 4 } }}>
+      <Box sx={{ width: "100%", maxWidth: 960, boxSizing: "border-box", mx: "auto", px: { xs: 3, sm: 4 } }}>
         <Typography id="testimonials-heading" variant="h2" component="h2" align="center" sx={{ mb: { xs: 4, md: 5 } }}>
           Don&apos;t take our word for it...
         </Typography>
@@ -180,7 +180,7 @@ export default function TestimonialsCarousel() {
             <ArrowForwardIcon />
           </IconButton>
         </Stack>
-      </Container>
+      </Box>
     </Box>
   );
 }
