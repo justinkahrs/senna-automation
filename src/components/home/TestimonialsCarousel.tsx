@@ -1,8 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Box, Card, CardContent, IconButton, Stack, Typography } from "@mui/material";
 import ArrowForwardIcon from "@/components/icons/material/ArrowForward.mjs";
+import PauseRoundedIcon from "@/components/icons/material/PauseRounded.mjs";
+import PlayArrowRoundedIcon from "@/components/icons/material/PlayArrowRounded.mjs";
 import Link from "@/compat/next/link";
 
 type Testimonial = {
@@ -45,23 +47,29 @@ const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "And I respect the fact that you guys are trying to do it as efficiently as possible.",
+      "I respect the fact that you guys are trying to do it as efficiently as possible.",
     name: "CEO",
     source: "Industrial Automation Company",
   },
   {
     quote:
-      "And I think this is exactly what we were tracking for.",
+      "I think this is exactly what we were tracking for.",
     name: "COO",
     source: "Industrial Automation Company",
   },
 ];
 
 export default function TestimonialsCarousel() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [manuallyPaused, setManuallyPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [inView, setInView] = useState(false);
+  const [pageVisible, setPageVisible] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(true);
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const goTo = (index: number) => {
+  const goTo = useCallback((index: number, instant = false) => {
     const track = trackRef.current;
     if (!track) return;
     const next = Math.max(0, Math.min(index, testimonials.length - 1));
@@ -72,13 +80,51 @@ export default function TestimonialsCarousel() {
     }
     track.scrollTo({
       left,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+      behavior: instant || window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
     });
+  }, []);
+
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncMotion = () => setReducedMotion(preference.matches);
+    const syncVisibility = () => setPageVisible(document.visibilityState === "visible");
+    syncMotion();
+    syncVisibility();
+    preference.addEventListener("change", syncMotion);
+    document.addEventListener("visibilitychange", syncVisibility);
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting && entry.intersectionRatio >= 0.5), { threshold: [0, 0.5] });
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => {
+      preference.removeEventListener("change", syncMotion);
+      document.removeEventListener("visibilitychange", syncVisibility);
+      observer.disconnect();
+    };
+  }, []);
+
+  const rotating = !manuallyPaused && !hovered && inView && pageVisible && !reducedMotion;
+  useEffect(() => {
+    if (!rotating) return;
+    const timer = window.setTimeout(() => goTo((activeIndex + 1) % testimonials.length, activeIndex === testimonials.length - 1), 10_000);
+    return () => window.clearTimeout(timer);
+  }, [activeIndex, rotating, goTo]);
+
+  const pauseForInteraction = (target: EventTarget) => {
+    if (!(target instanceof Element) || !target.closest("[data-carousel-rotation-toggle]")) {
+      setManuallyPaused(true);
+    }
   };
 
   return (
     <Box
       component="section"
+      ref={sectionRef}
+      onPointerEnter={(event) => { if (event.pointerType === "mouse") setHovered(true); }}
+      onPointerLeave={() => setHovered(false)}
+      onPointerDownCapture={(event) => pauseForInteraction(event.target)}
+      onClickCapture={(event) => pauseForInteraction(event.target)}
+      onKeyDownCapture={(event) => pauseForInteraction(event.target)}
+      onWheelCapture={() => setManuallyPaused(true)}
+      onFocusCapture={(event) => pauseForInteraction(event.target)}
       aria-labelledby="testimonials-heading"
       aria-roledescription="carousel"
       sx={{ bgcolor: "background.paper", py: { xs: 8, md: 10 } }}
@@ -177,12 +223,24 @@ export default function TestimonialsCarousel() {
           <IconButton aria-label="Previous testimonial" aria-controls="testimonial-slides" disabled={activeIndex === 0} onClick={() => goTo(activeIndex - 1)} sx={{ minWidth: 44, minHeight: 44 }}>
             <ArrowForwardIcon sx={{ transform: "rotate(180deg)" }} />
           </IconButton>
-          <Typography role="status" aria-live="polite" aria-atomic="true" variant="body2" sx={{ minWidth: 56, textAlign: "center", fontVariantNumeric: "tabular-nums" }}>
+          <Typography role="status" aria-live={rotating ? "off" : "polite"} aria-atomic="true" variant="body2" sx={{ minWidth: 56, textAlign: "center", fontVariantNumeric: "tabular-nums" }}>
             <Box component="span" sx={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clipPath: "inset(50%)" }}>Testimonial </Box>
             {activeIndex + 1} / {testimonials.length}
           </Typography>
           <IconButton aria-label="Next testimonial" aria-controls="testimonial-slides" disabled={activeIndex === testimonials.length - 1} onClick={() => goTo(activeIndex + 1)} sx={{ minWidth: 44, minHeight: 44 }}>
             <ArrowForwardIcon />
+          </IconButton>
+          <IconButton
+            data-carousel-rotation-toggle
+            aria-label={manuallyPaused ? "Start automatic rotation" : "Pause automatic rotation"}
+            aria-controls="testimonial-slides"
+            aria-pressed={!manuallyPaused}
+            disabled={reducedMotion}
+            title={reducedMotion ? "Automatic rotation is disabled for reduced motion" : undefined}
+            onClick={() => setManuallyPaused((paused) => !paused)}
+            sx={{ minWidth: 44, minHeight: 44 }}
+          >
+            {manuallyPaused ? <PlayArrowRoundedIcon /> : <PauseRoundedIcon />}
           </IconButton>
         </Stack>
       </Box>

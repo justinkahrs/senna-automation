@@ -895,7 +895,7 @@ export default function Home({
           "workflow-automation-consultant-grand-rapids",
         ]}
         sx={{
-          py: { xs: 10, md: 15 },
+          py: { xs: 6, md: 8 },
           bgcolor: "background.paper",
         }}
       />
@@ -909,7 +909,7 @@ export default function Home({
         sx={{
           bgcolor: "var(--color-text-highlight)",
           color: "text.primary",
-          py: 12,
+          py: { xs: 6, md: 8 },
           background: "none",
           animation: "none",
         }}
