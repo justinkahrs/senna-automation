@@ -60,6 +60,7 @@ export function Footer({
   pathname: string;
   currentYear: number;
 }) {
+  const isHome = pathname === "/";
   const usesYellowFooterBleed = ["/", "/about", "/contact"].includes(pathname);
   const usesExtendedCtaBackdrop = [
     "/blog",
@@ -76,7 +77,7 @@ export function Footer({
         pt: 0,
         pb: 0,
         px: 0,
-        mt: { xs: 0, md: -6 },
+        mt: isHome ? 0 : { xs: 0, md: -6 },
         position: "relative",
         zIndex: usesExtendedCtaBackdrop ? 1 : 20,
         ...(usesYellowFooterBleed
@@ -183,11 +184,11 @@ export function Footer({
             position: "relative",
             zIndex: 1,
             px: { xs: 3, sm: 5, md: 8, lg: 10 },
-            py: 10,
+            py: isHome ? { xs: 5, md: 6 } : 10,
           }}
         >
-          <Grid container spacing={8}>
-            <Grid size={{ xs: 12, md: 2 }}>
+          <Grid container spacing={isHome ? { xs: 4, md: 3 } : 8}>
+            <Grid size={{ xs: 12, md: isHome ? 3 : 2 }}>
               <Box
                 component="img"
                 src="/images/master-logo.svg"
@@ -217,8 +218,8 @@ export function Footer({
             {footerLinkGroups.map((group) => (
               <Grid
                 key={group.heading}
-                size={{ xs: 12, sm: 4, md: 2 }}>
-                <Box sx={{ ml: { md: 5 } }}>
+                size={{ xs: isHome ? 6 : 12, sm: 4, md: 2 }}>
+                <Box sx={{ ml: { md: isHome ? 0 : 5 } }}>
                   <Typography
                     variant="overline"
                     sx={{
@@ -254,8 +255,8 @@ export function Footer({
                 </Box>
               </Grid>
             ))}
-            <Grid size={{ xs: 12, sm: 4, md: 2 }}>
-              <Box sx={{ ml: { md: 5 }, display: "flex", flexDirection: "column", gap: 4 }}>
+            <Grid size={{ xs: isHome ? 6 : 12, sm: 4, md: 2 }}>
+              <Box sx={{ ml: { md: isHome ? 0 : 5 }, display: "flex", flexDirection: "column", gap: 4 }}>
                 {localFooterLinks.map((group) => (
                   <Box key={group.heading}>
                     <Typography
@@ -292,8 +293,8 @@ export function Footer({
                 ))}
               </Box>
             </Grid>
-            <Grid size={{ xs: 12, sm: 4, md: 2 }}>
-              <Box sx={{ ml: { md: 5 } }}>
+            <Grid size={{ xs: isHome ? 6 : 12, sm: 4, md: 2 }}>
+              <Box sx={{ ml: { md: isHome ? 0 : 5 } }}>
                 <Typography
                   variant="overline"
                   sx={{
@@ -362,8 +363,8 @@ export function Footer({
                 </Box>
               </Box>
             </Grid>
-            <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-              <Box sx={{ ml: { md: 5 } }}>
+            <Grid size={{ xs: isHome ? 6 : 12, sm: 4, md: isHome ? 3 : 4 }}>
+              <Box sx={{ ml: { md: isHome ? 0 : 5 } }}>
                 <Typography
                   variant="overline"
                   sx={{
@@ -388,7 +389,9 @@ export function Footer({
                     opacity: 0.8,
                     transition:
                       "opacity var(--dur-base) ease, transform var(--dur-base) ease",
-                    marginLeft: "-42px", // Align with the heading above
+                    marginLeft: isHome ? 0 : "-42px",
+                    width: isHome ? 180 : undefined,
+                    maxWidth: isHome ? "100%" : undefined,
                     "&:hover": {
                       opacity: 1,
                       transform: "translateY(-2px)",
@@ -401,8 +404,8 @@ export function Footer({
                     alt="BBB Profile"
                     loading="lazy"
                     sx={{
-                      height: 100,
-                      width: "auto",
+                      height: isHome ? "auto" : 100,
+                      width: isHome ? "100%" : "auto",
                       borderRadius: "var(--radius-sm)",
                     }}
                   />
@@ -446,8 +449,8 @@ export function Footer({
 
           <Box
             sx={{
-              mt: 10,
-              pt: 4,
+              mt: isHome ? { xs: 5, md: 6 } : 10,
+              pt: isHome ? 3 : 4,
               borderTop: "8px solid var(--color-text-muted)",
               display: "flex",
               justifyContent: "space-between",
