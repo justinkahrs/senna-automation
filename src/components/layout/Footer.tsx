@@ -198,6 +198,7 @@ export function Footer({
                   display: "block",
                   width: { xs: 180, md: 200 },
                   height: "auto",
+                  aspectRatio: isHome ? "249.64 / 90.57" : undefined,
                   mb: 2,
                   filter: "brightness(0) invert(1)",
                 }}
@@ -218,7 +219,7 @@ export function Footer({
             {footerLinkGroups.map((group) => (
               <Grid
                 key={group.heading}
-                size={{ xs: isHome ? 6 : 12, sm: 4, md: 2 }}>
+                size={{ xs: isHome ? 6 : 12, sm: isHome ? 6 : 4, md: 2 }}>
                 <Box sx={{ ml: { md: isHome ? 0 : 5 } }}>
                   <Typography
                     variant="overline"
@@ -255,7 +256,7 @@ export function Footer({
                 </Box>
               </Grid>
             ))}
-            <Grid size={{ xs: isHome ? 6 : 12, sm: 4, md: 2 }}>
+            <Grid size={{ xs: isHome ? 6 : 12, sm: isHome ? 6 : 4, md: 2 }}>
               <Box sx={{ ml: { md: isHome ? 0 : 5 }, display: "flex", flexDirection: "column", gap: 4 }}>
                 {localFooterLinks.map((group) => (
                   <Box key={group.heading}>
@@ -293,7 +294,7 @@ export function Footer({
                 ))}
               </Box>
             </Grid>
-            <Grid size={{ xs: isHome ? 6 : 12, sm: 4, md: 2 }}>
+            <Grid size={{ xs: isHome ? 6 : 12, sm: isHome ? 6 : 4, md: 2 }}>
               <Box sx={{ ml: { md: isHome ? 0 : 5 } }}>
                 <Typography
                   variant="overline"
@@ -363,7 +364,7 @@ export function Footer({
                 </Box>
               </Box>
             </Grid>
-            <Grid size={{ xs: isHome ? 6 : 12, sm: 4, md: isHome ? 3 : 4 }}>
+            <Grid size={{ xs: isHome ? 6 : 12, sm: isHome ? 6 : 4, md: isHome ? 3 : 4 }}>
               <Box sx={{ ml: { md: isHome ? 0 : 5 } }}>
                 <Typography
                   variant="overline"
@@ -404,6 +405,7 @@ export function Footer({
                     alt="BBB Profile"
                     loading="lazy"
                     sx={{
+                      aspectRatio: isHome ? "323.19 / 122.12" : undefined,
                       height: isHome ? "auto" : 100,
                       width: isHome ? "100%" : "auto",
                       borderRadius: "var(--radius-sm)",
