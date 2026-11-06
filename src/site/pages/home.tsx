@@ -835,10 +835,33 @@ export default function Home({
                 name: "IT Manager",
                 source: "Feedback on Justin's work",
               },
+              {
+                quote: "You're a joy to work with professionally.",
+                name: "Software Developer",
+                source: "Industrial Automation Company",
+              },
+              {
+                quote:
+                  "I think the work that you guys did, this is like night and day visually amazing.",
+                name: "Project Coordinator",
+                source: "Industrial Automation Company",
+              },
+              {
+                quote:
+                  "And I respect the fact that you guys are trying to do it as efficiently as possible.",
+                name: "CEO",
+                source: "Industrial Automation Company",
+              },
+              {
+                quote:
+                  "And I think this is exactly what we were tracking for.",
+                name: "COO",
+                source: "Industrial Automation Company",
+              },
             ].map((t) => (
               <Grid
                 key={t.name}
-                size={{ xs: 12, md: 4 }}>
+                size={{ xs: 12, sm: t.reviewUrl ? 12 : 6, md: t.reviewUrl ? 12 : 4 }}>
                 <Card
                   sx={{
                     height: "100%",
@@ -865,7 +888,7 @@ export default function Home({
                       flexDirection: "column",
                       justifyContent: "space-between",
                       gap: 4,
-                      minHeight: { xs: 320, md: 380 },
+                      minHeight: t.reviewUrl ? "auto" : { xs: 320, md: 380 },
                       "&:last-child": { pb: { xs: 4, md: 5.5 } },
                     }}
                   >
