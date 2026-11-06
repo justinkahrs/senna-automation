@@ -829,10 +829,16 @@ export default function Home({
                   "Justin has done so much work for us. And he's doing an amazing job.",
                 name: "Nonprofit Leader",
               },
+              {
+                quote:
+                  "I think it looks great. I think it is really well structured.",
+                name: "Manufacturing Leader",
+                source: "Feedback on Justin's work",
+              },
             ].map((t) => (
               <Grid
                 key={t.name}
-                size={{ xs: 12, md: 6 }}>
+                size={{ xs: 12, md: 4 }}>
                 <Card
                   sx={{
                     height: "100%",
