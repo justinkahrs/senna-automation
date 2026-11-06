@@ -818,26 +818,21 @@ export default function Home({
             {[
               {
                 quote:
-                  "The quoting workflow Senna built cut our response time from hours to minutes. We stopped losing deals just because we were slow.",
-                name: "Operations Manager",
-                company: "B2B Distributor",
+                  "He then created a customized solution that made the website easier to manage, simplified the process of making updates, and saved us a tremendous amount of time.",
+                name: "One More Moment",
+                source: "Customer review on BBB",
+                reviewUrl:
+                  "https://www.bbb.org/us/mi/grand-rapids/profile/artificial-intelligence/senna-automation-0372-90070205/customer-reviews",
               },
               {
                 quote:
-                  "Our lead follow-up used to fall through the cracks constantly. Now it's just done. The team didn't have to change anything about how they work.",
-                name: "Sales Director",
-                company: "Service Business",
-              },
-              {
-                quote:
-                  "Justin took the time to actually understand our process before building anything. The result was something our team immediately trusted.",
-                name: "Founder",
-                company: "Regional Agency",
+                  "Justin has done so much work for us. And he's doing an amazing job.",
+                name: "Nonprofit Leader",
               },
             ].map((t) => (
               <Grid
                 key={t.name}
-                size={{ xs: 12, md: 4 }}>
+                size={{ xs: 12, md: 6 }}>
                 <Card
                   sx={{
                     height: "100%",
@@ -883,13 +878,25 @@ export default function Home({
                       </Typography>
                       <Typography
                         variant="h4"
+                        component="blockquote"
+                        cite={t.reviewUrl}
                         sx={{
+                          m: 0,
                           color: "text.primary",
                           fontWeight: 400,
                           fontStyle: "italic",
                           lineHeight: 1.4
                         }}>
-                        {t.quote}
+                        {t.reviewUrl ? (
+                          <Link
+                            href={t.reviewUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ color: "inherit", textUnderlineOffset: "0.2em" }}
+                          >
+                            {t.quote}
+                          </Link>
+                        ) : t.quote}
                       </Typography>
                     </Box>
                     <Box>
@@ -904,11 +911,11 @@ export default function Home({
                       >
                         {t.name}
                       </Typography>
-                      <Typography variant="caption" sx={{
-                        color: "text.secondary"
-                      }}>
-                        {t.company}
-                      </Typography>
+                      {t.source && (
+                        <Typography variant="caption" sx={{ color: "text.secondary" }}>
+                          {t.source}
+                        </Typography>
+                      )}
                     </Box>
                   </CardContent>
                 </Card>
