@@ -63,6 +63,9 @@ export default function TestimonialsCarousel() {
   const sectionRef = useRef<HTMLElement>(null);
   const [manuallyPaused, setManuallyPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [keyboardFocused, setKeyboardFocused] = useState(false);
+  const [pointerDown, setPointerDown] = useState(false);
+  const [lastInteractionAt, setLastInteractionAt] = useState<number | null>(null);
   const [inView, setInView] = useState(false);
   const [pageVisible, setPageVisible] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(true);
@@ -101,16 +104,20 @@ export default function TestimonialsCarousel() {
     };
   }, []);
 
-  const rotating = !manuallyPaused && !hovered && inView && pageVisible && !reducedMotion;
+  const rotating = !manuallyPaused && !hovered && !keyboardFocused && !pointerDown && inView && pageVisible && !reducedMotion;
   useEffect(() => {
     if (!rotating) return;
-    const timer = window.setTimeout(() => goTo((activeIndex + 1) % testimonials.length, activeIndex === testimonials.length - 1), 10_000);
+    const delay = lastInteractionAt === null ? 10_000 : Math.max(0, 5_000 - (Date.now() - lastInteractionAt));
+    const timer = window.setTimeout(() => {
+      setLastInteractionAt(null);
+      goTo((activeIndex + 1) % testimonials.length, activeIndex === testimonials.length - 1);
+    }, delay);
     return () => window.clearTimeout(timer);
-  }, [activeIndex, rotating, goTo]);
+  }, [activeIndex, rotating, lastInteractionAt, goTo]);
 
   const pauseForInteraction = (target: EventTarget) => {
     if (!(target instanceof Element) || !target.closest("[data-carousel-rotation-toggle]")) {
-      setManuallyPaused(true);
+      setLastInteractionAt(Date.now());
     }
   };
 
@@ -119,12 +126,42 @@ export default function TestimonialsCarousel() {
       component="section"
       ref={sectionRef}
       onPointerEnter={(event) => { if (event.pointerType === "mouse") setHovered(true); }}
-      onPointerLeave={() => setHovered(false)}
-      onPointerDownCapture={(event) => pauseForInteraction(event.target)}
+      onPointerLeave={() => {
+        setHovered(false);
+        setPointerDown(false);
+        setLastInteractionAt(Date.now());
+      }}
+      onPointerDownCapture={(event) => {
+        setKeyboardFocused(false);
+        setPointerDown(true);
+        pauseForInteraction(event.target);
+      }}
+      onPointerUpCapture={(event) => {
+        setPointerDown(false);
+        pauseForInteraction(event.target);
+      }}
+      onPointerCancel={() => {
+        setPointerDown(false);
+        setLastInteractionAt(Date.now());
+      }}
       onClickCapture={(event) => pauseForInteraction(event.target)}
-      onKeyDownCapture={(event) => pauseForInteraction(event.target)}
-      onWheelCapture={() => setManuallyPaused(true)}
-      onFocusCapture={(event) => pauseForInteraction(event.target)}
+      onKeyDownCapture={(event) => {
+        if (!(event.target instanceof Element) || !event.target.closest("[data-carousel-rotation-toggle]")) {
+          setKeyboardFocused(true);
+          pauseForInteraction(event.target);
+        }
+      }}
+      onWheelCapture={() => {
+        setKeyboardFocused(false);
+        setLastInteractionAt(Date.now());
+      }}
+      onFocusCapture={(event) => setKeyboardFocused(event.target.matches(":focus-visible"))}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          setKeyboardFocused(false);
+          setLastInteractionAt(Date.now());
+        }
+      }}
       aria-labelledby="testimonials-heading"
       aria-roledescription="carousel"
       sx={{ bgcolor: "background.paper", py: { xs: 8, md: 10 } }}
@@ -224,7 +261,7 @@ export default function TestimonialsCarousel() {
             <ArrowForwardIcon sx={{ transform: "rotate(180deg)" }} />
           </IconButton>
           <Typography role="status" aria-live={rotating ? "off" : "polite"} aria-atomic="true" variant="body2" sx={{ minWidth: 56, textAlign: "center", fontVariantNumeric: "tabular-nums" }}>
-            <Box component="span" sx={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clipPath: "inset(50%)" }}>Testimonial </Box>
+            <Box component="span" sx={{ position: "absolute", width: "1px", height: "1px", overflow: "hidden", clipPath: "inset(50%)" }}>Testimonial </Box>
             {activeIndex + 1} / {testimonials.length}
           </Typography>
           <IconButton aria-label="Next testimonial" aria-controls="testimonial-slides" disabled={activeIndex === testimonials.length - 1} onClick={() => goTo(activeIndex + 1)} sx={{ minWidth: 44, minHeight: 44 }}>
@@ -237,7 +274,11 @@ export default function TestimonialsCarousel() {
             aria-pressed={!manuallyPaused}
             disabled={reducedMotion}
             title={reducedMotion ? "Automatic rotation is disabled for reduced motion" : undefined}
-            onClick={() => setManuallyPaused((paused) => !paused)}
+            onClick={() => {
+              setManuallyPaused((paused) => !paused);
+              setKeyboardFocused(false);
+              setLastInteractionAt(null);
+            }}
             sx={{ minWidth: 44, minHeight: 44 }}
           >
             {manuallyPaused ? <PlayArrowRoundedIcon /> : <PauseRoundedIcon />}
