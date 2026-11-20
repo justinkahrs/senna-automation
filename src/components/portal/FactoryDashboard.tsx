@@ -9,7 +9,8 @@ type Decision = {
 };
 type Source = {
   id: string; project_id: string; provider: string; resource: string; health: string;
-  last_ok: string | null; gap_from: string | null;
+  last_ok: string | null; gap_from: string | null; sync_age_seconds?: number | null;
+  checkpoint_state?: string; checkpoint_window?: string | null; checkpoint_page?: number | null;
 };
 type Run = {
   id: string; project_id: string; kind: string; state: string; created_at: string;
@@ -269,9 +270,15 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
               <Box key={source.id}>
                 <Typography>{source.provider} · {source.resource} · {label(source.health)}</Typography>
                 <Typography color="text.secondary" variant="body2">
-                  Last observed {format(source.last_ok)}
+                  Last synced {format(source.last_ok)}
+                  {source.sync_age_seconds != null && ` · ${Math.floor(source.sync_age_seconds / 60)} min ago`}
                   {source.gap_from ? ` · Gap since ${format(source.gap_from)}` : ""}
                 </Typography>
+                {source.checkpoint_state && <Typography color="text.secondary" variant="body2">
+                  Checkpoint {label(source.checkpoint_state)}
+                  {source.checkpoint_window && ` · Window starts ${format(source.checkpoint_window)}`}
+                  {source.checkpoint_page != null && ` · ${source.checkpoint_page} pages read`}
+                </Typography>}
               </Box>
             ))}
           </Stack>
