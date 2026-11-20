@@ -16,6 +16,9 @@ type Run = {
   id: string; project_id: string; kind: string; state: string; created_at: string;
   completed_at: string | null; last_error: string | null; attempts: number;
   source_url: string | null; worker: string | null; lease_until: string | null;
+  last_started_at?: string | null;
+  recent_attempts?: { generation: number; started_at: string; finished_at: string | null; result: string | null }[];
+  eta?: { earliest: string; latest: string; samples: number; calculated_at: string } | null;
 };
 type Event = {
   id: string; project_id: string; kind: string; observed_at: string; disposition: string | null;
@@ -234,8 +237,24 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
                 <Typography component="h3" variant="h6">{label(run.kind)}</Typography>
                 <Typography>{label(run.state)} · {run.attempts} attempts</Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {run.worker ? `Worker ${run.worker.slice(0, 8)} · ` : ""}{format(run.completed_at ?? run.created_at)} · ETA unavailable · Cost unpriced
+                  {run.worker ? `Worker ${run.worker.slice(0, 8)} · ` : ""}
+                  {run.completed_at ? `Finished ${format(run.completed_at)}`
+                    : run.last_started_at ? `Last started ${format(run.last_started_at)}` : `Queued ${format(run.created_at)}`}
                 </Typography>
+                {run.state === "leased" && <Typography variant="body2" color="text.secondary">
+                  {run.eta ? `Estimated ${format(run.eta.earliest)} to ${format(run.eta.latest)} · Based on ${run.eta.samples} comparable runs as of ${format(run.eta.calculated_at)}`
+                    : "ETA unavailable"}
+                </Typography>}
+                {Boolean(run.recent_attempts?.length) && <Box component="details" sx={{ mt: 0.5 }}>
+                  <Typography component="summary" variant="body2">Attempt history</Typography>
+                  <Box component="ul" sx={{ my: 0.5, pl: 3 }}>
+                    {run.recent_attempts?.map((attempt) => <Typography key={attempt.generation} component="li" variant="body2">
+                      Attempt {attempt.generation} · {format(attempt.started_at)}
+                      {attempt.finished_at ? ` to ${format(attempt.finished_at)}` : ""}
+                      {attempt.result ? ` · ${label(attempt.result)}` : ""}
+                    </Typography>)}
+                  </Box>
+                </Box>}
                 {run.last_error && <Typography color="error.main">{run.last_error}</Typography>}
                 {safeTarget(run.source_url) && <Button href={safeTarget(run.source_url)}>Open source</Button>}
               </Paper>
