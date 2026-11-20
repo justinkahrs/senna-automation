@@ -38,7 +38,7 @@ export default function ChatWidget() {
   const theme = useTheme();
   const { isCalendlyOpen } = useModalStore();
   const [isOpen, setIsOpen] = useState(false);
-  const [session, setSession] = useState<string | null>(null);
+  const [hasActiveSession, setHasActiveSession] = useState(false);
   const [hasConsent, setHasConsent] = useState(false);
 
   // UI States
@@ -54,22 +54,50 @@ export default function ChatWidget() {
   const cursorRef = useRef<string | null>(null);
   const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Load state from local storage on mount
+  // Discard legacy bearer IDs and restore only an HttpOnly-cookie session.
   useEffect(() => {
-    const storedSession = localStorage.getItem(STORAGE_KEY_SESSION);
-    const storedConsent = localStorage.getItem(STORAGE_KEY_CONSENT);
-    const storedName = localStorage.getItem(STORAGE_KEY_NAME);
-    const storedOpen = sessionStorage.getItem(STORAGE_KEY_OPEN);
+    let cancelled = false;
 
-    if (storedSession) setSession(storedSession);
-    if (storedConsent === "true") setHasConsent(true);
-    if (storedName) {
-      setInputName(storedName);
-    }
-    if (storedOpen === "true") {
-      setIsOpen(true);
-    }
-    setInitializing(false);
+    const restore = async () => {
+      const legacySession = localStorage.getItem(STORAGE_KEY_SESSION);
+      const storedConsent = localStorage.getItem(STORAGE_KEY_CONSENT);
+      const storedName = localStorage.getItem(STORAGE_KEY_NAME);
+      const storedOpen = sessionStorage.getItem(STORAGE_KEY_OPEN);
+
+      if (legacySession) {
+        localStorage.removeItem(STORAGE_KEY_SESSION);
+        localStorage.removeItem(STORAGE_KEY_CONSENT);
+      }
+
+      if (storedName && !cancelled) setInputName(storedName);
+      if (storedOpen === "true" && !cancelled) setIsOpen(true);
+
+      if (storedConsent === "true" && !legacySession) {
+        try {
+          const response = await fetch("/api/chat/poll", { cache: "no-store" });
+          if (response.ok) {
+            const result = await response.json();
+            if (!cancelled) {
+              setHasActiveSession(true);
+              setHasConsent(true);
+              setMessages(Array.isArray(result.messages) ? result.messages : []);
+              cursorRef.current = result.nextCursor || null;
+            }
+          } else {
+            localStorage.removeItem(STORAGE_KEY_CONSENT);
+          }
+        } catch {
+          localStorage.removeItem(STORAGE_KEY_CONSENT);
+        }
+      }
+
+      if (!cancelled) setInitializing(false);
+    };
+
+    void restore();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -79,15 +107,23 @@ export default function ChatWidget() {
 
   const fetchMessages = useCallback(
     async (isInitial = false) => {
-      if (!session) return;
+      if (!hasActiveSession) return;
       try {
         const url = new URL("/api/chat/poll", window.location.href);
-        url.searchParams.append("session_id", session);
         if (cursorRef.current && !isInitial) {
           url.searchParams.append("cursor", cursorRef.current);
         }
 
-        const res = await fetch(url.toString());
+        const res = await fetch(url.toString(), { cache: "no-store" });
+        if (res.status === 401) {
+          localStorage.removeItem(STORAGE_KEY_CONSENT);
+          void fetch("/api/chat/end", { method: "POST" }).catch(() => undefined);
+          setHasActiveSession(false);
+          setHasConsent(false);
+          setMessages([]);
+          cursorRef.current = null;
+          return;
+        }
         if (res.ok) {
           const result = await res.json();
           if (result.messages && result.messages.length > 0) {
@@ -117,12 +153,12 @@ export default function ChatWidget() {
         console.error("Polling error", err);
       }
     },
-    [session],
+    [hasActiveSession],
   );
 
-  // Poll for messages when chat is open and we have a session + consent
+  // Poll for messages when the browser holds a valid server-issued capability.
   useEffect(() => {
-    if (isOpen && session && hasConsent) {
+    if (isOpen && hasActiveSession && hasConsent) {
       fetchMessages(true); // Initial fetch
       pollIntervalRef.current = setInterval(
         () => fetchMessages(),
@@ -135,7 +171,7 @@ export default function ChatWidget() {
     return () => {
       if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
     };
-  }, [isOpen, session, hasConsent, fetchMessages]);
+  }, [isOpen, hasActiveSession, hasConsent, fetchMessages]);
 
   // Scroll to bottom when messages change
   useEffect(() => {
@@ -148,28 +184,23 @@ export default function ChatWidget() {
     if (!inputName.trim()) return;
     setLoading(true);
 
-    // Generate new session ID if one doesn't exist
-    const currentSession = session || crypto.randomUUID();
-
     try {
       const res = await fetch("/api/chat/start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          session_id: currentSession,
           display_name: inputName,
           consented: true,
         }),
       });
 
       if (res.ok) {
-        await res.json();
-        // Persist everything
-        localStorage.setItem(STORAGE_KEY_SESSION, currentSession);
+        // Persist consent and display name only; the session capability is HttpOnly.
         localStorage.setItem(STORAGE_KEY_CONSENT, "true");
         localStorage.setItem(STORAGE_KEY_NAME, inputName);
 
-        setSession(currentSession);
+        localStorage.removeItem(STORAGE_KEY_SESSION);
+        setHasActiveSession(true);
         setHasConsent(true);
       } else {
         alert("Failed to start chat. Please try again.");
@@ -183,6 +214,8 @@ export default function ChatWidget() {
   };
 
   const handleResetChat = () => {
+    void fetch("/api/chat/end", { method: "POST" }).catch(() => undefined);
+
     // Clear storage
     localStorage.removeItem(STORAGE_KEY_SESSION);
     // Keep name and consent? Maybe keep name but require consent again to be safe?
@@ -191,7 +224,7 @@ export default function ChatWidget() {
     localStorage.removeItem(STORAGE_KEY_CONSENT);
 
     // Reset state
-    setSession(null);
+    setHasActiveSession(false);
     setHasConsent(false);
     setMessages([]);
     setChatEnded(false);
@@ -200,7 +233,7 @@ export default function ChatWidget() {
   };
 
   const handleSendMessage = async () => {
-    if (!inputText.trim() || !session) return;
+    if (!inputText.trim() || !hasActiveSession) return;
     const textToSend = inputText.trim();
     setInputText(""); // Clear immediately for UX
     setSending(true);
@@ -210,10 +243,15 @@ export default function ChatWidget() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          session_id: session,
           text: textToSend,
         }),
       });
+
+      if (res.status === 401) {
+        handleResetChat();
+        alert("Your chat session expired. Please start a new chat.");
+        return;
+      }
 
       if (res.status === 410) {
         setChatEnded(true);

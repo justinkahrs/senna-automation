@@ -3,6 +3,7 @@ import Script from "@/compat/next/script";
 import type { RouteMetadata } from "@/utils/metadata";
 import RequestFormButton from "@/components/RequestFormButton";
 import SennaAdvantageVideo from "@/components/home/SennaAdvantageVideo";
+import TestimonialsCarousel from "@/components/home/TestimonialsCarousel";
 import type { BlogPostPreview } from "@/types/blog";
 import { homeFaqEntries, formatAiFaqAnswer } from "@/utils/ai-discovery";
 import { SITE_NAME, SITE_URL } from "@/utils/site";
@@ -781,142 +782,7 @@ export default function Home({
           </Container>
         </Box>
       </Box>
-      {/* ── Social Proof ─────────────────────────────── */}
-      <Box
-        component="section"
-        sx={{
-          bgcolor: "background.paper",
-          py: { xs: 9, md: 12 },
-          minHeight: { md: 720 },
-          display: "flex",
-          alignItems: "center",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <Container
-          maxWidth={false}
-          sx={{
-            width: "100%",
-            maxWidth: { xs: "100%", md: 1240 },
-            mx: "auto",
-            px: { xs: 3, sm: 4, md: 0 },
-            transform: { md: "translateY(-64px)" },
-            position: "relative",
-            zIndex: 1,
-          }}
-        >
-          <Typography
-            variant="h2"
-            component="h2"
-            align="center"
-            sx={{ mb: 6 }}
-          >
-            Don&apos;t take our word for it...
-          </Typography>
-          <Grid container spacing={{ xs: 3, md: 4 }}>
-            {[
-              {
-                quote:
-                  "The quoting workflow Senna built cut our response time from hours to minutes. We stopped losing deals just because we were slow.",
-                name: "Operations Manager",
-                company: "B2B Distributor",
-              },
-              {
-                quote:
-                  "Our lead follow-up used to fall through the cracks constantly. Now it's just done. The team didn't have to change anything about how they work.",
-                name: "Sales Director",
-                company: "Service Business",
-              },
-              {
-                quote:
-                  "Justin took the time to actually understand our process before building anything. The result was something our team immediately trusted.",
-                name: "Founder",
-                company: "Regional Agency",
-              },
-            ].map((t) => (
-              <Grid
-                key={t.name}
-                size={{ xs: 12, md: 4 }}>
-                <Card
-                  sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    bgcolor: "background.default",
-                    backgroundImage: "none",
-                    boxShadow: "none",
-                    border: "1px solid",
-                    borderColor: "var(--color-border-neutral-light)",
-                    borderRadius: { xs: 0, md: 1.5 },
-                    "&:hover": {
-                      transform: "none",
-                      boxShadow: "none",
-                      borderColor: "var(--color-border-neutral-light)",
-                    },
-                  }}
-                >
-                  <CardContent
-                    sx={{
-                      p: { xs: 4, md: 5.5 },
-                      flex: 1,
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                      gap: 4,
-                      minHeight: { xs: 320, md: 380 },
-                      "&:last-child": { pb: { xs: 4, md: 5.5 } },
-                    }}
-                  >
-                    <Box sx={{ flex: 1 }}>
-                      <Typography
-                        component="div"
-                        sx={{
-                          color: "var(--color-text-accent)",
-                          fontFamily: '"Cormorant Garamond", serif',
-                          fontSize: { xs: "3rem", md: "3.5rem" },
-                          lineHeight: 0.8,
-                          mb: 2,
-                        }}
-                      >
-                        &ldquo;
-                      </Typography>
-                      <Typography
-                        variant="h4"
-                        sx={{
-                          color: "text.primary",
-                          fontWeight: 400,
-                          fontStyle: "italic",
-                          lineHeight: 1.4
-                        }}>
-                        {t.quote}
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          fontWeight: 700,
-                          color: "text.primary",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.08em",
-                        }}
-                      >
-                        {t.name}
-                      </Typography>
-                      <Typography variant="caption" sx={{
-                        color: "text.secondary"
-                      }}>
-                        {t.company}
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+      <TestimonialsCarousel />
       {/* ── FAQ Section ──────────────────────────────── */}
       <Box
         component="section"
@@ -1029,7 +895,7 @@ export default function Home({
           "workflow-automation-consultant-grand-rapids",
         ]}
         sx={{
-          py: { xs: 10, md: 15 },
+          py: { xs: 6, md: 8 },
           bgcolor: "background.paper",
         }}
       />
@@ -1043,7 +909,7 @@ export default function Home({
         sx={{
           bgcolor: "var(--color-text-highlight)",
           color: "text.primary",
-          py: 12,
+          py: { xs: 6, md: 8 },
           background: "none",
           animation: "none",
         }}
