@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { Alert, Box, Button, Chip, Container, MenuItem, Paper, Stack, TextField, Typography } from "@mui/material";
 
-type Project = { id: string; name: string; mode: string };
+type Project = {
+  id: string; name: string; mode: string; role?: string; dispatch_version?: number; paused_from?: string | null;
+  queued_jobs?: number; active_writes?: number; outstanding_effects?: number;
+};
 type Decision = {
   id: string; project_id: string; version: number; title: string; reason: string; state: string;
   role: string; options: { action: string; label: string }[]; expires_at: string;
@@ -117,6 +120,28 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
     }
   }
 
+  async function changeDispatch(item: Project) {
+    const action = item.mode === "paused" ? "resume" : "pause";
+    setBusy(item.id);
+    setError("");
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ kind: "dispatch", project: item.id, version: item.dispatch_version, action }),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        await refresh();
+        throw new Error(result.error || "Project dispatch could not be updated.");
+      }
+      await refresh();
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : "Project dispatch could not be updated.");
+    } finally {
+      setBusy("");
+    }
+  }
+
   async function enroll() {
     setBusy("enrollment");
     setError("");
@@ -139,6 +164,7 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
     }
   }
 
+  const selectedProject = data?.projects.find((item) => item.id === project);
   const decisions = data?.decisions.filter((item) => focused ? item.id === focused : true) ?? [];
   const pending = data?.decisions.filter((item) => item.state === "pending").length ?? 0;
   const running = data?.runs.filter((run) => run.state === "leased" &&
@@ -167,6 +193,24 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
             <Chip label={`${running + externalRunning} running`} />
             <Chip label={`${blocked} blocked`} />
           </Stack>
+          {selectedProject?.dispatch_version && (
+            <Paper variant="outlined" sx={{ p: 2 }} component="section" aria-label="Project dispatch">
+              <Stack spacing={1}>
+                <Typography component="h2" variant="h6">Project dispatch</Typography>
+                <Typography>{selectedProject.mode === "paused" ? "Paused · Source intake continues" : label(selectedProject.mode)}</Typography>
+                <Typography color="text.secondary">
+                  {selectedProject.queued_jobs} queued · {selectedProject.active_writes} active writes · {selectedProject.outstanding_effects} outstanding effects
+                </Typography>
+                {selectedProject.role === "operator" && (selectedProject.mode !== "paused" || selectedProject.paused_from) && (
+                  <Button sx={{ alignSelf: "start" }} variant="outlined" onClick={() => void changeDispatch(selectedProject)}
+                    disabled={Boolean(busy) || (selectedProject.mode === "paused" &&
+                      Boolean(selectedProject.active_writes || selectedProject.outstanding_effects))}>
+                    {selectedProject.mode === "paused" ? "Resume dispatch" : "Pause dispatch"}
+                  </Button>
+                )}
+              </Stack>
+            </Paper>
+          )}
           {data.mayEnroll && <Stack spacing={1.5} component="section" aria-label="Enroll a project">
             <Typography component="h2" variant="h5">Enroll a project</Typography>
             {created && <Alert severity="success">

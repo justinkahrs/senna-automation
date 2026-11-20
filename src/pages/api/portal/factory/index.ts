@@ -58,6 +58,15 @@ export const POST: APIRoute = async ({ request, url, locals }) => {
       }));
       return Response.json(await response.json(), { status: response.status, headers: privateHeaders });
     }
+    if (answer?.kind === "dispatch") {
+      if (typeof answer.project !== "string" || !idPattern.test(answer.project) ||
+          !["pause", "resume"].includes(answer.action) || !Number.isSafeInteger(answer.version)) {
+        return error(422, "Invalid project control request.");
+      }
+      const response = await requestFactory(user.id, `/v1/projects/${answer.project}/dispatch`, "POST",
+        JSON.stringify({ action: answer.action, version: answer.version }));
+      return Response.json(await response.json(), { status: response.status, headers: privateHeaders });
+    }
     if (!answer || typeof answer.decision !== "string" || !idPattern.test(answer.decision) ||
         !Number.isSafeInteger(answer.version)) return error(422, "Invalid decision or version.");
     const response = await requestFactory(user.id, `/v1/decisions/${answer.decision}/answer`, "POST", JSON.stringify({
