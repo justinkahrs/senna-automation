@@ -1,0 +1,28 @@
+---
+import FactoryDashboard from "@/components/portal/FactoryDashboard";
+import RouteShell from "@/components/app/RouteShell.astro";
+import { factoryServiceAvailable, getFactoryOperator } from "@/lib/factory-portal";
+
+export const prerender = false;
+Astro.response.headers.set("Cache-Control", "private, no-store");
+if (!Astro.locals.user) return Astro.redirect("/login");
+
+try {
+  const user = await getFactoryOperator(Astro.request.headers, Astro.locals.user);
+  if (!user) return new Response("Factory access denied.", { status: 403 });
+} catch {
+  return new Response("Portal access is temporarily unavailable.", { status: 503 });
+}
+
+const enabled = factoryServiceAvailable();
+const initialProject = Astro.url.searchParams.get("project") ?? "";
+const initialDecision = Astro.url.searchParams.get("decision") ?? "";
+---
+
+<RouteShell
+  heroSurface="light"
+  metadata={{ title: "Factory", robots: { index: false, follow: false } }}
+  pathname="/portal/factory"
+>
+  <FactoryDashboard client:load enabled={enabled} initialProject={initialProject} initialDecision={initialDecision} />
+</RouteShell>
