@@ -33,7 +33,7 @@ type Runtime = { id: string; external_id: string | null; provider: string; exter
 type Cost = { project_id: string; reserved_micros: string; uncertain_micros: string; confirmed_micros: string; included_units: string };
 type Portfolio = {
   projects: Project[]; decisions: Decision[]; sources: Source[]; runs: Run[]; events: Event[];
-  runtimes: Runtime[]; costs: Cost[]; mayEnroll: boolean;
+  runtimes: Runtime[]; costs: Cost[]; mayEnroll: boolean; dispatchPaused?: boolean;
 };
 
 const endpoint = "/api/portal/factory";
@@ -231,6 +231,7 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
         {error && <Alert severity="warning" role="status">{error}</Alert>}
         {enabled && !data && !error && <Typography role="status">Loading project activity…</Typography>}
         {data && <>
+          {data.dispatchPaused && <Alert severity="warning">Portfolio dispatch paused. Source intake continues.</Alert>}
           <TextField select size="small" label="Project" value={project} onChange={(event) => filter(event.target.value)} fullWidth>
             <MenuItem value="">All projects</MenuItem>
             {data.projects.map((item) => <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>)}
