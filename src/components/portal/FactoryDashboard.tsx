@@ -41,7 +41,7 @@ type Release = {
 };
 type Portfolio = {
   projects: Project[]; decisions: Decision[]; sources: Source[]; runs: Run[]; events: Event[];
-  runtimes: Runtime[]; costs: Cost[]; mayEnroll: boolean; dispatchPaused?: boolean; releases?: Release[];
+  runtimes: Runtime[]; costs: Cost[]; mayEnroll: boolean; dispatchPaused?: boolean; restoreInspection?: boolean; releases?: Release[];
 };
 
 const endpoint = "/api/portal/factory";
@@ -255,7 +255,9 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
         {error && <Alert severity="warning" role="status">{error}</Alert>}
         {enabled && !data && !error && <Typography role="status">Loading project activity…</Typography>}
         {data && <>
-          {data.dispatchPaused && <Alert severity="warning">Portfolio dispatch paused. Source intake continues.</Alert>}
+          {data.restoreInspection ? (
+            <Alert severity="warning">Restore inspection is read-only. Source intake and dispatch are paused.</Alert>
+          ) : data.dispatchPaused && <Alert severity="warning">Portfolio dispatch paused. Source intake continues.</Alert>}
           <TextField select size="small" label="Project" value={project} onChange={(event) => filter(event.target.value)} fullWidth>
             <MenuItem value="">All projects</MenuItem>
             {data.projects.map((item) => <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>)}
