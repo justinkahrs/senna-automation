@@ -9,6 +9,7 @@ type Decision = {
   id: string; project_id: string; version: number; title: string; reason: string; state: string;
   role: string; options: { action: string; label: string }[]; expires_at: string;
   slack_url: string | null; notification: string | null;
+  execution?: string | null; execution_revision?: string | null;
 };
 type Source = {
   id: string; project_id: string; provider: string; resource: string; health: string;
@@ -327,6 +328,10 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
                   <Typography variant="body2">
                     {label(item.state)} · Expires {format(item.expires_at)} · Slack {label(item.notification ?? "unconfigured")}
                   </Typography>
+                  {item.execution && <Typography variant="body2">
+                    Draft update {item.execution === "succeeded" ? "verified" : label(item.execution)}
+                    {item.execution_revision && ` · Revision ${item.execution_revision}`}
+                  </Typography>}
                   {safeTarget(item.slack_url) && <Button href={safeTarget(item.slack_url)} sx={{ alignSelf: "start" }}>Project thread</Button>}
                   {item.state === "pending" && item.role === "operator" && <>
                     <Stack direction="row" flexWrap="wrap" gap={1}>
@@ -335,10 +340,13 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
                           onClick={() => void respond(item, option.action)}>{option.label}</Button>
                       ))}
                     </Stack>
-                    <TextField multiline label="Reply" size="small" value={reply[item.id] ?? ""}
+                    <TextField multiline label={item.options.some((option) => option.action === "edit") ? "Replacement wording" : "Reply"}
+                      size="small" value={reply[item.id] ?? ""} slotProps={{ htmlInput: { maxLength: 1600 } }}
                       onChange={(event) => setReply((previous) => ({ ...previous, [item.id]: event.target.value }))} />
-                    <Button onClick={() => void respond(item)} disabled={Boolean(busy) || !reply[item.id]?.trim()}
-                      sx={{ alignSelf: "start" }}>Submit reply</Button>
+                    <Button onClick={() => void respond(item, item.options.find((option) => option.action === "edit")?.action)}
+                      disabled={Boolean(busy) || !reply[item.id]?.trim()} sx={{ alignSelf: "start" }}>
+                      {item.options.find((option) => option.action === "edit")?.label ?? "Submit reply"}
+                    </Button>
                   </>}
                 </Stack>
               </Paper>
