@@ -1,0 +1,112 @@
+name: Senna candidate
+run-name: Senna factory ${{ inputs.factory_key }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      factory_key:
+        description: Factory work identity
+        required: true
+        type: string
+      manifest:
+        description: Approved factory run manifest digest
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: senna-factory-candidate-${{ inputs.factory_key }}
+  cancel-in-progress: false
+
+jobs:
+  candidate:
+    if: github.repository == 'justinkahrs/senna-automation' && github.ref == 'refs/heads/main' && github.run_attempt == '1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 23
+    environment: senna-factory-candidate
+    steps:
+      - name: Check trusted runner configuration
+        env:
+          FACTORY_CI_DISPATCH_ACTOR: ${{ vars.SENNA_FACTORY_DISPATCH_ACTOR }}
+          FACTORY_CI_IMAGE: ${{ vars.SENNA_FACTORY_CANDIDATE_IMAGE }}
+          FACTORY_INFRA_REVISION: ${{ vars.SENNA_FACTORY_INFRA_REVISION }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ -n "$FACTORY_CI_DISPATCH_ACTOR" && "$GITHUB_ACTOR" == "$FACTORY_CI_DISPATCH_ACTOR" ]]
+          [[ "$FACTORY_INFRA_REVISION" =~ ^[a-f0-9]{40}$ ]]
+          [[ "$FACTORY_CI_IMAGE" =~ ^[-a-z0-9./:]+@sha256:[a-f0-9]{64}$ ]]
+
+      - name: Check out the pinned website
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          path: website
+          persist-credentials: false
+
+      - name: Get the scoped runner checkout token
+        id: runner-token
+        uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc
+        with:
+          client-id: ${{ vars.SENNA_FACTORY_INFRA_CLIENT_ID }}
+          private-key: ${{ secrets.SENNA_FACTORY_INFRA_APP_KEY }}
+          owner: justinkahrs
+          repositories: infra
+          permission-contents: read
+
+      - name: Check out the pinned private runner
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: justinkahrs/infra
+          token: ${{ steps.runner-token.outputs.token }}
+          ref: ${{ vars.SENNA_FACTORY_INFRA_REVISION }}
+          path: runner
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+
+      - name: Pull the approved sandbox image
+        env:
+          FACTORY_CI_IMAGE: ${{ vars.SENNA_FACTORY_CANDIDATE_IMAGE }}
+        shell: bash
+        run: docker pull "$FACTORY_CI_IMAGE"
+
+      - name: Verify and prepare the candidate bundle
+        id: candidate
+        env:
+          FACTORY_CI_DISPATCH_ACTOR: ${{ vars.SENNA_FACTORY_DISPATCH_ACTOR }}
+          FACTORY_CI_IMAGE: ${{ vars.SENNA_FACTORY_CANDIDATE_IMAGE }}
+          FACTORY_CI_RECIPE: ${{ secrets.SENNA_FACTORY_CANDIDATE_RECIPE }}
+        shell: bash
+        run: node runner/factory/src/candidate-ci.ts "$GITHUB_WORKSPACE/website" "$RUNNER_TEMP/senna-candidate-artifact"
+
+      - name: Upload the verified public website candidate
+        id: artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ${{ steps.candidate.outputs.artifact_name }}
+          path: |
+            ${{ runner.temp }}/senna-candidate-artifact/candidate.bundle
+            ${{ runner.temp }}/senna-candidate-artifact/receipt.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Record the artifact receipt
+        env:
+          ARTIFACT_ID: ${{ steps.artifact.outputs.artifact-id }}
+          ARTIFACT_DIGEST: ${{ steps.artifact.outputs.artifact-digest }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$ARTIFACT_ID" =~ ^[0-9]+$ && "$ARTIFACT_DIGEST" =~ ^[a-f0-9]{64}$ ]]
+          printf 'Candidate artifact %s\n\nArchive SHA-256 %s\n' "$ARTIFACT_ID" "$ARTIFACT_DIGEST" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Clean up candidate artifact workspace
+        if: always()
+        shell: bash
+        run: rm -rf -- "$RUNNER_TEMP/senna-candidate-artifact"
