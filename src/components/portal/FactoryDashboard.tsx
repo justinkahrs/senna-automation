@@ -52,6 +52,16 @@ const safeTarget = (value?: string | null) => {
   }
 };
 
+function RuntimeStatus({ run }: { run: Runtime }) {
+  return <Box>
+    <Typography>{label(run.provider)} · {run.external_scope} · {label(run.state)}</Typography>
+    <Typography color="text.secondary" variant="body2">
+      {run.stage ? `${run.stage} · ` : ""} Last observed {format(run.last_seen)}
+    </Typography>
+    {safeTarget(run.source_url) && <Button href={safeTarget(run.source_url)}>Open runtime</Button>}
+  </Box>;
+}
+
 export default function FactoryDashboard({ enabled, initialProject, initialDecision }: {
   enabled: boolean; initialProject: string; initialDecision: string;
 }) {
@@ -189,11 +199,26 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
   const selectedProject = data?.projects.find((item) => item.id === project);
   const decisions = data?.decisions.filter((item) => focused ? item.id === focused : true) ?? [];
   const pending = data?.decisions.filter((item) => item.state === "pending").length ?? 0;
-  const running = data?.runs.filter((run) => run.state === "leased" &&
-    new Date(run.lease_until ?? "").getTime() > Date.now()).length ?? 0;
-  const external = data?.runtimes.filter((run) => !run.job_id) ?? [];
-  const externalRunning = external.filter((run) => run.state === "running").length;
-  const blocked = data?.runs.filter((run) => run.state === "hold" || run.state === "failed").length ?? 0;
+  const jobs = data?.runs ?? [];
+  const jobIds = new Set(jobs.map((run) => run.id));
+  const linked = new Map<string, Runtime[]>();
+  const external: Runtime[] = [];
+  for (const runtime of data?.runtimes ?? []) {
+    if (runtime.job_id && jobIds.has(runtime.job_id)) {
+      const existing = linked.get(runtime.job_id) ?? [];
+      existing.push(runtime);
+      linked.set(runtime.job_id, existing);
+    } else {
+      external.push(runtime);
+    }
+  }
+  const runtimeRunning = (run: Runtime) => run.state === "running";
+  const runtimeBlocked = (run: Runtime) => run.state === "blocked" || run.state === "failed";
+  const running = jobs.filter((run) =>
+    (run.state === "leased" && new Date(run.lease_until ?? "").getTime() > Date.now()) ||
+    linked.get(run.id)?.some(runtimeRunning)).length + external.filter(runtimeRunning).length;
+  const blocked = jobs.filter((run) => run.state === "hold" || run.state === "failed" ||
+    linked.get(run.id)?.some(runtimeBlocked)).length + external.filter(runtimeBlocked).length;
 
   return (
     <Container maxWidth="md" sx={{ py: { xs: 3, md: 6 }, minWidth: 0, overflowWrap: "anywhere" }}>
@@ -212,7 +237,7 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
           </TextField>
           <Stack direction="row" gap={1} flexWrap="wrap" aria-label="Portfolio summary">
             <Chip label={`${pending} needs you`} color={pending ? "primary" : "default"} />
-            <Chip label={`${running + externalRunning} running`} />
+            <Chip label={`${running} running`} />
             <Chip label={`${blocked} blocked`} />
           </Stack>
           {selectedProject?.dispatch_version && (
@@ -323,19 +348,16 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
                 </Box>}
                 {run.last_error && <Typography color="error.main">{run.last_error}</Typography>}
                 {safeTarget(run.source_url) && <Button href={safeTarget(run.source_url)}>Open source</Button>}
+                {linked.get(run.id)?.map((runtime) =>
+                  <RuntimeStatus key={`${runtime.id}:${runtime.external_id ?? ""}`} run={runtime} />
+                )}
               </Paper>
             ))}
           </Stack>
           <Stack spacing={1.5} component="section" aria-label="External runtimes">
             <Typography component="h2" variant="h5">External runtimes</Typography>
             {!external.length && <Typography color="text.secondary">No external runs observed.</Typography>}
-            {external.map((run) => <Box key={`${run.id}:${run.external_id ?? ""}`}>
-              <Typography>{label(run.provider)} · {run.external_scope} · {label(run.state)}</Typography>
-              <Typography color="text.secondary" variant="body2">
-                {run.stage ? `${run.stage} · ` : ""} Last observed {format(run.last_seen)}
-              </Typography>
-              {safeTarget(run.source_url) && <Button href={safeTarget(run.source_url)}>Open runtime</Button>}
-            </Box>)}
+            {external.map((run) => <RuntimeStatus key={`${run.id}:${run.external_id ?? ""}`} run={run} />)}
           </Stack>
           <Stack spacing={1.5} component="section" aria-label="Project costs">
             <Typography component="h2" variant="h5">Charges this month</Typography>
