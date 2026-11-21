@@ -323,7 +323,7 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
               <Paper key={item.id} variant="outlined" sx={{ p: 2 }}>
                 <Stack spacing={1}>
                   <Typography component="h3" variant="h6">{item.title}</Typography>
-                  <Typography color="text.secondary">{item.reason}</Typography>
+                  <Typography color="text.secondary" sx={{ whiteSpace: "pre-line", overflowWrap: "anywhere" }}>{item.reason}</Typography>
                   <Typography variant="body2">
                     {label(item.state)} · Expires {format(item.expires_at)} · Slack {label(item.notification ?? "unconfigured")}
                   </Typography>
