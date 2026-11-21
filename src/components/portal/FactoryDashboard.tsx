@@ -9,7 +9,8 @@ type Decision = {
   id: string; project_id: string; version: number; title: string; reason: string; state: string;
   role: string; options: { action: string; label: string }[]; expires_at: string;
   slack_url: string | null; notification: string | null;
-  execution?: string | null; execution_revision?: string | null;
+  execution?: string | null; execution_revision?: string | null; execution_kind?: string | null;
+  mail_review?: { digest: string; account: string; recipient: string; subject: string; wording: string; revision: string } | null;
 };
 type Source = {
   id: string; project_id: string; provider: string; resource: string; health: string;
@@ -143,7 +144,8 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ decision: decision.id, version: decision.version, action, text: reply[decision.id] }),
+        body: JSON.stringify({ decision: decision.id, version: decision.version, action, text: reply[decision.id],
+          digest: action === "send_mail" ? decision.mail_review?.digest : undefined }),
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Decision could not be saved.");
@@ -331,24 +333,33 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
                     {label(item.state)} · Expires {format(item.expires_at)} · Slack {label(item.notification ?? "unconfigured")}
                   </Typography>
                   {item.execution && <Typography variant="body2">
-                    Draft update {item.execution === "succeeded" ? "verified" : label(item.execution)}
+                    {item.execution_kind === "draft_send" ? "Gmail send" : "Draft update"} {item.execution === "succeeded" ? "verified" : label(item.execution)}
                     {item.execution_revision && ` · Revision ${item.execution_revision}`}
                   </Typography>}
+                  {item.mail_review && <Box sx={{ overflowWrap: "anywhere" }}>
+                    <Typography variant="body2">From {item.mail_review.account}</Typography>
+                    <Typography variant="body2">To {item.mail_review.recipient}</Typography>
+                    <Typography variant="subtitle2">{item.mail_review.subject}</Typography>
+                    <Typography variant="body2" color="text.secondary">Draft revision {item.mail_review.revision}</Typography>
+                    <Typography variant="body2" sx={{ mt: 1, whiteSpace: "pre-wrap" }}>{item.mail_review.wording}</Typography>
+                  </Box>}
                   {safeTarget(item.slack_url) && <Button href={safeTarget(item.slack_url)} sx={{ alignSelf: "start" }}>Project thread</Button>}
                   {item.state === "pending" && item.role === "operator" && <>
                     <Stack direction="row" flexWrap="wrap" gap={1}>
                       {item.options.filter((option) => option.action !== "edit").map((option) => (
-                        <Button key={option.action} variant="outlined" disabled={Boolean(busy)}
+                        <Button key={option.action} variant="outlined" disabled={Boolean(busy) || (option.action === "send_mail" && !item.mail_review)}
                           onClick={() => void respond(item, option.action)}>{option.label}</Button>
                       ))}
                     </Stack>
-                    <TextField multiline label={item.options.some((option) => option.action === "edit") ? "Replacement wording" : "Reply"}
-                      size="small" value={reply[item.id] ?? ""} slotProps={{ htmlInput: { maxLength: 1600 } }}
-                      onChange={(event) => setReply((previous) => ({ ...previous, [item.id]: event.target.value }))} />
-                    <Button onClick={() => void respond(item, item.options.find((option) => option.action === "edit")?.action)}
-                      disabled={Boolean(busy) || !reply[item.id]?.trim()} sx={{ alignSelf: "start" }}>
-                      {item.options.find((option) => option.action === "edit")?.label ?? "Submit reply"}
-                    </Button>
+                    {!item.options.some((option) => option.action === "send_mail") && <>
+                      <TextField multiline label={item.options.some((option) => option.action === "edit") ? "Replacement wording" : "Reply"}
+                        size="small" value={reply[item.id] ?? ""} slotProps={{ htmlInput: { maxLength: 1600 } }}
+                        onChange={(event) => setReply((previous) => ({ ...previous, [item.id]: event.target.value }))} />
+                      <Button onClick={() => void respond(item, item.options.find((option) => option.action === "edit")?.action)}
+                        disabled={Boolean(busy) || !reply[item.id]?.trim()} sx={{ alignSelf: "start" }}>
+                        {item.options.find((option) => option.action === "edit")?.label ?? "Submit reply"}
+                      </Button>
+                    </>}
                   </>}
                 </Stack>
               </Paper>

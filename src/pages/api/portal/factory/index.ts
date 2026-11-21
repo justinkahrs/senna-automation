@@ -82,6 +82,7 @@ export const POST: APIRoute = async ({ request, url, locals }) => {
       version: answer.version,
       action: answer.action,
       text: answer.text,
+      digest: answer.digest,
     }));
     return Response.json(await response.json(), { status: response.status, headers: privateHeaders });
   } catch {
