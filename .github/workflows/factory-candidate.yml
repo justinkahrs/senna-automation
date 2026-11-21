@@ -12,6 +12,10 @@ on:
         description: Approved factory run manifest digest
         required: true
         type: string
+      runner:
+        description: Approved candidate runner configuration digest
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -32,12 +36,35 @@ jobs:
           FACTORY_CI_DISPATCH_ACTOR: ${{ vars.SENNA_FACTORY_DISPATCH_ACTOR }}
           FACTORY_CI_IMAGE: ${{ vars.SENNA_FACTORY_CANDIDATE_IMAGE }}
           FACTORY_INFRA_REVISION: ${{ vars.SENNA_FACTORY_INFRA_REVISION }}
+          FACTORY_INFRA_CLIENT_ID: ${{ vars.SENNA_FACTORY_INFRA_CLIENT_ID }}
+          FACTORY_RUNNER_DIGEST: ${{ inputs.runner }}
         shell: bash
         run: |
           set -euo pipefail
-          [[ -n "$FACTORY_CI_DISPATCH_ACTOR" && "$GITHUB_ACTOR" == "$FACTORY_CI_DISPATCH_ACTOR" ]]
+          if [[ -z "$FACTORY_CI_DISPATCH_ACTOR" || "$GITHUB_ACTOR" != "$FACTORY_CI_DISPATCH_ACTOR" ]]; then
+            printf '%s\n' 'The dispatch actor differs from the approved runner.' >&2
+            exit 1
+          fi
           [[ "$FACTORY_INFRA_REVISION" =~ ^[a-f0-9]{40}$ ]]
           [[ "$FACTORY_CI_IMAGE" =~ ^[-a-z0-9./:]+@sha256:[a-f0-9]{64}$ ]]
+          [[ "$FACTORY_CI_DISPATCH_ACTOR" =~ ^[A-Za-z0-9][A-Za-z0-9-]{0,38}\[bot\]$ ]]
+          [[ "$FACTORY_INFRA_CLIENT_ID" =~ ^[A-Za-z0-9][A-Za-z0-9._-]{4,127}$ ]]
+          [[ "$FACTORY_RUNNER_DIGEST" =~ ^[a-f0-9]{64}$ ]]
+          python3 - <<'PYTHON'
+          import hashlib
+          import json
+          import os
+
+          binding = {
+              "actor": os.environ["FACTORY_CI_DISPATCH_ACTOR"],
+              "image": os.environ["FACTORY_CI_IMAGE"],
+              "infraClientId": os.environ["FACTORY_INFRA_CLIENT_ID"],
+              "infraRevision": os.environ["FACTORY_INFRA_REVISION"],
+          }
+          actual = hashlib.sha256(json.dumps(binding, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+          if actual != os.environ["FACTORY_RUNNER_DIGEST"]:
+              raise SystemExit("The protected runner settings differ from the approved dispatch.")
+          PYTHON
 
       - name: Check out the pinned website
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -57,6 +84,7 @@ jobs:
           permission-contents: read
 
       - name: Check out the pinned private runner
+        id: private-runner
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           repository: justinkahrs/infra
@@ -81,9 +109,15 @@ jobs:
         env:
           FACTORY_CI_DISPATCH_ACTOR: ${{ vars.SENNA_FACTORY_DISPATCH_ACTOR }}
           FACTORY_CI_IMAGE: ${{ vars.SENNA_FACTORY_CANDIDATE_IMAGE }}
+          FACTORY_CI_INFRA_REVISION: ${{ steps.private-runner.outputs.commit }}
+          FACTORY_APPROVED_INFRA_REVISION: ${{ vars.SENNA_FACTORY_INFRA_REVISION }}
+          FACTORY_CI_INFRA_CLIENT_ID: ${{ vars.SENNA_FACTORY_INFRA_CLIENT_ID }}
           FACTORY_CI_RECIPE: ${{ secrets.SENNA_FACTORY_CANDIDATE_RECIPE }}
         shell: bash
-        run: node runner/factory/src/candidate-ci.ts "$GITHUB_WORKSPACE/website" "$RUNNER_TEMP/senna-candidate-artifact"
+        run: |
+          set -euo pipefail
+          [[ "$FACTORY_CI_INFRA_REVISION" == "$FACTORY_APPROVED_INFRA_REVISION" ]]
+          node runner/factory/src/candidate-ci.ts "$GITHUB_WORKSPACE/website" "$RUNNER_TEMP/senna-candidate-artifact"
 
       - name: Upload the verified public website candidate
         id: artifact
