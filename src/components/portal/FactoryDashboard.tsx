@@ -3,7 +3,7 @@ import { Alert, Box, Button, Chip, Container, MenuItem, Paper, Stack, TextField,
 
 type Project = {
   id: string; name: string; mode: string; role?: string; dispatch_version?: number; paused_from?: string | null;
-  queued_jobs?: number; active_writes?: number; outstanding_effects?: number;
+  queued_jobs?: number; active_writes?: number; expired_leases?: number; outstanding_effects?: number;
 };
 type Decision = {
   id: string; project_id: string; version: number; title: string; reason: string; state: string;
@@ -21,7 +21,7 @@ type Source = {
 type Run = {
   id: string; project_id: string; kind: string; state: string; created_at: string;
   completed_at: string | null; last_error: string | null; attempts: number;
-  trigger_kind?: string | null; source_url: string | null; worker: string | null; lease_until: string | null;
+  trigger_kind?: string | null; source_url: string | null; worker: string | null; lease_until: string | null; lease_expired?: boolean;
   last_started_at?: string | null;
   recent_attempts?: { generation: number; started_at: string; finished_at: string | null; result: string | null }[];
   eta?: { earliest: string; latest: string; samples: number; calculated_at: string } | null;
@@ -314,9 +314,13 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
   }
   const runtimeRunning = (run: Runtime) => run.state === "running";
   const runtimeBlocked = (run: Runtime) => run.state === "blocked" || run.state === "failed";
-  const jobRunning = (run: Run) => (run.state === "leased" && new Date(run.lease_until ?? "").getTime() > Date.now()) ||
-    linked.get(run.id)?.some(runtimeRunning);
-  const jobBlocked = (run: Run) => run.state === "hold" || run.state === "failed" || linked.get(run.id)?.some(runtimeBlocked);
+  const leaseExpired = (run: Run) => run.state === "leased" && (run.lease_expired === true ||
+    Boolean(run.lease_until && new Date(run.lease_until).getTime() <= Date.now()));
+  const jobRunning = (run: Run) => !leaseExpired(run) &&
+    ((run.state === "leased" && new Date(run.lease_until ?? "").getTime() > Date.now()) ||
+      linked.get(run.id)?.some(runtimeRunning));
+  const jobBlocked = (run: Run) => run.state === "hold" || run.state === "failed" ||
+    leaseExpired(run) || linked.get(run.id)?.some(runtimeBlocked);
   const running = jobs.filter(jobRunning).length + external.filter(runtimeRunning).length;
   const blocked = jobs.filter(jobBlocked).length + external.filter(runtimeBlocked).length;
   const shownJobs = runFilter === "running" ? jobs.filter(jobRunning) : runFilter === "blocked" ? jobs.filter(jobBlocked) : jobs;
@@ -336,13 +340,13 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
       {shownJobs.map((run) => (
         <Paper key={run.id} variant="outlined" sx={{ p: 2 }}>
           <Typography component="h3" variant="h6">{label(run.kind)}</Typography>
-          <Typography>{label(run.state)} · {run.attempts} attempts</Typography>
+          <Typography>{leaseExpired(run) ? "Worker lease expired" : label(run.state)} · {run.attempts} attempts</Typography>
           <Typography variant="body2" color="text.secondary">
             {run.worker ? `Worker ${run.worker.slice(0, 8)} · ` : ""}
             {run.completed_at ? `Finished ${format(run.completed_at)}`
               : run.last_started_at ? `Last started ${format(run.last_started_at)}` : `Queued ${format(run.created_at)}`}
           </Typography>
-          {run.state === "leased" && <Typography variant="body2" color="text.secondary">
+          {run.state === "leased" && !leaseExpired(run) && <Typography variant="body2" color="text.secondary">
             {run.eta ? `Estimated ${format(run.eta.earliest)} to ${format(run.eta.latest)} · Based on ${run.eta.samples} comparable runs as of ${format(run.eta.calculated_at)}`
               : "ETA unavailable"}
           </Typography>}
@@ -403,6 +407,7 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
                 <Typography>{selectedProject.mode === "paused" ? "Paused · Source intake continues" : label(selectedProject.mode)}</Typography>
                 <Typography color="text.secondary">
                   {selectedProject.queued_jobs} queued · {selectedProject.active_writes} active writes · {selectedProject.outstanding_effects} outstanding effects
+                  {Boolean(selectedProject.expired_leases) && ` · ${selectedProject.expired_leases} expired leases`}
                 </Typography>
                 {selectedProject.role === "operator" && (selectedProject.mode !== "paused" || selectedProject.paused_from) && (
                   <Button sx={{ alignSelf: "start" }} variant="outlined" onClick={() => void changeDispatch(selectedProject)}
