@@ -1,4 +1,5 @@
 import { renderOgResponse } from "./render";
+import { interFonts } from "./inter";
 
 // Use edge runtime for consistency and performance
 export const runtime = 'edge';
@@ -8,15 +9,6 @@ export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
-  // Fetch fonts via HTTP (supported in edge)
-  const interSemiBold = await fetch(
-    new URL('https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf')
-  ).then((res) => res.arrayBuffer());
-
-  const interBold = await fetch(
-    new URL('https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuDyYMZg.ttf')
-  ).then((res) => res.arrayBuffer());
-
   return renderOgResponse(
     (
       <div
@@ -125,20 +117,7 @@ export default async function Image() {
     ),
     {
       ...size,
-      fonts: [
-        {
-          name: 'Inter',
-          data: interSemiBold,
-          style: 'normal',
-          weight: 600,
-        },
-        {
-          name: 'Inter',
-          data: interBold,
-          style: 'normal',
-          weight: 800,
-        },
-      ],
+      fonts: interFonts,
     }
   );
 }

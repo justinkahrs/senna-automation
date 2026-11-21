@@ -1,4 +1,5 @@
 import { renderOgResponse } from "./render";
+import { interFonts } from "./inter";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { getBlogPostBySlugFromContent } from "@/utils/astro-blog";
@@ -10,8 +11,14 @@ export const alt = "Senna Automation Blog Post";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+const cachedSocialImages = new Map([
+  ["https://images.pexels.com/photos/32588555/pexels-photo-32588555.jpeg?auto=compress&cs=tinysrgb&w=1600&h=2000&fit=crop", "/blog/og-cache/pexels-32588555.jpg"],
+  ["https://images.pexels.com/photos/7875986/pexels-photo-7875986.jpeg?auto=compress&cs=tinysrgb&w=1600&h=2000&fit=crop", "/blog/og-cache/pexels-7875986.jpg"],
+]);
+
 async function getPublicImageSrc(imagePath?: string) {
   if (!imagePath) return "";
+  imagePath = cachedSocialImages.get(imagePath) ?? imagePath;
   if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
     return imagePath;
   }
@@ -48,18 +55,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     getPublicImageSrc(post?.image),
     getPublicImageSrc("/images/master-logo.png"),
   ]);
-
-  const interSemiBold = await fetch(
-    new URL(
-      "https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf",
-    ),
-  ).then((res) => res.arrayBuffer());
-
-  const interBold = await fetch(
-    new URL(
-      "https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuDyYMZg.ttf",
-    ),
-  ).then((res) => res.arrayBuffer());
 
   return renderOgResponse(
     (
@@ -260,20 +255,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     ),
     {
       ...size,
-      fonts: [
-        {
-          name: "Inter",
-          data: interSemiBold,
-          style: "normal",
-          weight: 600,
-        },
-        {
-          name: "Inter",
-          data: interBold,
-          style: "normal",
-          weight: 800,
-        },
-      ],
+      fonts: interFonts,
     },
   );
 }
