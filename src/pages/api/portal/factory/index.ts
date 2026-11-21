@@ -15,8 +15,13 @@ export const GET: APIRoute = async ({ request, url, locals }) => {
     const user = await getFactoryOperator(request.headers, locals.user);
     if (!user) return error(403, "Factory access denied.");
     const project = url.searchParams.get("project");
+    const run = url.searchParams.get("run");
     if (project && !idPattern.test(project)) return error(404, "Project unavailable.");
-    const response = await requestFactory(user.id, `/v1/portfolio${project ? `?project=${project}` : ""}`);
+    if (run !== null && (!project || !idPattern.test(run))) return error(404, "Run unavailable.");
+    const query = new URLSearchParams();
+    if (project) query.set("project", project);
+    if (run) query.set("run", run);
+    const response = await requestFactory(user.id, `/v1/portfolio${query.size ? `?${query}` : ""}`);
     return Response.json(await response.json(), { status: response.status, headers: privateHeaders });
   } catch {
     return error(503, "The factory is temporarily unavailable.");

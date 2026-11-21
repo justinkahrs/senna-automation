@@ -21,7 +21,7 @@ type Source = {
 type Run = {
   id: string; project_id: string; kind: string; state: string; created_at: string;
   completed_at: string | null; last_error: string | null; attempts: number;
-  source_url: string | null; worker: string | null; lease_until: string | null;
+  trigger_kind?: string | null; source_url: string | null; worker: string | null; lease_until: string | null;
   last_started_at?: string | null;
   recent_attempts?: { generation: number; started_at: string; finished_at: string | null; result: string | null }[];
   eta?: { earliest: string; latest: string; samples: number; calculated_at: string } | null;
@@ -87,11 +87,13 @@ function RuntimeStatus({ run }: { run: Runtime }) {
   </Box>;
 }
 
-export default function FactoryDashboard({ enabled, initialProject, initialDecision }: {
-  enabled: boolean; initialProject: string; initialDecision: string;
+export default function FactoryDashboard({ enabled, initialProject, initialDecision, initialRun }: {
+  enabled: boolean; initialProject: string; initialDecision: string; initialRun: string;
 }) {
   const [project, setProject] = useState(initialProject);
   const [focused, setFocused] = useState(initialDecision);
+  const [focusedRun, setFocusedRun] = useState(initialRun);
+  const [runFilter, setRunFilter] = useState("all");
   const [data, setData] = useState<Portfolio | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState("");
@@ -104,16 +106,22 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
 
   const refresh = useCallback(async (signal?: AbortSignal) => {
     try {
-      const response = await fetch(`${endpoint}${project ? `?project=${encodeURIComponent(project)}` : ""}`, { signal });
+      const query = new URLSearchParams();
+      if (project) query.set("project", project);
+      if (focusedRun) query.set("run", focusedRun);
+      const response = await fetch(`${endpoint}${query.size ? `?${query}` : ""}`, { signal });
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error || "Could not load the factory.");
       if (signal?.aborted) return;
+      if (!response.ok) {
+        if ([401, 403, 404].includes(response.status)) setData(null);
+        throw new Error(result.error || "Could not load the factory.");
+      }
       setData(result);
       setError("");
     } catch (failure) {
       if (!signal?.aborted) setError(failure instanceof Error ? failure.message : "Could not load the factory.");
     }
-  }, [project]);
+  }, [project, focusedRun]);
 
   useEffect(() => {
     if (!enabled) return;
@@ -130,10 +138,12 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
     setData(null);
     setProject(value);
     setFocused("");
+    setFocusedRun("");
     const url = new URL(window.location.href);
     if (value) url.searchParams.set("project", value);
     else url.searchParams.delete("project");
     url.searchParams.delete("decision");
+    url.searchParams.delete("run");
     window.history.replaceState(null, "", url);
   }
 
@@ -240,11 +250,60 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
   }
   const runtimeRunning = (run: Runtime) => run.state === "running";
   const runtimeBlocked = (run: Runtime) => run.state === "blocked" || run.state === "failed";
-  const running = jobs.filter((run) =>
-    (run.state === "leased" && new Date(run.lease_until ?? "").getTime() > Date.now()) ||
-    linked.get(run.id)?.some(runtimeRunning)).length + external.filter(runtimeRunning).length;
-  const blocked = jobs.filter((run) => run.state === "hold" || run.state === "failed" ||
-    linked.get(run.id)?.some(runtimeBlocked)).length + external.filter(runtimeBlocked).length;
+  const jobRunning = (run: Run) => (run.state === "leased" && new Date(run.lease_until ?? "").getTime() > Date.now()) ||
+    linked.get(run.id)?.some(runtimeRunning);
+  const jobBlocked = (run: Run) => run.state === "hold" || run.state === "failed" || linked.get(run.id)?.some(runtimeBlocked);
+  const running = jobs.filter(jobRunning).length + external.filter(runtimeRunning).length;
+  const blocked = jobs.filter(jobBlocked).length + external.filter(runtimeBlocked).length;
+  const shownJobs = runFilter === "running" ? jobs.filter(jobRunning) : runFilter === "blocked" ? jobs.filter(jobBlocked) : jobs;
+  const shownExternal = runFilter === "running" ? external.filter(runtimeRunning)
+    : runFilter === "blocked" ? external.filter(runtimeBlocked) : external;
+
+  const runSection = (
+    <Stack spacing={1.5} component="section" aria-label={focusedRun ? "Run details" : "Runs"}>
+      <Typography component="h2" variant="h5">{focusedRun ? "Run details" : "Runs"}</Typography>
+      {!focusedRun && <TextField select size="small" label="Run status" value={runFilter}
+        onChange={(event) => setRunFilter(event.target.value)} fullWidth>
+        <MenuItem value="all">All statuses</MenuItem>
+        <MenuItem value="running">Running</MenuItem>
+        <MenuItem value="blocked">Blocked</MenuItem>
+      </TextField>}
+      {!shownJobs.length && <Typography color="text.secondary">No matching factory runs.</Typography>}
+      {shownJobs.map((run) => (
+        <Paper key={run.id} variant="outlined" sx={{ p: 2 }}>
+          <Typography component="h3" variant="h6">{label(run.kind)}</Typography>
+          <Typography>{label(run.state)} · {run.attempts} attempts</Typography>
+          <Typography variant="body2" color="text.secondary">
+            {run.worker ? `Worker ${run.worker.slice(0, 8)} · ` : ""}
+            {run.completed_at ? `Finished ${format(run.completed_at)}`
+              : run.last_started_at ? `Last started ${format(run.last_started_at)}` : `Queued ${format(run.created_at)}`}
+          </Typography>
+          {run.state === "leased" && <Typography variant="body2" color="text.secondary">
+            {run.eta ? `Estimated ${format(run.eta.earliest)} to ${format(run.eta.latest)} · Based on ${run.eta.samples} comparable runs as of ${format(run.eta.calculated_at)}`
+              : "ETA unavailable"}
+          </Typography>}
+          {Boolean(run.recent_attempts?.length) && <Box component="details" sx={{ mt: 0.5 }}>
+            <Typography component="summary" variant="body2">Attempt history</Typography>
+            <Box component="ul" sx={{ my: 0.5, pl: 3 }}>
+              {run.recent_attempts?.map((attempt) => <Typography key={attempt.generation} component="li" variant="body2">
+                Attempt {attempt.generation} · {format(attempt.started_at)}
+                {attempt.finished_at ? ` to ${format(attempt.finished_at)}` : ""}
+                {attempt.result ? ` · ${label(attempt.result)}` : ""}
+              </Typography>)}
+            </Box>
+          </Box>}
+          {run.trigger_kind && <Typography variant="body2">Triggered by {label(run.trigger_kind)}</Typography>}
+          {run.last_error && <Typography color="error.main">{run.last_error}</Typography>}
+          {!focusedRun && <Button href={`/portal/factory?project=${encodeURIComponent(run.project_id)}&run=${encodeURIComponent(run.id)}`}>Open run</Button>}
+          {focusedRun && decisions.length > 0 && <Button href="#factory-decisions">View related decisions</Button>}
+          {safeTarget(run.source_url) && <Button href={safeTarget(run.source_url)}>Open source</Button>}
+          {linked.get(run.id)?.map((runtime) =>
+            <RuntimeStatus key={`${runtime.id}:${runtime.external_id ?? ""}`} run={runtime} />
+          )}
+        </Paper>
+      ))}
+    </Stack>
+  );
 
   return (
     <Container maxWidth="md" sx={{ py: { xs: 3, md: 6 }, minWidth: 0, overflowWrap: "anywhere" }}>
@@ -255,6 +314,8 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
         </Stack>
         {!enabled && <Alert severity="info">Factory service is disconnected.</Alert>}
         {error && <Alert severity="warning" role="status">{error}</Alert>}
+        {focusedRun && <Button href={`/portal/factory?project=${encodeURIComponent(project)}`}
+          sx={{ alignSelf: "start" }}>Back to project</Button>}
         {enabled && !data && !error && <Typography role="status">Loading project activity…</Typography>}
         {data && <>
           {data.restoreInspection ? (
@@ -264,12 +325,13 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
             <MenuItem value="">All projects</MenuItem>
             {data.projects.map((item) => <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>)}
           </TextField>
-          <Stack direction="row" gap={1} flexWrap="wrap" aria-label="Portfolio summary">
+          {focusedRun && runSection}
+          {!focusedRun && <Stack direction="row" gap={1} flexWrap="wrap" aria-label="Portfolio summary">
             <Chip label={`${pending} needs you`} color={pending ? "primary" : "default"} />
             <Chip label={`${running} running`} />
             <Chip label={`${blocked} blocked`} />
-          </Stack>
-          {selectedProject?.dispatch_version && (
+          </Stack>}
+          {!focusedRun && selectedProject?.dispatch_version && (
             <Paper variant="outlined" sx={{ p: 2 }} component="section" aria-label="Project dispatch">
               <Stack spacing={1}>
                 <Typography component="h2" variant="h6">Project dispatch</Typography>
@@ -287,7 +349,7 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
               </Stack>
             </Paper>
           )}
-          {data.mayEnroll && <Stack spacing={1.5} component="section" aria-label="Enroll a project">
+          {!focusedRun && data.mayEnroll && <Stack spacing={1.5} component="section" aria-label="Enroll a project">
             <Typography component="h2" variant="h5">Enroll a project</Typography>
             {created && <Alert severity="success">
               Project draft saved. <Button href={`/portal/factory?project=${encodeURIComponent(created)}`}>Open project</Button>
@@ -320,7 +382,7 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
               </Stack>
             </Paper>}
           </Stack>}
-          <Stack spacing={1.5} component="section" aria-label="Decisions">
+          <Stack spacing={1.5} component="section" aria-label="Decisions" id="factory-decisions">
             <Typography component="h2" variant="h5">Decisions</Typography>
             {focused && <Button onClick={() => setFocused("")} sx={{ alignSelf: "start" }}>Show all decisions</Button>}
             {!decisions.length && <Typography color="text.secondary">No decisions in this view.</Typography>}
@@ -393,45 +455,12 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
               ))}
             </Stack>
           )}
-          <Stack spacing={1.5} component="section" aria-label="Runs">
-            <Typography component="h2" variant="h5">Runs</Typography>
-            {!data.runs.length && <Typography color="text.secondary">No runs recorded.</Typography>}
-            {data.runs.map((run) => (
-              <Paper key={run.id} variant="outlined" sx={{ p: 2 }}>
-                <Typography component="h3" variant="h6">{label(run.kind)}</Typography>
-                <Typography>{label(run.state)} · {run.attempts} attempts</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {run.worker ? `Worker ${run.worker.slice(0, 8)} · ` : ""}
-                  {run.completed_at ? `Finished ${format(run.completed_at)}`
-                    : run.last_started_at ? `Last started ${format(run.last_started_at)}` : `Queued ${format(run.created_at)}`}
-                </Typography>
-                {run.state === "leased" && <Typography variant="body2" color="text.secondary">
-                  {run.eta ? `Estimated ${format(run.eta.earliest)} to ${format(run.eta.latest)} · Based on ${run.eta.samples} comparable runs as of ${format(run.eta.calculated_at)}`
-                    : "ETA unavailable"}
-                </Typography>}
-                {Boolean(run.recent_attempts?.length) && <Box component="details" sx={{ mt: 0.5 }}>
-                  <Typography component="summary" variant="body2">Attempt history</Typography>
-                  <Box component="ul" sx={{ my: 0.5, pl: 3 }}>
-                    {run.recent_attempts?.map((attempt) => <Typography key={attempt.generation} component="li" variant="body2">
-                      Attempt {attempt.generation} · {format(attempt.started_at)}
-                      {attempt.finished_at ? ` to ${format(attempt.finished_at)}` : ""}
-                      {attempt.result ? ` · ${label(attempt.result)}` : ""}
-                    </Typography>)}
-                  </Box>
-                </Box>}
-                {run.last_error && <Typography color="error.main">{run.last_error}</Typography>}
-                {safeTarget(run.source_url) && <Button href={safeTarget(run.source_url)}>Open source</Button>}
-                {linked.get(run.id)?.map((runtime) =>
-                  <RuntimeStatus key={`${runtime.id}:${runtime.external_id ?? ""}`} run={runtime} />
-                )}
-              </Paper>
-            ))}
-          </Stack>
-          <Stack spacing={1.5} component="section" aria-label="External runtimes">
+          {!focusedRun && runSection}
+          {!focusedRun && <Stack spacing={1.5} component="section" aria-label="External runtimes">
             <Typography component="h2" variant="h5">External runtimes</Typography>
-            {!external.length && <Typography color="text.secondary">No external runs observed.</Typography>}
-            {external.map((run) => <RuntimeStatus key={`${run.id}:${run.external_id ?? ""}`} run={run} />)}
-          </Stack>
+            {!shownExternal.length && <Typography color="text.secondary">No matching external runs.</Typography>}
+            {shownExternal.map((run) => <RuntimeStatus key={`${run.id}:${run.external_id ?? ""}`} run={run} />)}
+          </Stack>}
           <Stack spacing={1.5} component="section" aria-label="Project costs">
             <Typography component="h2" variant="h5">Charges this month</Typography>
             {!data.costs.length && <Typography color="text.secondary">No priced usage reported.</Typography>}

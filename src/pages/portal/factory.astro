@@ -16,6 +16,7 @@ try {
 
 const enabled = factoryServiceAvailable();
 const initialProject = Astro.url.searchParams.get("project") ?? "";
+const initialRun = Astro.url.searchParams.get("run") ?? "";
 const initialDecision = Astro.url.searchParams.get("decision") ?? "";
 ---
 
@@ -24,5 +25,5 @@ const initialDecision = Astro.url.searchParams.get("decision") ?? "";
   metadata={{ title: "Factory", robots: { index: false, follow: false } }}
   pathname="/portal/factory"
 >
-  <FactoryDashboard client:load enabled={enabled} initialProject={initialProject} initialDecision={initialDecision} />
+  <FactoryDashboard client:load enabled={enabled} initialProject={initialProject} initialDecision={initialDecision} initialRun={initialRun} />
 </RouteShell>
