@@ -70,6 +70,13 @@ export const POST: APIRoute = async ({ request, url, locals }) => {
         JSON.stringify({ channel: answer.channel }));
       return Response.json(await response.json(), { status: response.status, headers: privateHeaders });
     }
+    if (answer?.kind === "link-enrollment-asana") {
+      if (typeof answer.project !== "string" || !idPattern.test(answer.project)) return error(404, "Project unavailable.");
+      if (typeof answer.digest !== "string" || !/^[a-f0-9]{64}$/.test(answer.digest)) return error(422, "Invalid Asana confirmation.");
+      const response = await requestFactory(user.id, `/v1/enrollments/${answer.project}/asana`, "POST",
+        JSON.stringify({ digest: answer.digest }));
+      return Response.json(await response.json(), { status: response.status, headers: privateHeaders });
+    }
     if (answer?.kind === "dispatch") {
       if (typeof answer.project !== "string" || !idPattern.test(answer.project) ||
           !["pause", "resume"].includes(answer.action) || !Number.isSafeInteger(answer.version)) {

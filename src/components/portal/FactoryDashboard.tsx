@@ -50,6 +50,7 @@ type Portfolio = {
   runtimes: Runtime[]; costs: Cost[]; mayEnroll: boolean; dispatchPaused?: boolean; restoreInspection?: boolean; releases?: Release[];
   history?: HistoryEntry[];
   enrollment?: { projectId: string; template: string; repository: string | null; readiness: string;
+    asana?: { status: string; resource?: string; digest?: string };
     slack: "linked" | "ready_to_verify" | "awaiting_setup"; mayBindSlack: boolean;
     approvedSlackChannel: string | null; slackUrl: string | null };
 };
@@ -274,6 +275,25 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
     }
   }
 
+  async function linkEnrollmentAsana(digest: string | undefined) {
+    if (!digest) return;
+    setBusy("enrollment-asana");
+    setError("");
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ kind: "link-enrollment-asana", project, digest }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Could not link the Asana project.");
+      setData((current) => current?.enrollment?.projectId === project ? { ...current, enrollment: result } : current);
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : "Could not link the Asana project.");
+    } finally {
+      setBusy("");
+    }
+  }
+
   async function enroll() {
     setBusy("enrollment");
     setError("");
@@ -431,6 +451,18 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
                 {safeTarget(data.enrollment.slackUrl) && (
                   <Button sx={{ alignSelf: "start" }} href={safeTarget(data.enrollment.slackUrl)}>Open project Slack</Button>
                 )}
+                {data.enrollment.asana && (
+                  <Typography>{data.enrollment.asana.status === "linked" ? "Asana project linked for observation"
+                    : data.enrollment.asana.status === "ready_to_verify" ? "Asana project approved for verification"
+                      : "Asana authorization required"}</Typography>
+                )}
+                {data.enrollment.asana?.digest && <>
+                  <Typography variant="body2" color="text.secondary">
+                    Verify read access and link Asana project {data.enrollment.asana.resource}.
+                  </Typography>
+                  <Button sx={{ alignSelf: "start" }} variant="outlined" disabled={Boolean(busy)}
+                    onClick={() => void linkEnrollmentAsana(data.enrollment?.asana?.digest)}>Verify and link Asana</Button>
+                </>}
                 {data.enrollment.mayBindSlack && <>
                   <Typography variant="body2" color="text.secondary">
                     Verify Slack membership and link channel {data.enrollment.approvedSlackChannel}.
