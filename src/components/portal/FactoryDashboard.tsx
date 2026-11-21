@@ -13,6 +13,7 @@ type Decision = {
 type Source = {
   id: string; project_id: string; provider: string; resource: string; health: string;
   last_ok: string | null; gap_from: string | null; sync_age_seconds?: number | null;
+  may_reconcile?: boolean; generation?: string;
   checkpoint_state?: string; checkpoint_window?: string | null; checkpoint_page?: number | null;
 };
 type Run = {
@@ -59,6 +60,7 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
   const [data, setData] = useState<Portfolio | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState("");
+  const [reconciledSource, setReconciledSource] = useState("");
   const [enrollment, setEnrollment] = useState(emptyEnrollment);
   const [enrollmentKey, setEnrollmentKey] = useState("");
   const [preview, setPreview] = useState(false);
@@ -137,6 +139,26 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
       await refresh();
     } catch (failure) {
       setError(failure instanceof Error ? failure.message : "Project dispatch could not be updated.");
+    } finally {
+      setBusy("");
+    }
+  }
+
+  async function reconcileSource(source: Source) {
+    setBusy(source.id);
+    setReconciledSource("");
+    setError("");
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ kind: "reconcile", source: source.id, generation: source.generation }),
+      });
+      const result = await response.json();
+      await refresh();
+      if (!response.ok) throw new Error(result.error || "Source reconciliation could not be scheduled.");
+      setReconciledSource(source.id);
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : "Source reconciliation could not be scheduled.");
     } finally {
       setBusy("");
     }
@@ -342,6 +364,12 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
                   {source.checkpoint_window && ` · Window starts ${format(source.checkpoint_window)}`}
                   {source.checkpoint_page != null && ` · ${source.checkpoint_page} pages read`}
                 </Typography>}
+                {reconciledSource === source.id && <Typography variant="body2" role="status">Reconciliation scheduled.</Typography>}
+                {source.may_reconcile && source.generation && (
+                  <Button size="small" disabled={Boolean(busy)} onClick={() => void reconcileSource(source)}>
+                    Reconcile source
+                  </Button>
+                )}
               </Box>
             ))}
           </Stack>

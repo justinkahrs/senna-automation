@@ -67,6 +67,15 @@ export const POST: APIRoute = async ({ request, url, locals }) => {
         JSON.stringify({ action: answer.action, version: answer.version }));
       return Response.json(await response.json(), { status: response.status, headers: privateHeaders });
     }
+    if (answer?.kind === "reconcile") {
+      if (typeof answer.source !== "string" || !idPattern.test(answer.source) ||
+          typeof answer.generation !== "string" || !/^\d{1,19}$/.test(answer.generation)) {
+        return error(422, "Invalid source reconciliation request.");
+      }
+      const response = await requestFactory(user.id, `/v1/sources/${answer.source}/reconcile`, "POST",
+        JSON.stringify({ generation: answer.generation }));
+      return Response.json(await response.json(), { status: response.status, headers: privateHeaders });
+    }
     if (!answer || typeof answer.decision !== "string" || !idPattern.test(answer.decision) ||
         !Number.isSafeInteger(answer.version)) return error(422, "Invalid decision or version.");
     const response = await requestFactory(user.id, `/v1/decisions/${answer.decision}/answer`, "POST", JSON.stringify({
