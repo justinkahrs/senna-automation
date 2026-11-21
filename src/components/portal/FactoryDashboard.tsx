@@ -35,6 +35,8 @@ type Release = {
   id: string; project_id: string; delivery: "verifying" | "verified" | "rollback_required" | "restored" | "verification_needs_review";
   observed_at: string; revision: string | null; change_url: string | null;
   source_status: string | null; slack_status: string | null; slack_url: string | null;
+  preview_cleanup?: "pending" | "confirmed" | null;
+  closeout?: "pending" | "complete" | null;
 };
 type Portfolio = {
   projects: Project[]; decisions: Decision[]; sources: Source[]; runs: Run[]; events: Event[];
@@ -353,10 +355,16 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
                     {release.revision && ` · ${release.revision.slice(0, 7)}`}
                   </Typography>
                   {release.source_status && release.slack_status && (
-                    <Stack direction="row" gap={1} flexWrap="wrap" sx={{ mt: 1 }}>
+                    <Stack direction="row" sx={{ mt: 1, gap: 1, flexWrap: "wrap" }}>
                       <Chip size="small" label={`Asana · ${writebackLabel(release.source_status)}`} />
                       <Chip size="small" label={`Slack · ${writebackLabel(release.slack_status)}`} />
+                      {release.preview_cleanup && (
+                        <Chip size="small" label={`Preview cleanup · ${release.preview_cleanup === "confirmed" ? "Confirmed" : "Pending"}`} />
+                      )}
                     </Stack>
+                  )}
+                  {release.closeout === "complete" && (
+                    <Typography variant="body2" color="success.main" sx={{ mt: 1 }}>Closeout complete</Typography>
                   )}
                   {safeTarget(release.change_url) && <Button href={safeTarget(release.change_url)}>Open change</Button>}
                   {safeTarget(release.slack_url) && <Button href={safeTarget(release.slack_url)}>Open Slack reply</Button>}
