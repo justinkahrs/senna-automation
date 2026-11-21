@@ -49,6 +49,9 @@ type Portfolio = {
   projects: Project[]; decisions: Decision[]; sources: Source[]; runs: Run[]; events: Event[];
   runtimes: Runtime[]; costs: Cost[]; mayEnroll: boolean; dispatchPaused?: boolean; restoreInspection?: boolean; releases?: Release[];
   history?: HistoryEntry[];
+  enrollment?: { projectId: string; template: string; repository: string | null; readiness: string;
+    slack: "linked" | "ready_to_verify" | "awaiting_setup"; mayBindSlack: boolean;
+    approvedSlackChannel: string | null; slackUrl: string | null };
 };
 
 const endpoint = "/api/portal/factory";
@@ -252,6 +255,25 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
     }
   }
 
+  async function linkEnrollmentSlack(channel: string | null) {
+    if (!channel) return;
+    setBusy("enrollment-slack");
+    setError("");
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ kind: "link-enrollment-slack", project, channel }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Could not link the private Slack channel.");
+      setData((current) => current?.enrollment?.projectId === project ? { ...current, enrollment: result } : current);
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : "Could not link the private Slack channel.");
+    } finally {
+      setBusy("");
+    }
+  }
+
   async function enroll() {
     setBusy("enrollment");
     setError("");
@@ -392,6 +414,28 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
               </Stack>
             </Paper>
           )}
+          {!focusedRun && data.enrollment && (
+            <Paper component="section" aria-label="Project setup" variant="outlined" sx={{ p: 2 }}>
+              <Stack spacing={1}>
+                <Typography component="h2" variant="h6">Project setup</Typography>
+                <Typography>{label(data.enrollment.template)} · {label(data.enrollment.readiness)}</Typography>
+                {data.enrollment.repository && <Typography>Repository {data.enrollment.repository}</Typography>}
+                <Typography>{data.enrollment.slack === "linked" ? "Private Slack channel linked"
+                  : data.enrollment.slack === "ready_to_verify" ? "Private Slack channel approved for verification"
+                    : "Private Slack channel awaiting setup"}</Typography>
+                {safeTarget(data.enrollment.slackUrl) && (
+                  <Button sx={{ alignSelf: "start" }} href={safeTarget(data.enrollment.slackUrl)}>Open project Slack</Button>
+                )}
+                {data.enrollment.mayBindSlack && <>
+                  <Typography variant="body2" color="text.secondary">
+                    Verify Slack membership and link channel {data.enrollment.approvedSlackChannel}.
+                  </Typography>
+                  <Button sx={{ alignSelf: "start" }} variant="outlined" disabled={Boolean(busy)}
+                    onClick={() => void linkEnrollmentSlack(data.enrollment?.approvedSlackChannel ?? null)}>Verify and link Slack</Button>
+                </>}
+              </Stack>
+            </Paper>
+          )}
           {!focusedRun && data.mayEnroll && <Stack spacing={1.5} component="section" aria-label="Enroll a project">
             <Typography component="h2" variant="h5">Enroll a project</Typography>
             {created && <Alert severity="success">
@@ -418,7 +462,7 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
               <Typography variant="h6">{enrollment.name}</Typography>
               <Typography>{enrollment.client} · {label(enrollment.template)}</Typography>
               {enrollment.repository && <Typography>Repository {enrollment.repository}</Typography>}
-              <Typography>Observation only. Sources, private Slack membership, and deployment permissions await setup.</Typography>
+              <Typography>Observation only. This draft grants no provider access or spending. Verify sources, private Slack membership, and deployment permissions during setup.</Typography>
               <Stack direction="row" flexWrap="wrap" gap={1}>
                 <Button disabled={Boolean(busy)} onClick={() => setPreview(false)}>Edit</Button>
                 <Button disabled={Boolean(busy)} onClick={() => void enroll()}>Save project draft</Button>
