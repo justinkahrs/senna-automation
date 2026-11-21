@@ -407,7 +407,7 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
                 <Typography>{selectedProject.mode === "paused" ? "Paused · Source intake continues" : label(selectedProject.mode)}</Typography>
                 <Typography color="text.secondary">
                   {selectedProject.queued_jobs} queued · {selectedProject.active_writes} active writes · {selectedProject.outstanding_effects} outstanding effects
-                  {Boolean(selectedProject.expired_leases) && ` · ${selectedProject.expired_leases} expired leases`}
+                  {Boolean(selectedProject.expired_leases) && ` · ${selectedProject.expired_leases} expired ${selectedProject.expired_leases === 1 ? "lease" : "leases"}`}
                 </Typography>
                 {selectedProject.role === "operator" && (selectedProject.mode !== "paused" || selectedProject.paused_from) && (
                   <Button sx={{ alignSelf: "start" }} variant="outlined" onClick={() => void changeDispatch(selectedProject)}
