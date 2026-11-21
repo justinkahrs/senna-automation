@@ -31,9 +31,14 @@ type Event = {
 type Runtime = { id: string; external_id: string | null; provider: string; external_scope: string; stage: string | null;
   state: string; last_seen: string | null; job_id: string | null; source_url: string | null };
 type Cost = { project_id: string; reserved_micros: string; uncertain_micros: string; confirmed_micros: string; included_units: string };
+type Release = {
+  id: string; project_id: string; delivery: "verifying" | "verified" | "rollback_required" | "restored" | "verification_needs_review";
+  observed_at: string; revision: string | null; change_url: string | null;
+  source_status: string | null; slack_status: string | null; slack_url: string | null;
+};
 type Portfolio = {
   projects: Project[]; decisions: Decision[]; sources: Source[]; runs: Run[]; events: Event[];
-  runtimes: Runtime[]; costs: Cost[]; mayEnroll: boolean; dispatchPaused?: boolean;
+  runtimes: Runtime[]; costs: Cost[]; mayEnroll: boolean; dispatchPaused?: boolean; releases?: Release[];
 };
 
 const endpoint = "/api/portal/factory";
@@ -51,6 +56,22 @@ const safeTarget = (value?: string | null) => {
     return undefined;
   }
 };
+
+const releaseLabel: Record<Release["delivery"], string> = {
+  verifying: "Waiting for production verification",
+  verification_needs_review: "Production verification needs review",
+  verified: "Production verified",
+  rollback_required: "Rollback review required",
+  restored: "Rollback verified",
+};
+
+function writebackLabel(state: string) {
+  if (state === "succeeded") return "Confirmed";
+  if (state === "leased") return "Checking";
+  if (state === "hold" || state === "failed") return "Needs review";
+  if (state === "cancelled") return "Cancelled";
+  return "Pending";
+}
 
 function RuntimeStatus({ run }: { run: Runtime }) {
   return <Box>
@@ -321,6 +342,28 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
               </Paper>
             ))}
           </Stack>
+          {Boolean(data.releases?.length) && (
+            <Stack spacing={1.5} component="section" aria-label="Production releases">
+              <Typography component="h2" variant="h5">Production releases</Typography>
+              {data.releases?.map((release) => (
+                <Paper key={release.id} variant="outlined" sx={{ p: 2 }}>
+                  <Typography component="h3" variant="h6">{releaseLabel[release.delivery]}</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {data.projects.find((item) => item.id === release.project_id)?.name ?? "Project"} · {format(release.observed_at)}
+                    {release.revision && ` · ${release.revision.slice(0, 7)}`}
+                  </Typography>
+                  {release.source_status && release.slack_status && (
+                    <Stack direction="row" gap={1} flexWrap="wrap" sx={{ mt: 1 }}>
+                      <Chip size="small" label={`Asana · ${writebackLabel(release.source_status)}`} />
+                      <Chip size="small" label={`Slack · ${writebackLabel(release.slack_status)}`} />
+                    </Stack>
+                  )}
+                  {safeTarget(release.change_url) && <Button href={safeTarget(release.change_url)}>Open change</Button>}
+                  {safeTarget(release.slack_url) && <Button href={safeTarget(release.slack_url)}>Open Slack reply</Button>}
+                </Paper>
+              ))}
+            </Stack>
+          )}
           <Stack spacing={1.5} component="section" aria-label="Runs">
             <Typography component="h2" variant="h5">Runs</Typography>
             {!data.runs.length && <Typography color="text.secondary">No runs recorded.</Typography>}
