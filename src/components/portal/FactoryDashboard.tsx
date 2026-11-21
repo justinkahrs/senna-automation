@@ -40,9 +40,15 @@ type Release = {
   preview_cleanup?: "pending" | "confirmed" | null;
   closeout?: "pending" | "complete" | null;
 };
+type HistoryEntry = {
+  id: string; kind: string; at: string; actor: string | null; action: string | null; revision: string | null;
+  provider: string | null; state: string | null; receipt: string | null;
+  estimated_micros: string | null; confirmed_micros: string | null;
+};
 type Portfolio = {
   projects: Project[]; decisions: Decision[]; sources: Source[]; runs: Run[]; events: Event[];
   runtimes: Runtime[]; costs: Cost[]; mayEnroll: boolean; dispatchPaused?: boolean; restoreInspection?: boolean; releases?: Release[];
+  history?: HistoryEntry[];
 };
 
 const endpoint = "/api/portal/factory";
@@ -75,6 +81,42 @@ function writebackLabel(state: string) {
   if (state === "hold" || state === "failed") return "Needs review";
   if (state === "cancelled") return "Cancelled";
   return "Pending";
+}
+
+const historyLabels: Record<string, string> = {
+  routed: "Source event routed",
+  decision_answered: "Decision answered",
+  candidate_dispatched: "Candidate runner accepted",
+  production_recovery_point: "Recovery deployment verified",
+  production_verified: "Production smoke passed",
+  production_smoke_failed: "Production smoke failed",
+  production_rollback_verified: "Rollback verified",
+  production_preview_cleanup: "Preview cleanup verified",
+  provider_effect: "Provider action",
+  usage: "Usage entry",
+};
+
+function RunHistory({ entries }: { entries: HistoryEntry[] }) {
+  return <Box component="section" aria-label="Run evidence">
+    <Typography component="h3" variant="h6">Run evidence</Typography>
+    {!entries.length && <Typography variant="body2" color="text.secondary">No recorded evidence for this run.</Typography>}
+    <Stack component="ol" spacing={1} sx={{ my: 1, pl: 3 }}>
+      {entries.map((entry) => (
+        <Box component="li" key={entry.id}>
+          <Typography>{historyLabels[entry.kind] ?? label(entry.kind)}
+            {entry.provider && ` · ${label(entry.provider)}`}{entry.state && ` · ${label(entry.state)}`}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {format(entry.at)}{entry.actor && ` · ${entry.actor}`}{entry.action && ` · ${label(entry.action)}`}
+          </Typography>
+          {entry.revision && <Typography variant="body2">Revision {entry.revision}</Typography>}
+          {entry.receipt && <Typography variant="body2">Receipt {entry.receipt}</Typography>}
+          {entry.confirmed_micros !== null && <Typography variant="body2">Confirmed {money(entry.confirmed_micros)}</Typography>}
+          {entry.estimated_micros !== null && <Typography variant="body2">Estimated {money(entry.estimated_micros)}</Typography>}
+        </Box>
+      ))}
+    </Stack>
+  </Box>;
 }
 
 function RuntimeStatus({ run }: { run: Runtime }) {
@@ -302,6 +344,7 @@ export default function FactoryDashboard({ enabled, initialProject, initialDecis
           )}
         </Paper>
       ))}
+      {focusedRun && data?.history && <RunHistory entries={data.history} />}
     </Stack>
   );
 
