@@ -1,4 +1,5 @@
 import { renderOgResponse } from "./render";
+import { interFonts } from "./inter";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { getBlogPostBySlugFromContent } from "@/utils/astro-blog";
@@ -10,9 +11,23 @@ export const alt = "Senna Automation Blog Post";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+const pexelsThumbnail = /^https:\/\/images\.pexels\.com\/photos\/(\d{1,16})\/pexels-photo-\1\.jpeg\?auto=compress&cs=tinysrgb&w=1600&h=2000&fit=crop$/;
+
 async function getPublicImageSrc(imagePath?: string) {
   if (!imagePath) return "";
   if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+    const approvedImage = pexelsThumbnail.exec(imagePath);
+    const offlineDirectory = process.env.FACTORY_WEBSITE_OG_MEDIA_DIR;
+    if (approvedImage) {
+      const filename = `pexels-${approvedImage[1]}.jpg`;
+      const rooted = offlineDirectory ?? path.join(process.cwd(), "public", "blog", "og-cache");
+      const snapshot = await readFile(path.join(rooted, filename)).catch((error) => {
+        if (!offlineDirectory && error.code === "ENOENT") return null;
+        throw error;
+      });
+      if (snapshot) return `data:image/jpeg;base64,${snapshot.toString("base64")}`;
+    }
+    if (offlineDirectory) throw new Error("Open Graph media is outside the approved snapshot.");
     return imagePath;
   }
 
@@ -48,18 +63,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     getPublicImageSrc(post?.image),
     getPublicImageSrc("/images/master-logo.png"),
   ]);
-
-  const interSemiBold = await fetch(
-    new URL(
-      "https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf",
-    ),
-  ).then((res) => res.arrayBuffer());
-
-  const interBold = await fetch(
-    new URL(
-      "https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuDyYMZg.ttf",
-    ),
-  ).then((res) => res.arrayBuffer());
 
   return renderOgResponse(
     (
@@ -260,20 +263,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     ),
     {
       ...size,
-      fonts: [
-        {
-          name: "Inter",
-          data: interSemiBold,
-          style: "normal",
-          weight: 600,
-        },
-        {
-          name: "Inter",
-          data: interBold,
-          style: "normal",
-          weight: 800,
-        },
-      ],
+      fonts: interFonts,
     },
   );
 }

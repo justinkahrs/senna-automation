@@ -2,6 +2,7 @@
 import PortalRouteClient from "@/components/app/routes/PortalRouteClient";
 import RouteShell from "@/components/app/RouteShell.astro";
 import { getPortalAccessByEmail, hasActivePortalAccess } from "@/lib/portal-access";
+import { factoryLandingEnabled, factoryServiceAvailable } from "@/lib/factory-portal";
 
 export const prerender = false;
 
@@ -25,6 +26,12 @@ try {
 
 if (!hasActivePortalAccess(portalAccess)) {
   return Astro.redirect("/login?access=denied");
+}
+
+if (portalAccess.role === "admin" && factoryLandingEnabled() && factoryServiceAvailable() &&
+    Astro.url.searchParams.get("view") !== "legacy") {
+  Astro.response.headers.set("Cache-Control", "private, no-store");
+  return Astro.redirect("/portal/factory");
 }
 ---
 
